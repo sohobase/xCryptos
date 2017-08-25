@@ -55,10 +55,6 @@ Currency.propTypes = {
 };
 
 class Currencies extends Component {
-  static navigationOptions = {
-    title: 'Currencies',
-  };
-
   constructor(props) {
     super(props);
     this.state = {
