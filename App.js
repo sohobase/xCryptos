@@ -7,6 +7,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
+import { ServiceCryptos } from './src/services';
 
 const styles = StyleSheet.create({
   container: {
@@ -62,22 +63,9 @@ class Currencies extends Component {
     };
   };
 
-  componentWillMount() {
-    return fetch('https://coinbin.org/coins')
-      .then((response) => response.json())
-      .then(({coins = {}}) => {
-        const cryptos = [];
-        Object.keys(coins).forEach((coin) => {
-          if (coins[coin].rank < 32) {
-            cryptos.push(Object.assign(coins[coin], { symbol: coin }));
-          }
-        });
-
-        this.setState({ dataSource: cryptos.sort((a, b) => a.rank - b.rank) });
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+  async componentWillMount() {
+    const dataSource = await ServiceCryptos.list();
+    this.setState({ dataSource });
   };
 
   keyExtractor = item => item.rank;
