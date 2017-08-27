@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View } from 'react-native';
-import { ServiceCryptos } from './src/services';
+import { ServiceCryptos, ServiceStorage } from './src/services';
 import { AvailableCryptos } from './src/containers';
 
 const styles = StyleSheet.create({
@@ -13,14 +13,23 @@ const styles = StyleSheet.create({
 class App extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
       dataSource: [],
     };
   }
 
   async componentWillMount() {
-    const dataSource = await ServiceCryptos.list();
-    this.setState({ dataSource });
+    try {
+      let dataSource = await ServiceStorage.get('cryptos');
+      this.setState({ dataSource });
+
+      dataSource = await ServiceCryptos.list();
+      ServiceStorage.set('cryptos', dataSource);
+      this.setState({ dataSource });
+    } catch (e) {
+      console.log('error', e);
+    }
   }
 
   render() {
