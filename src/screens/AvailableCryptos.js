@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { CryptoListItem } from './components';
-import { C } from '../../modules';
-import { ServiceCryptos, ServiceStorage } from '../../services';
+import { C } from '../modules';
+import { ServiceCryptos, ServiceStorage } from '../services';
 
 const styles = StyleSheet.create({
   container: {
@@ -11,6 +11,11 @@ const styles = StyleSheet.create({
 });
 
 class AvailableCryptos extends Component {
+
+  static navigationOptions = {
+    title: 'Currencies',
+    headerRight: <Button title="Search" />,
+  };
 
   constructor(props) {
     super(props);

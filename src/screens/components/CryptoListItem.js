@@ -1,7 +1,7 @@
 import { bool, shape, string, number } from 'prop-types';
 import { StyleSheet, Switch, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
-import { ServiceCryptos } from '../../../services';
+import { ServiceCryptos } from '../../services';
 
 const styles = StyleSheet.create({
   container: {
