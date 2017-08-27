@@ -1,3 +1,21 @@
 {
-    "extends": "airbnb"
+  "extends": "airbnb",
+  "rules": {
+    "arrow-body-style": [1, "as-needed"],
+    "prefer-arrow-callback": 1,
+    "space-before-function-paren": [2, "never"],
+    "func-names": 0,
+    "no-param-reassign": 1,
+    "max-len": [1, 120, { "tabWidth": 2, "ignoreComments": true }],
+    "prefer-template": 1,
+    "import/no-extraneous-dependencies": ["error", { "devDependencies": true }],
+    "no-underscore-dangle": ["error", { "allowAfterThis": true }],
+    "camelcase": [0, { "properties": "never"}],
+    "newline-per-chained-call": 0,
+    "import/no-named-as-default": 0,
+    "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx"] }]
+  },
+  "globals": {
+    "atom": true
+  },
 }
