@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
-import { CryptoListItem } from './components';
+import { CurrencyListItem } from './components';
 import { C } from '../modules';
 import { ServiceCryptos, ServiceStorage } from '../services';
 
@@ -10,7 +10,7 @@ const styles = StyleSheet.create({
   },
 });
 
-class AvailableCryptos extends Component {
+class Currencies extends Component {
 
   static navigationOptions = {
     title: 'Currencies',
@@ -48,31 +48,32 @@ class AvailableCryptos extends Component {
   _keyExtractor = (item) => item.rank;
 
   _renderItem = ({ item }) => {
+    const { navigate } = this.props.navigation;
+
     return (
-      <CryptoListItem
+      <CurrencyListItem
         currency={item}
         favorite={this.state.favorites.indexOf(item.symbol) > -1}
+        onPressItem={navigate('currency')}
       />
     );
   }
 
   render() {
+    const { dataSource, refreshing } = this.state;
+    const { _fetch } = this;
+
     return (
       <View style={styles.container}>
         <FlatList
-          data={this.state.dataSource}
+          data={dataSource}
           keyExtractor={this._keyExtractor}
           renderItem={this._renderItem}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this._fetch.bind(this)}
-            />
-          }
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch.bind(this)} /> }
         />
       </View>
     );
   }
 }
 
-export default AvailableCryptos;
+export default Currencies;

@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
 import { StackNavigator } from 'react-navigation';
-import { AvailableCryptos, Main } from './src/screens';
+import { CurrenciesScreen, CurrencyScreen, MainScreen } from './src/screens';
 
 const App = StackNavigator({
-  Home: { screen: Main },
-  Currencies: { screen: AvailableCryptos },
+  Home: { screen: MainScreen },
+  Currencies: { screen: CurrenciesScreen },
+  Currency: { screen: CurrencyScreen },
 });
 
 export default App;

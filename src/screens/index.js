@@ -1,2 +1,2 @@
-export AvailableCryptos from './AvailableCryptos';
-export Main from './Main';
+export AvailableCryptosScreen from './AvailableCryptos';
+export MainScreen from './Main';
