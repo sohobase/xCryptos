@@ -23,9 +23,13 @@ export default {
     return await ServiceStorage.get(C.STORAGE.FAVORITES) || C.DEFAULT_FAVORITES;
   },
 
-  async fav(id) {
-    const favs = await ServiceStorage.get(C.STORAGE.FAVORITES) || [];
-    favs.push(id);
+  async fav(symbol, added = false) {
+    const favs = await ServiceStorage.get(C.STORAGE.FAVORITES) || C.DEFAULT_FAVORITES;
+    if (!added) {
+      favs.push(symbol);
+    } else {
+      favs.splice(favs.indexOf(symbol), 1);
+    }
     await ServiceStorage.set(C.STORAGE.FAVORITES, favs);
     return favs;
   },

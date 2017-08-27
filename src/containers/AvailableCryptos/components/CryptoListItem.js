@@ -30,16 +30,16 @@ const styles = StyleSheet.create({
   },
 });
 
-const onPress = (currency, favorite) => {
-  console.log('_onPress', currency, favorite);
-  // @TODO: Should add to favorite list
+const onPress = async({ currency, favorite }) => {
+  await ServiceCryptos.fav(currency.symbol, favorite);
 };
 
-const CryptoListItem = ({ currency, favorite }) => {
+const CryptoListItem = (props) => {
+  const { currency, favorite } = props;
   const { name, symbol, usd } = currency;
 
   return (
-    <TouchableHighlight onPress={onPress.bind(null, currency)}>
+    <TouchableHighlight>
       <View style={styles.container}>
         <View style={styles.currency}>
           <Text style={styles.name}>{name}</Text>
@@ -48,8 +48,8 @@ const CryptoListItem = ({ currency, favorite }) => {
         <Text style={styles.value}>{`$${usd}`}</Text>
         <Switch
           style={styles.switch}
-          onValueChange={onPress.bind(null, currency, favorite)}
-          _thumbTintColor='deeppink'
+          onValueChange={onPress.bind(null, props)}
+          _thumbTintColor="deeppink"
           value={favorite}
         />
       </View>
