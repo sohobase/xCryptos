@@ -1,11 +1,7 @@
-import { shape, string, number } from 'prop-types';
-import {
-  StyleSheet,
-  Text,
-  TouchableHighlight,
-  View,
-} from 'react-native';
+import { bool, shape, string, number } from 'prop-types';
+import { StyleSheet, Switch, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
+import { ServiceCryptos } from '../../../services';
 
 const styles = StyleSheet.create({
   container: {
@@ -29,20 +25,33 @@ const styles = StyleSheet.create({
   },
   value: {
     flex: 0,
+    marginRight: 12,
+    marginLeft: 12,
   },
 });
 
-const CryptoListItem = ({ currency }) => {
-  const { name, rank, symbol, usd } = currency;
+const onPress = (currency, favorite) => {
+  console.log('_onPress', currency, favorite);
+  // @TODO: Should add to favorite list
+};
+
+const CryptoListItem = ({ currency, favorite }) => {
+  const { name, symbol, usd } = currency;
 
   return (
-    <TouchableHighlight key={rank}>
+    <TouchableHighlight onPress={onPress.bind(null, currency)}>
       <View style={styles.container}>
         <View style={styles.currency}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
         </View>
         <Text style={styles.value}>{`$${usd}`}</Text>
+        <Switch
+          style={styles.switch}
+          onValueChange={onPress.bind(null, currency, favorite)}
+          _thumbTintColor='deeppink'
+          value={favorite}
+        />
       </View>
     </TouchableHighlight>
   );
@@ -55,10 +64,12 @@ CryptoListItem.propTypes = {
     symbol: string,
     usd: number,
   }),
+  favorite: bool,
 };
 
 CryptoListItem.defaultProps = {
   currency: {},
+  favorite: false,
 };
 
 export default CryptoListItem;

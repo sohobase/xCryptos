@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
-import { ServiceCryptos, ServiceStorage } from './src/services';
+import { ActivityIndicator, StyleSheet, View } from 'react-native';
 import { AvailableCryptos } from './src/containers';
+import { C } from './src/modules';
+import { ServiceStorage } from './src/services';
 
 const styles = StyleSheet.create({
   container: {
@@ -15,29 +16,26 @@ class App extends Component {
     super(props);
 
     this.state = {
-      dataSource: [],
+      ready: false,
     };
   }
 
   async componentWillMount() {
     try {
-      let dataSource = await ServiceStorage.get('cryptos');
-      this.setState({ dataSource });
-
-      dataSource = await ServiceCryptos.list();
-      ServiceStorage.set('cryptos', dataSource);
-      this.setState({ dataSource });
+      const cryptos = await ServiceStorage.get(C.STORAGE.CRYPTOS);
+      this.setState({ ready: cryptos ? true : false });
     } catch (e) {
       console.log('error', e);
     }
   }
 
   render() {
-    const { dataSource } = this.state;
+    const { ready } = this.state;
 
     return (
       <View style={styles.container}>
-        <AvailableCryptos dataSource={dataSource} />
+        { !ready && <ActivityIndicator /> }
+        { ready && <AvailableCryptos /> }
       </View>
     );
   }
