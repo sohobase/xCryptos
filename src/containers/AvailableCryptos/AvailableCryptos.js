@@ -1,6 +1,6 @@
-import {array} from 'prop-types';
+import { array } from 'prop-types';
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { CryptoListItem } from './components'
 
 const styles = StyleSheet.create({
@@ -12,19 +12,37 @@ const styles = StyleSheet.create({
 
 class AvailableCryptos extends Component {
 
-  keyExtractor = (item) => item.rank;
+  constructor(props) {
+    super(props);
+    this.state = {
+      refreshing: false,
+    };
+  }
 
-  renderItem = ({ item }) => <CryptoListItem currency={item} />;
+  _fetch() {
+    this.setState({ refreshing: true });
+    setTimeout(() => {
+      this.setState({ refreshing: false });
+    }, 2000);
+  }
+
+  _keyExtractor = (item) => item.rank;
+
+  _renderItem = ({ item }) => <CryptoListItem currency={item} />;
 
   render() {
     return (
-      <View style={styles.container}>
-        <FlatList
-          data={this.props.dataSource}
-          keyExtractor={this.keyExtractor}
-          renderItem={this.renderItem}
-        />
-      </View>
+      <FlatList
+        data={this.props.dataSource}
+        keyExtractor={this._keyExtractor}
+        renderItem={this._renderItem}
+        refreshControl={
+          <RefreshControl
+            refreshing={this.state.refreshing}
+            onRefresh={this._fetch.bind(this)}
+          />
+        }
+      />
     );
   }
 }
