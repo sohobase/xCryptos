@@ -4,12 +4,13 @@ import {
   Button,
   StyleSheet,
   Text,
-  View
+  View,
 } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
 });
 
@@ -30,17 +31,11 @@ class Currency extends Component {
     };
   }
 
-  async componentWillMount() {
-
-  }
+  // async componentWillMount() {}
 
   render() {
-    const { navigate } = this.props.navigation;
-
     return (
-      <View style={styles.container}>
-        <Text>Currency</Text>
-      </View>
+      <View style={styles.container} />
     );
   }
 }

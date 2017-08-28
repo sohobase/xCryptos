@@ -1,4 +1,4 @@
-import { shape, string, number } from 'prop-types';
+import { func, shape, string, number } from 'prop-types';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 
@@ -30,11 +30,11 @@ const styles = StyleSheet.create({
 });
 
 const FavoriteItem = (props) => {
-  const { value } = props;
-  const { name, symbol = '', usd } = value;
+  const { onPress, currency } = props;
+  const { name, symbol = '', usd } = currency;
 
   return (
-    <TouchableHighlight>
+    <TouchableHighlight onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.currency}>
           <Text style={styles.name}>{name}</Text>
@@ -47,7 +47,8 @@ const FavoriteItem = (props) => {
 };
 
 FavoriteItem.propTypes = {
-  value: shape({
+  onPress: func,
+  currency: shape({
     name: string,
     rank: number,
     symbol: string,
@@ -56,7 +57,8 @@ FavoriteItem.propTypes = {
 };
 
 FavoriteItem.defaultProps = {
-  value: {},
+  onPress: undefined,
+  currency: {},
 };
 
 export default FavoriteItem;

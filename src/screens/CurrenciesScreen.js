@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 import { CurrencyListItem } from './components';
-import { C } from '../modules';
-import { ServiceCryptos, ServiceStorage } from '../services';
+import { C } from '../config';
+import { ServiceCryptos, ServiceFavorites, ServiceStorage } from '../services';
 
 const styles = StyleSheet.create({
   container: {
@@ -30,11 +30,10 @@ class Currencies extends Component {
     try {
       this.setState({
         dataSource: await ServiceStorage.get(C.STORAGE.CRYPTOS),
-        favorites: await ServiceCryptos.favorites(),
+        favorites: await ServiceFavorites.keys(),
       });
-      this.setState({ dataSource: await ServiceCryptos.list() });
     } catch (e) {
-      console.log('error', e);
+      console.error('error', e);
     }
   }
 

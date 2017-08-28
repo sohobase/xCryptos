@@ -1,7 +1,8 @@
 import { bool, func, shape, string, number } from 'prop-types';
 import { StyleSheet, Switch, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
-import { ServiceCryptos } from '../../services';
+import { THEME } from '../../config';
+import { ServiceFavorites } from '../../services';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,7 +32,7 @@ const styles = StyleSheet.create({
 });
 
 const onSwitch = async({ currency, favorite }) => {
-  await ServiceCryptos.fav(currency.symbol, favorite);
+  await ServiceFavorites[favorite ? 'remove' : 'add'](currency.symbol);
 };
 
 const CurrencyListItem = (props) => {
@@ -49,7 +50,7 @@ const CurrencyListItem = (props) => {
         <Switch
           style={styles.switch}
           onValueChange={onSwitch.bind(null, props)}
-          _thumbTintColor="deeppink"
+          _thumbTintColor={THEME.PRIMARY}
           value={favorite}
         />
       </View>
