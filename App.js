@@ -5,14 +5,14 @@ import { THEME } from './src/config';
 
 const styles = StyleSheet.create({
   header: {
-    backgroundColor: 'white',
+    backgroundColor: THEME.PRIMARY,
   },
 });
 
 const navigationOptions = {
   headerBackTitle: ' ',
   headerStyle: styles.header,
-  headerTintColor: THEME.PRIMARY,
+  headerTintColor: 'white',
 };
 
 const App = StackNavigator({

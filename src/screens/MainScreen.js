@@ -17,7 +17,8 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   favorites: {
-    backgroundColor: 'red',
+    flex: 1,
+    backgroundColor: THEME.PRIMARY,
   },
 });
 
@@ -37,7 +38,7 @@ class Main extends Component {
     this.state = {
       favorites: [],
       ready: false,
-      value: '',
+      value: '1',
     };
   }
 
@@ -51,8 +52,13 @@ class Main extends Component {
   }
 
   async componentDidMount() {
-    const currencies = await ServiceCryptos.list();
-    this.setState({ ready: true });
+    // const currencies = await ServiceCryptos.list();
+    // this.setState({ ready: true });
+    setInterval(() => {
+      let { value } = this.state;
+      value = (parseInt(value) + 1).toString();
+      this.setState({ value })
+    }, 1000);
   }
 
   async componentWillUpdate() {
@@ -65,7 +71,11 @@ class Main extends Component {
 
   _renderItem = ({ item }) => {
     return (
-      <FavoriteItem currency={item} onPress={this._onPressItem.bind(null, item)} />
+      <FavoriteItem
+        currency={item}
+        onPress={this._onPressItem.bind(null, item)}
+        value={this.state.value}
+      />
     );
   }
   _onNumber = (number) => this.setState({ value: `${this.state.value}${number}` });
@@ -90,7 +100,10 @@ class Main extends Component {
           :
             <ActivityIndicator />
         }
-        <VirtualKeyboard onNumber={this._onNumber} onDelete={this._onDelete} />
+        <VirtualKeyboard
+          onNumber={this._onNumber}
+          onDelete={this._onDelete}
+        />
       </View>
     );
   }

@@ -6,8 +6,9 @@ const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
 const styles = StyleSheet.create({
   container: {
-    minHeight: '40%',
-    flex: 1,
+    height: '50%',
+    minHeight: '50%',
+    flex: 0,
     flexDirection: 'row',
     flexWrap: 'wrap',
     backgroundColor: 'white',
@@ -19,10 +20,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    // borderTopWidth: 1,
-    // borderTopColor: '#777',
-    // borderRightWidth: 1,
-    // borderRightColor: '#666',
   },
 
   label: {
