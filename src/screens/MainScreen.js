@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
 
 class Main extends Component {
 
-  static navigationOptions = ({ navigation }) => {
+  static navigationOptions({ navigation }) {
     const { navigate } = navigation;
 
     return {

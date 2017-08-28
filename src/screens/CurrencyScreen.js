@@ -15,10 +15,13 @@ const styles = StyleSheet.create({
 
 class Currency extends Component {
 
-  static navigationOptions = {
-    title: 'Currency',
-    headerRight: <Button title="Refresh" />,
-  };
+  static navigationOptions({ navigation }) {
+    const { currency = {} } = navigation.state.params;
+    return {
+      title: currency.name,
+      headerRight: <Button title="Refresh" />,
+    };
+  }
 
   constructor(props) {
     super(props);

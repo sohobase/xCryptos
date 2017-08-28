@@ -1,3 +1,3 @@
-export CryptoListItem from './CryptoListItem';
-export FavoriteCryptoItem from './FavoriteCryptoItem';
+export CurrencyListItem from './CurrencyListItem';
+export FavoriteItem from './FavoriteItem';
 export VirtualKeyboard from './VirtualKeyboard';
