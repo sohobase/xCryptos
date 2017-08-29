@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="65px" height="65px" viewBox="0 0 65 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Zcash Wallet</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="crypto" transform="translate(-649.000000, -325.000000)" fill-rule="nonzero">
+            <g id="Zcash-Wallet" transform="translate(649.000000, 325.000000)">
+                <circle id="Oval" fill="#3A74BE" cx="32.6" cy="32.4" r="31.7"></circle>
+                <path d="M19.9,15 C22.7,15 25.6,15 28.4,15 L28.4,9.5 L37.4,9.5 L37.4,15 L46.2,15 L46.2,23.4 L30.3,41.7 L46.2,41.7 L46.2,50.2 L37.5,50.2 L37.5,55.3 L28.3,55.3 L28.3,50.2 L19,50.2 L19,41.9 L34.9,23.5 L19.9,23.9 L19.9,15 Z" id="Shape" fill="#FFFFFF"></path>
+            </g>
+        </g>
+    </g>
+</svg>

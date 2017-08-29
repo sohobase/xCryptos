@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="65px" viewBox="0 0 64 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Aurouracoin</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="crypto" transform="translate(-354.000000, -208.000000)" fill-rule="nonzero">
+            <g id="Aurouracoin" transform="translate(354.000000, 208.000000)">
+                <circle id="Oval" fill="#006859" cx="31.7" cy="32.4" r="31.7"></circle>
+                <polygon id="Shape" fill="#FFFFFF" points="39.2 26.4 26.2 33.1 26.2 26.3 41 18.2 39.1 14.8 26.2 21.9 26.2 15.8 22.4 15.8 22.4 49.9 26.2 49.9 26.2 37.5 41 29.8"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

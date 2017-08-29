@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="64px" height="65px" viewBox="0 0 64 65" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>Tether Wallet</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="crypto" transform="translate(-505.000000, -325.000000)">
+            <g id="Tether-Wallet" transform="translate(505.000000, 325.000000)">
+                <circle id="Oval" fill="#00A478" fill-rule="nonzero" cx="32.2" cy="32.4" r="31.7"></circle>
+                <polygon id="Shape" fill="#FFFFFF" fill-rule="nonzero" points="28.6 29.4 28.6 21.3 17.9 21.3 17.9 14.2 47.8 14.2 47.8 21.4 37.1 21.4 37.1 29.4"></polygon>
+                <path d="M32.6,26.2 C43.8,26.2 49.6,29.3 50.3,30.3 C49.6,31.3 43.9,32.8 32.6,32.8 C21.4,32.8 15.6,31.3 14.9,30.3 C15.6,29.2 21.4,26.2 32.6,26.2 L32.6,26.2 Z M32.6,25.4 C21.9,25.4 13.3,27.6 13.3,30.3 C13.3,33 21.9,35.2 32.6,35.2 C43.3,35.2 51.9,33 51.9,30.3 C51.9,27.6 43.3,25.4 32.6,25.4 L32.6,25.4 Z" id="Shape" fill="#FFFFFF" fill-rule="nonzero"></path>
+                <g id="Group" stroke-width="1" fill-rule="evenodd" transform="translate(28.000000, 26.000000)" fill="#FFFFFF">
+                    <path d="M9.1,5.9 L9.1,0.3 C7.7,0.2 6.2,0.1 4.7,0.1 C3.3,0.1 2,0.1 0.7,0.2 L0.7,5.8 C1.9,5.8 3.3,5.9 4.7,5.9 C6.2,6 7.7,6 9.1,5.9 Z" id="Shape" fill-rule="nonzero"></path>
+                    <path d="M4.6,9.2 C3.2,9.2 1.9,9.2 0.6,9.1 L0.6,24 L9,24 L9,9 C7.6,9.1 6.1,9.2 4.6,9.2 Z" id="Shape" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
