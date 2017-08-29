@@ -16,9 +16,9 @@ const fav = async(favorite, added = false) => {
 export default {
   async list() {
     const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
-    const favorites = await ServiceStorage.get(C.STORAGE.FAVORITES);
+    const favorites = await ServiceStorage.get(C.STORAGE.FAVORITES) || C.DEFAULT_FAVORITES;
 
-    return currencies.filter(({ symbol }) => favorites.indexOf(symbol) > -1);
+    return currencies.filter(({ symbol }) => favorites.findIndex(i => i.symbol === symbol) > -1);
   },
 
   async keys() {
