@@ -6,6 +6,8 @@ import { THEME } from './src/config';
 const styles = StyleSheet.create({
   header: {
     backgroundColor: THEME.PRIMARY,
+    borderBottomColor: 'transparent',
+    borderBottomWidth: 0,
   },
 });
 

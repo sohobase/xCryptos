@@ -39,36 +39,48 @@ class Currencies extends Component {
 
   async _fetch() {
     this.setState({ refreshing: true });
-
     dataSource = await ServiceCryptos.list();
     this.setState({ dataSource, refreshing: false });
   }
 
   _keyExtractor = (item) => item.rank;
 
+  _onChangeItem = async ({ currency, favorite }) => {
+    console.log('🤔🤔🤔🤔🤔', currency.symbol, favorite)
+    this.setState({
+      favorites: await ServiceFavorites[favorite ? 'remove' : 'add'](currency.symbol)
+    });
+  }
+
   _renderItem = ({ item }) => {
+    const { favorites } = this.state;
     const { navigate } = this.props.navigation;
+
 
     return (
       <CurrencyListItem
         currency={item}
-        favorite={this.state.favorites.indexOf(item.symbol) > -1}
+        favorite={favorites.indexOf(item.symbol) > -1}
         onPress={navigate.bind(null, 'Currency', { currency: item })}
+        onChange={this._onChangeItem.bind(this)}
       />
     );
   }
 
   render() {
-    const { dataSource, refreshing } = this.state;
+    const { dataSource, favorites, refreshing } = this.state;
     const { _fetch } = this;
+
+    console.log('RENDER/FAVORITES', favorites);
 
     return (
       <View style={styles.container}>
         <FlatList
           data={dataSource}
           keyExtractor={this._keyExtractor}
-          renderItem={this._renderItem}
+          extraData={this.state.favorites}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch.bind(this)} /> }
+          renderItem={this._renderItem}
         />
       </View>
     );

@@ -9,6 +9,8 @@ const fav = async(symbol, added = false) => {
     favs.splice(favs.indexOf(symbol), 1);
   }
   await ServiceStorage.set(C.STORAGE.FAVORITES, favs);
+
+  console.log('metod/favs', favs);
   return favs;
 };
 
@@ -26,11 +28,11 @@ export default {
     return keys || C.DEFAULT_FAVORITES;
   },
 
-  async add(symbol) {
-    await fav(symbol);
+  add(symbol) {
+    return fav(symbol);
   },
 
-  async remove(symbol) {
-    await fav(symbol, true);
+  remove(symbol) {
+    return fav(symbol, true);
   },
 };

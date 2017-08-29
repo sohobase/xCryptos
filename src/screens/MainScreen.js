@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
   Button,
   FlatList,
-  VirtualizedList,
-  StatusBar,
+  RefreshControl,
   StyleSheet,
   Text,
   View
@@ -39,26 +37,27 @@ class Main extends Component {
     super(props);
     this.state = {
       favorites: [],
-      ready: false,
+      refreshing: false,
       value: 1,
     };
   }
 
   async componentWillMount() {
-    try {
-      const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
-      this.setState({
-        favorites: await ServiceFavorites.list(),
-        ready: currencies && currencies.length > -1
-      });
-    } catch (e) {
-      console.error('error', e);
-    }
+    const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
+    this.setState({
+      favorites: await ServiceFavorites.list(),
+      refreshing: !currencies,
+    });
   }
 
-  async componentDidMount() {
-    const currencies = await ServiceCryptos.list();
-    this.setState({ ready: true });
+  componentDidMount() {
+    this._fetch();
+  }
+
+  async _fetch() {
+    this.setState({ refreshing: true });
+    await ServiceCryptos.list();
+    this.setState({ refreshing: false });
   }
 
   _keyExtractor = (item) => item.symbol;
@@ -84,23 +83,19 @@ class Main extends Component {
   }
 
   render() {
-    const { favorites = [], value, ready } = this.state;
+    const { favorites = [], value, refreshing } = this.state;
+    const { _fetch } = this;
 
     return (
       <View style={styles.container}>
-        <StatusBar backgroundColor="blue" barStyle="light-content" />
-        {
-          ready ?
-            <FlatList
-              style={styles.favorites}
-              keyExtractor={(this._keyExtractor)}
-              data={favorites}
-              renderItem={this._renderItem}
-              extraData={this.state.value}
-            />
-          :
-            <ActivityIndicator />
-        }
+        <FlatList
+          data={favorites}
+          extraData={this.state}
+          keyExtractor={(this._keyExtractor)}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch.bind(this)} />}
+          renderItem={this._renderItem}
+          style={styles.favorites}
+        />
         <VirtualKeyboard onChange={this._onChangeValue} value={value} />
       </View>
     );

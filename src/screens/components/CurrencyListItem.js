@@ -2,7 +2,6 @@ import { bool, func, shape, string, number } from 'prop-types';
 import { StyleSheet, Switch, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
 import { THEME } from '../../config';
-import { ServiceFavorites } from '../../services';
 
 const styles = StyleSheet.create({
   container: {
@@ -31,12 +30,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const onSwitch = async({ currency, favorite }) => {
-  await ServiceFavorites[favorite ? 'remove' : 'add'](currency.symbol);
-};
-
 const CurrencyListItem = (props) => {
-  const { currency, favorite, onPress } = props;
+  const { currency, favorite, onChange, onPress } = props;
   const { name, symbol, usd } = currency;
 
   return (
@@ -49,8 +44,8 @@ const CurrencyListItem = (props) => {
         <Text style={styles.value}>{`$${usd}`}</Text>
         <Switch
           style={styles.switch}
-          onValueChange={onSwitch.bind(null, props)}
-          _thumbTintColor={THEME.PRIMARY}
+          onValueChange={onChange.bind(null, {currency, favorite})}
+          thumbTintColor={THEME.PRIMARY}
           value={favorite}
         />
       </View>
@@ -66,12 +61,14 @@ CurrencyListItem.propTypes = {
     usd: number,
   }),
   favorite: bool,
+  onChange: func,
   onPress: func,
 };
 
 CurrencyListItem.defaultProps = {
   currency: {},
   favorite: false,
+  onChange: undefined,
   onPress: undefined,
 };
 
