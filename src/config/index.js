@@ -1,2 +1,7 @@
-export C from './constants';
-export THEME from './theme';
+import C from './constants';
+import THEME from './theme';
+
+export {
+  C,
+  THEME,
+};

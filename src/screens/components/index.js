@@ -1,3 +1,9 @@
-export CurrencyListItem from './CurrencyListItem';
-export FavoriteItem from './FavoriteItem';
-export VirtualKeyboard from './VirtualKeyboard';
+import CurrencyListItem from './CurrencyListItem';
+import FavoriteItem from './FavoriteItem';
+import VirtualKeyboard from './VirtualKeyboard';
+
+export {
+  CurrencyListItem,
+  FavoriteItem,
+  VirtualKeyboard,
+};

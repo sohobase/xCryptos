@@ -44,7 +44,7 @@ const CurrencyListItem = (props) => {
         <Text style={styles.value}>{`$${usd}`}</Text>
         <Switch
           style={styles.switch}
-          onValueChange={onChange.bind(null, { currency, favorite })}
+          onValueChange={() => onChange({ currency, favorite })}
           thumbTintColor={THEME.PRIMARY}
           value={favorite}
         />

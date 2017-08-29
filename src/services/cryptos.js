@@ -5,7 +5,7 @@ const serviceUrl = 'https://coinbin.org';
 
 export default {
   async list() {
-    const response = await fetch(`${serviceUrl}/coins`);
+    const response = await fetch(`${serviceUrl}/coins`); // eslint-disable-line
 
     const { coins } = await response.json();
     let dataSource = [];

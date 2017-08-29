@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { func, shape, string, number } from 'prop-types';
 import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+
 import { CurrencyListItem } from './components';
 import { C } from '../config';
 import { ServiceCryptos, ServiceFavorites, ServiceStorage } from '../services';
@@ -12,14 +14,15 @@ const styles = StyleSheet.create({
   },
 });
 
-class Currencies extends Component {
-  static navigationOptions({ navigation }) {
-    const { navigate } = navigation;
 
-    return {
-      title: 'Currencies',
-      headerRight: <Button title="Search" />,
-    };
+function keyExtractor(item) {
+  return item.rank;
+}
+
+class Currencies extends Component {
+  static navigationOptions = {
+    title: 'Currencies',
+    headerRight: <Button title="Search" />,
   };
 
   constructor(props) {
@@ -27,6 +30,9 @@ class Currencies extends Component {
     this.state = {
       refreshing: false,
     };
+    this._fetch = this._fetch.bind(this);
+    this._onChangeItem = this._onChangeItem.bind(this);
+    this._renderItem = this._renderItem.bind(this);
   }
 
   async componentWillMount() {
@@ -44,21 +50,21 @@ class Currencies extends Component {
     this.setState({ refreshing: false });
   }
 
-  _keyExtractor = (item) => item.rank;
-
-  _onChangeItem = async ({ currency, favorite }) => {
+  async _onChangeItem({ currency, favorite }) {
+    console.log(currency, favorite);
+    console.log(await ServiceFavorites[favorite ? 'remove' : 'add'](currency));
     this.props.saveFavorites(await ServiceFavorites[favorite ? 'remove' : 'add'](currency));
   }
 
-  _renderItem = ({ item }) => {
+  _renderItem({ item }) {
     const { favorites, navigation: { navigate } } = this.props;
 
     return (
       <CurrencyListItem
         currency={item}
-        favorite={favorites.findIndex((i) => i.symbol === item.symbol) > -1}
-        onPress={navigate.bind(null, 'Currency', { currency: item })}
-        onChange={this._onChangeItem.bind(this)}
+        favorite={favorites.findIndex(i => i.symbol === item.symbol) > -1}
+        onPress={() => navigate('Currency', { currency: item })}
+        onChange={this._onChangeItem}
       />
     );
   }
@@ -66,30 +72,60 @@ class Currencies extends Component {
   render() {
     const { currencies, favorites } = this.props;
     const { refreshing } = this.state;
-    const { _fetch } = this;
+    const { _fetch, _renderItem } = this;
 
     return (
       <View style={styles.container}>
         <FlatList
           data={currencies}
-          keyExtractor={this._keyExtractor}
-          extraData={this.state.favorites}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch.bind(this)} /> }
-          renderItem={this._renderItem}
+          keyExtractor={keyExtractor}
+          extraData={favorites}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
+          renderItem={_renderItem}
         />
       </View>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
+Currencies.propTypes = {
+  currencies: shape({
+    name: string,
+    rank: number,
+    symbol: string,
+    usd: number,
+  }),
+  favorites: shape({
+    name: string,
+    rank: number,
+    symbol: string,
+    usd: number,
+  }),
+  navigation: shape({
+    navigate: func,
+  }),
+  saveCurrencies: func,
+  saveFavorites: func,
+};
+
+Currencies.defaultProps = {
+  currencies: [],
+  favorites: [],
+  navigation: {
+    navigate() {},
+  },
+  saveCurrencies() {},
+  saveFavorites() {},
+};
+
+const mapStateToProps = state => ({
   currencies: state.currencies,
   favorites: state.favorites,
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveCurrencies: (currencies) => dispatch(save_currencies(currencies)),
-  saveFavorites: (favorites) => dispatch(save_favorites(favorites)),
+  saveCurrencies: currencies => dispatch(save_currencies(currencies)),
+  saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Currencies);

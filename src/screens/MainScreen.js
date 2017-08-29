@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { func, shape, string, number } from 'prop-types';
 import {
   Button,
   FlatList,
   RefreshControl,
   StyleSheet,
-  Text,
-  View
+  View,
 } from 'react-native';
 
 import { C, THEME } from '../config';
 import { ServiceFavorites, ServiceStorage, ServiceCryptos } from '../services';
 import { FavoriteItem, VirtualKeyboard } from './components';
-import { save_currencies, save_favorites } from '../actions';
+import { save_favorites } from '../actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -24,6 +24,10 @@ const styles = StyleSheet.create({
   },
 });
 
+function keyExtractor(item) {
+  return item.symbol;
+}
+
 class Main extends Component {
   static navigationOptions({ navigation }) {
     const { navigate } = navigation;
@@ -32,7 +36,7 @@ class Main extends Component {
       title: 'Cryptos',
       headerRight: <Button title="Add" onPress={() => navigate('Currencies')} />,
     };
-  };
+  }
 
   constructor(props) {
     super(props);
@@ -40,6 +44,9 @@ class Main extends Component {
       refreshing: false,
       value: 1,
     };
+    this._fetch = this._fetch.bind(this);
+    this._renderItem = this._renderItem.bind(this);
+    this._onChangeValue = this._onChangeValue.bind(this);
   }
 
   async componentWillMount() {
@@ -60,24 +67,24 @@ class Main extends Component {
     this.setState({ refreshing: false });
   }
 
-  _keyExtractor = (item) => item.symbol;
+  _onPressItem(currency) {
+    this.props.navigation.navigate('Currency', { currency });
+  }
 
-  _onPressItem = (currency) => this.props.navigation.navigate('Currency', { currency });
-
-  _renderItem = ({ item }) => {
+  _renderItem({ item }) {
     const { navigate } = this.props.navigation;
     const { value } = this.state;
 
     return (
       <FavoriteItem
         currency={item}
-        onPress={navigate.bind(null, 'Currency', { currency: item })}
+        onPress={() => navigate('Currency', { currency: item })}
         value={value}
       />
     );
   }
 
-  _onChangeValue = (value) => {
+  _onChangeValue(value) {
     this.setState({ value });
     this.forceUpdate();
   }
@@ -92,8 +99,8 @@ class Main extends Component {
         <FlatList
           data={favorites}
           extraData={this.state}
-          keyExtractor={(this._keyExtractor)}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch.bind(this)} />}
+          keyExtractor={(keyExtractor)}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />
@@ -103,12 +110,33 @@ class Main extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
+Main.propTypes = {
+  favorites: shape({
+    name: string,
+    rank: number,
+    symbol: string,
+    usd: number,
+  }),
+  navigation: shape({
+    navigate: func,
+  }),
+  saveFavorites: func,
+};
+
+Main.defaultProps = {
+  favorites: [],
+  navigation: {
+    navigate() {},
+  },
+  saveFavorites() {},
+};
+
+const mapStateToProps = state => ({
   favorites: state.favorites,
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveFavorites: (favorites) => dispatch(save_favorites(favorites)),
+  saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
