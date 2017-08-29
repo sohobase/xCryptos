@@ -51,8 +51,8 @@ const FavoriteItem = (props) => {
           <Text style={[styles.name, styles.text]}>{name}</Text>
         </View>
         <View>
-          <Text style={[styles.value, styles.text]}>{`${value}`}</Text>
-          <Text style={[styles.valueUSD, styles.text]}>{`$${usd}`}</Text>
+          <Text style={[styles.value, styles.text]}>{value}</Text>
+          <Text style={[styles.valueUSD, styles.text]}>{`$${usd * value}`}</Text>
         </View>
       </View>
     </TouchableHighlight>

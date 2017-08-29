@@ -46,17 +46,14 @@ class Currencies extends Component {
 
   _keyExtractor = (item) => item.rank;
 
-  _onPressItem = (currency) => {
-    const { navigate } = this.props.navigation;
-    navigate('Currency', { currency });
-  }
-
   _renderItem = ({ item }) => {
+    const { navigate } = this.props.navigation;
+
     return (
       <CurrencyListItem
         currency={item}
         favorite={this.state.favorites.indexOf(item.symbol) > -1}
-        onPress={this._onPressItem.bind(null, item)}
+        onPress={navigate.bind(null, 'Currency', { currency: item })}
       />
     );
   }

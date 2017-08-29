@@ -1,6 +1,7 @@
-import { func } from 'prop-types';
-import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
-import React from 'react';
+import { func, number,  } from 'prop-types';
+import React, { Component } from 'react';
+import { StyleSheet, View, Text } from 'react-native';
+import VirtualButton from './VirtualButton';
 
 const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
@@ -13,58 +14,56 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     backgroundColor: 'white',
   },
-
-  button: {
-    width: '33%',
-    height: '25%',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-
-  label: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
 });
 
-const VirtualButton = ({ value, onPress }) => {
-  return (
-    <TouchableHighlight
-      accessibilityRole="button"
-      key={value}
-      onPress={onPress.bind(null, value)}
-      style={styles.button}
-      underlayColor="rgba(0,0,0,0.25)"
-    >
-      <Text style={styles.label}>{value}</Text>
-    </TouchableHighlight>
-  );
-};
+class VirtualKeyboard extends Component {
 
-const VirtualKeyboard = ({onNumber, onDelete}) => {
-  return (
-    <View style={styles.container}>
-      {
-        NUMBERS.map((number) => {
-          return <VirtualButton key={number} value={number} onPress={onNumber} />;
-        })
-      }
-      <VirtualButton value="." onPress={onNumber} />
-      <VirtualButton value={0} onPress={onNumber} />
-      <VirtualButton value="<" onPress={onDelete} />
-    </View>
-  );
-};
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: props.value,
+    };
+  }
+
+  _onNumber = (digit) => {
+    let { onChange, value = 0 } = this.props;
+    value = value !== 0 ? parseFloat(`${value}${digit}`) : digit;
+    onChange && onChange(value);
+  }
+
+  _onDecimal = () => {
+
+  }
+
+  _onDelete = () => {
+    const { onChange, value } = this.props;
+    onChange && onChange(parseFloat(value.toString().slice(0, -1)));
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {
+          NUMBERS.map((num) => {
+            return <VirtualButton key={num} value={num} onPress={this._onNumber} />;
+          })
+        }
+        <VirtualButton caption="." onPress={this._onDecimal} />
+        <VirtualButton value={0} onPress={this._onNumber} />
+        <VirtualButton caption="<" onPress={this._onDelete} />
+      </View>
+    );
+  }
+}
 
 VirtualKeyboard.propTypes = {
-  onNumber: func,
-  onDelete: func,
+  onChange: func,
+  value: number,
 };
 
 VirtualKeyboard.defaultProps = {
-  onNumber: undefined,
-  onDelete: undefined,
+  onChange: undefined,
+  value: 0,
 };
 
 export default VirtualKeyboard;

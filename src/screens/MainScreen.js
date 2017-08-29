@@ -3,8 +3,10 @@ import {
   ActivityIndicator,
   Button,
   FlatList,
+  VirtualizedList,
   StatusBar,
   StyleSheet,
+  Text,
   View
 } from 'react-native';
 
@@ -38,31 +40,25 @@ class Main extends Component {
     this.state = {
       favorites: [],
       ready: false,
-      value: '1',
+      value: 1,
     };
   }
 
   async componentWillMount() {
     try {
       const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
-      this.setState({ ready: currencies && currencies.length > -1 });
+      this.setState({
+        favorites: await ServiceFavorites.list(),
+        ready: currencies && currencies.length > -1
+      });
     } catch (e) {
       console.error('error', e);
     }
   }
 
   async componentDidMount() {
-    // const currencies = await ServiceCryptos.list();
-    // this.setState({ ready: true });
-    setInterval(() => {
-      let { value } = this.state;
-      value = (parseInt(value) + 1).toString();
-      this.setState({ value })
-    }, 1000);
-  }
-
-  async componentWillUpdate() {
-    this.setState({ favorites: await ServiceFavorites.list() });
+    const currencies = await ServiceCryptos.list();
+    this.setState({ ready: true });
   }
 
   _keyExtractor = (item) => item.symbol;
@@ -70,20 +66,24 @@ class Main extends Component {
   _onPressItem = (currency) => this.props.navigation.navigate('Currency', { currency });
 
   _renderItem = ({ item }) => {
+    const { navigate } = this.props.navigation;
+    const { value } = this.state;
+
     return (
       <FavoriteItem
         currency={item}
-        onPress={this._onPressItem.bind(null, item)}
-        value={this.state.value}
+        onPress={navigate.bind(null, 'Currency', { currency: item })}
+        value={value}
       />
     );
   }
-  _onNumber = (number) => this.setState({ value: `${this.state.value}${number}` });
 
-  _onDelete = (value) => this.setState({ value: this.state.value.slice(0, -1) });
+  _onChangeValue = (value) => {
+    this.setState({ value });
+    this.forceUpdate();
+  }
 
   render() {
-    const { navigate } = this.props.navigation;
     const { favorites = [], value, ready } = this.state;
 
     return (
@@ -96,14 +96,12 @@ class Main extends Component {
               keyExtractor={(this._keyExtractor)}
               data={favorites}
               renderItem={this._renderItem}
+              extraData={this.state.value}
             />
           :
             <ActivityIndicator />
         }
-        <VirtualKeyboard
-          onNumber={this._onNumber}
-          onDelete={this._onDelete}
-        />
+        <VirtualKeyboard onChange={this._onChangeValue} value={value} />
       </View>
     );
   }
