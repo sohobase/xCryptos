@@ -1,26 +1,15 @@
-import { StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { CurrenciesScreen, CurrencyScreen, MainScreen } from './src/screens';
-import { THEME } from './src/config';
+import React from 'react';
+import { Provider } from 'react-redux';
 
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: THEME.PRIMARY,
-    borderBottomColor: 'transparent',
-    borderBottomWidth: 0,
-  },
-});
+import App from './src/app';
+import createStore from './src/createStore';
 
-const navigationOptions = {
-  headerBackTitle: ' ',
-  headerStyle: styles.header,
-  headerTintColor: 'white',
-};
+const store = createStore();
 
-const App = StackNavigator({
-  Home: { screen: MainScreen, navigationOptions },
-  Currencies: { screen: CurrenciesScreen, navigationOptions },
-  Currency: { screen: CurrencyScreen, navigationOptions },
-});
+const Main = () => (
+  <Provider store={store}>
+    <App />
+  </Provider>
+);
 
-export default App;
+export default Main;

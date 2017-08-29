@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
   Button,
   FlatList,
@@ -8,9 +9,10 @@ import {
   View
 } from 'react-native';
 
-import { C, THEME } from '../config'
-import { ServiceFavorites, ServiceStorage, ServiceCryptos } from '../services'
-import { FavoriteItem, VirtualKeyboard } from './components'
+import { C, THEME } from '../config';
+import { ServiceFavorites, ServiceStorage, ServiceCryptos } from '../services';
+import { FavoriteItem, VirtualKeyboard } from './components';
+import { save_currencies, save_favorites } from '../actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -23,7 +25,6 @@ const styles = StyleSheet.create({
 });
 
 class Main extends Component {
-
   static navigationOptions({ navigation }) {
     const { navigate } = navigation;
 
@@ -36,7 +37,6 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      favorites: [],
       refreshing: false,
       value: 1,
     };
@@ -44,8 +44,8 @@ class Main extends Component {
 
   async componentWillMount() {
     const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
+    this.props.saveFavorites(await ServiceFavorites.list());
     this.setState({
-      favorites: await ServiceFavorites.list(),
       refreshing: !currencies,
     });
   }
@@ -83,7 +83,8 @@ class Main extends Component {
   }
 
   render() {
-    const { favorites = [], value, refreshing } = this.state;
+    const { favorites } = this.props;
+    const { value, refreshing } = this.state;
     const { _fetch } = this;
 
     return (
@@ -102,4 +103,12 @@ class Main extends Component {
   }
 }
 
-export default Main;
+const mapStateToProps = (state) => ({
+  favorites: state.favorites,
+});
+
+const mapDispatchToProps = dispatch => ({
+  saveFavorites: (favorites) => dispatch(save_favorites(favorites)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

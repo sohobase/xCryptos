@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import {
-  ActivityIndicator,
   Button,
   StyleSheet,
-  Text,
   View,
 } from 'react-native';
 
@@ -15,7 +13,6 @@ const styles = StyleSheet.create({
 });
 
 class Currency extends Component {
-
   static navigationOptions({ navigation }) {
     const { currency = {} } = navigation.state.params;
     return {
