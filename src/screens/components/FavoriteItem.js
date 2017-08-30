@@ -13,11 +13,12 @@ class FavoriteItem extends Component {
   }
 
   async _onActiveItem() {
-    this.props.saveFavorites(await ServiceFavorites.active(this.props.currency));
+    await ServiceFavorites.active(this.props.currency);
+    this.props.saveFavorites(await ServiceFavorites.list());
   }
 
   render() {
-    const { currency, onPress, value } = this.props;
+    const { conversionUsd, currency, onPress, value } = this.props;
     const { active, name, symbol = '', usd } = currency;
 
     return (
@@ -29,8 +30,10 @@ class FavoriteItem extends Component {
           </View>
           <TouchableHighlight onPress={this._onActiveItem}>
             <View>
-              <Text style={[styles.value, styles.text]}>{value}</Text>
-              <Text style={[styles.valueUSD, styles.text]}>{`$${usd * value}`}</Text>
+              <Text style={[styles.value, styles.text]}>
+                { active ? value : (conversionUsd * value) / usd }
+              </Text>
+              <Text style={[styles.valueUSD, styles.text]}>{`$${usd}`}</Text>
             </View>
           </TouchableHighlight>
         </View>
@@ -40,6 +43,7 @@ class FavoriteItem extends Component {
 }
 
 FavoriteItem.propTypes = {
+  conversionUsd: number,
   currency: shape({
     active: bool,
     name: string,
@@ -53,6 +57,7 @@ FavoriteItem.propTypes = {
 };
 
 FavoriteItem.defaultProps = {
+  conversionUsd: 1,
   currency: {
     active: false,
   },

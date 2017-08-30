@@ -38,12 +38,16 @@ export default {
     return favorites;
   },
 
-  async active({ symbol }) {
+  async active(currency) {
     const storageFavorites = await ServiceStorage.get(STORAGE);
-    const favorites = storageFavorites.map(favorite => ({ ...favorite, active: favorite.symbol === symbol }));
-    await ServiceStorage.set(STORAGE, favorites);
 
-    return favorites;
+    if (currency) {
+      const { symbol } = currency;
+      const favorites = storageFavorites.map(favorite => ({ ...favorite, active: favorite.symbol === symbol }));
+      await ServiceStorage.set(STORAGE, favorites);
+      return currency;
+    }
+    return storageFavorites.find(favorite => favorite.active === true);
   },
 
   async keys() {

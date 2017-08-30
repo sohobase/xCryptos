@@ -41,6 +41,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      activeCurrency: undefined,
       refreshing: false,
       value: 1,
     };
@@ -53,17 +54,24 @@ class Main extends Component {
     this.props.saveFavorites(await ServiceFavorites.list());
   }
 
+  async componentWillReceiveProps() {
+    this.setState({
+      activeCurrency: await ServiceFavorites.active(),
+    });
+  }
+
   _onPressItem(currency) {
     this.props.navigation.navigate('Currency', { currency });
   }
 
   _renderItem({ item }) {
     const { navigate } = this.props.navigation;
-    const { value } = this.state;
+    const { activeCurrency = {}, value } = this.state;
 
     return (
       <FavoriteItem
         currency={item}
+        conversionUsd={activeCurrency.usd}
         onPress={() => navigate('Currency', { currency: item })}
         value={value}
       />
