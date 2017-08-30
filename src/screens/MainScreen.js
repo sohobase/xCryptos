@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string, number } from 'prop-types';
+import { arrayOf, func, shape, string, number } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 import { C } from '../config';
 import { ServiceFavorites, ServiceStorage } from '../services';
@@ -86,12 +86,12 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  favorites: shape({
+  favorites: arrayOf(shape({
     name: string,
     rank: number,
     symbol: string,
     usd: number,
-  }),
+  })),
   navigation: shape({
     navigate: func,
   }),
