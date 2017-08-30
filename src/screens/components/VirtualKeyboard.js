@@ -1,20 +1,10 @@
 import { func, number } from 'prop-types';
 import React, { Component } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import VirtualButton from './VirtualButton';
+import styles from './VirtualKeyboard.style';
 
 const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
-
-const styles = StyleSheet.create({
-  container: {
-    height: '50%',
-    minHeight: '50%',
-    flex: 0,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    backgroundColor: 'white',
-  },
-});
 
 class VirtualKeyboard extends Component {
   constructor(props) {

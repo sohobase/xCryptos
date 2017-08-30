@@ -1,38 +1,21 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func, shape, string, number } from 'prop-types';
-import {
-  Button,
-  FlatList,
-  StyleSheet,
-  View,
-} from 'react-native';
-
-import { C, THEME } from '../config';
+import { Button, FlatList, View } from 'react-native';
+import { C } from '../config';
 import { ServiceFavorites, ServiceStorage } from '../services';
 import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
 import { save_favorites } from '../actions';
+import styles from './MainScreen.style';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  favorites: {
-    flex: 1,
-    backgroundColor: THEME.PRIMARY,
-  },
-});
-
-function keyExtractor(item) {
-  return item.symbol;
-}
+const keyExtractor = item => item.symbol;
 
 class Main extends Component {
   static navigationOptions({ navigation }) {
     const { navigate } = navigation;
 
     return {
-      headerLeft: <Button title="menu" onPress={() => navigate('Currencies')} />,
+      headerLeft: <Button title="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'Cryptos',
       headerRight: <Button title="Add" onPress={() => navigate('Currencies')} />,
     };
@@ -92,7 +75,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh />}
+          refreshControl={<RefreshCurrencies autoRefresh={false} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />

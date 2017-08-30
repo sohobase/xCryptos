@@ -1,22 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { func, shape, string, number } from 'prop-types';
-import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
+import { Button, FlatList, RefreshControl, View } from 'react-native';
 
 import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C } from '../config';
 import { ServiceFavorites } from '../services';
 import { save_favorites } from '../actions';
+import styles from './CurrenciesScreen.style';
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-});
-
-function keyExtractor(item) {
-  return item.rank;
-}
+const keyExtractor = (item) => item.rank;
 
 class Currencies extends Component {
 

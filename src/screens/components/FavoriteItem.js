@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { save_favorites } from '../../actions';
 import { THEME } from '../../config';
 import { ServiceFavorites } from '../../services';
-import styles from './FavoriteItem.styles';
+import styles from './FavoriteItem.style';
 
 class FavoriteItem extends Component {
   constructor(props) {

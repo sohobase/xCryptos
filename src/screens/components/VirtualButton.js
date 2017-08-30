@@ -1,21 +1,7 @@
 import { func, number, string } from 'prop-types';
 import React from 'react';
-import { StyleSheet, Text, TouchableHighlight } from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    width: '33%',
-    height: '25%',
-    alignItems: 'center',
-    alignContent: 'center',
-    justifyContent: 'center',
-  },
-
-  text: {
-    fontSize: 20,
-    fontWeight: 'bold',
-  },
-});
+import { Text, TouchableHighlight } from 'react-native';
+import styles from './VirtualButton.style';
 
 const VirtualButton = ({ caption, value, onPress }) => (
   <TouchableHighlight

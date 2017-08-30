@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func } from 'prop-types';
 import { RefreshControl } from 'react-native';
-import { ServiceCryptos, ServiceFavorites } from '../../services';
 import { save_currencies, save_favorites } from '../../actions';
+import { ServiceCryptos, ServiceFavorites } from '../../services';
+import { THEME } from '../../config';
+import styles from './RefreshCurrencies.style';
 
 class RefreshCurrencies extends Component {
   constructor(props) {
@@ -32,7 +34,14 @@ class RefreshCurrencies extends Component {
     const { refreshing } = this.state;
     const { _fetch } = this;
 
-    return <RefreshControl refreshing={refreshing} onRefresh={_fetch} />;
+    return (
+      <RefreshControl
+        style={styles.container}
+        tintColor={THEME.WHITE}
+        refreshing={refreshing}
+        onRefresh={_fetch}
+      />
+    );
   }
 }
 

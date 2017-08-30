@@ -1,16 +1,6 @@
 import React, { Component } from 'react';
-import {
-  Button,
-  StyleSheet,
-  View,
-} from 'react-native';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: 'white',
-  },
-});
+import { Button, View } from 'react-native';
+import styles from './CurrencyScreen.style';
 
 class Currency extends Component {
   static navigationOptions({ navigation }) {
@@ -24,11 +14,9 @@ class Currency extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      ready: false,
+      refreshing: false,
     };
   }
-
-  // async componentWillMount() {}
 
   render() {
     return (
