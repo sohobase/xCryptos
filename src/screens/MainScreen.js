@@ -87,10 +87,8 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  favorites: arrayOf(shape(C.SHAPE.FAVORITE)),
-  navigation: shape({
-    navigate: func,
-  }),
+  favorites: arrayOf(C.SHAPE.FAVORITE),
+  navigation: C.SHAPE.NAVIGATION,
   saveFavorites: func,
 };
 

@@ -60,11 +60,9 @@ class Currencies extends Component {
 }
 
 Currencies.propTypes = {
-  currencies: arrayOf(shape(C.SHAPE.CURRENCY)),
-  favorites: arrayOf(shape(C.SHAPE.FAVORITE)),
-  navigation: shape({
-    navigate: func,
-  }),
+  currencies: arrayOf(C.SHAPE.CURRENCY),
+  favorites: arrayOf(C.SHAPE.FAVORITE),
+  navigation: C.SHAPE.NAVIGATION,
   saveFavorites: func,
 };
 

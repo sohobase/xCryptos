@@ -1,4 +1,4 @@
-import { bool, string, number } from 'prop-types';
+import { bool, func, shape, string, number } from 'prop-types';
 
 export default {
   DEFAULT_FAVORITES: [{
@@ -20,18 +20,21 @@ export default {
     FAVORITES: 'favorites',
   },
   SHAPE: {
-    CURRENCY: {
+    CURRENCY: shape({
       name: string,
       rank: number,
       symbol: string,
       usd: number,
       btc: number,
-    },
-    FAVORITE: {
+    }),
+    FAVORITE: shape({
       active: bool,
       name: string,
       symbol: string,
       usd: number,
-    },
+    }),
+    NAVIGATION: shape({
+      navigate: func,
+    }),
   },
 };
