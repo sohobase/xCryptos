@@ -30,12 +30,14 @@ class VirtualKeyboard extends Component {
     const { onChange } = this.props;
     let { value = 0 } = this.props;
     value = value !== 0 ? parseFloat(`${value}${digit}`) : digit;
-    onChange(value);
+    onChange(value || 0);
   }
 
   _onDelete() {
     const { onChange, value } = this.props;
-    onChange(parseFloat(value.toString().slice(0, -1)));
+
+    const nextValue = value.length > 1 ? parseFloat(value.toString().slice(0, -1)) : 0;
+    onChange(nextValue);
   }
 
   render() {
