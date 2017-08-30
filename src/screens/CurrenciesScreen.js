@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { func, shape, string, number } from 'prop-types';
+import { arrayOf, func, shape, string, number } from 'prop-types';
 import { Button, FlatList, RefreshControl, View } from 'react-native';
 
 import { CurrencyListItem, RefreshCurrencies } from './components';
@@ -60,18 +60,8 @@ class Currencies extends Component {
 }
 
 Currencies.propTypes = {
-  currencies: shape({
-    name: string,
-    rank: number,
-    symbol: string,
-    usd: number,
-  }),
-  favorites: shape({
-    name: string,
-    rank: number,
-    symbol: string,
-    usd: number,
-  }),
+  currencies: arrayOf(shape(C.SHAPE.CURRENCY)),
+  favorites: arrayOf(shape(C.SHAPE.FAVORITE)),
   navigation: shape({
     navigate: func,
   }),

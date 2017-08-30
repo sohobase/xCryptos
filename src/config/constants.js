@@ -1,3 +1,5 @@
+import { bool, string, number } from 'prop-types';
+
 export default {
   DEFAULT_FAVORITES: [{
     active: true,
@@ -16,5 +18,20 @@ export default {
   STORAGE: {
     CURRENCIES: 'cryptos',
     FAVORITES: 'favorites',
+  },
+  SHAPE: {
+    CURRENCY: {
+      name: string,
+      rank: number,
+      symbol: string,
+      usd: number,
+      btc: number,
+    },
+    FAVORITE: {
+      active: bool,
+      name: string,
+      symbol: string,
+      usd: number,
+    },
   },
 };

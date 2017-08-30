@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func, shape, string, number } from 'prop-types';
+import { arrayOf, func, shape } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 import { C } from '../config';
-import { ServiceFavorites, ServiceStorage } from '../services';
+import { ServiceFavorites } from '../services';
 import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
 import { save_favorites } from '../actions';
 import styles from './MainScreen.style';
@@ -34,7 +34,6 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    // ServiceStorage.remove(C.STORAGE.FAVORITES);
     this.props.saveFavorites(await ServiceFavorites.list());
   }
 
@@ -77,7 +76,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh={false} />}
+          refreshControl={<RefreshCurrencies autoRefresh />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />
@@ -88,12 +87,7 @@ class Main extends Component {
 }
 
 Main.propTypes = {
-  favorites: arrayOf(shape({
-    name: string,
-    rank: number,
-    symbol: string,
-    usd: number,
-  })),
+  favorites: arrayOf(shape(C.SHAPE.FAVORITE)),
   navigation: shape({
     navigate: func,
   }),
