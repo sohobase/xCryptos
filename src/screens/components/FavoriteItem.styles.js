@@ -7,8 +7,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: THEME.PRIMARY,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: 4,
   },
   active: {
     backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT,
@@ -18,6 +17,7 @@ export default StyleSheet.create({
   },
   currency: {
     flex: 1,
+    paddingLeft: 12,
   },
   small: {
     opacity: 0.75,
@@ -27,7 +27,8 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   values: {
-    paddingLeft: 12,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
     alignItems: 'flex-end',
   },
   value: {
