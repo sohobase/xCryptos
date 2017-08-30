@@ -3,6 +3,7 @@ import { Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { save_favorites } from '../../actions';
+import { THEME } from '../../config';
 import { ServiceFavorites } from '../../services';
 import styles from './FavoriteItem.styles';
 
@@ -23,17 +24,17 @@ class FavoriteItem extends Component {
 
     return (
       <TouchableHighlight onPress={onPress}>
-        <View style={styles.container}>
-          <View style={[styles.currency, (active ? styles.active : undefined)]}>
+        <View style={[styles.container, (active && styles.active)]}>
+          <View style={styles.currency}>
             <Text style={[styles.symbol, styles.text]}>{symbol.toUpperCase()}</Text>
-            <Text style={[styles.name, styles.text]}>{name}</Text>
+            <Text style={[styles.small, styles.text]}>{name}</Text>
           </View>
-          <TouchableHighlight onPress={this._onActiveItem}>
-            <View>
+          <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
+            <View style={styles.values}>
               <Text style={[styles.value, styles.text]}>
                 { active ? value : (conversionUsd * value) / usd }
               </Text>
-              <Text style={[styles.valueUSD, styles.text]}>{`$${usd}`}</Text>
+              <Text style={[styles.small, styles.text]}>{`$${usd}`}</Text>
             </View>
           </TouchableHighlight>
         </View>

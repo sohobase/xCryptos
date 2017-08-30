@@ -11,7 +11,7 @@ export default StyleSheet.create({
     paddingVertical: 8,
   },
   active: {
-    backgroundColor: THEME.ACCENT,
+    backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT,
   },
   text: {
     color: 'white',
@@ -19,7 +19,7 @@ export default StyleSheet.create({
   currency: {
     flex: 1,
   },
-  name: {
+  small: {
     opacity: 0.75,
   },
   symbol: {
@@ -27,15 +27,10 @@ export default StyleSheet.create({
     fontWeight: 'bold',
   },
   values: {
-    flex: 0,
-    marginRight: 12,
-    marginLeft: 12,
+    paddingLeft: 12,
+    alignItems: 'flex-end',
   },
   value: {
     fontSize: 20,
-    textAlign: 'right',
-  },
-  valueUSD: {
-    opacity: 0.75,
   },
 });
