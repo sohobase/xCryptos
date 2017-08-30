@@ -2,7 +2,7 @@ import { C } from '../config';
 import ServiceStorage from './storage';
 
 const fav = async(favorite, added = false) => {
-  const favs = await ServiceStorage.get(C.STORAGE.FAVORITES) || C.DEFAULT_FAVORITES;
+  const favs = await ServiceStorage.get(C.STORAGE.FAVORITES);
   if (!added) {
     favs.push(favorite);
   } else {

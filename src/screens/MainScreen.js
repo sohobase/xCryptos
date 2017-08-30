@@ -4,14 +4,13 @@ import { func, shape, string, number } from 'prop-types';
 import {
   Button,
   FlatList,
-  RefreshControl,
   StyleSheet,
   View,
 } from 'react-native';
 
-import { C, THEME } from '../config';
-import { ServiceFavorites, ServiceStorage, ServiceCryptos } from '../services';
-import { FavoriteItem, VirtualKeyboard } from './components';
+import { THEME } from '../config';
+import { ServiceFavorites } from '../services';
+import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
 import { save_favorites, save_currencies } from '../actions';
 
 const styles = StyleSheet.create({
@@ -45,7 +44,6 @@ class Main extends Component {
       refreshing: false,
       value: 1,
     };
-    this._fetch = this._fetch.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
   }
@@ -53,20 +51,6 @@ class Main extends Component {
   async componentWillMount() {
     // ServiceStorage.remove(C.STORAGE.FAVORITES);
     this.props.saveFavorites(await ServiceFavorites.list());
-  }
-
-  componentDidMount() {
-    this._fetch();
-  }
-
-  async _fetch() {
-    const { saveCurrencies, saveFavorites } = this.props;
-
-    this.setState({ refreshing: true });
-    const currencies = await ServiceCryptos.list();
-    saveCurrencies(currencies);
-    saveFavorites(await ServiceFavorites.update(currencies));
-    this.setState({ refreshing: false });
   }
 
   _onPressItem(currency) {
@@ -93,8 +77,7 @@ class Main extends Component {
 
   render() {
     const { favorites } = this.props;
-    const { value, refreshing } = this.state;
-    const { _fetch } = this;
+    const { value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -102,7 +85,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
+          refreshControl={<RefreshCurrencies autoRefresh />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />
@@ -122,7 +105,6 @@ Main.propTypes = {
   navigation: shape({
     navigate: func,
   }),
-  saveCurrencies: func,
   saveFavorites: func,
 };
 
@@ -132,7 +114,6 @@ Main.defaultProps = {
     navigate() {},
   },
   saveFavorites() {},
-  saveCurrencies() {},
 };
 
 const mapStateToProps = state => ({
@@ -140,7 +121,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveCurrencies: currencies => dispatch(save_currencies(currencies)),
   saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 

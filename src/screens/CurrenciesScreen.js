@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { func, shape, string, number } from 'prop-types';
 import { Button, FlatList, RefreshControl, StyleSheet, View } from 'react-native';
 
-import { CurrencyListItem } from './components';
+import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C } from '../config';
-import { ServiceCryptos, ServiceFavorites, ServiceStorage } from '../services';
-import { save_currencies, save_favorites } from '../actions';
+import { ServiceFavorites } from '../services';
+import { save_favorites } from '../actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
   },
 });
 
-
 function keyExtractor(item) {
   return item.rank;
 }
 
 class Currencies extends Component {
+
   static navigationOptions = {
     title: 'Currencies',
     headerRight: <Button title="Search" />,
@@ -27,32 +27,11 @@ class Currencies extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {
-      refreshing: false,
-    };
-    this._fetch = this._fetch.bind(this);
     this._onChangeItem = this._onChangeItem.bind(this);
     this._renderItem = this._renderItem.bind(this);
   }
 
-  async componentWillMount() {
-    try {
-      this.props.saveCurrencies(await ServiceStorage.get(C.STORAGE.CRYPTOS));
-      this.props.saveFavorites(await ServiceFavorites.list());
-    } catch (e) {
-      console.error('error', e);
-    }
-  }
-
-  async _fetch() {
-    this.setState({ refreshing: true });
-    this.props.saveCurrencies(await ServiceCryptos.list());
-    this.setState({ refreshing: false });
-  }
-
   async _onChangeItem({ currency, favorite }) {
-    console.log(currency, favorite);
-    console.log(await ServiceFavorites[favorite ? 'remove' : 'add'](currency));
     this.props.saveFavorites(await ServiceFavorites[favorite ? 'remove' : 'add'](currency));
   }
 
@@ -62,7 +41,7 @@ class Currencies extends Component {
     return (
       <CurrencyListItem
         currency={item}
-        favorite={favorites.findIndex(i => i.symbol === item.symbol) > -1}
+        favorite={favorites.findIndex(({ symbol }) => symbol === item.symbol) > -1}
         onPress={() => navigate('Currency', { currency: item })}
         onChange={this._onChangeItem}
       />
@@ -71,8 +50,7 @@ class Currencies extends Component {
 
   render() {
     const { currencies, favorites } = this.props;
-    const { refreshing } = this.state;
-    const { _fetch, _renderItem } = this;
+    const { _renderItem } = this;
 
     return (
       <View style={styles.container}>
@@ -80,7 +58,7 @@ class Currencies extends Component {
           data={currencies}
           keyExtractor={keyExtractor}
           extraData={favorites}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
+          refreshControl={<RefreshCurrencies />}
           renderItem={_renderItem}
         />
       </View>
@@ -104,7 +82,6 @@ Currencies.propTypes = {
   navigation: shape({
     navigate: func,
   }),
-  saveCurrencies: func,
   saveFavorites: func,
 };
 
@@ -114,7 +91,6 @@ Currencies.defaultProps = {
   navigation: {
     navigate() {},
   },
-  saveCurrencies() {},
   saveFavorites() {},
 };
 
@@ -124,7 +100,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveCurrencies: currencies => dispatch(save_currencies(currencies)),
   saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 
