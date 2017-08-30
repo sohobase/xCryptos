@@ -72,7 +72,6 @@ class Main extends Component {
 
   _onChangeValue(value) {
     this.setState({ value });
-    this.forceUpdate();
   }
 
   render() {

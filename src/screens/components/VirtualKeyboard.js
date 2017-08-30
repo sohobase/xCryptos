@@ -22,6 +22,8 @@ class VirtualKeyboard extends Component {
     this.state = {
       value: props.value,
     };
+    this._onNumber = this._onNumber.bind(this);
+    this._onDelete = this._onDelete.bind(this);
   }
 
   _onNumber(digit) {
