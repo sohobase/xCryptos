@@ -1,4 +1,4 @@
-import { func, number } from 'prop-types';
+import { bool, func, number } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import VirtualButton from './VirtualButton';
@@ -9,49 +9,55 @@ const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 class VirtualKeyboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: props.value,
-    };
-    this._onNumber = this._onNumber.bind(this);
     this._onDelete = this._onDelete.bind(this);
+    this._onDecimal = this._onDecimal.bind(this);
+    this._onNumber = this._onNumber.bind(this);
   }
 
   _onNumber(digit) {
-    const { onChange } = this.props;
-    let { value = 0 } = this.props;
-    value = value !== 0 ? parseFloat(`${value}${digit}`) : digit;
-    onChange(value || 0);
+    const { decimal, onChange, value } = this.props;
+    let nextValue = digit;
+
+    if (value !== 0) nextValue = parseFloat(`${value}${decimal ? '.' : ''}${digit}`);
+    onChange({ value: nextValue, decimal: false });
   }
 
   _onDelete() {
+    const { decimal, onChange, value } = this.props;
+    let nextValue = 0;
+
+    if (value > 9) nextValue = decimal ? value : parseFloat(value.toString().slice(0, -1));
+    onChange({ value: nextValue, decimal: false });
+  }
+
+  _onDecimal() {
     const { onChange, value } = this.props;
 
-    const nextValue = value.length > 1 ? parseFloat(value.toString().slice(0, -1)) : 0;
-    onChange(nextValue);
+    onChange({ value, decimal: true });
   }
 
   render() {
+    const { _onDecimal, _onDelete, _onNumber } = this;
+
     return (
       <View style={styles.container}>
-        {
-          NUMBERS.map(num => (
-            <VirtualButton key={num} value={num} onPress={this._onNumber} />
-          ))
-        }
-        <VirtualButton caption="." onPress={this._onDecimal} />
-        <VirtualButton value={0} onPress={this._onNumber} />
-        <VirtualButton caption="<" onPress={this._onDelete} />
+        { NUMBERS.map(num => <VirtualButton key={num} value={num} onPress={_onNumber} />) }
+        <VirtualButton caption="." onPress={_onDecimal} />
+        <VirtualButton value={0} onPress={_onNumber} />
+        <VirtualButton caption="<" onPress={_onDelete} />
       </View>
     );
   }
 }
 
 VirtualKeyboard.propTypes = {
+  decimal: bool,
   onChange: func,
   value: number,
 };
 
 VirtualKeyboard.defaultProps = {
+  decimal: false,
   onChange() {},
   value: 0,
 };

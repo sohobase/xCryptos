@@ -10,7 +10,7 @@ export default StyleSheet.create({
     paddingVertical: 4,
   },
   active: {
-    backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT,
+    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
   text: {
     color: 'white',

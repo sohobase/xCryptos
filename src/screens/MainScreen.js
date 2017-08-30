@@ -25,6 +25,7 @@ class Main extends Component {
     super(props);
     this.state = {
       activeCurrency: undefined,
+      decimal: false,
       refreshing: false,
       value: 1,
     };
@@ -43,17 +44,22 @@ class Main extends Component {
     });
   }
 
+  _onChangeValue({ value, decimal }) {
+    this.setState({ value, decimal });
+  }
+
   _onPressItem(currency) {
     this.props.navigation.navigate('Currency', { currency });
   }
 
   _renderItem({ item }) {
     const { navigate } = this.props.navigation;
-    const { activeCurrency = {}, value } = this.state;
+    const { activeCurrency = {}, decimal, value } = this.state;
 
     return (
       <FavoriteItem
         currency={item}
+        decimal={decimal}
         conversionUsd={activeCurrency.usd}
         onPress={() => navigate('Currency', { currency: item })}
         value={value}
@@ -61,13 +67,9 @@ class Main extends Component {
     );
   }
 
-  _onChangeValue(value) {
-    this.setState({ value });
-  }
-
   render() {
     const { favorites } = this.props;
-    const { value } = this.state;
+    const { decimal, value } = this.state;
 
     return (
       <View style={styles.container}>
@@ -79,7 +81,7 @@ class Main extends Component {
           renderItem={this._renderItem}
           style={styles.favorites}
         />
-        <VirtualKeyboard onChange={this._onChangeValue} value={value} />
+        <VirtualKeyboard decimal={decimal} onChange={this._onChangeValue} value={value} />
       </View>
     );
   }

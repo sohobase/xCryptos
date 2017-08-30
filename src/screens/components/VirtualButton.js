@@ -5,7 +5,6 @@ import styles from './VirtualButton.style';
 
 const VirtualButton = ({ caption, value, onPress }) => (
   <TouchableHighlight
-    __accessibilityRole="button"
     key={value}
     onPress={() => onPress(value)}
     style={styles.container}

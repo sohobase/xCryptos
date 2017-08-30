@@ -19,7 +19,7 @@ class FavoriteItem extends Component {
   }
 
   render() {
-    const { conversionUsd, currency, onPress, value } = this.props;
+    const { conversionUsd, currency, decimal, onPress, value } = this.props;
     const { active, name, symbol = '', usd } = currency;
 
     return (
@@ -32,7 +32,7 @@ class FavoriteItem extends Component {
           <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
             <View style={styles.values}>
               <Text style={[styles.value, styles.text]}>
-                { active ? value : (conversionUsd * value) / usd }
+                { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd) }
               </Text>
               <Text style={[styles.small, styles.text]}>{`$${usd}`}</Text>
             </View>
@@ -52,6 +52,7 @@ FavoriteItem.propTypes = {
     symbol: string,
     usd: number,
   }),
+  decimal: bool,
   onPress: func,
   value: number,
   saveFavorites: func,
@@ -62,6 +63,7 @@ FavoriteItem.defaultProps = {
   currency: {
     active: false,
   },
+  decimal: false,
   onPress: undefined,
   value: 0,
   saveFavorites() {},
