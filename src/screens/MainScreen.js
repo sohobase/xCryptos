@@ -12,7 +12,7 @@ import {
 import { C, THEME } from '../config';
 import { ServiceFavorites, ServiceStorage, ServiceCryptos } from '../services';
 import { FavoriteItem, VirtualKeyboard } from './components';
-import { save_favorites } from '../actions';
+import { save_favorites, save_currencies } from '../actions';
 
 const styles = StyleSheet.create({
   container: {
@@ -33,6 +33,7 @@ class Main extends Component {
     const { navigate } = navigation;
 
     return {
+      headerLeft: <Button title="menu" onPress={() => navigate('Currencies')} />,
       title: 'Cryptos',
       headerRight: <Button title="Add" onPress={() => navigate('Currencies')} />,
     };
@@ -50,11 +51,8 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
+    // ServiceStorage.remove(C.STORAGE.FAVORITES);
     this.props.saveFavorites(await ServiceFavorites.list());
-    this.setState({
-      refreshing: !currencies,
-    });
   }
 
   componentDidMount() {
@@ -62,8 +60,12 @@ class Main extends Component {
   }
 
   async _fetch() {
+    const { saveCurrencies, saveFavorites } = this.props;
+
     this.setState({ refreshing: true });
-    await ServiceCryptos.list();
+    const currencies = await ServiceCryptos.list();
+    saveCurrencies(currencies);
+    saveFavorites(await ServiceFavorites.update(currencies));
     this.setState({ refreshing: false });
   }
 
@@ -120,6 +122,7 @@ Main.propTypes = {
   navigation: shape({
     navigate: func,
   }),
+  saveCurrencies: func,
   saveFavorites: func,
 };
 
@@ -129,6 +132,7 @@ Main.defaultProps = {
     navigate() {},
   },
   saveFavorites() {},
+  saveCurrencies() {},
 };
 
 const mapStateToProps = state => ({
@@ -136,6 +140,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
+  saveCurrencies: currencies => dispatch(save_currencies(currencies)),
   saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 

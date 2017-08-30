@@ -15,10 +15,26 @@ const fav = async(favorite, added = false) => {
 
 export default {
   async list() {
-    const currencies = await ServiceStorage.get(C.STORAGE.CRYPTOS);
-    const favorites = await ServiceStorage.get(C.STORAGE.FAVORITES) || C.DEFAULT_FAVORITES;
+    let favorites = await ServiceStorage.get(C.STORAGE.FAVORITES);
+    console.log('favorites', favorites);
+    if (!favorites) {
+      favorites = C.DEFAULT_FAVORITES;
+      await ServiceStorage.set(C.STORAGE.FAVORITES, favorites);
+    }
 
-    return currencies.filter(({ symbol }) => favorites.findIndex(i => i.symbol === symbol) > -1);
+    return favorites;
+  },
+
+  async update(currencies) {
+    const favorites = await ServiceStorage.get(C.STORAGE.FAVORITES);
+
+    favorites.forEach((favorite) => {
+      const currency = currencies.find(({ symbol }) => symbol === favorite.symbol);
+      favorite.usd = currency.usd;
+    });
+    await ServiceStorage.set(C.STORAGE.FAVORITES, favorites);
+
+    return favorites;
   },
 
   async keys() {
