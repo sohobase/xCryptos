@@ -1,5 +1,6 @@
 export default {
   DEFAULT_FAVORITES: [{
+    active: true,
     name: 'Bitcoin',
     symbol: 'btc',
     usd: 0,

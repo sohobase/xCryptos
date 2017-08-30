@@ -8,10 +8,10 @@ import {
   View,
 } from 'react-native';
 
-import { THEME } from '../config';
-import { ServiceFavorites } from '../services';
+import { C, THEME } from '../config';
+import { ServiceFavorites, ServiceStorage } from '../services';
 import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
-import { save_favorites, save_currencies } from '../actions';
+import { save_favorites } from '../actions';
 
 const styles = StyleSheet.create({
   container: {
