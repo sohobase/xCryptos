@@ -14,7 +14,7 @@ const keyExtractor = item => item.rank;
 class CurrenciesScreen extends Component {
   static navigationOptions = {
     title: 'Currencies',
-    headerRight: <Button title="Search" />,
+    // headerRight: <Button title="Search" />,
   };
 
   constructor(props) {
