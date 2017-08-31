@@ -1,7 +1,6 @@
 import { bool, func, shape, string, number } from 'prop-types';
 import { Switch, Text, TouchableHighlight, View } from 'react-native';
 import React from 'react';
-import { THEME } from '../../config';
 import styles from './CurrencyListItem.style';
 
 const CurrencyListItem = (props) => {
@@ -19,7 +18,6 @@ const CurrencyListItem = (props) => {
         <Switch
           style={styles.switch}
           onValueChange={() => onChange({ currency, favorite })}
-          thumbTintColor={THEME.PRIMARY}
           value={favorite}
         />
       </View>
