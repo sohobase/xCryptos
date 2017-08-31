@@ -1,5 +1,7 @@
 import { bool, func, shape, string, number } from 'prop-types';
 
+const icons = ['Bitcoin', 'Etherium', 'Dash', 'Ripple', 'Litecoin']
+
 export default {
   DEFAULT_FAVORITES: [{
     active: true,
@@ -36,5 +38,11 @@ export default {
     NAVIGATION: shape({
       navigate: func,
     }),
+  },
+  ICON: {
+    Bitcoin: require('../assets/Bitcoin.png'),
+    Ethereum: require('../assets/Ethereum.png'),
+    Litecoin: require('../assets/Litecoin.png'),
+    Dash: require('../assets/Dash.png'),
   },
 };

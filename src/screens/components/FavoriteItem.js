@@ -1,11 +1,13 @@
 import { bool, func, shape, string, number } from 'prop-types';
-import { Text, TouchableHighlight, View } from 'react-native';
+import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { save_favorites } from '../../actions';
-import { THEME } from '../../config';
+import { C, THEME } from '../../config';
 import { ServiceFavorites } from '../../services';
 import styles from './FavoriteItem.style';
+
+const { ICON = {} } = C;
 
 class FavoriteItem extends Component {
   constructor(props) {
@@ -21,10 +23,12 @@ class FavoriteItem extends Component {
   render() {
     const { conversionUsd, currency, decimal, onPress, value } = this.props;
     const { active, name, symbol = '', usd } = currency;
+    const iconCurrency = ICON[name];
 
     return (
       <TouchableHighlight onPress={onPress}>
         <View style={[styles.container, (active && styles.active)]}>
+          <Image style={styles.icon} source={iconCurrency} />
           <View style={styles.currency}>
             <Text style={[styles.symbol, styles.text]}>{symbol.toUpperCase()}</Text>
             <Text style={[styles.small, styles.text]}>{name}</Text>

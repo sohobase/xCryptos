@@ -8,6 +8,12 @@ export default StyleSheet.create({
     alignItems: 'center',
     backgroundColor: THEME.PRIMARY,
     paddingVertical: 4,
+    paddingLeft: 12,
+  },
+  icon: {
+    width: 32,
+    height: 32,
+    marginRight: 12,
   },
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
@@ -17,7 +23,6 @@ export default StyleSheet.create({
   },
   currency: {
     flex: 1,
-    paddingLeft: 12,
   },
   small: {
     opacity: 0.75,
