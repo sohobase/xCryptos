@@ -1,15 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { StackNavigator } from 'react-navigation';
-import { CurrenciesScreen, CurrencyScreen, MainScreen } from './screens';
-import { THEME } from './config';
-
-const styles = StyleSheet.create({
-  header: {
-    backgroundColor: THEME.PRIMARY,
-    borderBottomColor: 'transparent',
-    borderBottomWidth: 0,
-  },
-});
+import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import {
+  CurrenciesScreen,
+  CurrencyScreen,
+  MainScreen,
+  SettingsScreen,
+} from './screens';
+import styles from './app.style';
 
 const navigationOptions = {
   headerBackTitle: ' ',
@@ -17,10 +13,19 @@ const navigationOptions = {
   headerTintColor: 'white',
 };
 
-const App = StackNavigator({
-  Home: { screen: MainScreen, navigationOptions },
-  Currencies: { screen: CurrenciesScreen, navigationOptions },
-  Currency: { screen: CurrencyScreen, navigationOptions },
+const App = DrawerNavigator({
+  Main: {
+    screen: StackNavigator({
+      Main: { screen: MainScreen, navigationOptions },
+      Currencies: { screen: CurrenciesScreen, navigationOptions },
+      Currency: { screen: CurrencyScreen, navigationOptions },
+    }),
+  },
+  Settings: {
+    screen: StackNavigator({
+      Settings: { screen: SettingsScreen, navigationOptions },
+    }),
+  },
 });
 
 export default App;

@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { Button, View } from 'react-native';
-import styles from './CurrencyScreen.style';
+import styles from './SettingsScreen.style';
 
-class CurrencyScreen extends Component {
+class SettingsScreen extends Component {
   static navigationOptions({ navigation }) {
-    const { currency = {} } = navigation.state.params;
+    const { navigate } = navigation;
+
     return {
-      title: currency.name,
-      headerRight: <Button title="Alerts" />,
+      drawerLabel: 'Settings',
+      headerLeft: <Button title="menu" onPress={() => navigate('DrawerOpen')} />,
+      title: 'Settings',
     };
   }
 
@@ -25,4 +27,4 @@ class CurrencyScreen extends Component {
   }
 }
 
-export default CurrencyScreen;
+export default SettingsScreen;

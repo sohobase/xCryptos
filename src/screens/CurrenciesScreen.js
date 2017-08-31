@@ -11,7 +11,7 @@ import styles from './CurrenciesScreen.style';
 
 const keyExtractor = item => item.rank;
 
-class Currencies extends Component {
+class CurrenciesScreen extends Component {
   static navigationOptions = {
     title: 'Currencies',
     headerRight: <Button title="Search" />,
@@ -58,14 +58,14 @@ class Currencies extends Component {
   }
 }
 
-Currencies.propTypes = {
+CurrenciesScreen.propTypes = {
   currencies: arrayOf(C.SHAPE.CURRENCY),
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
   saveFavorites: func,
 };
 
-Currencies.defaultProps = {
+CurrenciesScreen.defaultProps = {
   currencies: [],
   favorites: [],
   navigation: {
@@ -83,4 +83,4 @@ const mapDispatchToProps = dispatch => ({
   saveFavorites: favorites => dispatch(save_favorites(favorites)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Currencies);
+export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);

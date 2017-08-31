@@ -15,6 +15,7 @@ class Main extends Component {
     const { navigate } = navigation;
 
     return {
+      drawerLabel: 'Home',
       headerLeft: <Button title="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'Cryptos',
       headerRight: <Button title="Add" onPress={() => navigate('Currencies')} />,
