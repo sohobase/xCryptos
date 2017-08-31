@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func, shape } from 'prop-types';
+import { arrayOf, func } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 import { C } from '../config';
 import { ServiceFavorites } from '../services';

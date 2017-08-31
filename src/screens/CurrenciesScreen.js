@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func, shape, string, number } from 'prop-types';
-import { Button, FlatList, RefreshControl, View } from 'react-native';
+import { arrayOf, func } from 'prop-types';
+import { Button, FlatList, View } from 'react-native';
 
 import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C } from '../config';
@@ -9,10 +9,9 @@ import { ServiceFavorites } from '../services';
 import { save_favorites } from '../actions';
 import styles from './CurrenciesScreen.style';
 
-const keyExtractor = (item) => item.rank;
+const keyExtractor = item => item.rank;
 
 class Currencies extends Component {
-
   static navigationOptions = {
     title: 'Currencies',
     headerRight: <Button title="Search" />,
