@@ -1,5 +1,5 @@
 export default {
-  PRIMARY: 'deeppink',
+  PRIMARY: '#673ab7',
   ACCENT: 'blue',
   WHITE: 'white',
 

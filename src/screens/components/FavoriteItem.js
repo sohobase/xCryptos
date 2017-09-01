@@ -7,7 +7,7 @@ import { C, THEME } from '../../config';
 import { ServiceFavorites } from '../../services';
 import styles from './FavoriteItem.style';
 
-const { ICON = {} } = C;
+const { ICON } = C;
 
 class FavoriteItem extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class FavoriteItem extends Component {
     return (
       <TouchableHighlight onPress={onPress}>
         <View style={[styles.container, (active && styles.active)]}>
-          <Image style={styles.icon} source={iconCurrency} />
+          { iconCurrency && <Image style={styles.icon} source={iconCurrency} /> }
           <View style={styles.currency}>
             <Text style={[styles.symbol, styles.text]}>{symbol.toUpperCase()}</Text>
             <Text style={[styles.small, styles.text]}>{name}</Text>
