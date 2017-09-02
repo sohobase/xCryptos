@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 import { C } from '../config';
-import { ServiceFavorites } from '../services';
+import { ServiceCurrencies, ServiceFavorites } from '../services';
 import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
 import { save_favorites } from '../actions';
 import styles from './MainScreen.style';
@@ -35,7 +35,10 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    this.props.saveFavorites(await ServiceFavorites.list());
+    const favorites = await ServiceFavorites.list();
+    this.props.saveFavorites(favorites);
+
+    ServiceCurrencies.prices(favorites.map(fav => fav.symbol));
   }
 
   async componentWillReceiveProps() {
@@ -77,7 +80,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh />}
+          refreshControl={<RefreshCurrencies autoRefresh={false} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />

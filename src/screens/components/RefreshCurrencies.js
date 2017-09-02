@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bool, func } from 'prop-types';
 import { RefreshControl } from 'react-native';
 import { save_currencies, save_favorites } from '../../actions';
-import { ServiceCryptos, ServiceFavorites } from '../../services';
+import { ServiceCurrencies, ServiceFavorites } from '../../services';
 import { THEME } from '../../config';
 import styles from './RefreshCurrencies.style';
 
@@ -24,7 +24,7 @@ class RefreshCurrencies extends Component {
     const { saveCurrencies, saveFavorites } = this.props;
 
     this.setState({ refreshing: true });
-    const currencies = await ServiceCryptos.list();
+    const currencies = await ServiceCurrencies.list();
     saveCurrencies(currencies);
     saveFavorites(await ServiceFavorites.update(currencies));
     this.setState({ refreshing: false });
