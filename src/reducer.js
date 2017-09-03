@@ -1,8 +1,9 @@
-import { ACTIVE_FAVORITE, ADD_FAVORITE, INIT_FAVORITES, REMOVE_FAVORITE, SAVE_CURRENCIES, UPDATE_FAVORITES } from './actions';
+import { ACTIVE_FAVORITE, ADD_FAVORITE, INIT_FAVORITES, REMOVE_FAVORITE, SAVE_CURRENCIES, SNAPSHOTS, UPDATE_FAVORITES } from './actions';
 
 const initialState = {
   currencies: [],
   favorites: [],
+  snapshots: {},
 };
 
 export default function crypto(state = initialState, action) {
@@ -33,6 +34,16 @@ export default function crypto(state = initialState, action) {
           const { usd } = currencies.find(({ symbol }) => symbol === item.symbol) || {};
           return { ...item, usd };
         }),
+      };
+    }
+
+    case SNAPSHOTS: {
+      const { snapshots = {} } = state;
+      const { currency, symbol } = action;
+
+      return {
+        ...state,
+        snapshots: { ...snapshots, [symbol]: currency },
       };
     }
 

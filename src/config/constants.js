@@ -38,6 +38,9 @@ export default {
     NAVIGATION: shape({
       navigate: func,
     }),
+    SNAPSHOT: shape({
+      PRICE: number,
+    }),
   },
   ICON: {
     Bitcoin: require('../assets/Bitcoin.png'),

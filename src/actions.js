@@ -29,3 +29,10 @@ export const update_favorites = currencies => ({
   type: UPDATE_FAVORITES,
   currencies,
 });
+
+export const SNAPSHOTS = '@Crypto/SNAPSHOTS';
+export const snapshotsAction = (currency, symbol) => ({
+  type: SNAPSHOTS,
+  currency,
+  symbol,
+});

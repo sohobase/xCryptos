@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Button, View } from 'react-native';
+import { connect } from 'react-redux';
+import { Button, Text, View } from 'react-native';
 import { C } from '../config';
 import { ServiceCurrencies } from '../services';
+import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
 
 class CurrencyScreen extends Component {
@@ -25,26 +27,46 @@ class CurrencyScreen extends Component {
   }
 
   async _fetch() {
+    const { snapshots } = this.props;
     const { currency } = this.props.navigation.state.params;
     const data = await ServiceCurrencies.fetch(currency.symbol);
-    console.log('data', data);
+    snapshots(data, currency.symbol);
   }
 
   render() {
+    const { snapshot = {} } = this.props;
+
     return (
-      <View style={styles.container} />
+      <View style={styles.container}>
+        { Object.keys(snapshot).map(key => <Text key={key}>{`${key}:${snapshot[key]}`}</Text>) }
+      </View>
     );
   }
 }
 
 CurrencyScreen.propTypes = {
   navigation: C.SHAPE.NAVIGATION,
+  snapshot: C.SHAPE.SNAPSHOT,
 };
 
 CurrencyScreen.defaultProps = {
   navigation: {
     navigate() {},
   },
+  snapshot: {},
 };
 
-export default CurrencyScreen;
+
+const mapStateToProps = ({ snapshots = {} }, props) => {
+  const { currency } = props.navigation.state.params;
+
+  return {
+    snapshot: snapshots[currency.symbol],
+  };
+};
+
+const mapDispatchToProps = dispatch => ({
+  snapshots: (currency, symbol) => dispatch(snapshotsAction(currency, symbol)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(CurrencyScreen);

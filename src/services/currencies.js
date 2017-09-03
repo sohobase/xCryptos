@@ -23,7 +23,15 @@ export default {
     return json;
   },
 
-  async fetch(currency) {
+  async fetch(symbol) {
+    const url = `https://www.cryptocompare.com/api/data/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=USD`;
+    const response = await fetch(url); // eslint-disable-line
+    const { Data } = await response.json();
+
+    return { ...Data };
+  },
+
+  async history(currency) {
     const url = `${serviceCoinbin}/${currency}/history`;
     const response = await fetch(url); // eslint-disable-line
     const { history } = await response.json();
