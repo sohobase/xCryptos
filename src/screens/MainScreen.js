@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { Button, FlatList, Image, View } from 'react-native';
-import { init_favorites } from '../actions';
+import { initFavoritesAction, updatePricesAction } from '../actions';
 import { ButtonDrawer, FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
@@ -16,9 +16,9 @@ class Main extends Component {
 
     return {
       drawerLabel: 'Home',
-      drawerIcon: ({ tintColor = 'red' }) => (
-        <Image source={require('../assets/Litecoin.png')} style={{ tintColor }} />
-      ),
+      // drawerIcon: ({ tintColor = 'red' }) => (
+      //   <Image source={require('../assets/Litecoin.png')} style={{ tintColor }} />
+      // ),
       headerLeft: <ButtonDrawer navigation={navigation} />,
       title: 'Cryptos',
       headerRight: <Button color={THEME.CONTRAST} title="Add" onPress={() => navigate('Currencies')} />,
@@ -40,14 +40,17 @@ class Main extends Component {
   async componentWillMount() {
     const { favorites, initFavorites } = this.props;
     if (favorites.length === 0) initFavorites(C.DEFAULT_FAVORITES);
-
-    ServiceCurrencies.prices(favorites.map(fav => fav.symbol));
   }
 
-  async componentWillReceiveProps() {
+  componentWillReceiveProps({ favorites }) {
     this.setState({
-      activeCurrency: this.props.favorites.find(({ active }) => (active)),
+      activeCurrency: favorites.find(({ active }) => (active)),
     });
+  }
+
+  async _fetchPrices() {
+    const { favorites, updatePrices } = this.props;
+    updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
   }
 
   _onChangeValue({ value, decimal }) {
@@ -83,7 +86,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh />}
+          refreshControl={<RefreshCurrencies autoRefresh={false} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />
@@ -97,6 +100,7 @@ Main.propTypes = {
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
   initFavorites: func,
+  updatePrices: func,
 };
 
 Main.defaultProps = {
@@ -105,6 +109,7 @@ Main.defaultProps = {
     navigate() {},
   },
   initFavorites() {},
+  updatePrices() {},
 };
 
 const mapStateToProps = state => ({
@@ -112,7 +117,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initFavorites: favorites => dispatch(init_favorites(favorites)),
+  initFavorites: favorites => dispatch(initFavoritesAction(favorites)),
+  updatePrices: prices => dispatch(updatePricesAction(prices)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

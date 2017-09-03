@@ -5,18 +5,22 @@ const icons = ['Bitcoin', 'Etherium', 'Dash', 'Ripple', 'Litecoin']
 export default {
   DEFAULT_FAVORITES: [{
     active: true,
+    id: 1182,
     name: 'Bitcoin',
-    symbol: 'btc',
+    symbol: 'BTC',
     usd: 0,
   }, {
+    id: 7605,
     name: 'Ethereum',
-    symbol: 'eth',
+    symbol: 'ETH',
     usd: 0,
   }, {
+    id: 3808,
     name: 'Litecoin',
-    symbol: 'ltc',
+    symbol: 'LTC',
     usd: 0,
   }],
+
   STORAGE: {
     CURRENCIES: 'cryptos',
     FAVORITES: 'favorites',

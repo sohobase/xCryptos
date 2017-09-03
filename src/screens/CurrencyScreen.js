@@ -26,8 +26,8 @@ class CurrencyScreen extends Component {
   }
 
   async _fetch() {
-    const { snapshots } = this.props;
-    const { currency } = this.props.navigation.state.params;
+    const { navigation, snapshots } = this.props;
+    const { currency } = navigation.state.params;
     const data = await ServiceCurrencies.fetch(currency.symbol);
     snapshots(data, currency.symbol);
   }

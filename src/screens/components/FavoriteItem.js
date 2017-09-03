@@ -2,7 +2,7 @@ import { bool, func, shape, string, number } from 'prop-types';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { active_favorite } from '../../actions';
+import { activeFavoriteAction } from '../../actions';
 import { C, THEME } from '../../config';
 import styles from './FavoriteItem.style';
 
@@ -74,7 +74,7 @@ FavoriteItem.defaultProps = {
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  activeFavorite: favorite => dispatch(active_favorite(favorite)),
+  activeFavorite: favorite => dispatch(activeFavoriteAction(favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteItem);

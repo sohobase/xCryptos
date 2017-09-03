@@ -5,7 +5,7 @@ import styles from './CurrencyListItem.style';
 
 const CurrencyListItem = (props) => {
   const { currency, favorite, onChange, onPress } = props;
-  const { name, symbol, usd } = currency;
+  const { name, symbol } = currency;
 
   return (
     <TouchableHighlight onPress={onPress}>
@@ -14,7 +14,6 @@ const CurrencyListItem = (props) => {
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
         </View>
-        <Text style={styles.value}>{`$${usd}`}</Text>
         <Switch
           style={styles.switch}
           onValueChange={() => onChange({ currency, favorite })}

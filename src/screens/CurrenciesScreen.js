@@ -4,7 +4,7 @@ import { arrayOf, func } from 'prop-types';
 import { FlatList, View } from 'react-native';
 import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C, STYLE } from '../config';
-import { add_favorite, remove_favorite } from '../actions';
+import { addFavoriteAction, removeFavoriteAction } from '../actions';
 
 const keyExtractor = item => item.rank;
 
@@ -79,8 +79,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addFavorite: favorite => dispatch(add_favorite(favorite)),
-  removeFavorite: favorite => dispatch(remove_favorite(favorite)),
+  addFavorite: favorite => dispatch(addFavoriteAction(favorite)),
+  removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);
