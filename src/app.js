@@ -1,5 +1,6 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import {
+  AboutScreen,
   CurrenciesScreen,
   CurrencyScreen,
   MainScreen,
@@ -24,6 +25,11 @@ const App = DrawerNavigator({
   Settings: {
     screen: StackNavigator({
       Settings: { screen: SettingsScreen, navigationOptions },
+    }),
+  },
+  About: {
+    screen: StackNavigator({
+      About: { screen: AboutScreen, navigationOptions },
     }),
   },
 });
