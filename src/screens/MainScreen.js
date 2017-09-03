@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 import { C } from '../config';
-import { ServiceCurrencies, ServiceFavorites } from '../services';
+import { ServiceCurrencies } from '../services';
 import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
-import { save_favorites } from '../actions';
+import { init_favorites } from '../actions';
 import styles from './MainScreen.style';
 
 const keyExtractor = item => item.symbol;
@@ -35,15 +35,15 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    const favorites = await ServiceFavorites.list();
-    this.props.saveFavorites(favorites);
+    const { favorites, initFavorites } = this.props;
+    if (favorites.length === 0) initFavorites(C.DEFAULT_FAVORITES);
 
     ServiceCurrencies.prices(favorites.map(fav => fav.symbol));
   }
 
   async componentWillReceiveProps() {
     this.setState({
-      activeCurrency: await ServiceFavorites.active(),
+      activeCurrency: this.props.favorites.find(({ active }) => (active)),
     });
   }
 
@@ -93,7 +93,7 @@ class Main extends Component {
 Main.propTypes = {
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
-  saveFavorites: func,
+  initFavorites: func,
 };
 
 Main.defaultProps = {
@@ -101,7 +101,7 @@ Main.defaultProps = {
   navigation: {
     navigate() {},
   },
-  saveFavorites() {},
+  initFavorites() {},
 };
 
 const mapStateToProps = state => ({
@@ -109,7 +109,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveFavorites: favorites => dispatch(save_favorites(favorites)),
+  initFavorites: favorites => dispatch(init_favorites(favorites)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

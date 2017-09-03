@@ -5,8 +5,7 @@ import { Button, FlatList, View } from 'react-native';
 
 import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C } from '../config';
-import { ServiceFavorites } from '../services';
-import { save_favorites } from '../actions';
+import { add_favorite, remove_favorite } from '../actions';
 import styles from './CurrenciesScreen.style';
 
 const keyExtractor = item => item.rank;
@@ -24,7 +23,8 @@ class CurrenciesScreen extends Component {
   }
 
   async _onChangeItem({ currency, favorite }) {
-    this.props.saveFavorites(await ServiceFavorites[favorite ? 'remove' : 'add'](currency));
+    if (favorite) this.props.removeFavorite(currency);
+    else this.props.addFavorite(currency);
   }
 
   _renderItem({ item }) {
@@ -59,19 +59,21 @@ class CurrenciesScreen extends Component {
 }
 
 CurrenciesScreen.propTypes = {
+  addFavorite: func,
   currencies: arrayOf(C.SHAPE.CURRENCY),
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
-  saveFavorites: func,
+  removeFavorite: func,
 };
 
 CurrenciesScreen.defaultProps = {
+  addFavorite() {},
   currencies: [],
   favorites: [],
   navigation: {
     navigate() {},
   },
-  saveFavorites() {},
+  removeFavorite() {},
 };
 
 const mapStateToProps = state => ({
@@ -80,7 +82,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  saveFavorites: favorites => dispatch(save_favorites(favorites)),
+  addFavorite: favorite => dispatch(add_favorite(favorite)),
+  removeFavorite: favorite => dispatch(remove_favorite(favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);

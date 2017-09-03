@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func } from 'prop-types';
 import { RefreshControl } from 'react-native';
-import { save_currencies, save_favorites } from '../../actions';
-import { ServiceCurrencies, ServiceFavorites } from '../../services';
+import { save_currencies, update_favorites } from '../../actions';
+import { ServiceCurrencies } from '../../services';
 import { THEME } from '../../config';
 import styles from './RefreshCurrencies.style';
 
@@ -21,12 +21,12 @@ class RefreshCurrencies extends Component {
   }
 
   async _fetch() {
-    const { saveCurrencies, saveFavorites } = this.props;
+    const { saveCurrencies, updateFavorites } = this.props;
 
     this.setState({ refreshing: true });
     const currencies = await ServiceCurrencies.list();
     saveCurrencies(currencies);
-    saveFavorites(await ServiceFavorites.update(currencies));
+    updateFavorites(currencies);
     this.setState({ refreshing: false });
   }
 
@@ -48,20 +48,20 @@ class RefreshCurrencies extends Component {
 RefreshCurrencies.propTypes = {
   autoRefresh: bool,
   saveCurrencies: func,
-  saveFavorites: func,
+  updateFavorites: func,
 };
 
 RefreshCurrencies.defaultProps = {
   autoRefresh: false,
   saveCurrencies() {},
-  saveFavorites() {},
+  updateFavorites() {},
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
   saveCurrencies: currencies => dispatch(save_currencies(currencies)),
-  saveFavorites: favorites => dispatch(save_favorites(favorites)),
+  updateFavorites: favorites => dispatch(update_favorites(favorites)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(RefreshCurrencies);

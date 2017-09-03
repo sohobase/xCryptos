@@ -2,9 +2,8 @@ import { bool, func, shape, string, number } from 'prop-types';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { save_favorites } from '../../actions';
+import { active_favorite } from '../../actions';
 import { C, THEME } from '../../config';
-import { ServiceFavorites } from '../../services';
 import styles from './FavoriteItem.style';
 
 const { ICON } = C;
@@ -15,9 +14,8 @@ class FavoriteItem extends Component {
     this._onActiveItem = this._onActiveItem.bind(this);
   }
 
-  async _onActiveItem() {
-    await ServiceFavorites.active(this.props.currency);
-    this.props.saveFavorites(await ServiceFavorites.list());
+  _onActiveItem() {
+    this.props.activeFavorite(this.props.currency);
   }
 
   render() {
@@ -48,6 +46,7 @@ class FavoriteItem extends Component {
 }
 
 FavoriteItem.propTypes = {
+  activeFavorite: func,
   conversionUsd: number,
   currency: shape({
     active: bool,
@@ -59,10 +58,10 @@ FavoriteItem.propTypes = {
   decimal: bool,
   onPress: func,
   value: number,
-  saveFavorites: func,
 };
 
 FavoriteItem.defaultProps = {
+  activeFavorite() {},
   conversionUsd: 1,
   currency: {
     active: false,
@@ -70,13 +69,12 @@ FavoriteItem.defaultProps = {
   decimal: false,
   onPress: undefined,
   value: 0,
-  saveFavorites() {},
 };
 
 const mapStateToProps = () => ({});
 
 const mapDispatchToProps = dispatch => ({
-  saveFavorites: favorites => dispatch(save_favorites(favorites)),
+  activeFavorite: favorite => dispatch(active_favorite(favorite)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(FavoriteItem);
