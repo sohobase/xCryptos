@@ -10,26 +10,14 @@ export default StyleSheet.create({
     paddingVertical: 4,
     paddingLeft: 12,
   },
-  icon: {
-    width: 32,
-    height: 32,
-    marginRight: 12,
-  },
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-  },
-  text: {
-    color: 'white',
   },
   currency: {
     flex: 1,
   },
-  small: {
-    opacity: 0.75,
-  },
-  symbol: {
-    fontSize: 24,
-    fontWeight: 'bold',
+  text: {
+    color: THEME.CONTRAST,
   },
   values: {
     paddingHorizontal: 12,
@@ -37,6 +25,7 @@ export default StyleSheet.create({
     alignItems: 'flex-end',
   },
   value: {
+    color: THEME.WHITE,
     fontSize: 20,
   },
 });

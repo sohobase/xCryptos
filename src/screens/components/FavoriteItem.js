@@ -3,7 +3,7 @@ import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { activeFavoriteAction } from '../../actions';
-import { C, THEME } from '../../config';
+import { THEME, STYLE } from '../../config';
 import styles from './FavoriteItem.style';
 
 class FavoriteItem extends Component {
@@ -23,17 +23,17 @@ class FavoriteItem extends Component {
     return (
       <TouchableHighlight onPress={onPress}>
         <View style={[styles.container, (active && styles.active)]}>
-          { image && <Image style={styles.icon} source={{ uri: image }} /> }
+          { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
           <View style={styles.currency}>
-            <Text style={[styles.symbol, styles.text]}>{symbol}</Text>
-            <Text style={[styles.small, styles.text]}>{name}</Text>
+            <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
+            <Text style={styles.text}>{name}</Text>
           </View>
           <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
             <View style={styles.values}>
-              <Text style={[styles.value, styles.text]}>
+              <Text style={styles.value}>
                 { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd).toFixed(4) }
               </Text>
-              <Text style={[styles.small, styles.text]}>{`$${usd}`}</Text>
+              <Text style={styles.text}>{`$${usd}`}</Text>
             </View>
           </TouchableHighlight>
         </View>

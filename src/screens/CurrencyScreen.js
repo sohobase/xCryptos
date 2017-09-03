@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Text, View } from 'react-native';
+import { Image, Text, View } from 'react-native';
 import { C, STYLE } from '../config';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
@@ -33,10 +33,19 @@ class CurrencyScreen extends Component {
   }
 
   render() {
-    const { snapshot = {} } = this.props;
+    const { navigation, snapshot = {} } = this.props;
+    const { image, name, symbol } = navigation.state.params.currency;
 
     return (
       <View style={[STYLE.SCREEN, styles.container]}>
+        <View style={styles.header}>
+          { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
+          <View style={styles.currency}>
+            <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
+            <Text style={styles.text}>{name}</Text>
+          </View>
+          <Text style={styles.price}>{`$${snapshot.price}`}</Text>
+        </View>
         { Object.keys(snapshot).map(key => <Text key={key}>{`${key}:${snapshot[key]}`}</Text>) }
       </View>
     );
@@ -54,7 +63,6 @@ CurrencyScreen.defaultProps = {
   },
   snapshot: {},
 };
-
 
 const mapStateToProps = ({ snapshots = {} }, props) => {
   const { currency } = props.navigation.state.params;
