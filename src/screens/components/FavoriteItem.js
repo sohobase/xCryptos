@@ -34,7 +34,7 @@ class FavoriteItem extends Component {
           <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
             <View style={styles.values}>
               <Text style={[styles.value, styles.text]}>
-                { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd) }
+                { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd).toFixed(4) }
               </Text>
               <Text style={[styles.small, styles.text]}>{`$${usd}`}</Text>
             </View>
