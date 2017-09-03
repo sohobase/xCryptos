@@ -5,6 +5,8 @@ import { ButtonDrawer } from './components';
 import styles from './AboutScreen.style';
 import pkg from '../../package.json';
 
+const IMAGE_BACKGROUND = require('../assets/background.png');
+
 class AboutScreen extends Component {
   static navigationOptions({ navigation }) {
     return {
@@ -16,7 +18,7 @@ class AboutScreen extends Component {
 
   render() {
     return (
-      <Image style={[STYLE.SCREEN, styles.container]} source={require('../assets/background.png')}>
+      <Image style={[STYLE.SCREEN, styles.container]} source={IMAGE_BACKGROUND}>
         <View style={styles.info}>
           <Text style={[styles.text, styles.name]}>{pkg.name}</Text>
           <Text style={[styles.text, styles.version]}>v{pkg.version}</Text>

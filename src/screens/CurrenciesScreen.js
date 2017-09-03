@@ -1,19 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { Button, FlatList, View } from 'react-native';
-
+import { FlatList, View } from 'react-native';
 import { CurrencyListItem, RefreshCurrencies } from './components';
 import { C, STYLE } from '../config';
 import { add_favorite, remove_favorite } from '../actions';
-import styles from './CurrenciesScreen.style';
 
 const keyExtractor = item => item.rank;
 
 class CurrenciesScreen extends Component {
   static navigationOptions = {
     title: 'Currencies',
-    // headerRight: <Button title="Search" />,
   };
 
   constructor(props) {
