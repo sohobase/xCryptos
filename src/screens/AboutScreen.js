@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Button, Text, View } from 'react-native';
+import { Button, Image, Text, View } from 'react-native';
 import styles from './AboutScreen.style';
 import pkg from '../../package.json';
 
@@ -16,13 +16,13 @@ class AboutScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <Image style={styles.container} source={require('../assets/background.png')}>
         <View style={styles.info}>
           <Text style={[styles.text, styles.name]}>{pkg.name}</Text>
           <Text style={[styles.text, styles.version]}>v{pkg.version}</Text>
         </View>
         <Text style={[styles.text, styles.authors]}>Created by Javi Jimenez & Mikel in Chiang Mai, Thailand</Text>
-      </View>
+      </Image>
     );
   }
 }

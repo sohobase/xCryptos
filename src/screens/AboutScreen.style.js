@@ -4,7 +4,10 @@ import { THEME } from '../config';
 export default StyleSheet.create({
   container: {
     flex: 1,
+    width: null,
+    height: null,
     backgroundColor: THEME.PRIMARY,
+    resizeMode: 'repeat',
     alignItems: 'center',
   },
   info: {
@@ -14,6 +17,7 @@ export default StyleSheet.create({
   },
   text: {
     color: THEME.WHITE,
+    backgroundColor: 'transparent',
   },
   name: {
     marginTop: THEME.FONT_SIZE_LARGE * -2,
