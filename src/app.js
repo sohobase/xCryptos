@@ -3,15 +3,22 @@ import {
   AboutScreen,
   CurrenciesScreen,
   CurrencyScreen,
+  Drawer,
   MainScreen,
   SettingsScreen,
 } from './screens';
+import { THEME } from './config';
 import styles from './app.style';
 
 const navigationOptions = {
   headerBackTitle: ' ',
   headerStyle: styles.header,
-  headerTintColor: 'white',
+  headerTintColor: THEME.WHITE,
+};
+
+const drawerOptions = {
+  initialRouteName: 'Main',
+  contentComponent: Drawer,
 };
 
 const App = DrawerNavigator({
@@ -32,6 +39,6 @@ const App = DrawerNavigator({
       About: { screen: AboutScreen, navigationOptions },
     }),
   },
-});
+}, drawerOptions);
 
 export default App;
