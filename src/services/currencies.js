@@ -2,14 +2,24 @@ const COINBIN = 'https://coinbin.org';
 const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
 const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
 
+const DEFAULT_CURRENCY = 'USD';
+
 export default {
   async list() {
-    const response = await fetch(`${COINBIN}/coins`); // eslint-disable-line
-    const { coins } = await response.json();
-    let dataSource = [];
+    const response = await fetch(`${CRYPTOCOMPARE}/coinlist`); // eslint-disable-line
+    const json = await response.json();
+    const { BaseImageUrl, Data } = json;
 
-    Object.keys(coins).forEach((coin) => {
-      dataSource.push(Object.assign(coins[coin], { symbol: coin }));
+    let dataSource = Object.keys(Data).map((key) => {
+      const { Id, ImageUrl, Name, CoinName, SortOrder } = Data[key];
+
+      return {
+        id: Id,
+        image: `${BaseImageUrl}${ImageUrl}`,
+        name: CoinName,
+        symbol: Name,
+        rank: parseInt(SortOrder, 0),
+      };
     });
     dataSource = dataSource.sort((a, b) => a.rank - b.rank);
 
@@ -17,15 +27,20 @@ export default {
   },
 
   async prices(currencies = []) {
-    const url = `${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',').toUpperCase()}&tsyms=USD`;
+    const url = `${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${DEFAULT_CURRENCY}`;
     const response = await fetch(url); // eslint-disable-line
     const json = await response.json();
 
-    return json;
+    const dataSource = {};
+    Object.keys(json).forEach((key) => {
+      dataSource[key] = json[key][DEFAULT_CURRENCY];
+    });
+
+    return dataSource;
   },
 
   async fetch(symbol) {
-    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=USD`;
+    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${DEFAULT_CURRENCY}`;
     const response = await fetch(url); // eslint-disable-line
     const { Data } = await response.json();
     const { AggregatedData = {}, Exchanges = [] } = Data;
