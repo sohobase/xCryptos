@@ -1,9 +1,10 @@
-const serviceCoinbin = 'https://coinbin.org';
-const serviceCryptocompare = 'https://min-api.cryptocompare.com/data';
+const COINBIN = 'https://coinbin.org';
+const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
+const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
 
 export default {
   async list() {
-    const response = await fetch(`${serviceCoinbin}/coins`); // eslint-disable-line
+    const response = await fetch(`${COINBIN}/coins`); // eslint-disable-line
     const { coins } = await response.json();
     let dataSource = [];
 
@@ -16,7 +17,7 @@ export default {
   },
 
   async prices(currencies = []) {
-    const url = `${serviceCryptocompare}/pricemulti?fsyms=${currencies.join(',').toUpperCase()}&tsyms=USD`;
+    const url = `${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',').toUpperCase()}&tsyms=USD`;
     const response = await fetch(url); // eslint-disable-line
     const json = await response.json();
 
@@ -24,23 +25,28 @@ export default {
   },
 
   async fetch(symbol) {
-    const url = `https://www.cryptocompare.com/api/data/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=USD`;
+    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=USD`;
     const response = await fetch(url); // eslint-disable-line
     const { Data } = await response.json();
+    const { AggregatedData = {}, Exchanges = [] } = Data;
 
-    return { ...Data };
+    return {
+      price: AggregatedData.PRICE,
+      lastUpdate: AggregatedData.LASTUPDATE,
+      lastVolume: AggregatedData.LASTVOLUMETO,
+      volume: AggregatedData.VOLUME24HOURTO,
+      open: AggregatedData.OPEN24HOUR,
+      high: AggregatedData.HIGH24HOUR,
+      low: AggregatedData.LOW24HOUR,
+      exchanges: Exchanges,
+    };
   },
 
   async history(currency) {
-    const url = `${serviceCoinbin}/${currency}/history`;
+    const url = `${COINBIN}/${currency}/history`;
     const response = await fetch(url); // eslint-disable-line
     const { history } = await response.json();
 
     return { history };
   },
-
-  forecast(currency) {
-
-  }
-
 };
