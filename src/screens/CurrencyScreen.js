@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Button, Text, View } from 'react-native';
-import { C } from '../config';
+import { Text, View } from 'react-native';
+import { C, STYLE } from '../config';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -11,7 +11,6 @@ class CurrencyScreen extends Component {
     const { currency = {} } = navigation.state.params;
     return {
       title: currency.name,
-      // headerRight: <Button title="Alerts" />,
     };
   }
 
@@ -37,7 +36,7 @@ class CurrencyScreen extends Component {
     const { snapshot = {} } = this.props;
 
     return (
-      <View style={styles.container}>
+      <View style={[STYLE.SCREEN, styles.container]}>
         { Object.keys(snapshot).map(key => <Text key={key}>{`${key}:${snapshot[key]}`}</Text>) }
       </View>
     );

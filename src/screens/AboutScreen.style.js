@@ -3,7 +3,6 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
     width: null,
     height: null,
     backgroundColor: THEME.PRIMARY,

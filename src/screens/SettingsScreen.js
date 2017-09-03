@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
-import { Button, View } from 'react-native';
+import { View } from 'react-native';
+import { STYLE } from '../config';
+import { ButtonDrawer } from './components';
 import styles from './SettingsScreen.style';
 
 class SettingsScreen extends Component {
   static navigationOptions({ navigation }) {
-    const { navigate } = navigation;
-
     return {
       drawerLabel: 'Settings',
-      headerLeft: <Button title="menu" onPress={() => navigate('DrawerOpen')} />,
+      headerLeft: <ButtonDrawer navigation={navigation} />,
       title: 'Settings',
     };
   }
@@ -22,7 +22,7 @@ class SettingsScreen extends Component {
 
   render() {
     return (
-      <View style={styles.container} />
+      <View style={STYLE.SCREEN} />
     );
   }
 }

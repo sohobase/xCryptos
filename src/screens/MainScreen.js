@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { Button, FlatList, View } from 'react-native';
-import { C } from '../config';
-import { ServiceCurrencies } from '../services';
-import { FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
+import { Button, FlatList, Image, View } from 'react-native';
 import { init_favorites } from '../actions';
+import { ButtonDrawer, FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
+import { C, STYLE, THEME } from '../config';
+import { ServiceCurrencies } from '../services';
 import styles from './MainScreen.style';
 
 const keyExtractor = item => item.symbol;
@@ -16,9 +16,12 @@ class Main extends Component {
 
     return {
       drawerLabel: 'Home',
-      headerLeft: <Button title="menu" onPress={() => navigate('DrawerOpen')} />,
+      drawerIcon: ({ tintColor = 'red' }) => (
+        <Image source={require('../assets/Litecoin.png')} style={{ tintColor }} />
+      ),
+      headerLeft: <ButtonDrawer navigation={navigation} />,
       title: 'Cryptos',
-      headerRight: <Button title="Add" onPress={() => navigate('Currencies')} />,
+      headerRight: <Button color={THEME.CONTRAST} title="Add" onPress={() => navigate('Currencies')} />,
     };
   }
 
@@ -75,12 +78,12 @@ class Main extends Component {
     const { decimal, value } = this.state;
 
     return (
-      <View style={styles.container}>
+      <View style={STYLE.SCREEN}>
         <FlatList
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh={false} />}
+          refreshControl={<RefreshCurrencies autoRefresh />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />

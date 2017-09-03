@@ -4,7 +4,7 @@ import { arrayOf, func } from 'prop-types';
 import { Button, FlatList, View } from 'react-native';
 
 import { CurrencyListItem, RefreshCurrencies } from './components';
-import { C } from '../config';
+import { C, STYLE } from '../config';
 import { add_favorite, remove_favorite } from '../actions';
 import styles from './CurrenciesScreen.style';
 
@@ -45,7 +45,7 @@ class CurrenciesScreen extends Component {
     const { _renderItem } = this;
 
     return (
-      <View style={styles.container}>
+      <View style={STYLE.SCREEN}>
         <FlatList
           data={currencies}
           keyExtractor={keyExtractor}

@@ -5,6 +5,7 @@ export default {
   PRIMARY: '#673ab7',
   ACCENT: 'blue',
   WHITE: 'white',
+  CONTRAST: 'white',
 
   TRANSPARENT: 'transparent',
   BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.1)',
