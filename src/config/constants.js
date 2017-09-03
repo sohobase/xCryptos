@@ -46,12 +46,4 @@ export default {
       PRICE: number,
     }),
   },
-  ICON: {
-    Bitcoin: require('../assets/Bitcoin.png'),
-    Ethereum: require('../assets/Ethereum.png'),
-    Litecoin: require('../assets/Litecoin.png'),
-    Ripple: require('../assets/Ripple.png'),
-    Monero: require('../assets/Monero.png'),
-    Dash: require('../assets/Dash.png'),
-  },
 };

@@ -6,8 +6,6 @@ import { activeFavoriteAction } from '../../actions';
 import { C, THEME } from '../../config';
 import styles from './FavoriteItem.style';
 
-const { ICON } = C;
-
 class FavoriteItem extends Component {
   constructor(props) {
     super(props);
@@ -20,15 +18,14 @@ class FavoriteItem extends Component {
 
   render() {
     const { conversionUsd, currency, decimal, onPress, value } = this.props;
-    const { active, name, symbol = '', usd } = currency;
-    const iconCurrency = ICON[name];
+    const { active, name, image, symbol, usd } = currency;
 
     return (
       <TouchableHighlight onPress={onPress}>
         <View style={[styles.container, (active && styles.active)]}>
-          { iconCurrency && <Image style={styles.icon} source={iconCurrency} /> }
+          { image && <Image style={styles.icon} source={{ uri: image }} /> }
           <View style={styles.currency}>
-            <Text style={[styles.symbol, styles.text]}>{symbol.toUpperCase()}</Text>
+            <Text style={[styles.symbol, styles.text]}>{symbol}</Text>
             <Text style={[styles.small, styles.text]}>{name}</Text>
           </View>
           <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
