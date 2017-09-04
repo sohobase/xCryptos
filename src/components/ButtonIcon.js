@@ -1,14 +1,14 @@
 import { func, string } from 'prop-types';
 import React from 'react';
-import { Image, TouchableHighlight } from 'react-native';
+import { Image, TouchableOpacity } from 'react-native';
 import { C } from '../config';
-import styles from './ButtonIcon.style';
+import style from './ButtonIcon.style';
 
 const ButtonIcon = ({ icon, onPress }) => {
   return (
-    <TouchableHighlight onPress={onPress}>
-      <Image style={styles.container} source={C.ICON[icon]} />
-    </TouchableHighlight>
+    <TouchableOpacity onPress={onPress}>
+      <Image style={style.icon} source={C.ICON[icon]} />
+    </TouchableOpacity>
   );
 };
 
@@ -23,5 +23,3 @@ ButtonIcon.defaultProps = {
 };
 
 export default ButtonIcon;
-
-// <TouchableHighlight onPress={() => navigation.navigate('DrawerOpen')}>
