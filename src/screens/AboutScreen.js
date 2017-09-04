@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Image, Text, View } from 'react-native';
 import { STYLE } from '../config';
-import { ButtonDrawer } from './components';
+import { ButtonIcon } from '../components';
 import styles from './AboutScreen.style';
 import pkg from '../../package.json';
 
@@ -9,9 +9,10 @@ const IMAGE_BACKGROUND = require('../assets/background.png');
 
 class AboutScreen extends Component {
   static navigationOptions({ navigation }) {
+    const { navigate } = navigation;
     return {
       drawerLabel: 'About',
-      headerLeft: <ButtonDrawer navigation={navigation} />,
+      headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'About',
     };
   }

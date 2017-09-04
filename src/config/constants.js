@@ -1,7 +1,5 @@
 import { bool, func, shape, string, number } from 'prop-types';
 
-const icons = ['Bitcoin', 'Etherium', 'Dash', 'Ripple', 'Litecoin']
-
 export default {
   DEFAULT_FAVORITES: [{
     active: true,
@@ -45,5 +43,10 @@ export default {
     SNAPSHOT: shape({
       PRICE: number,
     }),
+  },
+  ICON: {
+    add: require('../assets/icon-add.png'),
+    alert: require('../assets/icon-alert.png'),
+    menu: require('../assets/icon-menu.png'),
   },
 };

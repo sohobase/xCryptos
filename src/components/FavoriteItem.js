@@ -2,8 +2,8 @@ import { bool, func, shape, string, number } from 'prop-types';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { activeFavoriteAction } from '../../actions';
-import { THEME, STYLE } from '../../config';
+import { activeFavoriteAction } from '../actions';
+import { THEME, STYLE } from '../config';
 import styles from './FavoriteItem.style';
 
 class FavoriteItem extends Component {

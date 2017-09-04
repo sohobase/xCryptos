@@ -2,15 +2,19 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, Text, View } from 'react-native';
 import { C, STYLE } from '../config';
+import { ButtonIcon } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation }) {
-    const { currency = {} } = navigation.state.params;
+    const { navigate, state } = navigation;
+    const { currency = {} } = state.params;
+
     return {
       title: currency.name,
+      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Currencies')} />,
     };
   }
 

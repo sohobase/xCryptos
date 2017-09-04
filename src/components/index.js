@@ -1,11 +1,11 @@
-import ButtonDrawer from './ButtonDrawer';
+import ButtonIcon from './ButtonIcon';
 import CurrencyListItem from './CurrencyListItem';
 import FavoriteItem from './FavoriteItem';
 import RefreshCurrencies from './RefreshCurrencies';
 import VirtualKeyboard from './VirtualKeyboard';
 
 export {
-  ButtonDrawer,
+  ButtonIcon,
   CurrencyListItem,
   FavoriteItem,
   RefreshCurrencies,

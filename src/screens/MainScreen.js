@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { Button, FlatList, Image, View } from 'react-native';
+import { Button, FlatList, View } from 'react-native';
 import { initFavoritesAction, updatePricesAction } from '../actions';
-import { ButtonDrawer, FavoriteItem, RefreshCurrencies, VirtualKeyboard } from './components';
+import { ButtonIcon, FavoriteItem, RefreshCurrencies, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
 import styles from './MainScreen.style';
@@ -13,15 +13,14 @@ const keyExtractor = item => item.symbol;
 class Main extends Component {
   static navigationOptions({ navigation }) {
     const { navigate } = navigation;
-
     return {
       drawerLabel: 'Home',
       // drawerIcon: ({ tintColor = 'red' }) => (
-      //   <Image source={require('../assets/Litecoin.png')} style={{ tintColor }} />
+      //   <Image source={require('../assets/icon-menu.png')} style={{ tintColor }} />
       // ),
-      headerLeft: <ButtonDrawer navigation={navigation} />,
+      headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'Cryptos',
-      headerRight: <Button color={THEME.CONTRAST} title="Add" onPress={() => navigate('Currencies')} />,
+      headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,
     };
   }
 

@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bool, func } from 'prop-types';
 import { RefreshControl } from 'react-native';
-import { saveCurrenciesAction } from '../../actions';
-import { ServiceCurrencies } from '../../services';
-import { THEME } from '../../config';
+import { saveCurrenciesAction } from '../actions';
+import { ServiceCurrencies } from '../services';
+import { THEME } from '../config';
 import styles from './RefreshCurrencies.style';
 
 class RefreshCurrencies extends Component {

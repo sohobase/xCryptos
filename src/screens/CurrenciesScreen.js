@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, View } from 'react-native';
-import { CurrencyListItem, RefreshCurrencies } from './components';
+import { CurrencyListItem, RefreshCurrencies } from '../components';
 import { C, STYLE } from '../config';
 import { addFavoriteAction, removeFavoriteAction } from '../actions';
 
