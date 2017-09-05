@@ -1,5 +1,5 @@
 import { bool, func, shape, string, number } from 'prop-types';
-import { Image, Text, TouchableHighlight, View } from 'react-native';
+import { Image, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
@@ -29,7 +29,7 @@ class FavoriteItem extends Component {
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
             <Text style={styles.text}>{name}</Text>
           </View>
-          <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
+          <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
             <View style={styles.values}>
               <View style={STYLE.ROW}>
                 <Text style={styles.value}>
@@ -40,7 +40,7 @@ class FavoriteItem extends Component {
               </View>
               <Text style={styles.text}>{`$${usd}`}</Text>
             </View>
-          </TouchableHighlight>
+          </TouchableWithoutFeedback>
         </View>
       </TouchableHighlight>
     );

@@ -20,6 +20,7 @@ export default StyleSheet.create({
     color: THEME.CONTRAST,
   },
   values: {
+    flex: 1,
     paddingHorizontal: 12,
     paddingVertical: 8,
     alignItems: 'flex-end',
