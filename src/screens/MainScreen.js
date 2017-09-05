@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { Button, FlatList, View } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { initFavoritesAction, updatePricesAction } from '../actions';
-import { ButtonIcon, FavoriteItem, RefreshCurrencies, VirtualKeyboard } from '../components';
+import { ButtonIcon, FavoriteItem, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
 import styles from './MainScreen.style';
@@ -34,11 +34,13 @@ class Main extends Component {
     };
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
+    this._fetch = this._fetch.bind(this);
   }
 
   async componentWillMount() {
     const { favorites, initFavorites } = this.props;
     if (favorites.length === 0) initFavorites(C.DEFAULT_FAVORITES);
+    // this._fetch();
   }
 
   componentWillReceiveProps({ favorites }) {
@@ -47,9 +49,11 @@ class Main extends Component {
     });
   }
 
-  async _fetchPrices() {
+  async _fetch() {
     const { favorites, updatePrices } = this.props;
+    this.setState({ refreshing: true });
     updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
+    this.setState({ refreshing: false });
   }
 
   _onChangeValue({ value, decimal }) {
@@ -76,8 +80,9 @@ class Main extends Component {
   }
 
   render() {
+    const { _fetch } = this;
     const { favorites } = this.props;
-    const { decimal, value } = this.state;
+    const { decimal, refreshing, value } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -85,7 +90,7 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshCurrencies autoRefresh={false} />}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />

@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { FlatList, View } from 'react-native';
-import { CurrencyListItem, RefreshCurrencies } from '../components';
-import { C, STYLE } from '../config';
-import { addFavoriteAction, removeFavoriteAction } from '../actions';
+import { FlatList, RefreshControl, View } from 'react-native';
+import { addFavoriteAction, removeFavoriteAction, saveCurrenciesAction } from '../actions';
+import { CurrencyListItem } from '../components';
+import { C, STYLE, THEME } from '../config';
+import { ServiceCurrencies } from '../services';
 
 const keyExtractor = item => item.rank;
 
@@ -15,13 +16,25 @@ class CurrenciesScreen extends Component {
 
   constructor(props) {
     super(props);
+    this.state = {
+      refreshing: false,
+    };
     this._onChangeItem = this._onChangeItem.bind(this);
     this._renderItem = this._renderItem.bind(this);
+    this._fetch = this._fetch.bind(this);
   }
 
   async _onChangeItem({ currency, favorite }) {
     if (favorite) this.props.removeFavorite(currency);
     else this.props.addFavorite(currency);
+  }
+
+  async _fetch() {
+    const { saveCurrencies } = this.props;
+
+    this.setState({ refreshing: true });
+    saveCurrencies(await ServiceCurrencies.list());
+    this.setState({ refreshing: false });
   }
 
   _renderItem({ item }) {
@@ -38,8 +51,9 @@ class CurrenciesScreen extends Component {
   }
 
   render() {
+    const { _fetch, _renderItem } = this;
     const { currencies, favorites } = this.props;
-    const { _renderItem } = this;
+    const { refreshing } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -47,7 +61,7 @@ class CurrenciesScreen extends Component {
           data={currencies}
           keyExtractor={keyExtractor}
           extraData={favorites}
-          refreshControl={<RefreshCurrencies />}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={_renderItem}
         />
       </View>
@@ -61,6 +75,7 @@ CurrenciesScreen.propTypes = {
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
   removeFavorite: func,
+  saveCurrencies: func,
 };
 
 CurrenciesScreen.defaultProps = {
@@ -71,6 +86,7 @@ CurrenciesScreen.defaultProps = {
     navigate() {},
   },
   removeFavorite() {},
+  saveCurrencies() {},
 };
 
 const mapStateToProps = state => ({
@@ -81,6 +97,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addFavorite: favorite => dispatch(addFavoriteAction(favorite)),
   removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
+  saveCurrencies: currencies => dispatch(saveCurrenciesAction(currencies)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);
