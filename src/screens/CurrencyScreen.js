@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
-import { ButtonIcon } from '../components';
+import { ButtonIcon, Chart } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -64,7 +64,10 @@ class CurrencyScreen extends Component {
           </View>
           <Text style={[styles.highlight, styles.currentPrice]}>{`$${price || usd}`}</Text>
         </View>
-        <View style={[styles.section, STYLE.ROW]}>
+
+        <Chart style={styles.chart} />
+
+        <View style={[STYLE.ROW, styles.section]}>
           <View style={styles.left}>
             <Text style={styles.label}>low</Text>
             <Text style={[STYLE.FONT_STRONG, styles.highlight]}>${low}</Text>

@@ -39,5 +39,9 @@ export default StyleSheet.create({
 
   right: {
     textAlign: 'right',
-  }
+  },
+
+  chart: {
+    height: THEME.UNIT * 12.8,
+  },
 });

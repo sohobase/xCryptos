@@ -5,10 +5,6 @@ export default StyleSheet.create({
   SCREEN: {
     flex: 1,
   },
-  BUTTON: {
-    color: THEME.WHITE,
-    backgroundColor: 'red',
-  },
   ROW: {
     display: 'flex',
     flexDirection: 'row',
