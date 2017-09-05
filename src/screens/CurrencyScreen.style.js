@@ -4,24 +4,46 @@ import { THEME } from '../config';
 export default StyleSheet.create({
   container: {
     backgroundColor: THEME.PRIMARY,
+    padding: THEME.OFFSET,
   },
 
-  header: {
+  section: {
+    marginBottom: THEME.OFFSET,
+  },
+
+  row: {
+    display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    padding: THEME.OFFSET,
   },
 
   currency: {
     flex: 1,
   },
 
-  price: {
-    fontSize: THEME.UNIT * 2,
+  title: {
+    fontSize: THEME.FONT_SIZE_NORMAL,
     color: THEME.WHITE,
   },
 
-  text: {
+  currentPrice: {
+    fontSize: THEME.FONT_SIZE_LARGE,
+  },
+
+  highlight: {
+    color: THEME.WHITE,
+    fontWeight: 'bold',
+  },
+
+  label: {
     color: THEME.CONTRAST,
   },
+
+  left: {
+    flex: 1,
+  },
+
+  right: {
+    textAlign: 'right',
+  }
 });

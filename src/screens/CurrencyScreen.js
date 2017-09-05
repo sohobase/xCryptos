@@ -45,7 +45,10 @@ class CurrencyScreen extends Component {
 
   render() {
     const { _fetch } = this;
-    const { currency: { image, name, symbol, usd }, snapshot = {} } = this.props;
+    const {
+      currency: { image, name, symbol, usd },
+      snapshot: { exchanges = [], high, low, price },
+    } = this.props;
     const { refreshing } = this.state;
 
     return (
@@ -53,15 +56,38 @@ class CurrencyScreen extends Component {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
         style={[STYLE.SCREEN, styles.container]}
       >
-        <View style={styles.header}>
+        <View style={[styles.section, styles.row]}>
           { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
           <View style={styles.currency}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
-            <Text style={styles.text}>{name}</Text>
+            <Text style={styles.label}>{name}</Text>
           </View>
-          <Text style={styles.price}>{`$${snapshot.price || usd}`}</Text>
+          <Text style={[styles.highlight, styles.currentPrice]}>{`$${price || usd}`}</Text>
         </View>
-        { Object.keys(snapshot).map(key => <Text key={key}>{`${key}:${snapshot[key]}`}</Text>) }
+        <View style={[styles.section, styles.row]}>
+          <View style={styles.left}>
+            <Text style={styles.label}>low</Text>
+            <Text style={[STYLE.FONT_STRONG, styles.highlight]}>${low}</Text>
+          </View>
+          <View>
+            <Text style={[styles.label, styles.right]}>high</Text>
+            <Text style={[STYLE.FONT_STRONG, styles.highlight, styles.right]}>${high}</Text>
+          </View>
+        </View>
+
+        <View style={styles.section}>
+          <Text style={[styles.title, styles.highlight]}>Exchanges</Text>
+          {
+            exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
+              return (
+                <View key={MARKET} style={styles.row}>
+                  <Text style={[styles.label, styles.left]}>{MARKET}</Text>
+                  <Text style={styles.highlight}>${parseFloat(PRICE).toFixed(2)}</Text>
+                </View>
+              );
+            })
+          }
+        </View>
       </ScrollView>
     );
   }
