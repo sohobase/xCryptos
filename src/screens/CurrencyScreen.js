@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Text, View } from 'react-native';
-import { C, STYLE } from '../config';
+import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { C, STYLE, THEME } from '../config';
 import { ButtonIcon } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
@@ -10,7 +10,7 @@ import styles from './CurrencyScreen.style';
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation }) {
     const { navigate, state } = navigation;
-    const { currency = {} } = state.params;
+    const { currency = {} } = state.params || {};
 
     return {
       title: currency.name,
@@ -23,45 +23,58 @@ class CurrencyScreen extends Component {
     this.state = {
       refreshing: false,
     };
+    this._fetch = this._fetch.bind(this);
   }
 
   componentDidMount() {
-    this._fetch();
+    const { snapshot } = this.props;
+    if (Object.values(snapshot).length === 0) {
+      this._fetch();
+    }
   }
 
   async _fetch() {
     const { navigation, snapshots } = this.props;
-    const { currency } = navigation.state.params;
+    const { currency = {} } = navigation.state.params;
+
+    this.setState({ refreshing: true });
     const data = await ServiceCurrencies.fetch(currency.symbol);
     snapshots(data, currency.symbol);
+    this.setState({ refreshing: false });
   }
 
   render() {
-    const { navigation, snapshot = {} } = this.props;
-    const { image, name, symbol } = navigation.state.params.currency;
+    const { _fetch } = this;
+    const { currency: { image, name, symbol, usd }, snapshot = {} } = this.props;
+    const { refreshing } = this.state;
 
     return (
-      <View style={[STYLE.SCREEN, styles.container]}>
+      <ScrollView
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+        style={[STYLE.SCREEN, styles.container]}
+      >
         <View style={styles.header}>
           { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
           <View style={styles.currency}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
             <Text style={styles.text}>{name}</Text>
           </View>
-          <Text style={styles.price}>{`$${snapshot.price}`}</Text>
+          <Text style={styles.price}>{`$${snapshot.price || usd}`}</Text>
         </View>
         { Object.keys(snapshot).map(key => <Text key={key}>{`${key}:${snapshot[key]}`}</Text>) }
-      </View>
+      </ScrollView>
     );
   }
 }
 
 CurrencyScreen.propTypes = {
+  currency: C.SHAPE.CURRENCY,
   navigation: C.SHAPE.NAVIGATION,
   snapshot: C.SHAPE.SNAPSHOT,
 };
 
 CurrencyScreen.defaultProps = {
+  currency: {},
   navigation: {
     navigate() {},
   },
@@ -69,11 +82,10 @@ CurrencyScreen.defaultProps = {
 };
 
 const mapStateToProps = ({ snapshots = {} }, props) => {
-  const { currency } = props.navigation.state.params;
+  const { currency = {} } = props.navigation.state.params;
+  const snapshot = snapshots[currency.symbol] || {};
 
-  return {
-    snapshot: snapshots[currency.symbol],
-  };
+  return { currency, snapshot };
 };
 
 const mapDispatchToProps = dispatch => ({
