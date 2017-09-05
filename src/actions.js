@@ -15,10 +15,6 @@ export const activeFavoriteAction = favorite => ({
   favorite,
 });
 export const INIT_FAVORITES = '@Crypto/INIT_FAVORITES';
-export const initFavoritesAction = favorites => ({
-  type: INIT_FAVORITES,
-  favorites,
-});
 export const REMOVE_FAVORITE = '@Crypto/REMOVE_FAVORITE';
 export const removeFavoriteAction = favorite => ({
   type: REMOVE_FAVORITE,

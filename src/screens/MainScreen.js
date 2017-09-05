@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, RefreshControl, View } from 'react-native';
-import { initFavoritesAction, updatePricesAction } from '../actions';
+import { updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
@@ -38,9 +38,7 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    const { favorites, initFavorites } = this.props;
-    if (favorites.length === 0) initFavorites(C.DEFAULT_FAVORITES);
-    // this._fetch();
+    this._fetch();
   }
 
   componentWillReceiveProps({ favorites }) {
@@ -51,6 +49,7 @@ class Main extends Component {
 
   async _fetch() {
     const { favorites, updatePrices } = this.props;
+
     this.setState({ refreshing: true });
     updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
     this.setState({ refreshing: false });
@@ -103,16 +102,14 @@ class Main extends Component {
 Main.propTypes = {
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
-  initFavorites: func,
   updatePrices: func,
 };
 
 Main.defaultProps = {
-  favorites: [],
+  favorites: C.DEFAULT_FAVORITES,
   navigation: {
     navigate() {},
   },
-  initFavorites() {},
   updatePrices() {},
 };
 
@@ -121,7 +118,6 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  initFavorites: favorites => dispatch(initFavoritesAction(favorites)),
   updatePrices: prices => dispatch(updatePricesAction(prices)),
 });
 

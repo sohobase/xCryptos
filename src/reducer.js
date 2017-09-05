@@ -1,8 +1,9 @@
-import { ACTIVE_FAVORITE, ADD_FAVORITE, INIT_FAVORITES, REMOVE_FAVORITE, SAVE_CURRENCIES, SNAPSHOTS, UPDATE_PRICES } from './actions';
+import { ACTIVE_FAVORITE, ADD_FAVORITE, REMOVE_FAVORITE, SAVE_CURRENCIES, SNAPSHOTS, UPDATE_PRICES } from './actions';
+import { C } from './config';
 
 const initialState = {
   currencies: [],
-  favorites: [],
+  favorites: C.DEFAULT_FAVORITES,
   snapshots: {},
 };
 
@@ -21,8 +22,6 @@ export default function crypto(state = initialState, action) {
     }
     case ADD_FAVORITE:
       return { ...state, favorites: [...state.favorites, action.favorite] };
-    case INIT_FAVORITES:
-      return { ...state, favorites: action.favorites };
     case REMOVE_FAVORITE: {
       const { favorites } = state;
       const { favorite } = action;
