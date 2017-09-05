@@ -1,5 +1,6 @@
 import { bool, func, shape, string, number } from 'prop-types';
 import { Image, Text, TouchableHighlight, View } from 'react-native';
+import { View as Animatable } from 'react-native-animatable';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { activeFavoriteAction } from '../actions';
@@ -30,9 +31,13 @@ class FavoriteItem extends Component {
           </View>
           <TouchableHighlight underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
             <View style={styles.values}>
-              <Text style={styles.value}>
-                { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd).toFixed(4) }
-              </Text>
+              <View style={STYLE.ROW}>
+                <Text style={styles.value}>
+                  { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd).toFixed(4) }
+                </Text>
+                { active &&
+                  <Animatable animation="fadeIn" duration={500} iterationCount="infinite" style={styles.blink} /> }
+              </View>
               <Text style={styles.text}>{`$${usd}`}</Text>
             </View>
           </TouchableHighlight>
@@ -62,6 +67,7 @@ FavoriteItem.defaultProps = {
   conversionUsd: 1,
   currency: {
     active: false,
+    usd: 0,
   },
   decimal: false,
   onPress: undefined,

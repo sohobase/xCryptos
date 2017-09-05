@@ -28,4 +28,10 @@ export default StyleSheet.create({
     color: THEME.WHITE,
     fontSize: 20,
   },
+  blink: {
+    width: THEME.UNIT * 0.2,
+    height: '100%',
+    marginLeft: THEME.UNIT * 0.3,
+    backgroundColor: THEME.CONTRAST,
+  },
 });

@@ -56,7 +56,7 @@ class CurrencyScreen extends Component {
         refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
         style={[STYLE.SCREEN, styles.container]}
       >
-        <View style={[styles.section, styles.row]}>
+        <View style={[styles.section, STYLE.ROW]}>
           { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
           <View style={styles.currency}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
@@ -64,7 +64,7 @@ class CurrencyScreen extends Component {
           </View>
           <Text style={[styles.highlight, styles.currentPrice]}>{`$${price || usd}`}</Text>
         </View>
-        <View style={[styles.section, styles.row]}>
+        <View style={[styles.section, STYLE.ROW]}>
           <View style={styles.left}>
             <Text style={styles.label}>low</Text>
             <Text style={[STYLE.FONT_STRONG, styles.highlight]}>${low}</Text>
@@ -80,7 +80,7 @@ class CurrencyScreen extends Component {
           {
             exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
               return (
-                <View key={MARKET} style={styles.row}>
+                <View key={MARKET} style={STYLE.ROW}>
                   <Text style={[styles.label, styles.left]}>{MARKET}</Text>
                   <Text style={styles.highlight}>${parseFloat(PRICE).toFixed(2)}</Text>
                 </View>

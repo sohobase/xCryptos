@@ -11,12 +11,6 @@ export default StyleSheet.create({
     marginBottom: THEME.OFFSET,
   },
 
-  row: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
   currency: {
     flex: 1,
   },

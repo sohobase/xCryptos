@@ -9,6 +9,11 @@ export default StyleSheet.create({
     color: THEME.WHITE,
     backgroundColor: 'red',
   },
+  ROW: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
   DRAWER_ICON: {
 
   },
