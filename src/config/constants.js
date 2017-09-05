@@ -43,6 +43,10 @@ export default {
     SNAPSHOT: shape({
       PRICE: number,
     }),
+    HISTORY: shape({
+      timestamp: string,
+      value: number,
+    }),
   },
   ICON: {
     add: require('../assets/icon-add.png'),

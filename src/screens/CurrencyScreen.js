@@ -21,6 +21,7 @@ class CurrencyScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      history: undefined,
       refreshing: false,
     };
     this._fetch = this._fetch.bind(this);
@@ -34,20 +35,21 @@ class CurrencyScreen extends Component {
   }
 
   async _fetch() {
-    const { navigation, snapshots } = this.props;
-    const { currency = {} } = navigation.state.params;
+    const { currency, snapshots } = this.props;
 
-    this.setState({ refreshing: true });
-    const data = await ServiceCurrencies.fetch(currency.symbol);
-    snapshots(data, currency.symbol);
-    this.setState({ refreshing: false });
+    this.setState({ history: undefined, refreshing: true });
+    const snapshot = await ServiceCurrencies.fetch(currency.symbol);
+    const history = await ServiceCurrencies.history(currency.symbol);
+
+    snapshots({ ...snapshot, history }, currency.symbol);
+    this.setState({ history, refreshing: false });
   }
 
   render() {
     const { _fetch } = this;
     const {
       currency: { image, name, symbol, usd },
-      snapshot: { exchanges = [], high, low, price },
+      snapshot: { exchanges = [], high, history = [], low, price },
     } = this.props;
     const { refreshing } = this.state;
 
@@ -65,7 +67,7 @@ class CurrencyScreen extends Component {
           <Text style={[styles.highlight, styles.currentPrice]}>{`$${price || usd}`}</Text>
         </View>
 
-        <Chart style={styles.chart} />
+        <Chart style={styles.chart} dataSource={history} />
 
         <View style={[STYLE.ROW, styles.section]}>
           <View style={styles.left}>

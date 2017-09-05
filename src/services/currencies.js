@@ -62,6 +62,6 @@ export default {
     const response = await fetch(url); // eslint-disable-line
     const { history } = await response.json();
 
-    return { history };
+    return history.slice(1, 60);
   },
 };
