@@ -24,6 +24,12 @@ class CurrenciesScreen extends Component {
     this._fetch = this._fetch.bind(this);
   }
 
+  async componentWillMount() {
+    const { currencies } = this.props;
+
+    if (currencies.length === 0) this._fetch();
+  }
+
   async _onChangeItem({ currency, favorite }) {
     if (favorite) this.props.removeFavorite(currency);
     else this.props.addFavorite(currency);
