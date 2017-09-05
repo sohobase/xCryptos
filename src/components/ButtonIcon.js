@@ -4,7 +4,8 @@ import { Image, TouchableOpacity } from 'react-native';
 import { C } from '../config';
 import style from './ButtonIcon.style';
 
-const ButtonIcon = ({ icon, onPress }) => {
+const ButtonIcon = (props) => {
+  const { icon, onPress } = props;
   return (
     <TouchableOpacity onPress={onPress}>
       <Image style={style.icon} source={C.ICON[icon]} />
