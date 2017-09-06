@@ -114,15 +114,11 @@ class CurrencyScreen extends Component {
 
 CurrencyScreen.propTypes = {
   currency: C.SHAPE.CURRENCY,
-  // navigation: C.SHAPE.NAVIGATION,
   snapshot: C.SHAPE.SNAPSHOT,
 };
 
 CurrencyScreen.defaultProps = {
   currency: {},
-  navigation: {
-    navigate() {},
-  },
   snapshot: {},
 };
 
