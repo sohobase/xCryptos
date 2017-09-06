@@ -24,6 +24,7 @@ function configureStore() {
     );
   });
 }
+// AsyncStorage.clear();
 
 class Main extends Component {
   constructor(props) {

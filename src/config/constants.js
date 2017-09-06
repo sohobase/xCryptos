@@ -4,16 +4,19 @@ export default {
   DEFAULT_FAVORITES: [{
     active: true,
     id: 1182,
+    image: 'https://www.cryptocompare.com/media/19633/btc.png',
     name: 'Bitcoin',
     symbol: 'BTC',
     usd: 0,
   }, {
     id: 7605,
+    image: 'https://www.cryptocompare.com/media/20646/eth.png',
     name: 'Ethereum',
     symbol: 'ETH',
     usd: 0,
   }, {
     id: 3808,
+    image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
     name: 'Litecoin',
     symbol: 'LTC',
     usd: 0,

@@ -29,6 +29,7 @@ class Main extends Component {
     this.state = {
       activeCurrency: undefined,
       decimal: false,
+      prefetch: false,
       refreshing: false,
       value: 1,
     };
@@ -38,10 +39,19 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    this._fetch();
+    const { favorites = [] } = this.props;
+    console.log('componentWillMount', favorites.length);
+    // this._fetch();
+    this.props.navigation.navigate('Currency', { currency: this.props.favorites[2] });
   }
 
-  componentWillReceiveProps({ favorites }) {
+  async componentDidMount() {
+    const { favorites = [] } = this.props;
+    console.log('componentDidMount', favorites.length);
+  }
+
+  componentWillReceiveProps({ favorites = [] }) {
+    console.log('componentWillReceiveProps', favorites.length);
     this.setState({
       activeCurrency: favorites.find(({ active }) => (active)),
     });
@@ -113,9 +123,17 @@ Main.defaultProps = {
   updatePrices() {},
 };
 
-const mapStateToProps = state => ({
-  favorites: state.favorites,
-});
+// const mapStateToProps = state => ({
+//   favorites: state.favorites,
+// });
+
+const mapStateToProps = ({ favorites }, props) => {
+  // const { currency = {} } = props.navigation.state.params;
+  // const snapshot = snapshots[currency.symbol] || {};
+  console.log('Here?', favorites);
+  return { favorites };
+};
+
 
 const mapDispatchToProps = dispatch => ({
   updatePrices: prices => dispatch(updatePricesAction(prices)),
