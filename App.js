@@ -1,21 +1,56 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { persistStore } from 'redux-persist';
-import { AsyncStorage } from 'react-native';
+import { compose, createStore } from 'redux';
+import { autoRehydrate, persistStore } from 'redux-persist';
+import { AsyncStorage, Text } from 'react-native';
 
 import App from './src/app';
-import createStore from './src/createStore';
+import reducer from './src/reducer';
 
-const store = createStore();
+function configureStore() {
+  return new Promise((resolve) => {
+    const store = createStore(
+      reducer,
+      undefined,
+      compose(
+        autoRehydrate(),
+      ),
+    );
 
-persistStore(store, {
-  storage: AsyncStorage,
-});
+    persistStore(
+      store,
+      { storage: AsyncStorage },
+      () => resolve(store),
+    );
+  });
+}
 
-const Main = () => (
-  <Provider store={store}>
-    <App />
-  </Provider>
-);
+class Main extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      store: undefined,
+    };
+  }
+
+  async componentWillMount() {
+    this.setState({ store: await configureStore() });
+  }
+
+
+  render() {
+    const { store } = this.state;
+
+    return (
+      !store ?
+        <Text>Booting...</Text>
+        :
+        <Provider store={this.state.store}>
+          <App />
+        </Provider>
+    );
+  }
+}
 
 export default Main;
