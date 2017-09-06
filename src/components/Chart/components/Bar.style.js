@@ -15,4 +15,8 @@ export default StyleSheet.create({
     minHeight: '5%',
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
+
+  highlight: {
+    backgroundColor: THEME.CONTRAST,
+  },
 });

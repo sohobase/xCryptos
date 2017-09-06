@@ -14,7 +14,8 @@ const Chart = ({ dataSource = [], style }) => {
   return (
     <View style={[STYLE.ROW, (withData ? styles.container : styles.loading), style]}>
       { withData
-        ? dataSource.map(({ timestamp, value }) => <Bar key={timestamp} value={((value - min) * 100) / diff} />)
+        ? dataSource.map(({ timestamp, value }) =>
+          <Bar key={timestamp} highlight={value === max} value={((value - min) * 100) / diff} />)
         : <ActivityIndicator size="large" />
       }
     </View>
