@@ -65,7 +65,7 @@ class CurrencyScreen extends Component {
       <View style={styles.section}>
         { exchanges.length > 0 && <Text style={[styles.title, styles.highlight]}>Exchanges</Text> }
         {
-          exchanges.sort((a, b) => a.MARKET - b.MARKET).map(({ MARKET, PRICE = 0 }) => {
+          exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
             return (
               <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
                 <Text style={[styles.label, styles.left]}>{MARKET}</Text>

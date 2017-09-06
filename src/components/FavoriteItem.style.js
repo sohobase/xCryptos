@@ -18,6 +18,7 @@ export default StyleSheet.create({
   },
   text: {
     color: THEME.CONTRAST,
+    fontSize: THEME.FONT_SIZE_SMALL,
   },
   values: {
     flex: 1,
@@ -27,7 +28,7 @@ export default StyleSheet.create({
   },
   value: {
     color: THEME.WHITE,
-    fontSize: 20,
+    fontSize: THEME.FONT_SIZE_LARGE,
   },
   blink: {
     width: THEME.UNIT * 0.2,

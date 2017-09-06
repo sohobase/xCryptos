@@ -1,4 +1,5 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../config';
 
 export default StyleSheet.create({
   container: {
@@ -10,7 +11,6 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontSize: 20,
-    fontWeight: 'bold',
+    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
   },
 });

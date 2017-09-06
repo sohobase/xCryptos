@@ -21,6 +21,6 @@ export default StyleSheet.create({
   CURRENCY_SYMBOL: {
     color: THEME.WHITE,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
-    fontWeight: 'bold',
+    lineHeight: THEME.FONT_SIZE_EXTRA_LARGE,
   },
 });
