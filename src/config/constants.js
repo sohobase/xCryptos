@@ -59,5 +59,5 @@ export default {
     FAVORITES: 'favorites',
   },
 
-  TIMELINES: ['1h', '24h', '7D'],
+  TIMELINES: ['1h', '48h', '60D'],
 };

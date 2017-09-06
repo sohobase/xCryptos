@@ -5,8 +5,8 @@ const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
 const DEFAULT_CURRENCY = 'USD';
 const TIMELINE_SERVICE = [
   { timeline: C.TIMELINES[0], endpoint: 'histominute', limit: 60 },
-  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 24 },
-  { timeline: C.TIMELINES[2], endpoint: 'histoday', limit: 7 },
+  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 48 },
+  { timeline: C.TIMELINES[2], endpoint: 'histoday', limit: 60 },
 ];
 
 export default {
