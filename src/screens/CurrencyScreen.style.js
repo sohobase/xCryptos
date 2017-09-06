@@ -4,16 +4,13 @@ import { THEME } from '../config';
 export default StyleSheet.create({
   container: {
     backgroundColor: THEME.PRIMARY,
+    paddingTop: THEME.OFFSET,
   },
 
   section: {
     marginLeft: THEME.OFFSET,
     marginRight: THEME.OFFSET,
     marginBottom: THEME.OFFSET,
-  },
-
-  currency: {
-    flex: 1,
   },
 
   title: {

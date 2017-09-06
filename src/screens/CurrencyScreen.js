@@ -94,7 +94,7 @@ class CurrencyScreen extends Component {
       >
         <View style={[styles.section, STYLE.ROW]}>
           { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
-          <View style={styles.currency}>
+          <View style={styles.left}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
             <Text style={styles.label}>{name}</Text>
           </View>
