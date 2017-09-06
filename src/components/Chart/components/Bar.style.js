@@ -12,6 +12,7 @@ export default StyleSheet.create({
   },
 
   value: {
+    minHeight: '5%',
     backgroundColor: 'rgba(255, 255, 255, 0.25)',
   },
 });

@@ -6,13 +6,15 @@ import { Bar } from './components';
 import styles from './Chart.style';
 
 const Chart = ({ dataSource = [], style }) => {
-  const max = Math.max.apply(null, dataSource.map(({ value }) => value));
   const withData = dataSource.length > 0;
+  const max = Math.max.apply(null, dataSource.map(({ value }) => value));
+  const min = Math.min.apply(null, dataSource.map(({ value }) => value));
+  const diff = max - min;
 
   return (
     <View style={[STYLE.ROW, (withData ? styles.container : styles.loading), style]}>
       { withData
-        ? dataSource.map(({ timestamp, value }) => <Bar key={timestamp} value={(value * 100) / max} />)
+        ? dataSource.map(({ timestamp, value }) => <Bar key={timestamp} value={((value - min) * 100) / diff} />)
         : <ActivityIndicator size="large" />
       }
     </View>

@@ -22,10 +22,12 @@ export default {
     usd: 0,
   }],
 
-  STORAGE: {
-    CURRENCIES: 'cryptos',
-    FAVORITES: 'favorites',
+  ICON: {
+    add: require('../assets/icon-add.png'),
+    alert: require('../assets/icon-alert.png'),
+    menu: require('../assets/icon-menu.png'),
   },
+
   SHAPE: {
     CURRENCY: shape({
       name: string,
@@ -47,13 +49,15 @@ export default {
       PRICE: number,
     }),
     HISTORY: shape({
-      timestamp: string,
+      timestamp: number,
       value: number,
     }),
   },
-  ICON: {
-    add: require('../assets/icon-add.png'),
-    alert: require('../assets/icon-alert.png'),
-    menu: require('../assets/icon-menu.png'),
+
+  STORAGE: {
+    CURRENCIES: 'cryptos',
+    FAVORITES: 'favorites',
   },
+
+  TIMELINES: ['1h', '24h', '7D'],
 };

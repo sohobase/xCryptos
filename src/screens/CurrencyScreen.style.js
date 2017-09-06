@@ -40,32 +40,4 @@ export default StyleSheet.create({
   right: {
     textAlign: 'right',
   },
-
-  chart: {
-    height: THEME.UNIT * 12.8,
-    marginTop: THEME.UNIT * 0.5,
-    marginBottom: THEME.UNIT * 0.5,
-  },
-
-  navigation: {
-  },
-
-  time: {
-    flex: 1,
-    padding: THEME.UNIT * 0.5,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    color: THEME.CONTRAST,
-  },
-
-  timeMiddle: {
-    marginLeft: THEME.UNIT * 0.5,
-    marginRight: THEME.UNIT * 0.5,
-  },
-
-  timeActive: {
-    backgroundColor: THEME.WHITE,
-    color: THEME.PRIMARY,
-  },
 });

@@ -2,10 +2,12 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, Chart } from '../components';
+import { ButtonIcon, ChartCurrency } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
+
+const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
@@ -23,50 +25,37 @@ class CurrencyScreen extends Component {
       history: undefined,
       prefetch: false,
       refreshing: false,
+      timeline: DEFAULT_TIMELINE,
     };
     this._fetch = this._fetch.bind(this);
+    this._onPressTimeline = this._onPressTimeline.bind(this);
   }
 
   componentWillMount() {
     this._fetch();
   }
 
+  componentWillReceiveProps() {
+    this.setState({ history: undefined, timeline: DEFAULT_TIMELINE });
+  }
+
   async _fetch() {
     const { currency, snapshots } = this.props;
 
-    this.setState({ history: undefined, refreshing: true });
+    this.setState({ history: undefined, refreshing: true, timeline: DEFAULT_TIMELINE });
     const snapshot = await ServiceCurrencies.fetch(currency.symbol);
     const history = await ServiceCurrencies.history(currency.symbol);
 
     snapshots({ ...snapshot, history }, currency.symbol);
-    this.setState({ history, prefetch: true, refreshing: false });
+    this.setState({ prefetch: true, refreshing: false });
   }
 
-  _renderChart() {
-    const { snapshot: { high, history = [], low } } = this.props;
+  async _onPressTimeline(timeline) {
+    const { currency: { symbol } } = this.props;
 
-    return (
-      <View style={styles.section}>
-        <View style={[STYLE.ROW, styles.navigation]}>
-          <Text style={[styles.time, styles.timeActive]}>1H</Text>
-          <Text style={[styles.time, styles.timeMiddle]}>24H</Text>
-          <Text style={styles.time}>1M</Text>
-        </View>
-
-        <Chart style={styles.chart} dataSource={history} />
-
-        <View style={STYLE.ROW}>
-          <View style={styles.left}>
-            <Text style={styles.label}>low</Text>
-            <Text style={[STYLE.FONT_STRONG, styles.highlight]}>${low}</Text>
-          </View>
-          <View>
-            <Text style={[styles.label, styles.right]}>high</Text>
-            <Text style={[STYLE.FONT_STRONG, styles.highlight, styles.right]}>${high}</Text>
-          </View>
-        </View>
-      </View>
-    );
+    this.setState({ history: [], timeline });
+    const history = await ServiceCurrencies.history(symbol, timeline);
+    this.setState({ history });
   }
 
   _renderExchanges() {
@@ -90,12 +79,12 @@ class CurrencyScreen extends Component {
   }
 
   render() {
-    const { _fetch } = this;
+    const { _fetch, _onPressTimeline } = this;
     const {
       currency: { image, name, symbol, usd },
-      snapshot: { price },
+      snapshot: { price, history },
     } = this.props;
-    const { prefetch, refreshing } = this.state;
+    const { prefetch, refreshing, timeline } = this.state;
 
     return (
       <ScrollView
@@ -111,7 +100,12 @@ class CurrencyScreen extends Component {
           </View>
           <Text style={[styles.highlight, styles.currentPrice]}>{`$${price || usd}`}</Text>
         </View>
-        { this._renderChart() }
+        <ChartCurrency
+          dataSource={this.state.history || history}
+          onChange={_onPressTimeline}
+          style={styles.section}
+          timeline={timeline}
+        />
         { this._renderExchanges() }
       </ScrollView>
     );

@@ -1,8 +1,13 @@
-const COINBIN = 'https://coinbin.org';
+import { C } from '../config';
+
 const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
 const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
-
 const DEFAULT_CURRENCY = 'USD';
+const TIMELINE_SERVICE = [
+  { timeline: C.TIMELINES[0], endpoint: 'histominute', limit: 60 },
+  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 24 },
+  { timeline: C.TIMELINES[2], endpoint: 'histoday', limit: 7 },
+];
 
 export default {
   async list() {
@@ -57,11 +62,12 @@ export default {
     };
   },
 
-  async history(currency) {
-    const url = `${COINBIN}/${currency}/history`;
+  async history(currency, timeline = C.TIMELINES[0]) {
+    const { endpoint, limit } = TIMELINE_SERVICE.find(item => item.timeline === timeline);
+    const url = `${CRYPTOCOMPARE_API}/${endpoint}?fsym=${currency}&tsym=${DEFAULT_CURRENCY}&limit=${limit}`;
     const response = await fetch(url); // eslint-disable-line
-    const { history } = await response.json();
+    const { Data = [] } = await response.json();
 
-    return history.slice(1, 60);
+    return Data.map(({ time, close }) => ({ timestamp: time, value: close }));
   },
 };
