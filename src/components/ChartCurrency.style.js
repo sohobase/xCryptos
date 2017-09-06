@@ -3,7 +3,7 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   chart: {
-    height: THEME.UNIT * 12.8,
+    height: THEME.UNIT * 16,
     marginTop: THEME.UNIT * 0.5,
     marginBottom: THEME.UNIT * 0.5,
   },
