@@ -2,9 +2,14 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, RefreshControl, View } from 'react-native';
-import { addFavoriteAction, removeFavoriteAction, saveCurrenciesAction } from '../actions';
+import {
+  addFavoriteAction,
+  removeFavoriteAction,
+  saveCurrenciesAction,
+  updatePricesAction,
+} from '../actions';
 import { CurrencyListItem } from '../components';
-import { C, STYLE, THEME } from '../config';
+import { C, STYLE } from '../config';
 import { ServiceCurrencies } from '../services';
 
 const keyExtractor = item => item.rank;
@@ -31,8 +36,14 @@ class CurrenciesScreen extends Component {
   }
 
   async _onChangeItem({ currency, favorite }) {
-    if (favorite) this.props.removeFavorite(currency);
-    else this.props.addFavorite(currency);
+    const { addFavorite, favorites, removeFavorite, updatePrices } = this.props;
+
+    if (favorite) removeFavorite(currency);
+    else {
+      addFavorite(currency);
+      const symbols = [...favorites, currency].map(({ symbol }) => symbol);
+      updatePrices(await ServiceCurrencies.prices(symbols));
+    }
   }
 
   async _fetch() {
@@ -67,7 +78,7 @@ class CurrenciesScreen extends Component {
           data={currencies}
           keyExtractor={keyExtractor}
           extraData={favorites}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
           renderItem={_renderItem}
         />
       </View>
@@ -82,6 +93,7 @@ CurrenciesScreen.propTypes = {
   navigation: C.SHAPE.NAVIGATION,
   removeFavorite: func,
   saveCurrencies: func,
+  updatePrices: func,
 };
 
 CurrenciesScreen.defaultProps = {
@@ -93,6 +105,7 @@ CurrenciesScreen.defaultProps = {
   },
   removeFavorite() {},
   saveCurrencies() {},
+  updatePrices() {},
 };
 
 const mapStateToProps = state => ({
@@ -104,6 +117,7 @@ const mapDispatchToProps = dispatch => ({
   addFavorite: favorite => dispatch(addFavoriteAction(favorite)),
   removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
   saveCurrencies: currencies => dispatch(saveCurrenciesAction(currencies)),
+  updatePrices: prices => dispatch(updatePricesAction(prices)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);

@@ -11,8 +11,7 @@ import styles from './MainScreen.style';
 const keyExtractor = item => item.symbol;
 
 class Main extends Component {
-  static navigationOptions({ navigation }) {
-    const { navigate } = navigation;
+  static navigationOptions({ navigation: { navigate } }) {
     return {
       drawerLabel: 'Home',
       // drawerIcon: ({ tintColor = 'red' }) => (
@@ -38,20 +37,11 @@ class Main extends Component {
     this._fetch = this._fetch.bind(this);
   }
 
-  async componentWillMount() {
-    const { favorites = [] } = this.props;
-    console.log('componentWillMount', favorites.length);
-    // this._fetch();
-    this.props.navigation.navigate('Currency', { currency: this.props.favorites[2] });
-  }
-
-  async componentDidMount() {
-    const { favorites = [] } = this.props;
-    console.log('componentDidMount', favorites.length);
+  componentWillMount() {
+    this._fetch();
   }
 
   componentWillReceiveProps({ favorites = [] }) {
-    console.log('componentWillReceiveProps', favorites.length);
     this.setState({
       activeCurrency: favorites.find(({ active }) => (active)),
     });
@@ -62,7 +52,7 @@ class Main extends Component {
 
     this.setState({ refreshing: true });
     updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
-    this.setState({ refreshing: false });
+    this.setState({ prefetch: true, refreshing: false });
   }
 
   _onChangeValue({ value, decimal }) {
@@ -91,7 +81,7 @@ class Main extends Component {
   render() {
     const { _fetch } = this;
     const { favorites } = this.props;
-    const { decimal, refreshing, value } = this.state;
+    const { decimal, prefetch, refreshing, value } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -99,7 +89,8 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={(keyExtractor)}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={this._renderItem}
           style={styles.favorites}
         />
@@ -123,17 +114,9 @@ Main.defaultProps = {
   updatePrices() {},
 };
 
-// const mapStateToProps = state => ({
-//   favorites: state.favorites,
-// });
-
-const mapStateToProps = ({ favorites }, props) => {
-  // const { currency = {} } = props.navigation.state.params;
-  // const snapshot = snapshots[currency.symbol] || {};
-  console.log('Here?', favorites);
-  return { favorites };
-};
-
+const mapStateToProps = state => ({
+  favorites: state.favorites,
+});
 
 const mapDispatchToProps = dispatch => ({
   updatePrices: prices => dispatch(updatePricesAction(prices)),

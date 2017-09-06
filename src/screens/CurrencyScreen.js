@@ -21,16 +21,14 @@ class CurrencyScreen extends Component {
     super(props);
     this.state = {
       history: undefined,
+      prefetch: false,
       refreshing: false,
     };
     this._fetch = this._fetch.bind(this);
   }
 
-  componentDidMount() {
-    const { snapshot } = this.props;
-    if (Object.values(snapshot).length === 0) {
-      this._fetch();
-    }
+  componentWillMount() {
+    this._fetch();
   }
 
   async _fetch() {
@@ -41,7 +39,7 @@ class CurrencyScreen extends Component {
     const history = await ServiceCurrencies.history(currency.symbol);
 
     snapshots({ ...snapshot, history }, currency.symbol);
-    this.setState({ history, refreshing: false });
+    this.setState({ history, prefetch: true, refreshing: false });
   }
 
   _renderChart() {
@@ -76,11 +74,11 @@ class CurrencyScreen extends Component {
 
     return (
       <View style={styles.section}>
-        <Text style={[styles.title, styles.highlight]}>Exchanges</Text>
+        { exchanges.length > 0 && <Text style={[styles.title, styles.highlight]}>Exchanges</Text> }
         {
           exchanges.sort((a, b) => a.MARKET - b.MARKET).map(({ MARKET, PRICE = 0 }) => {
             return (
-              <View key={MARKET} style={STYLE.ROW}>
+              <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
                 <Text style={[styles.label, styles.left]}>{MARKET}</Text>
                 <Text style={styles.highlight}>${parseFloat(PRICE).toFixed(2)}</Text>
               </View>
@@ -97,11 +95,12 @@ class CurrencyScreen extends Component {
       currency: { image, name, symbol, usd },
       snapshot: { price },
     } = this.props;
-    const { refreshing } = this.state;
+    const { prefetch, refreshing } = this.state;
 
     return (
       <ScrollView
-        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+        refreshControl={
+          <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
         style={[STYLE.SCREEN, styles.container]}
       >
         <View style={[styles.section, STYLE.ROW]}>
