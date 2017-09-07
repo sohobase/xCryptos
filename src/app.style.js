@@ -1,10 +1,17 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StatusBar, StyleSheet } from 'react-native';
 import { THEME } from './config';
 
+let androidHeader = {}
+if (Platform.OS !== 'ios') androidHeader = { paddingTop: StatusBar.currentHeight, height: 80 };
+
 export default StyleSheet.create({
-  header: {
+  header: Object.assign({
     backgroundColor: THEME.PRIMARY,
-    borderBottomColor: 'transparent',
-    borderBottomWidth: 0,
-  },
+    elevation: 0,
+    shadowColor: 'transparent',
+    shadowRadius: 0,
+    shadowOffset: {
+      height: 0,
+    },
+  }, androidHeader),
 });
