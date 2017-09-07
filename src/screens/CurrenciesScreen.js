@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { SearchBar } from 'react-native-elements'
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, RefreshControl, View } from 'react-native';
@@ -11,6 +12,7 @@ import {
 import { CurrencyListItem } from '../components';
 import { C, STYLE } from '../config';
 import { ServiceCurrencies } from '../services';
+import styles from './CurrenciesScreen.style';
 
 const keyExtractor = item => item.rank;
 
@@ -74,6 +76,12 @@ class CurrenciesScreen extends Component {
 
     return (
       <View style={STYLE.SCREEN}>
+        <SearchBar
+          containerStyle={styles.searchContainer}
+          inputStyle={styles.searchInput}
+          lightTheme
+          placeholder="Type Here..."
+        />
         <FlatList
           data={currencies}
           keyExtractor={keyExtractor}
