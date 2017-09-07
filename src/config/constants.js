@@ -1,5 +1,9 @@
 import { bool, func, shape, string, number } from 'prop-types';
 
+const add = require('../assets/icon-add.png');
+const alert = require('../assets/icon-alert.png');
+const menu = require('../assets/icon-menu.png');
+
 export default {
   DEFAULT_FAVORITES: [{
     active: true,
@@ -22,11 +26,7 @@ export default {
     usd: 0,
   }],
 
-  ICON: {
-    add: require('../assets/icon-add.png'),
-    alert: require('../assets/icon-alert.png'),
-    menu: require('../assets/icon-menu.png'),
-  },
+  ICON: { add, alert, menu },
 
   SHAPE: {
     CURRENCY: shape({
