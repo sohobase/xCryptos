@@ -24,9 +24,11 @@ class CurrenciesScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      filteredCurrencies: undefined,
       refreshing: false,
     };
     this._onChangeItem = this._onChangeItem.bind(this);
+    this._onSearch = this._onSearch.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this._fetch = this._fetch.bind(this);
   }
@@ -56,6 +58,15 @@ class CurrenciesScreen extends Component {
     this.setState({ refreshing: false });
   }
 
+  _onSearch(value) {
+    const { currencies } = this.props;
+    this.setState({
+      filteredCurrencies: currencies.filter((currency) => {
+        return currency.name.indexOf(value) > -1;
+      }),
+    });
+  }
+
   _renderItem({ item }) {
     const { favorites, navigation: { navigate } } = this.props;
 
@@ -70,9 +81,9 @@ class CurrenciesScreen extends Component {
   }
 
   render() {
-    const { _fetch, _renderItem } = this;
+    const { _fetch, _onSearch, _renderItem } = this;
     const { currencies, favorites } = this.props;
-    const { refreshing } = this.state;
+    const { filteredCurrencies, refreshing } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -80,10 +91,11 @@ class CurrenciesScreen extends Component {
           containerStyle={styles.searchContainer}
           inputStyle={styles.searchInput}
           lightTheme
+          onChangeText={_onSearch}
           placeholder="Type Here..."
         />
         <FlatList
-          data={currencies}
+          data={filteredCurrencies || currencies}
           keyExtractor={keyExtractor}
           extraData={favorites}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
