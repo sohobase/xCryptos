@@ -26,6 +26,11 @@ export default {
     usd: 0,
   }],
 
+  FEEDBACK: {
+    MAIL: 'hello@soyjavi.com',
+    SUBJECT: 'Feedback',
+  },
+
   ICON: { add, alert, menu },
 
   SHAPE: {
@@ -57,6 +62,11 @@ export default {
   STORAGE: {
     CURRENCIES: 'cryptos',
     FAVORITES: 'favorites',
+  },
+
+  STORE_URL: {
+    ANDROID: 'http://play.google.com/store/apps/details?id=com.google.android.apps.maps',
+    IOS: 'http://soyjavi.com',
   },
 
   TIMELINES: ['1h', '48h', '60D'],

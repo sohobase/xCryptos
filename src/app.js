@@ -5,7 +5,7 @@ import {
   CurrencyScreen,
   Drawer,
   MainScreen,
-  SettingsScreen,
+  // SettingsScreen,
 } from './screens';
 import { THEME } from './config';
 import styles from './app.style';
@@ -29,11 +29,11 @@ const App = DrawerNavigator({
       Currency: { screen: CurrencyScreen, navigationOptions },
     }),
   },
-  Settings: {
-    screen: StackNavigator({
-      Settings: { screen: SettingsScreen, navigationOptions },
-    }),
-  },
+  // Settings: {
+  //   screen: StackNavigator({
+  //     Settings: { screen: SettingsScreen, navigationOptions },
+  //   }),
+  // },
   About: {
     screen: StackNavigator({
       About: { screen: AboutScreen, navigationOptions },
