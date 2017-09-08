@@ -1,7 +1,18 @@
 {
   "name": "crypto-currency",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "private": true,
+  "contributors": [
+    {
+      "name" : "@soyjavi",
+      "email" : "hello@soyjavi.com",
+      "url" : "http://soyjavi.com"
+    },
+    {
+      "name": "@gartzia6",
+      "url": "https://twitter.com/gartzia6"
+    }
+  ],
   "devDependencies": {
     "babel-eslint": "^7.2.3",
     "eslint": "^4.5.0",

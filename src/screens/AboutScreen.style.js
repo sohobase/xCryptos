@@ -6,29 +6,40 @@ export default StyleSheet.create({
     width: null,
     height: null,
     backgroundColor: THEME.PRIMARY,
-    resizeMode: 'repeat',
-    alignItems: 'center',
   },
+
   info: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
+
   text: {
-    color: THEME.WHITE,
-    backgroundColor: 'transparent',
+    color: THEME.CONTRAST,
   },
+
   name: {
-    marginTop: THEME.FONT_SIZE_LARGE * -2,
-    fontSize: THEME.FONT_SIZE_LARGE,
+    color: THEME.WHITE,
+    marginTop: THEME.FONT_SIZE_EXTRA_LARGE * -2,
+    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     fontWeight: 'bold',
   },
+
   version: {
     fontSize: THEME.FONT_SIZE_NORMAL,
   },
+
   authors: {
     flex: 0,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    flexDirection: 'row',
+    alignItems: 'center',
+    alignContent: 'center',
+    justifyContent: 'center',
     padding: THEME.OFFSET,
+  },
+
+  author: {
+    color: THEME.WHITE,
+    fontWeight: 'bold',
   },
 });
