@@ -7,6 +7,7 @@ import { ButtonIcon, FavoriteItem, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
 import styles from './MainScreen.style';
+import PKG from '../../package.json';
 
 const keyExtractor = item => item.symbol;
 
@@ -18,7 +19,7 @@ class Main extends Component {
       //   <Image source={require('../assets/icon-menu.png')} style={{ tintColor }} />
       // ),
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
-      title: 'Cryptos',
+      title: PKG.name,
       headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,
     };
   }
