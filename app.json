@@ -1,5 +1,15 @@
 {
-  "expo": {
-    "sdkVersion": "20.0.0"
-  }
-}
+   "expo": {
+    "name": "xCrypto",
+    "icon": "./src/assets/app-icon.png",
+    "version": "1.0.0",
+    "slug": "your-app-slug",
+    "sdkVersion": "20.0.0",
+    "ios": {
+      "bundleIdentifier": "com.sohobase.xCrypto"
+    },
+    "android": {
+      "package": "com.sohobase.xCrypto"
+    }
+   }
+ }
