@@ -39,6 +39,14 @@ class CurrenciesScreen extends Component {
     if (currencies.length === 0) this._fetch();
   }
 
+  async _fetch() {
+    const { saveCurrencies } = this.props;
+
+    this.setState({ refreshing: true });
+    saveCurrencies(await ServiceCurrencies.list());
+    this.setState({ refreshing: false });
+  }
+
   async _onChangeItem({ currency, favorite }) {
     const { addFavorite, favorites, removeFavorite, updatePrices } = this.props;
 
@@ -50,19 +58,13 @@ class CurrenciesScreen extends Component {
     }
   }
 
-  async _fetch() {
-    const { saveCurrencies } = this.props;
-
-    this.setState({ refreshing: true });
-    saveCurrencies(await ServiceCurrencies.list());
-    this.setState({ refreshing: false });
-  }
-
   _onSearch(value) {
     const { currencies } = this.props;
+    const search = value.toLowerCase();
+
     this.setState({
-      filteredCurrencies: currencies.filter((currency) => {
-        return currency.name.indexOf(value) > -1;
+      filteredCurrencies: currencies.filter(({ name, symbol }) => {
+        return name.toLowerCase().indexOf(search) > -1 || symbol.toLowerCase().indexOf(search) > -1;
       }),
     });
   }
