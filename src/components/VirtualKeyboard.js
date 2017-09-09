@@ -18,7 +18,7 @@ class VirtualKeyboard extends Component {
     const { decimal, onChange, value } = this.props;
     let nextValue = digit;
 
-    if (value !== 0) nextValue = parseFloat(`${value}${decimal ? '.' : ''}${digit}`);
+    nextValue = parseFloat(`${value}${decimal ? '.' : ''}${digit}`);
     onChange({ value: nextValue, decimal: false });
   }
 
@@ -26,7 +26,7 @@ class VirtualKeyboard extends Component {
     const { decimal, onChange, value } = this.props;
     let nextValue = 0;
 
-    if (value > 9) nextValue = decimal ? value : parseFloat(value.toString().slice(0, -1));
+    if (value > 9 || (value < 1 && value > 0)) nextValue = decimal ? value : parseFloat(value.toString().slice(0, -1));
     onChange({ value: nextValue, decimal: false });
   }
 
