@@ -1,11 +1,16 @@
 const UNIT = 10;
 
+const GREEN = '#00CED9';
+const RED = '#FF5C84';
+const BLUE = '#2283CD';
+
 export default {
-  // -- Colors
-  PRIMARY: '#673ab7',
-  ACCENT: 'blue',
+  // -- Base
   WHITE: 'white',
   BLACK: 'black',
+  // -- Colors
+  PRIMARY: '#6320D4',
+  ACCENT: 'blue',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
 
   TRANSPARENT: 'transparent',
