@@ -33,17 +33,6 @@ const ChartCurrency = (props) => {
       </View>
 
       <Chart style={styles.chart} dataSource={dataSource} />
-
-      <View style={STYLE.ROW}>
-        <View style={styles.left}>
-          <Text style={styles.label}>low</Text>
-          <Text style={[STYLE.FONT_STRONG, styles.highlight]}>${min}</Text>
-        </View>
-        <View>
-          <Text style={[styles.label, styles.right]}>high</Text>
-          <Text style={[STYLE.FONT_STRONG, styles.highlight, styles.right]}>${max}</Text>
-        </View>
-      </View>
     </View>
   );
 };
