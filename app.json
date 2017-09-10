@@ -2,7 +2,7 @@
    "expo": {
     "name": "xCrypto",
     "icon": "./src/assets/app-icon.png",
-    "version": "0.1.3",
+    "version": "0.1.4",
     "slug": "sohobase-xcrypto",
     "sdkVersion": "20.0.0",
     "loading": {
