@@ -31,7 +31,7 @@ class Main extends Component {
       decimal: false,
       prefetch: false,
       refreshing: false,
-      value: 1,
+      value: '1',
     };
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);

@@ -1,4 +1,4 @@
-import { bool, func, number } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import VirtualButton from './VirtualButton';
@@ -18,22 +18,22 @@ class VirtualKeyboard extends Component {
     const { decimal, onChange, value } = this.props;
     let nextValue = digit;
 
-    nextValue = parseFloat(`${value}${decimal ? '.' : ''}${digit}`);
+    nextValue = `${value !== '0' || decimal ? value : ''}${decimal ? '.' : ''}${digit}`;
     onChange({ value: nextValue, decimal: false });
   }
 
   _onDelete() {
     const { decimal, onChange, value } = this.props;
-    let nextValue = 0;
+    let nextValue = '0';
 
-    if (value > 9 || (value < 1 && value > 0)) nextValue = decimal ? value : parseFloat(value.toString().slice(0, -1));
+    if (value.length > 1) nextValue = decimal ? value : value.slice(0, -1);
     onChange({ value: nextValue, decimal: false });
   }
 
   _onDecimal() {
     const { onChange, value } = this.props;
 
-    onChange({ value, decimal: true });
+    onChange({ value, decimal: !value.includes('.') });
   }
 
   render() {
@@ -53,7 +53,7 @@ class VirtualKeyboard extends Component {
 VirtualKeyboard.propTypes = {
   decimal: bool,
   onChange: func,
-  value: number,
+  value: string,
 };
 
 VirtualKeyboard.defaultProps = {
