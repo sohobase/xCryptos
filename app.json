@@ -1,9 +1,9 @@
 {
    "expo": {
-    "name": "xCrypto",
+    "name": "xCryptos",
     "icon": "./src/assets/app-icon.png",
     "version": "0.1.4",
-    "slug": "sohobase-xcrypto",
+    "slug": "sohobase-xcryptos",
     "sdkVersion": "20.0.0",
     "loading": {
       "backgroundColor": "#FFFFFF",
@@ -11,10 +11,10 @@
       "icon": "./src/assets/app-icon.png"
     },
     "ios": {
-      "bundleIdentifier": "com.sohobase.xCrypto"
+      "bundleIdentifier": "com.sohobase.xcryptos"
     },
     "android": {
-      "package": "com.sohobase.xCrypto"
+      "package": "com.sohobase.xcryptos"
     }
    }
  }
