@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, Text, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, ChartCurrency } from '../components';
+import { ButtonIcon, ChartCurrency, CurrencyContent } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -58,87 +58,34 @@ class CurrencyScreen extends Component {
     this.setState({ history });
   }
 
-  _renderExchanges() {
-    const { snapshot: { exchanges = [] } } = this.props;
-
-    return (
-      <View style={styles.section}>
-        { exchanges.length > 0 && <Text style={[styles.title, styles.highlight]}>Exchanges</Text> }
-        {
-          exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
-            return (
-              <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
-                <Text style={[styles.caption, styles.left]}>{MARKET}</Text>
-                <Text style={styles.highlight}>${parseFloat(PRICE).toFixed(2)}</Text>
-              </View>
-            );
-          })
-        }
-      </View>
-    );
-  }
-
-  _renderHeader() {
-    const {
-      currency: { image, name, symbol, usd },
-      snapshot: { price, history: propsHistory },
-    } = this.props;
-    const { history = propsHistory || [] } = this.state;
-
-    let max = 0;
-    let min = 0;
-    if (history.length > 0) {
-      max = Math.max.apply(null, history.map(({ value }) => value));
-      min = Math.min.apply(null, history.map(({ value }) => value));
-    }
-
-    return (
-      <View style={[styles.section, STYLE.ROW]}>
-        { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
-        <View style={styles.left}>
-          <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
-          <Text style={styles.caption}>{name}</Text>
-        </View>
-        <View style={[styles.prices]}>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>{`$${min}`}</Text>
-            <Text style={[styles.caption, styles.label]}>low</Text>
-          </View>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>$</Text>
-            <Text style={[styles.highlight, styles.currentPrice]}>{`${price || usd}`}</Text>
-            <Text style={[styles.caption, styles.label]}>current</Text>
-          </View>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>{`$${max}`}</Text>
-            <Text style={[styles.caption, styles.label]}>high</Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
-
   render() {
     const { _fetch, _onPressTimeline } = this;
-    const { snapshot: { history: propsHistory } } = this.props;
-    const { prefetch, refreshing, timeline } = this.state;
-    const { history = propsHistory || [] } = this.state;
+    const { currency, snapshot } = this.props;
+    const { prefetch, refreshing, timeline, history = snapshot.history || [] } = this.state;
+    const { exchanges = [] } = snapshot;
 
     return (
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-        style={[STYLE.SCREEN, styles.container]}
-      >
-        { this._renderHeader() }
-        <ChartCurrency
-          dataSource={history}
-          onChange={_onPressTimeline}
-          style={styles.section}
-          timeline={timeline}
-        />
-        { this._renderExchanges() }
-      </ScrollView>
+      <View style={[STYLE.SCREEN, styles.container]}>
+        <ScrollView
+          style={styles.content}
+          refreshControl={<RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+        >
+          <CurrencyContent currency={currency} history={history} snapshot={snapshot} />
+          <ChartCurrency dataSource={history} onChange={_onPressTimeline} timeline={timeline} />
+        </ScrollView>
+        <ScrollView style={styles.exchanges}>
+          {
+            exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
+              return (
+                <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
+                  <Text style={[styles.left]}>{MARKET}</Text>
+                  <Text>${parseFloat(PRICE).toFixed(2)}</Text>
+                </View>
+              );
+            })
+          }
+        </ScrollView>
+      </View>
     );
   }
 }

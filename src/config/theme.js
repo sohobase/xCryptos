@@ -9,8 +9,8 @@ export default {
   WHITE: 'white',
   BLACK: 'black',
   // -- Colors
-  PRIMARY: '#6320D4',
-  ACCENT: 'blue',
+  PRIMARY: '#3920F5',
+  ACCENT: 'C668FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
 
   TRANSPARENT: 'transparent',
@@ -24,4 +24,6 @@ export default {
   FONT_SIZE_NORMAL: UNIT * 1.6,
   FONT_SIZE_LARGE: UNIT * 2,
   FONT_SIZE_EXTRA_LARGE: UNIT * 2.4,
+  FONT_WEIGHT_LIGHT: '200',
+  FONT_WEIGHT_BOLD: '900',
 };

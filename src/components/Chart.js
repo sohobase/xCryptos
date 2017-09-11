@@ -1,8 +1,8 @@
 import { arrayOf, number } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { C, STYLE } from '../../config';
-import { Bar } from './components';
+import { C, STYLE } from '../config';
+import Bar from './Bar';
 import styles from './Chart.style';
 
 const Chart = ({ dataSource = [], style }) => {
