@@ -59,7 +59,7 @@ FavoriteItem.propTypes = {
   }),
   decimal: bool,
   onPress: func,
-  value: number,
+  value: string,
 };
 
 FavoriteItem.defaultProps = {
