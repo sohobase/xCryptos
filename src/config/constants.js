@@ -5,6 +5,11 @@ const alert = require('../assets/icon-alert.png');
 const menu = require('../assets/icon-menu.png');
 
 export default {
+  AFILIATES: {
+    COINBASE: 'https://www.coinbase.com/join/5568d6215c6e772e19000020',
+    ETORO: 'http://etoro.tw/2vM4b6u',
+  },
+
   DEFAULT_FAVORITES: [{
     active: true,
     id: 1182,
