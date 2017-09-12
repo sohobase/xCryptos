@@ -8,13 +8,13 @@ export default StyleSheet.create({
     marginLeft: THEME.UNIT * 0.1,
     marginRight: THEME.UNIT * 0.1,
     height: '100%',
-    // backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
 
   value: {
     minHeight: '5%',
     backgroundColor: 'rgba(255, 255, 255, 0.35)',
-    borderRadius: THEME.UNIT * 0.25,
+    borderTopLeftRadius: THEME.UNIT * 0.25,
+    borderTopRightRadius: THEME.UNIT * 0.25,
   },
 
   highlight: {

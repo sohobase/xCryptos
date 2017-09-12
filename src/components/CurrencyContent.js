@@ -1,7 +1,8 @@
-import { arrayOf } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { C, STYLE } from '../config';
+import Chart from './Chart';
 import styles from './CurrencyContent.style';
 
 const renderHistoryPrice = (value, caption) => {
@@ -17,8 +18,10 @@ const renderHistoryPrice = (value, caption) => {
 const CurrencyContent = (props) => {
   const {
     currency: { symbol, usd },
-    snapshot: { price },
     history,
+    onChange,
+    snapshot: { price },
+    timeline,
   } = props;
 
   let max = 0;
@@ -29,16 +32,40 @@ const CurrencyContent = (props) => {
   }
 
   return (
-    <View style={styles.container}>
-      { renderHistoryPrice(min, 'low') }
-      <View style={styles.current}>
-        <Text style={[styles.label, styles.currentSymbol]}>$</Text>
-        <Text style={styles.currentPrice}>{price || usd} </Text>
-        <View style={[STYLE.CHIP, styles.chipSymbol]}>
-          <Text style={[styles.small, styles.label, styles.bold]}>{symbol}</Text>
+    <View style={[STYLE.LAYOUT_MAIN, styles.container]}>
+      <View style={styles.prices}>
+        { renderHistoryPrice(max, 'high') }
+        <View style={styles.current}>
+          <Text style={[styles.label, styles.currentSymbol]}>$</Text>
+          <Text style={styles.currentPrice}>{price || usd} </Text>
+          <View style={[STYLE.CHIP, styles.chipSymbol]}>
+            <Text style={[styles.small, styles.label, styles.bold]}>{symbol}</Text>
+          </View>
+        </View>
+        { renderHistoryPrice(min, 'low') }
+      </View>
+      <View>
+        <View style={STYLE.ROW}>
+          {
+            C.TIMELINES.map((key) => {
+              const styleOption = [styles.small, styles.label, styles.optionCaption];
+              const styleBullet = [STYLE.BULLET, styles.bullet];
+              if (key === timeline) {
+                styleOption.push(styles.optionCaptionActive);
+                styleBullet.push(styles.bulletActive);
+              }
+
+              return (
+                <TouchableOpacity key={key} style={[STYLE.ROW, styles.option]} onPress={() => onChange(key)}>
+                  <View style={styleBullet} />
+                  <Text style={styleOption}>{key}</Text>
+                </TouchableOpacity>
+              );
+            })
+          }
         </View>
       </View>
-      { renderHistoryPrice(max, 'high') }
+      <Chart style={styles.chart} dataSource={history} />
     </View>
   );
 };
@@ -46,13 +73,17 @@ const CurrencyContent = (props) => {
 CurrencyContent.propTypes = {
   currency: C.SHAPE.CURRENCY,
   history: arrayOf(C.SHAPE.HISTORY),
+  onChange: func,
   snapshot: C.SHAPE.SNAPSHOT,
+  timeline: string,
 };
 
 CurrencyContent.defaultProps = {
   currency: {},
   history: [],
+  onChange: undefined,
   snapshot: {},
+  timeline: undefined,
 };
 
 export default CurrencyContent;

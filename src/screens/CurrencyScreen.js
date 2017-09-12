@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { RefreshControl, ScrollView, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, ChartCurrency, CurrencyContent, ExchangerListItem } from '../components';
+import { ButtonIcon, CurrencyContent, ExchangerListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -10,12 +10,13 @@ import styles from './CurrencyScreen.style';
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
-  static navigationOptions({ navigation: { navigate, state } }) {
+  static navigationOptions({ navigation: { state } }) {
     const { currency = {} } = state.params || {};
 
     return {
       title: currency.name,
-      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Currencies')} />,
+      // @TODO: Release 0.4.0 (Alarms)
+      // headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Currencies')} />,
     };
   }
 
@@ -65,23 +66,15 @@ class CurrencyScreen extends Component {
     const { exchanges = [] } = snapshot;
 
     return (
-      <View style={[STYLE.SCREEN, styles.container]}>
-        <ScrollView
-          style={styles.content}
-          refreshControl={<RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-        >
-          <CurrencyContent
-            currency={currency}
-            history={history}
-            snapshot={snapshot}
-          />
-          <ChartCurrency
-            dataSource={history}
-            onChange={_onPressTimeline}
-            timeline={timeline}
-          />
-        </ScrollView>
-        <ScrollView style={styles.exchanges}>
+      <View style={STYLE.SCREEN}>
+        <CurrencyContent
+          currency={currency}
+          history={history}
+          onChange={_onPressTimeline}
+          snapshot={snapshot}
+          timeline={timeline}
+        />
+        <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
             exchanges
               .sort((a, b) => a.PRICE - b.PRICE)

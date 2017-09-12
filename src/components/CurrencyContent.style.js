@@ -1,17 +1,45 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
-const ICON_SIZE = THEME.UNIT * 2.4;
-
 export default StyleSheet.create({
   container: {
     display: 'flex',
+    alignItems: 'center',
+  },
+
+  prices: {
+    display: 'flex',
     flex: 1,
-    minHeight: '50%',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    // height: '60%',
+  },
+
+  chart: {
+    height: THEME.UNIT * 9.6,
+  },
+
+
+  bullet: {
+    marginRight: THEME.UNIT * 0.35,
+  },
+
+  bulletActive: {
+    backgroundColor: THEME.ACCENT,
+  },
+
+  option: {
+    padding: THEME.UNIT * 0.75,
+  },
+
+  optionCaption: {
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    opacity: 0.75,
+  },
+
+  optionCaptionActive: {
+    color: THEME.WHITE,
+    opacity: 1,
   },
 
   small: {
@@ -55,11 +83,11 @@ export default StyleSheet.create({
   },
 
   low: {
-    backgroundColor: 'rgba(255,0,0,0.25)',
+    backgroundColor: THEME.COLOR_LOW,
   },
 
   high: {
-    backgroundColor: 'rgba(0,255,0,0.25)',
+    backgroundColor: THEME.COLOR_HIGH,
   },
 
   historyPrice: {

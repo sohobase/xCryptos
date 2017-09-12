@@ -5,6 +5,21 @@ export default StyleSheet.create({
   SCREEN: {
     flex: 1,
   },
+  LAYOUT_MAIN: {
+    flex: 1,
+    height: THEME.MAIN_LAYOUT_HEIGHT,
+    minHeight: THEME.MAIN_LAYOUT_HEIGHT,
+    maxHeight: THEME.MAIN_LAYOUT_HEIGHT,
+    backgroundColor: THEME.PRIMARY,
+  },
+  LAYOUT_SECONDARY: {
+    flex: 0,
+    height: THEME.SECOND_LAYOUT_HEIGHT,
+    minHeight: THEME.SECOND_LAYOUT_HEIGHT,
+    maxHeight: THEME.SECOND_LAYOUT_HEIGHT,
+    backgroundColor: THEME.WHITE,
+  },
+
   ROW: {
     display: 'flex',
     flexDirection: 'row',
@@ -33,14 +48,12 @@ export default StyleSheet.create({
     justifyContent: 'center',
   },
 
-  DRAWER_ICON: {
-
-  },
   CURRENCY_ICON: {
     width: THEME.UNIT * 3.6,
     height: THEME.UNIT * 3.6,
     marginRight: THEME.OFFSET,
   },
+
   CURRENCY_SYMBOL: {
     color: THEME.WHITE,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,

@@ -1,7 +1,7 @@
 import { arrayOf, number } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { C, STYLE } from '../config';
+import { C, STYLE, THEME } from '../config';
 import Bar from './Bar';
 import styles from './Chart.style';
 
@@ -12,11 +12,18 @@ const Chart = ({ dataSource = [], style }) => {
   const diff = max - min;
 
   return (
-    <View style={[STYLE.ROW, (withData ? styles.container : styles.loading), style]}>
-      { withData
-        ? dataSource.map(({ timestamp, value }) =>
-          <Bar key={timestamp} highlight={value === max} value={((value - min) * 100) / diff} />)
-        : <ActivityIndicator size="large" />
+    <View style={[style, STYLE.ROW, (withData ? styles.container : styles.loading)]}>
+      { !withData && <ActivityIndicator color={THEME.WHITE} size="large" /> }
+      {
+        withData && dataSource.map(({ timestamp, value }) => {
+          let color = 'rgba(255, 255, 255, 0.35)';
+          if (value === min) color = THEME.COLOR_LOW;
+          if (value === max) color = THEME.COLOR_HIGH;
+
+          return (
+            <Bar key={timestamp} color={color} value={((value - min) * 100) / diff} />
+          );
+        })
       }
     </View>
   );

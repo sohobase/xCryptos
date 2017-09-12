@@ -93,7 +93,7 @@ class Main extends Component {
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={this._renderItem}
-          style={styles.favorites}
+          style={[STYLE.LAYOUT_MAIN]}
         />
         <VirtualKeyboard decimal={decimal} onChange={this._onChangeValue} value={value} />
       </View>

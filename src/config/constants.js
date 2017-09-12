@@ -74,5 +74,5 @@ export default {
     IOS: 'http://soyjavi.com',
   },
 
-  TIMELINES: ['1h', 'LAST 2 DAYS', 'LAST 3 MONTHS'],
+  TIMELINES: ['LAST HOUR', 'LAST 3 DAYS', 'LAST 2 MONTHS'],
 };
