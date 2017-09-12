@@ -21,4 +21,12 @@ export default StyleSheet.create({
     minHeight: '45%',
     maxHeight: '45%',
   },
+
+  background: {
+    zIndex: 0,
+    position: 'absolute',
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
 });

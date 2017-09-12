@@ -10,7 +10,7 @@ export default {
   BLACK: 'black',
   // -- Colors
   PRIMARY: '#3920F5',
-  ACCENT: 'C668FD',
+  ACCENT: '#C668FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
 
   TRANSPARENT: 'transparent',

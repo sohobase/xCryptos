@@ -1,12 +1,22 @@
 import { arrayOf } from 'prop-types';
 import React from 'react';
-import { Image, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { C, STYLE } from '../config';
 import styles from './CurrencyContent.style';
 
+const renderHistoryPrice = (value, caption) => {
+  return (
+    <View style={[STYLE.ROW, STYLE.CHIP, styles[caption]]}>
+      <Text style={[styles.small, styles.label]}>$</Text>
+      <Text style={[styles.small, styles.historyPrice]}>{value}</Text>
+      <Text style={[styles.small, styles.label]}>{` ${caption}`}</Text>
+    </View>
+  );
+};
+
 const CurrencyContent = (props) => {
   const {
-    currency: { image, name, symbol, usd },
+    currency: { symbol, usd },
     snapshot: { price },
     history,
   } = props;
@@ -14,27 +24,21 @@ const CurrencyContent = (props) => {
   let max = 0;
   let min = 0;
   if (history.length > 0) {
-    max = Math.max.apply(null, history.map(({ value }) => value));
-    min = Math.min.apply(null, history.map(({ value }) => value));
+    max = Math.max.apply(null, history.map(({ value }) => value)) || 0;
+    min = Math.min.apply(null, history.map(({ value }) => value)) || 0;
   }
 
   return (
     <View style={styles.container}>
-      <View style={[STYLE.ROW, styles.chip, styles.low]}>
-        <Text style={[styles.small, styles.label]}>$</Text>
-        <Text style={[styles.small, styles.historyPrice]}>{min}</Text>
-        <Text style={[styles.small, styles.label]}> low</Text>
-      </View>
+      { renderHistoryPrice(min, 'low') }
       <View style={styles.current}>
         <Text style={[styles.label, styles.currentSymbol]}>$</Text>
         <Text style={styles.currentPrice}>{price || usd} </Text>
-        { image && <Image style={styles.currentIcon} source={{ uri: image }} /> }
+        <View style={[STYLE.CHIP, styles.chipSymbol]}>
+          <Text style={[styles.small, styles.label, styles.bold]}>{symbol}</Text>
+        </View>
       </View>
-      <View style={[STYLE.ROW, styles.chip, styles.high]}>
-        <Text style={[styles.small, styles.label]}>$</Text>
-        <Text style={[styles.small, styles.historyPrice]}>{max}</Text>
-        <Text style={[styles.small, styles.label]}> high</Text>
-      </View>
+      { renderHistoryPrice(max, 'high') }
     </View>
   );
 };

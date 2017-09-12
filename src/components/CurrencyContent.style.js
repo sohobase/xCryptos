@@ -22,6 +22,16 @@ export default StyleSheet.create({
     color: THEME.CONTRAST,
   },
 
+  chipSymbol: {
+    position: 'absolute',
+    right: THEME.UNIT * -4,
+    top: THEME.UNIT,
+  },
+
+  bold: {
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
+  },
+
   current: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -42,15 +52,6 @@ export default StyleSheet.create({
     marginTop: THEME.UNIT,
     width: THEME.FONT_SIZE_EXTRA_LARGE,
     height: THEME.FONT_SIZE_EXTRA_LARGE,
-  },
-
-  chip: {
-    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    paddingTop: THEME.UNIT * 0.5,
-    paddingBottom: THEME.UNIT * 0.5,
-    paddingLeft: THEME.UNIT,
-    paddingRight: THEME.UNIT,
-    borderRadius: THEME.UNIT * 2,
   },
 
   low: {

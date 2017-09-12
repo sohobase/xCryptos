@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RefreshControl, ScrollView, Text, View } from 'react-native';
+import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, ChartCurrency, CurrencyContent } from '../components';
+import { ButtonIcon, ChartCurrency, CurrencyContent, ExchangerListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
 
+const APP_BACKGROUND = require('../assets/app-background.png');
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
@@ -70,19 +71,22 @@ class CurrencyScreen extends Component {
           style={styles.content}
           refreshControl={<RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
         >
-          <CurrencyContent currency={currency} history={history} snapshot={snapshot} />
-          <ChartCurrency dataSource={history} onChange={_onPressTimeline} timeline={timeline} />
+          <CurrencyContent
+            currency={currency}
+            history={history}
+            snapshot={snapshot}
+          />
+          <ChartCurrency
+            dataSource={history}
+            onChange={_onPressTimeline}
+            timeline={timeline}
+          />
         </ScrollView>
         <ScrollView style={styles.exchanges}>
           {
-            exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
-              return (
-                <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
-                  <Text style={[styles.left]}>{MARKET}</Text>
-                  <Text>${parseFloat(PRICE).toFixed(2)}</Text>
-                </View>
-              );
-            })
+            exchanges
+              .sort((a, b) => a.PRICE - b.PRICE)
+              .map(item => <ExchangerListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
           }
         </ScrollView>
       </View>

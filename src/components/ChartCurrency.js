@@ -7,25 +7,23 @@ import styles from './ChartCurrency.style';
 
 const ChartCurrency = (props) => {
   const { dataSource = [], onChange, style, timeline } = props;
-  let max = 0;
-  let min = 0;
-  if (dataSource.length > 0) {
-    max = Math.max.apply(null, dataSource.map(({ value }) => value));
-    min = Math.min.apply(null, dataSource.map(({ value }) => value));
-  }
 
   return (
     <View style={style}>
-      <View style={STYLE.ROW}>
+      <View style={[STYLE.ROW, STYLE.CENTERED, styles.filters]}>
         {
-          C.TIMELINES.map((key, index) => {
-            const styleTab = [styles.tab];
-            if (index === 1) styleTab.push(styles.tabMargin);
-            if (key === timeline) styleTab.push(styles.tabActive);
+          C.TIMELINES.map((key) => {
+            const styleOption = [styles.small, styles.label, styles.optionCaption];
+            const styleBullet = [STYLE.BULLET, styles.bullet];
+            if (key === timeline) {
+              styleOption.push(styles.optionCaptionActive);
+              styleBullet.push(styles.bulletActive);
+            }
 
             return (
-              <TouchableOpacity key={key} style={styles.navButton} onPress={() => onChange(key)}>
-                <Text style={styleTab}>{key}</Text>
+              <TouchableOpacity key={key} style={[STYLE.ROW, styles.option]} onPress={() => onChange(key)}>
+                <View style={styleBullet} />
+                <Text style={styleOption}>{key}</Text>
               </TouchableOpacity>
             );
           })

@@ -1,48 +1,45 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
+
 export default StyleSheet.create({
   chart: {
     flex: 0,
     height: THEME.UNIT * 12.8,
   },
 
-  navButton: {
-    flex: 1,
+  filters: {
+    // marginBottom: THEME.UNIT,
   },
 
-  tab: {
-    padding: THEME.UNIT * 0.5,
-    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    color: THEME.CONTRAST,
+  option: {
+    padding: THEME.UNIT * 0.75,
   },
 
-  tabActive: {
-    backgroundColor: THEME.WHITE,
-    color: THEME.PRIMARY,
+  bullet: {
+    marginRight: THEME.UNIT * 0.35,
   },
 
-  tabMargin: {
-    marginLeft: THEME.UNIT * 0.5,
-    marginRight: THEME.UNIT * 0.5,
+  bulletActive: {
+    backgroundColor: THEME.ACCENT,
   },
 
-  left: {
-    flex: 1,
+  optionCaption: {
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    opacity: 0.75,
+  },
+
+  optionCaptionActive: {
+    color: THEME.WHITE,
+    opacity: 1,
+  },
+
+  small: {
+    fontSize: THEME.FONT_SIZE_SMALL,
   },
 
   label: {
     color: THEME.CONTRAST,
   },
 
-  highlight: {
-    color: THEME.WHITE,
-    fontWeight: 'bold',
-  },
-
-  right: {
-    textAlign: 'right',
-  },
 });
