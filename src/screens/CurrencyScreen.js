@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
+import { RefreshControl, ScrollView, View } from 'react-native';
 import { C, STYLE, THEME } from '../config';
 import { ButtonIcon, ChartCurrency, CurrencyContent, ExchangerListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
 
-const APP_BACKGROUND = require('../assets/app-background.png');
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
