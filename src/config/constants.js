@@ -10,6 +10,11 @@ export default {
     ETORO: 'http://etoro.tw/2vM4b6u',
   },
 
+  STORE_URL: {
+    ANDROID: 'http://play.google.com/store/apps/details?id=com.sohobase.xcryptos',
+    IOS: 'http://sohobase.com',
+  },
+
   DEFAULT_FAVORITES: [{
     active: true,
     id: 1182,
@@ -69,10 +74,7 @@ export default {
     FAVORITES: 'favorites',
   },
 
-  STORE_URL: {
-    ANDROID: 'http://play.google.com/store/apps/details?id=com.google.android.apps.maps',
-    IOS: 'http://soyjavi.com',
-  },
+
 
   TIMELINES: ['LAST HOUR', 'LAST 3 DAYS', 'LAST 2 MONTHS'],
 };
