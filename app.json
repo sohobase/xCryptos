@@ -14,7 +14,8 @@
       "bundleIdentifier": "com.sohobase.xcryptos"
     },
     "android": {
-      "package": "com.sohobase.xcryptos"
+      "package": "com.sohobase.xcryptos",
+      "versionCode": 2
     }
    }
  }
