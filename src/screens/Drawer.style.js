@@ -32,4 +32,10 @@ export default StyleSheet.create({
   link: {
     padding: THEME.OFFSET,
   },
+
+  button: {
+    margin: THEME.OFFSET,
+    paddingTop: THEME.OFFSET,
+    paddingBottom: THEME.OFFSET,
+  },
 });
