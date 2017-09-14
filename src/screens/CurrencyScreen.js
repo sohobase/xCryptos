@@ -70,7 +70,7 @@ class CurrencyScreen extends Component {
         <CurrencyContent {...contentProps} />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
-            exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
+            exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} currency={currency} exchange={item} />)
           }
         </ScrollView>
       </View>

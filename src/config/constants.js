@@ -66,6 +66,10 @@ export default {
       usd: number,
       btc: number,
     }),
+    EXCHANGE: shape({
+      MARKET: string,
+      PRICE: string,
+    }),
     FAVORITE: shape({
       active: bool,
       name: string,
@@ -88,8 +92,6 @@ export default {
     CURRENCIES: 'cryptos',
     FAVORITES: 'favorites',
   },
-
-
 
   TIMELINES: ['LAST HOUR', 'LAST 3 DAYS', 'LAST 2 MONTHS'],
 };
