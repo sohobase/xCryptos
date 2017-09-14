@@ -26,15 +26,7 @@ export default StyleSheet.create({
     marginRight: THEME.UNIT,
   },
 
-  chip: {
+  button: {
     marginRight: THEME.OFFSET,
-    backgroundColor: THEME.ACCENT,
   },
-
-  chipCaption: {
-    fontSize: THEME.FONT_SIZE_SMALL,
-    color: THEME.WHITE,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
-  },
-
 });

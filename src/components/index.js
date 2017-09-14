@@ -3,7 +3,7 @@ import ButtonIcon from './ButtonIcon';
 import Chart from './Chart';
 import CurrencyContent from './CurrencyContent';
 import CurrencyListItem from './CurrencyListItem';
-import ExchangerListItem from './ExchangerListItem';
+import ExchangeListItem from './ExchangeListItem';
 import FavoriteItem from './FavoriteItem';
 import VirtualKeyboard from './VirtualKeyboard';
 
@@ -13,7 +13,7 @@ export {
   Chart,
   CurrencyContent,
   CurrencyListItem,
-  ExchangerListItem,
+  ExchangeListItem,
   FavoriteItem,
   VirtualKeyboard,
 };

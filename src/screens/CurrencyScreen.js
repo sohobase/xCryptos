@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, View } from 'react-native';
 import { C, STYLE } from '../config';
-import { CurrencyContent, ExchangerListItem } from '../components';
+import { CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -76,7 +76,7 @@ class CurrencyScreen extends Component {
         />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
-            exchanges.map(item => <ExchangerListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
+            exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
           }
         </ScrollView>
       </View>
