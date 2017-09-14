@@ -5,7 +5,7 @@ import { C, STYLE } from '../config';
 import { CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
-import styles from './CurrencyScreen.style';
+// import styles from './CurrencyScreen.style';
 
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
@@ -24,7 +24,6 @@ class CurrencyScreen extends Component {
     super(props);
     this.state = {
       history: undefined,
-      prefetch: false,
       refreshing: false,
       timeline: DEFAULT_TIMELINE,
     };
@@ -48,7 +47,7 @@ class CurrencyScreen extends Component {
     const history = await ServiceCurrencies.history(currency.symbol);
 
     snapshots({ ...snapshot, history }, currency.symbol);
-    this.setState({ prefetch: true, refreshing: false });
+    this.setState({ refreshing: false });
   }
 
   async _onPressTimeline(timeline) {
@@ -62,18 +61,13 @@ class CurrencyScreen extends Component {
   render() {
     const { _onPressTimeline } = this;
     const { currency, snapshot } = this.props;
-    const { prefetch, refreshing, timeline, history = snapshot.history || [] } = this.state;
+    const { refreshing, timeline, history = snapshot.history || [] } = this.state;
     const { exchanges = [] } = snapshot;
+    const contentProps = { currency, history, onChange: _onPressTimeline, refreshing, snapshot, timeline };
 
     return (
       <View style={STYLE.SCREEN}>
-        <CurrencyContent
-          currency={currency}
-          history={history}
-          onChange={_onPressTimeline}
-          snapshot={snapshot}
-          timeline={timeline}
-        />
+        <CurrencyContent {...contentProps} />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
             exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)

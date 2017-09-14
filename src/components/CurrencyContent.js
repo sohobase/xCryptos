@@ -1,4 +1,4 @@
-import { arrayOf, func, string } from 'prop-types';
+import { arrayOf, bool, func, string } from 'prop-types';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { C, STYLE } from '../config';
@@ -20,6 +20,7 @@ const CurrencyContent = (props) => {
     currency: { symbol, usd },
     history,
     onChange,
+    refreshing,
     snapshot: { price },
     timeline,
   } = props;
@@ -53,10 +54,13 @@ const CurrencyContent = (props) => {
               if (key === timeline) {
                 styleOption.push(styles.optionCaptionActive);
                 styleBullet.push(styles.bulletActive);
+              } else if (refreshing) {
+                styleOption.push(styles.optionDisabled);
+                styleBullet.push(styles.optionDisabled);
               }
 
               return (
-                <TouchableOpacity key={key} style={[STYLE.ROW, styles.option]} onPress={() => onChange(key)}>
+                <TouchableOpacity key={key} style={[STYLE.ROW, styles.option]} onPress={() => !refreshing && onChange(key)}>
                   <View style={styleBullet} />
                   <Text style={styleOption}>{key}</Text>
                 </TouchableOpacity>
@@ -74,6 +78,7 @@ CurrencyContent.propTypes = {
   currency: C.SHAPE.CURRENCY,
   history: arrayOf(C.SHAPE.HISTORY),
   onChange: func,
+  refreshing: bool,
   snapshot: C.SHAPE.SNAPSHOT,
   timeline: string,
 };
@@ -82,6 +87,7 @@ CurrencyContent.defaultProps = {
   currency: {},
   history: [],
   onChange: undefined,
+  refreshing: false,
   snapshot: {},
   timeline: undefined,
 };

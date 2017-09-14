@@ -19,7 +19,6 @@ export default StyleSheet.create({
     height: THEME.UNIT * 9.6,
   },
 
-
   bullet: {
     marginRight: THEME.UNIT * 0.35,
   },
@@ -35,6 +34,10 @@ export default StyleSheet.create({
   optionCaption: {
     fontWeight: THEME.FONT_WEIGHT_BOLD,
     opacity: 0.75,
+  },
+
+  optionDisabled: {
+    opacity: 0.5,
   },
 
   optionCaptionActive: {
