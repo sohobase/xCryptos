@@ -11,13 +11,15 @@ export default StyleSheet.create({
     borderBottomWidth: 1,
   },
 
-  price: {
-    backgroundColor: 'rgba(0, 0, 0, 0.05)',
-    width: PRICE_BOX_SIZE,
+  priceBox: {
+    display: 'flex',
     height: PRICE_BOX_SIZE,
-    lineHeight: PRICE_BOX_SIZE,
+    width: PRICE_BOX_SIZE,
+    backgroundColor: 'rgba(0, 0, 0, 0.05)',
+  },
+
+  price: {
     fontSize: THEME.FONT_SIZE_SMALL,
-    textAlign: 'center',
   },
 
   market: {
