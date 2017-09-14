@@ -36,6 +36,21 @@ export default {
     usd: 0,
   }],
 
+  EXCHANGES: [
+    'coinbase',
+    'bisq',
+    'bitfinex',
+    'bitsquare',
+    'bitstamp',
+    'bittrex',
+    'cexio',
+    'gdax',
+    'kraken',
+    'poloniex',
+    'coinmama',
+    'yobit',
+  ],
+
   FEEDBACK: {
     MAIL: 'hello@soyjavi.com',
     SUBJECT: 'Feedback',

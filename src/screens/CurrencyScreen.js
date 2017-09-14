@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { RefreshControl, ScrollView, View } from 'react-native';
-import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, CurrencyContent, ExchangerListItem } from '../components';
+import { ScrollView, View } from 'react-native';
+import { C, STYLE } from '../config';
+import { CurrencyContent, ExchangerListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 import styles from './CurrencyScreen.style';
@@ -16,7 +16,7 @@ class CurrencyScreen extends Component {
     return {
       title: currency.name,
       // @TODO: Release 0.4.0 (Alarms)
-      // headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Currencies')} />,
+      // headerRight:  con="alert" onPress={() => navigate('Currencies')} />,
     };
   }
 
@@ -60,7 +60,7 @@ class CurrencyScreen extends Component {
   }
 
   render() {
-    const { _fetch, _onPressTimeline } = this;
+    const { _onPressTimeline } = this;
     const { currency, snapshot } = this.props;
     const { prefetch, refreshing, timeline, history = snapshot.history || [] } = this.state;
     const { exchanges = [] } = snapshot;
@@ -76,9 +76,7 @@ class CurrencyScreen extends Component {
         />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
-            exchanges
-              .sort((a, b) => a.PRICE - b.PRICE)
-              .map(item => <ExchangerListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
+            exchanges.map(item => <ExchangerListItem key={`${item.MARKET}${item.PRICE}`} exchanger={item} />)
           }
         </ScrollView>
       </View>
