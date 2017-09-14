@@ -14,15 +14,27 @@ export default StyleSheet.create({
   },
 
   title: {
-    fontSize: THEME.FONT_SIZE_NORMAL,
-    fontWeight: 'bold',
+    marginTop: THEME.OFFSET,
+    fontSize: THEME.FONT_SIZE_LARGE,
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
     color: THEME.WHITE,
   },
 
-  drawer: {},
+  version: {
+    fontSize: THEME.FONT_SIZE_SMALL,
+    color: THEME.CONTRAST,
+  },
+
+  options: {
+    marginTop: THEME.OFFSET,
+  },
+
+  drawerItems: {
+    marginTop: 0,
+  },
 
   label: {
-    fontWeight: 'bold',
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
   },
 
   item: {

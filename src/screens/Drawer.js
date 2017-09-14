@@ -1,3 +1,4 @@
+import { arrayOf } from 'prop-types';
 import React from 'react';
 import { Linking, Platform, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
@@ -13,8 +14,17 @@ export default props => (
   <View style={style.container}>
     <View style={style.header}>
       <Text style={style.title}>{pkg.name}</Text>
+      <Text style={style.version}>v{pkg.version}</Text>
     </View>
-    <ScrollView>
+    <ScrollView style={style.options}>
+      <DrawerItems
+        {...props}
+        items={[props.items[0]]} // eslint-disable-line
+        activeTintColor={THEME.PRIMARY}
+        style={style.drawerItems}
+        labelStyle={[style.label, style.item]}
+      />
+
       <TouchableOpacity onPress={() => Share.share({ message: storeURL })}>
         <Text style={[style.label, style.link]}>Share Us</Text>
       </TouchableOpacity>
@@ -24,12 +34,15 @@ export default props => (
       <TouchableOpacity onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=body`)}>
         <Text style={[style.label, style.link]}>Feedback</Text>
       </TouchableOpacity>
+
       <DrawerItems
         {...props}
+        items={[props.items[1]]} // eslint-disable-line
         activeTintColor={THEME.PRIMARY}
-        style={style.drawer}
+        style={style.drawerItems}
         labelStyle={[style.label, style.item]}
       />
+
       <Button
         caption="Get $10 in Coinbase"
         tintColor={THEME.COLOR_COINBASE}
