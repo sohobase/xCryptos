@@ -8,7 +8,7 @@ import style from './Drawer.style';
 import pkg from '../../package.json';
 
 const { FEEDBACK: { MAIL, SUBJECT }, STORE_URL: { ANDROID, IOS } } = C;
-const storeURL = (Platform.OS === 'ios') ? ANDROID : IOS;
+const storeURL = (Platform.OS === 'ios') ? IOS : ANDROID;
 
 export default props => (
   <View style={style.container}>
