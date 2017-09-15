@@ -1,6 +1,6 @@
 import { func, number, string } from 'prop-types';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { THEME } from '../config';
 import Touchable from './Touchable';
 import styles from './Button.style';
@@ -26,7 +26,7 @@ Button.defaultProps = {
   color: THEME.WHITE,
   onPress: undefined,
   style: undefined,
-  tintColor: THEME.ACCENT,
+  tintColor: THEME.PRIMARY,
 };
 
 export default Button;

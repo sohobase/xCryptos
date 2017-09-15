@@ -11,14 +11,14 @@
       "backgroundColor": "#3920F5",
       "exponentIconColor": "white",
       "hideExponentText": true,
-      "icon": "./src/assets/app-logo.png", 
+      "icon": "./src/assets/app-logo.png",
     },
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos"
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 2
+      "versionCode": 3
     }
    }
  }
