@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { ScrollView, View } from 'react-native';
 import { C, STYLE } from '../config';
-import { CurrencyContent, ExchangeListItem } from '../components';
+import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 // import styles from './CurrencyScreen.style';
@@ -10,13 +10,13 @@ import { snapshotsAction } from '../actions';
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
-  static navigationOptions({ navigation: { state } }) {
+  static navigationOptions({ navigation: { navigate, state } }) {
     const { currency = {} } = state.params || {};
 
     return {
       title: currency.name,
       // @TODO: Release 0.4.0 (Alarms)
-      // headerRight:  con="alert" onPress={() => navigate('Currencies')} />,
+      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Alerts')} />,
     };
   }
 

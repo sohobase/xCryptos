@@ -1,6 +1,7 @@
 import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import {
   AboutScreen,
+  AlertsScreen,
   CurrenciesScreen,
   CurrencyScreen,
   Drawer,
@@ -27,6 +28,7 @@ const App = DrawerNavigator({
       Main: { screen: MainScreen, navigationOptions },
       Currencies: { screen: CurrenciesScreen, navigationOptions },
       Currency: { screen: CurrencyScreen, navigationOptions },
+      Alerts: { screen: AlertsScreen, navigationOptions },
     }),
   },
   // Settings: {

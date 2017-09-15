@@ -1,4 +1,5 @@
 import AboutScreen from './AboutScreen';
+import AlertsScreen from './AlertsScreen';
 import CurrenciesScreen from './CurrenciesScreen';
 import CurrencyScreen from './CurrencyScreen';
 import Drawer from './Drawer';
@@ -8,6 +9,7 @@ import SettingsScreen from './SettingsScreen';
 
 export {
   AboutScreen,
+  AlertsScreen,
   CurrenciesScreen,
   CurrencyScreen,
   Drawer,
