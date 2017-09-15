@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
 import { updatePricesAction } from '../actions';
-import { ButtonIcon, FavoriteItem, VirtualKeyboard } from '../components';
+import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies } from '../services';
 import styles from './MainScreen.style';
-import PKG from '../../package.json';
 
 const keyExtractor = item => item.symbol;
 
@@ -17,7 +16,7 @@ class Main extends Component {
       drawerLabel: 'Favorites',
       drawerIcon: ({ tintColor }) => <Image source={C.ICON.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
-      title: PKG.name,
+      title: <Logo style={styles.logo} />,
       headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,
     };
   }
