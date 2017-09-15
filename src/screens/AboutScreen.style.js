@@ -29,12 +29,6 @@ export default StyleSheet.create({
     fontSize: THEME.FONT_SIZE_SMALL,
   },
 
-  logo: {
-    width: THEME.UNIT * 6,
-    height: THEME.UNIT * 4,
-    resizeMode: 'center',
-  },
-
   authors: {
     flex: 0,
     flexDirection: 'row',

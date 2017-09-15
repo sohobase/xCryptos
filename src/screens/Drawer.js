@@ -2,7 +2,7 @@ import React from 'react';
 import { Linking, Image, Platform, ScrollView, Share, Text, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
 import { C, STYLE, THEME } from '../config';
-import { Button, Touchable } from '../components';
+import { Button, Logo, Touchable } from '../components';
 import style from './Drawer.style';
 import pkg from '../../package.json';
 
@@ -20,9 +20,12 @@ const DrawerLinkItem = ({ onPress, icon, caption }) => ( // eslint-disable-line
 
 export default props => (
   <View style={style.container}>
-    <View style={style.header}>
-      <Text style={style.title}>{pkg.name}</Text>
-      <Text style={style.version}>v{pkg.version}</Text>
+    <View style={[STYLE.ROW, style.header]}>
+      <Logo style={style.logo} />
+      <View>
+        <Text style={style.title}>{pkg.name}</Text>
+        <Text style={style.version}>v{pkg.version}</Text>
+      </View>
     </View>
     <ScrollView style={style.options}>
       <DrawerItems

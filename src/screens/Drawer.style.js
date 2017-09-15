@@ -7,14 +7,17 @@ export default StyleSheet.create({
   },
 
   header: {
-    height: '17.5%',
+    height: '20%',
     padding: THEME.OFFSET,
-    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: THEME.PRIMARY,
   },
 
+  logo: {
+    marginRight: THEME.UNIT,
+  },
+
   title: {
-    marginTop: THEME.OFFSET,
     fontSize: THEME.FONT_SIZE_LARGE,
     fontWeight: THEME.FONT_WEIGHT_BOLD,
     color: THEME.WHITE,

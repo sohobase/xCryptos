@@ -3,10 +3,8 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: THEME.PRIMARY,
-  },
-
-  logo: {
-    marginTop: THEME.UNIT * -3.6,
+    width: THEME.UNIT * 6.4,
+    height: THEME.UNIT * 4.4,
+    resizeMode: 'center',
   },
 });
