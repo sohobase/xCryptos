@@ -1,6 +1,7 @@
 import { bool, func, shape, string, number } from 'prop-types';
-import { Switch, Text, TouchableHighlight, View } from 'react-native';
+import { Switch, Text, View } from 'react-native';
 import React from 'react';
+import Touchable from './Touchable';
 import styles from './CurrencyListItem.style';
 
 const CurrencyListItem = (props) => {
@@ -8,7 +9,7 @@ const CurrencyListItem = (props) => {
   const { name, symbol } = currency;
 
   return (
-    <TouchableHighlight onPress={onPress}>
+    <Touchable onPress={onPress}>
       <View style={styles.container}>
         <View style={styles.currency}>
           <Text style={styles.name}>{name}</Text>
@@ -20,7 +21,7 @@ const CurrencyListItem = (props) => {
           value={favorite}
         />
       </View>
-    </TouchableHighlight>
+    </Touchable>
   );
 };
 

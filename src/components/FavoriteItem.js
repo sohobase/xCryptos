@@ -1,35 +1,43 @@
 import { bool, func, shape, string, number } from 'prop-types';
-import { Image, Text, TouchableHighlight, TouchableWithoutFeedback, View } from 'react-native';
+import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { activeFavoriteAction } from '../actions';
 import { THEME, STYLE } from '../config';
+import Touchable from './Touchable';
 import styles from './FavoriteItem.style';
 
 class FavoriteItem extends Component {
   constructor(props) {
     super(props);
     this._onActiveItem = this._onActiveItem.bind(this);
+    this._onPress = this._onPress.bind(this);
   }
 
   _onActiveItem() {
     this.props.activeFavorite(this.props.currency);
   }
 
+  _onPress() {
+    this.props.onPress();
+    this._onActiveItem();
+  }
+
   render() {
-    const { conversionUsd, currency, decimal, onPress, value } = this.props;
+    const { _onPress, _onActiveItem } = this;
+    const { conversionUsd, currency, decimal, value } = this.props;
     const { active, name, image, symbol, usd } = currency;
 
     return (
-      <TouchableHighlight onPress={onPress}>
+      <Touchable onPress={_onPress}>
         <View style={[styles.container, (active && styles.active)]}>
           { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
           <View style={styles.currency}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
             <Text style={styles.text}>{name}</Text>
           </View>
-          <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={this._onActiveItem}>
+          <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
             <View style={styles.values}>
               <View style={STYLE.ROW}>
                 <Text style={styles.value}>
@@ -42,7 +50,7 @@ class FavoriteItem extends Component {
             </View>
           </TouchableWithoutFeedback>
         </View>
-      </TouchableHighlight>
+      </Touchable>
     );
   }
 }

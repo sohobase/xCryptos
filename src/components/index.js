@@ -5,6 +5,7 @@ import CurrencyContent from './CurrencyContent';
 import CurrencyListItem from './CurrencyListItem';
 import ExchangeListItem from './ExchangeListItem';
 import FavoriteItem from './FavoriteItem';
+import Touchable from './Touchable';
 import VirtualKeyboard from './VirtualKeyboard';
 
 export {
@@ -15,5 +16,6 @@ export {
   CurrencyListItem,
   ExchangeListItem,
   FavoriteItem,
+  Touchable,
   VirtualKeyboard,
 };

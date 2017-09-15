@@ -1,8 +1,9 @@
 import { arrayOf, bool, func, string } from 'prop-types';
 import React from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { C, STYLE } from '../config';
 import Chart from './Chart';
+import Touchable from './Touchable';
 import styles from './CurrencyContent.style';
 
 const renderHistoryPrice = (value, caption) => {
@@ -60,10 +61,12 @@ const CurrencyContent = (props) => {
               }
 
               return (
-                <TouchableOpacity key={key} style={[STYLE.ROW, styles.option]} onPress={() => !refreshing && onChange(key)}>
-                  <View style={styleBullet} />
-                  <Text style={styleOption}>{key}</Text>
-                </TouchableOpacity>
+                <Touchable key={key} onPress={() => !refreshing && onChange(key)}>
+                  <View style={[STYLE.ROW, styles.option]}>
+                    <View style={styleBullet} />
+                    <Text style={styleOption}>{key}</Text>
+                  </View>
+                </Touchable>
               );
             })
           }
