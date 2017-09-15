@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, Image, RefreshControl, View } from 'react-native';
 import { updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
@@ -14,10 +14,8 @@ const keyExtractor = item => item.symbol;
 class Main extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
-      drawerLabel: 'Home',
-      // drawerIcon: ({ tintColor = 'red' }) => (
-      //   <Image source={require('../assets/icon-menu.png')} style={{ tintColor }} />
-      // ),
+      drawerLabel: 'Favorites',
+      drawerIcon: ({ tintColor }) => <Image source={C.ICON.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: PKG.name,
       headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,
@@ -41,6 +39,11 @@ class Main extends Component {
   componentWillMount() {
     this._fetch();
   }
+
+  // componentDidMount() {
+  //   this.props.navigation.navigate('Currency', { currency: this.props.favorites[1] });
+  //   this.props.navigation.navigate('DrawerOpen');
+  // }
 
   componentWillReceiveProps({ favorites = [] }) {
     this.setState({

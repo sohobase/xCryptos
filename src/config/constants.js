@@ -2,7 +2,12 @@ import { bool, func, shape, string, number } from 'prop-types';
 
 const add = require('../assets/icon-add.png');
 const alert = require('../assets/icon-alert.png');
+const create = require('../assets/icon-create.png');
+const home = require('../assets/icon-home.png');
+const info = require('../assets/icon-info.png');
 const menu = require('../assets/icon-menu.png');
+const star = require('../assets/icon-star.png');
+const share = require('../assets/icon-share.png');
 
 export default {
   AFILIATES: {
@@ -56,7 +61,7 @@ export default {
     SUBJECT: 'Feedback',
   },
 
-  ICON: { add, alert, menu },
+  ICON: { add, alert, create, home, info, menu, star, share },
 
   SHAPE: {
     CURRENCY: shape({

@@ -33,16 +33,16 @@ export default StyleSheet.create({
     marginTop: 0,
   },
 
-  label: {
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
-  },
-
   item: {
     margin: THEME.OFFSET,
   },
 
   link: {
     padding: THEME.OFFSET,
+  },
+
+  linkCaption: {
+    paddingLeft: THEME.OFFSET,
   },
 
   button: {

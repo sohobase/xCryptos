@@ -1,14 +1,22 @@
-import { arrayOf } from 'prop-types';
 import React from 'react';
-import { Linking, Platform, ScrollView, Share, Text, TouchableOpacity, View } from 'react-native';
+import { Linking, Image, Platform, ScrollView, Share, Text, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
-import { C, THEME } from '../config';
-import { Button } from '../components';
+import { C, STYLE, THEME } from '../config';
+import { Button, Touchable } from '../components';
 import style from './Drawer.style';
 import pkg from '../../package.json';
 
 const { FEEDBACK: { MAIL, SUBJECT }, STORE_URL: { ANDROID, IOS } } = C;
 const storeURL = (Platform.OS === 'ios') ? IOS : ANDROID;
+
+const DrawerLinkItem = ({ onPress, icon, caption }) => ( // eslint-disable-line
+  <Touchable onPress={onPress}>
+    <View style={[STYLE.ROW, style.link]}>
+      <Image source={icon} style={[STYLE.DRAWER_ICON]} />
+      <Text style={[STYLE.DRAWER_LABEL, style.linkCaption]}>{caption}</Text>
+    </View>
+  </Touchable>
+);
 
 export default props => (
   <View style={style.container}>
@@ -22,27 +30,30 @@ export default props => (
         items={[props.items[0]]} // eslint-disable-line
         activeTintColor={THEME.PRIMARY}
         style={style.drawerItems}
-        labelStyle={[style.label, style.item]}
+        labelStyle={[STYLE.DRAWER_LABEL, style.item]}
       />
-
-      <TouchableOpacity onPress={() => Share.share({ message: storeURL })}>
-        <Text style={[style.label, style.link]}>Share Us</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => Linking.openURL(storeURL)}>
-        <Text style={[style.label, style.link]}>Like Us</Text>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=body`)}>
-        <Text style={[style.label, style.link]}>Feedback</Text>
-      </TouchableOpacity>
-
+      <DrawerLinkItem
+        caption="Share us"
+        icon={C.ICON.share}
+        onPress={() => Share.share({ message: storeURL })}
+      />
+      <DrawerLinkItem
+        caption="Like Us"
+        icon={C.ICON.star}
+        onPress={() => Linking.openURL(storeURL)}
+      />
+      <DrawerLinkItem
+        caption="Feedback"
+        icon={C.ICON.create}
+        onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=body`)}
+      />
       <DrawerItems
         {...props}
         items={[props.items[1]]} // eslint-disable-line
         activeTintColor={THEME.PRIMARY}
         style={style.drawerItems}
-        labelStyle={[style.label, style.item]}
+        labelStyle={[STYLE.DRAWER_LABEL, style.item]}
       />
-
       <Button
         caption="Get $10 in Coinbase"
         tintColor={THEME.COLOR_COINBASE}

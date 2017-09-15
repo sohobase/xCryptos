@@ -20,6 +20,17 @@ export default StyleSheet.create({
     backgroundColor: THEME.WHITE,
   },
 
+  DRAWER_LABEL: {
+    marginLeft: 0,
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
+  },
+
+  DRAWER_ICON: {
+    width: THEME.UNIT * 2.4,
+    height: THEME.UNIT * 2.4,
+    tintColor: 'rgba(0,0,0,0.5)',
+  },
+
   ROW: {
     display: 'flex',
     flexDirection: 'row',
