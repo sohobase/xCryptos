@@ -8,7 +8,7 @@ const logo = require('../assets/app-logo.png');
 export default () => {
   return (
     <View style={[STYLE.SCREEN, STYLE.CENTERED, styles.container]}>
-      <Image source={logo} style={styles.icon} />
+      <Image source={logo} style={styles.logo} />
     </View>
   );
 };

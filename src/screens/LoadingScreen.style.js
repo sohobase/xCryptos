@@ -6,7 +6,7 @@ export default StyleSheet.create({
     backgroundColor: THEME.PRIMARY,
   },
 
-  icon: {
+  logo: {
     marginTop: THEME.UNIT * -4,
   },
 });

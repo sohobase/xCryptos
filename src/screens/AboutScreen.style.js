@@ -20,13 +20,19 @@ export default StyleSheet.create({
 
   name: {
     color: THEME.WHITE,
-    marginTop: THEME.FONT_SIZE_EXTRA_LARGE * -2,
+    margin: THEME.UNIT * 0.5,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     fontWeight: 'bold',
   },
 
   version: {
-    fontSize: THEME.FONT_SIZE_NORMAL,
+    fontSize: THEME.FONT_SIZE_SMALL,
+  },
+
+  logo: {
+    width: THEME.UNIT * 6,
+    height: THEME.UNIT * 4,
+    resizeMode: 'center',
   },
 
   authors: {

@@ -7,6 +7,7 @@ import pkg from '../../package.json';
 
 const javi = pkg.contributors[0];
 const mikel = pkg.contributors[1];
+const logo = require('../assets/app-logo.png');
 
 class AboutScreen extends Component {
   static navigationOptions({ navigation }) {
@@ -23,6 +24,7 @@ class AboutScreen extends Component {
     return (
       <View style={[STYLE.SCREEN, styles.container]}>
         <View style={styles.info}>
+          <Image source={logo} style={styles.logo} />
           <Text style={styles.name}>{pkg.name}</Text>
           <Text style={[styles.text, styles.version]}>v{pkg.version}</Text>
         </View>
