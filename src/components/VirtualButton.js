@@ -1,17 +1,21 @@
 import { func, number, string } from 'prop-types';
 import React from 'react';
-import { Text, TouchableHighlight } from 'react-native';
+import { Text, View } from 'react-native';
+import { STYLE } from '../config';
+import Touchable from './Touchable';
 import styles from './VirtualButton.style';
 
 const VirtualButton = ({ caption, value, onPress }) => (
-  <TouchableHighlight
+  <Touchable
     key={value}
     onPress={() => onPress(value)}
-    style={styles.container}
+    style={[styles.container, STYLE.CENTERED]}
     underlayColor="rgba(0,0,0,0.1)"
   >
-    <Text style={styles.text}>{caption || value.toString()}</Text>
-  </TouchableHighlight>
+    <View style={[styles.container, STYLE.CENTERED]}>
+      <Text style={styles.text}>{caption || value.toString()}</Text>
+    </View>
+  </Touchable>
 );
 
 VirtualButton.propTypes = {

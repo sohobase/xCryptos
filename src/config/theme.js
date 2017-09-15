@@ -9,9 +9,12 @@ export default {
   WHITE: 'white',
   BLACK: 'black',
   // -- Colors
-  PRIMARY: '#6320D4',
-  ACCENT: 'blue',
+  PRIMARY: '#3920F5',
+  ACCENT: '#C668FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
+  COLOR_LOW: 'rgba(255,0,0,0.35)',
+  COLOR_HIGH: 'rgba(0,255,0,0.35)',
+  COLOR_COINBASE: '#0667D0',
 
   TRANSPARENT: 'transparent',
   BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.1)',
@@ -20,8 +23,14 @@ export default {
   // -- Sizes
   UNIT,
   OFFSET: UNIT * 1.6,
+  MAIN_LAYOUT_HEIGHT: '55%',
+  SECOND_LAYOUT_HEIGHT: '45%',
+
+  // -- Fonts
   FONT_SIZE_SMALL: UNIT * 1.2,
   FONT_SIZE_NORMAL: UNIT * 1.6,
   FONT_SIZE_LARGE: UNIT * 2,
   FONT_SIZE_EXTRA_LARGE: UNIT * 2.4,
+  FONT_WEIGHT_LIGHT: '200',
+  FONT_WEIGHT_BOLD: '700',
 };

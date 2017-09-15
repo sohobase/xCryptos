@@ -5,7 +5,7 @@ const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
 const DEFAULT_CURRENCY = 'USD';
 const TIMELINE_SERVICE = [
   { timeline: C.TIMELINES[0], endpoint: 'histominute', limit: 60 },
-  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 48 },
+  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 72 },
   { timeline: C.TIMELINES[2], endpoint: 'histoday', limit: 60 },
 ];
 
@@ -50,6 +50,12 @@ export default {
     const { Data } = await response.json();
     const { AggregatedData = {}, Exchanges = [] } = Data;
 
+    const exchanges = [];
+    C.EXCHANGES.forEach((exchange) => {
+      const found = Exchanges.find(item => item.MARKET.toLowerCase() === exchange);
+      if (found) exchanges.push(found);
+    });
+
     return {
       price: AggregatedData.PRICE,
       lastUpdate: AggregatedData.LASTUPDATE,
@@ -58,7 +64,7 @@ export default {
       open: AggregatedData.OPEN24HOUR,
       high: AggregatedData.HIGH24HOUR,
       low: AggregatedData.LOW24HOUR,
-      exchanges: Exchanges,
+      exchanges,
     };
   },
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Linking, Text, View } from 'react-native';
-import { STYLE } from '../config';
-import { ButtonIcon } from '../components';
+import { Image, Linking, Text, View } from 'react-native';
+import { C, STYLE } from '../config';
+import { ButtonIcon, Logo } from '../components';
 import styles from './AboutScreen.style';
 import pkg from '../../package.json';
 
@@ -13,6 +13,7 @@ class AboutScreen extends Component {
     const { navigate } = navigation;
     return {
       drawerLabel: 'About',
+      drawerIcon: ({ tintColor }) => <Image source={C.ICON.info} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'About',
     };
@@ -22,6 +23,7 @@ class AboutScreen extends Component {
     return (
       <View style={[STYLE.SCREEN, styles.container]}>
         <View style={styles.info}>
+          <Logo />
           <Text style={styles.name}>{pkg.name}</Text>
           <Text style={[styles.text, styles.version]}>v{pkg.version}</Text>
         </View>

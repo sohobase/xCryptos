@@ -1,21 +1,22 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, RefreshControl, ScrollView, Text, View } from 'react-native';
-import { C, STYLE, THEME } from '../config';
-import { ButtonIcon, ChartCurrency } from '../components';
+import { ScrollView, View } from 'react-native';
+import { C, STYLE } from '../config';
+import { CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
-import styles from './CurrencyScreen.style';
+// import styles from './CurrencyScreen.style';
 
 const DEFAULT_TIMELINE = C.TIMELINES[0];
 
 class CurrencyScreen extends Component {
-  static navigationOptions({ navigation: { navigate, state } }) {
+  static navigationOptions({ navigation: { state } }) {
     const { currency = {} } = state.params || {};
 
     return {
       title: currency.name,
-      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Currencies')} />,
+      // @TODO: Release 0.4.0 (Alarms)
+      // headerRight:  con="alert" onPress={() => navigate('Currencies')} />,
     };
   }
 
@@ -23,7 +24,6 @@ class CurrencyScreen extends Component {
     super(props);
     this.state = {
       history: undefined,
-      prefetch: false,
       refreshing: false,
       timeline: DEFAULT_TIMELINE,
     };
@@ -47,7 +47,7 @@ class CurrencyScreen extends Component {
     const history = await ServiceCurrencies.history(currency.symbol);
 
     snapshots({ ...snapshot, history }, currency.symbol);
-    this.setState({ prefetch: true, refreshing: false });
+    this.setState({ refreshing: false });
   }
 
   async _onPressTimeline(timeline) {
@@ -58,87 +58,22 @@ class CurrencyScreen extends Component {
     this.setState({ history });
   }
 
-  _renderExchanges() {
-    const { snapshot: { exchanges = [] } } = this.props;
-
-    return (
-      <View style={styles.section}>
-        { exchanges.length > 0 && <Text style={[styles.title, styles.highlight]}>Exchanges</Text> }
-        {
-          exchanges.sort((a, b) => a.PRICE - b.PRICE).map(({ MARKET, PRICE = 0 }) => {
-            return (
-              <View key={`${MARKET}${PRICE}`} style={STYLE.ROW}>
-                <Text style={[styles.caption, styles.left]}>{MARKET}</Text>
-                <Text style={styles.highlight}>${parseFloat(PRICE).toFixed(2)}</Text>
-              </View>
-            );
-          })
-        }
-      </View>
-    );
-  }
-
-  _renderHeader() {
-    const {
-      currency: { image, name, symbol, usd },
-      snapshot: { price, history: propsHistory },
-    } = this.props;
-    const { history = propsHistory || [] } = this.state;
-
-    let max = 0;
-    let min = 0;
-    if (history.length > 0) {
-      max = Math.max.apply(null, history.map(({ value }) => value));
-      min = Math.min.apply(null, history.map(({ value }) => value));
-    }
-
-    return (
-      <View style={[styles.section, STYLE.ROW]}>
-        { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
-        <View style={styles.left}>
-          <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
-          <Text style={styles.caption}>{name}</Text>
-        </View>
-        <View style={[styles.prices]}>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>{`$${min}`}</Text>
-            <Text style={[styles.caption, styles.label]}>low</Text>
-          </View>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>$</Text>
-            <Text style={[styles.highlight, styles.currentPrice]}>{`${price || usd}`}</Text>
-            <Text style={[styles.caption, styles.label]}>current</Text>
-          </View>
-          <View style={STYLE.ROW}>
-            <Text style={styles.highlight}>{`$${max}`}</Text>
-            <Text style={[styles.caption, styles.label]}>high</Text>
-          </View>
-        </View>
-      </View>
-    );
-  }
-
   render() {
-    const { _fetch, _onPressTimeline } = this;
-    const { snapshot: { history: propsHistory } } = this.props;
-    const { prefetch, refreshing, timeline } = this.state;
-    const { history = propsHistory || [] } = this.state;
+    const { _onPressTimeline } = this;
+    const { currency, snapshot } = this.props;
+    const { refreshing, timeline, history = snapshot.history || [] } = this.state;
+    const { exchanges = [] } = snapshot;
+    const contentProps = { currency, history, onChange: _onPressTimeline, refreshing, snapshot, timeline };
 
     return (
-      <ScrollView
-        refreshControl={
-          <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-        style={[STYLE.SCREEN, styles.container]}
-      >
-        { this._renderHeader() }
-        <ChartCurrency
-          dataSource={history}
-          onChange={_onPressTimeline}
-          style={styles.section}
-          timeline={timeline}
-        />
-        { this._renderExchanges() }
-      </ScrollView>
+      <View style={STYLE.SCREEN}>
+        <CurrencyContent {...contentProps} />
+        <ScrollView style={STYLE.LAYOUT_SECONDARY}>
+          {
+            exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} currency={currency} exchange={item} />)
+          }
+        </ScrollView>
+      </View>
     );
   }
 }

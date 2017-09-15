@@ -1,15 +1,23 @@
+import Button from './Button';
 import ButtonIcon from './ButtonIcon';
 import Chart from './Chart';
-import ChartCurrency from './ChartCurrency';
+import CurrencyContent from './CurrencyContent';
 import CurrencyListItem from './CurrencyListItem';
+import ExchangeListItem from './ExchangeListItem';
 import FavoriteItem from './FavoriteItem';
+import Logo from './Logo';
+import Touchable from './Touchable';
 import VirtualKeyboard from './VirtualKeyboard';
 
 export {
+  Button,
   ButtonIcon,
   Chart,
-  ChartCurrency,
+  CurrencyContent,
   CurrencyListItem,
+  ExchangeListItem,
   FavoriteItem,
+  Logo,
+  Touchable,
   VirtualKeyboard,
 };

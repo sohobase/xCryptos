@@ -7,22 +7,33 @@ export default StyleSheet.create({
   },
 
   header: {
-    height: '17.5%',
+    height: '20%',
     padding: THEME.OFFSET,
-    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: THEME.PRIMARY,
   },
 
+  logo: {
+    marginRight: THEME.UNIT,
+  },
+
   title: {
-    fontSize: THEME.FONT_SIZE_NORMAL,
-    fontWeight: 'bold',
+    fontSize: THEME.FONT_SIZE_LARGE,
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
     color: THEME.WHITE,
   },
 
-  drawer: {},
+  version: {
+    fontSize: THEME.FONT_SIZE_SMALL,
+    color: THEME.CONTRAST,
+  },
 
-  label: {
-    fontWeight: 'bold',
+  options: {
+    marginTop: THEME.OFFSET,
+  },
+
+  drawerItems: {
+    marginTop: 0,
   },
 
   item: {
@@ -31,5 +42,15 @@ export default StyleSheet.create({
 
   link: {
     padding: THEME.OFFSET,
+  },
+
+  linkCaption: {
+    paddingLeft: THEME.OFFSET,
+  },
+
+  button: {
+    margin: THEME.OFFSET,
+    paddingTop: THEME.OFFSET,
+    paddingBottom: THEME.OFFSET,
   },
 });

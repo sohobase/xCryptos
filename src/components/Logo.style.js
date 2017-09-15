@@ -3,11 +3,8 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   container: {
-    width: '33%',
-    height: '25%',
-  },
-
-  text: {
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
+    width: THEME.UNIT * 6.4,
+    height: THEME.UNIT * 4.4,
+    resizeMode: 'center',
   },
 });
