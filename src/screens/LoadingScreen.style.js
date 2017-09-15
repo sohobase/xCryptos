@@ -5,4 +5,8 @@ export default StyleSheet.create({
   container: {
     backgroundColor: THEME.PRIMARY,
   },
+
+  icon: {
+    marginTop: THEME.UNIT * -4,
+  },
 });

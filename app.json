@@ -2,13 +2,16 @@
    "expo": {
     "name": "xCryptos",
     "icon": "./src/assets/app-icon.png",
+    "orientation": "portrait",
+    "primaryColor": "#3920F5",
     "version": "0.3.0",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "20.0.0",
     "loading": {
-      "backgroundColor": "#FFFFFF",
+      "backgroundColor": "#3920F5",
+      "exponentIconColor": "white",
       "hideExponentText": true,
-      "icon": "./src/assets/app-icon.png"
+      "icon": "./src/assets/app-logo.png", 
     },
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos"
