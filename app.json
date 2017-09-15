@@ -4,21 +4,25 @@
     "icon": "./src/assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#3920F5",
-    "version": "0.3.0",
+    "version": "0.4.0",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "20.0.0",
     "loading": {
       "backgroundColor": "#3920F5",
       "exponentIconColor": "white",
       "hideExponentText": true,
-      "icon": "./src/assets/app-logo.png",
+      "icon": "./src/assets/app-brand.png"
+    },
+    "notification": {
+      "icon": "./src/assets/app-icon.png",
+      "color": "#FFFFFF",
     },
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos"
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 3
+      "versionCode": 4
     }
    }
  }
