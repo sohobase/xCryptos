@@ -1,4 +1,4 @@
-import { bool, func, shape, string, number } from 'prop-types';
+import { bool, date, func, number, shape, string } from 'prop-types';
 
 const add = require('../assets/icon-add.png');
 const alert = require('../assets/icon-alert.png');
@@ -64,6 +64,12 @@ export default {
   ICON: { add, alert, create, home, info, menu, star, share },
 
   SHAPE: {
+    ALERT: shape({
+      currency: string,
+      low: number,
+      high: number,
+      createdAt: date,
+    }),
     CURRENCY: shape({
       name: string,
       rank: number,
@@ -81,15 +87,15 @@ export default {
       symbol: string,
       usd: number,
     }),
+    HISTORY: shape({
+      timestamp: number,
+      value: number,
+    }),
     NAVIGATION: shape({
       navigate: func,
     }),
     SNAPSHOT: shape({
       PRICE: number,
-    }),
-    HISTORY: shape({
-      timestamp: number,
-      value: number,
     }),
   },
 

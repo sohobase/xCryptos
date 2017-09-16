@@ -1,31 +1,43 @@
-export const SAVE_CURRENCIES = '@Crypto/SAVE_CURRENCIES';
+export const ADD_ALERT = '@xCryptos/ADD_ALERT';
+export const addAlertAction = alert => ({
+  type: ADD_ALERT,
+  alert,
+});
+export const REMOVE_ALERT = '@xCryptos/REMOVE_ALERT';
+export const removeAlertAction = alert => ({
+  type: REMOVE_ALERT,
+  alert,
+});
+
+export const SAVE_CURRENCIES = '@xCryptos/SAVE_CURRENCIES';
 export const saveCurrenciesAction = currencies => ({
   type: SAVE_CURRENCIES,
   currencies,
 });
 
-export const ADD_FAVORITE = '@Crypto/ADD_FAVORITE';
+export const ADD_FAVORITE = '@xCryptos/ADD_FAVORITE';
 export const addFavoriteAction = favorite => ({
   type: ADD_FAVORITE,
   favorite,
 });
-export const ACTIVE_FAVORITE = '@Crypto/ACTIVE_FAVORITE';
+export const ACTIVE_FAVORITE = '@xCryptos/ACTIVE_FAVORITE';
 export const activeFavoriteAction = favorite => ({
   type: ACTIVE_FAVORITE,
   favorite,
 });
-export const REMOVE_FAVORITE = '@Crypto/REMOVE_FAVORITE';
+export const REMOVE_FAVORITE = '@xCryptos/REMOVE_FAVORITE';
 export const removeFavoriteAction = favorite => ({
   type: REMOVE_FAVORITE,
   favorite,
 });
-export const UPDATE_PRICES = '@Crypto/UPDATE_PRICES';
+
+export const UPDATE_PRICES = '@xCryptos/UPDATE_PRICES';
 export const updatePricesAction = prices => ({
   type: UPDATE_PRICES,
   prices,
 });
 
-export const SNAPSHOTS = '@Crypto/SNAPSHOTS';
+export const SNAPSHOTS = '@xCryptos/SNAPSHOTS';
 export const snapshotsAction = (currency, symbol) => ({
   type: SNAPSHOTS,
   currency,

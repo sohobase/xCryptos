@@ -1,6 +1,7 @@
-import { bool, func, shape, string, number } from 'prop-types';
+import { bool, func } from 'prop-types';
 import { Switch, Text, View } from 'react-native';
 import React from 'react';
+import { C } from '../config';
 import Touchable from './Touchable';
 import styles from './CurrencyListItem.style';
 
@@ -26,12 +27,7 @@ const CurrencyListItem = (props) => {
 };
 
 CurrencyListItem.propTypes = {
-  currency: shape({
-    name: string,
-    rank: number,
-    symbol: string,
-    usd: number,
-  }),
+  currency: C.SHAPE.CURRENCY,
   favorite: bool,
   onChange: func,
   onPress: func,

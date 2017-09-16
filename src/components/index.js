@@ -1,3 +1,4 @@
+import AlertListItem from './AlertListItem';
 import Button from './Button';
 import ButtonIcon from './ButtonIcon';
 import Chart from './Chart';
@@ -10,6 +11,7 @@ import Touchable from './Touchable';
 import VirtualKeyboard from './VirtualKeyboard';
 
 export {
+  AlertListItem,
   Button,
   ButtonIcon,
   Chart,

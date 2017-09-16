@@ -1,7 +1,7 @@
+import { arrayOf, func } from 'prop-types';
 import React, { Component } from 'react';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { arrayOf, func } from 'prop-types';
 import { FlatList, RefreshControl, View } from 'react-native';
 import {
   addFavoriteAction,
