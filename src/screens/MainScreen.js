@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func } from 'prop-types';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
+import { Notifications } from 'expo';
 import { updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
-import { ServiceCurrencies } from '../services';
+import { ServiceCurrencies, ServiceNotifications } from '../services';
 import styles from './MainScreen.style';
 
 const keyExtractor = item => item.symbol;
@@ -33,10 +34,14 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
+    this._handleNotification = this._handleNotification.bind(this);
   }
 
   componentWillMount() {
     this._fetch();
+    ServiceNotifications();
+
+    Notifications.addListener(this._handleNotification);
   }
 
   // componentDidMount() {
@@ -65,6 +70,13 @@ class Main extends Component {
   _onPressItem(currency) {
     this.props.navigation.navigate('Currency', { currency });
   }
+
+  _handleNotification = (notification) => {
+    const { favorites } = this.props;
+    const currency = notification.data.currency;
+    const currencyFind = favorites.find(i => i.symbol === currency);
+    if (currencyFind) this.props.navigation.navigate('Currency', { currency: currencyFind });
+  };
 
   _renderItem({ item }) {
     const { navigate } = this.props.navigation;
