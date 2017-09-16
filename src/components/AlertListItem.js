@@ -7,13 +7,25 @@ import styles from './AlertListItem.style';
 
 const AlertListItem = (props) => {
   const { alert, onPress } = props;
-  const { currency, low, high } = alert;
+  const { low, high } = alert;
 
   return (
-    <Touchable onPress={() => onPress(alert)}>
-      <View style={[STYLE.ROW, styles.container]}>
-        <Text style={styles.low}>low {low}</Text>
-        <Text style={styles.high}>high {high}</Text>
+    <Touchable onPress={onPress}>
+      <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
+        <View style={styles.left}>
+          <View style={STYLE.ROW}>
+            <Text style={styles.symbol}>$</Text>
+            <Text style={styles.price}>{low.toFixed(2)}</Text>
+          </View>
+          <Text style={styles.label}>low</Text>
+        </View>
+        <View style={styles.right}>
+          <View style={STYLE.ROW}>
+            <Text style={styles.symbol}>$</Text>
+            <Text style={styles.price}>{high.toFixed(2)}</Text>
+          </View>
+          <Text style={styles.label}>high</Text>
+        </View>
       </View>
     </Touchable>
   );

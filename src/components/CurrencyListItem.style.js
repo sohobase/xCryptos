@@ -1,28 +1,15 @@
 import { StyleSheet } from 'react-native';
+import { THEME } from '../config';
 
 export default StyleSheet.create({
-  container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: 'white',
-    borderBottomColor: '#eee',
-    borderBottomWidth: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
-  },
   currency: {
     flex: 1,
   },
   name: {
-    // fontWeight: 'bold',
+    fontSize: THEME.FONT_SIZE_NORMAL,
   },
   symbol: {
-    opacity: 0.5,
-  },
-  value: {
-    flex: 0,
-    marginRight: 12,
-    marginLeft: 12,
+    fontSize: THEME.FONT_SIZE_SMALL,
+    opacity: 0.75,
   },
 });

@@ -1,7 +1,7 @@
 import { bool, func } from 'prop-types';
 import { Switch, Text, View } from 'react-native';
 import React from 'react';
-import { C } from '../config';
+import { C, STYLE } from '../config';
 import Touchable from './Touchable';
 import styles from './CurrencyListItem.style';
 
@@ -11,7 +11,7 @@ const CurrencyListItem = (props) => {
 
   return (
     <Touchable onPress={onPress}>
-      <View style={styles.container}>
+      <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
         <View style={styles.currency}>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
