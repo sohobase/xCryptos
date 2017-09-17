@@ -44,7 +44,7 @@ class VirtualKeyboard extends Component {
         { NUMBERS.map(num => <VirtualButton key={num} value={num} onPress={_onNumber} />) }
         <VirtualButton caption="." onPress={_onDecimal} />
         <VirtualButton value={0} onPress={_onNumber} />
-        <VirtualButton caption="<" onPress={_onDelete} />
+        <VirtualButton icon="back" onPress={_onDelete} />
       </View>
     );
   }
