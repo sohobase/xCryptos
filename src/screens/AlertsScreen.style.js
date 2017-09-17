@@ -27,4 +27,8 @@ export default StyleSheet.create({
   inputRight: {
     textAlign: 'right',
   },
+
+  modalButton: {
+    marginBottom: THEME.OFFSET,
+  },
 });

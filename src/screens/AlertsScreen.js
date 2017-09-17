@@ -12,11 +12,11 @@ const keyExtractor = ({ currency, low, high }) => `${currency}${low}${high}${new
 
 class AlertsScreen extends Component {
   static navigationOptions({ navigation: { state } }) {
-    const { currency = {} } = state.params || {};
+    const { currency = {}, _showAlert } = state.params || {};
 
     return {
       title: `${currency.name} Alerts`,
-      headerRight: <ButtonIcon icon="add" onPress={() => {}} />,
+      headerRight: <ButtonIcon icon="add" onPress={() => { _showAlert(); }} />,
     };
   }
 
@@ -24,13 +24,20 @@ class AlertsScreen extends Component {
     super(props);
     this.state = {
       item: undefined,
-      modal: true,
+      modal: false,
     };
     this._closeAlert = this._closeAlert.bind(this);
     this._onChangeAmount = this._onChangeAmount.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this._saveAlert = this._saveAlert.bind(this);
     this._showAlert = this._showAlert.bind(this);
+  }
+
+  componentDidMount() {
+    const { _showAlert } = this;
+    const { navigation } = this.props;
+
+    navigation.setParams({ _showAlert });
   }
 
   _closeAlert() {
@@ -48,7 +55,7 @@ class AlertsScreen extends Component {
   }
 
   _showAlert(item) {
-    this.setState({ item, modal: false });
+    this.setState({ item, modal: item === undefined });
   }
 
   _onChangeAmount(field, value) {
@@ -107,9 +114,11 @@ class AlertsScreen extends Component {
               />
             </View>
           </View>
-          <Button caption="Save" onPress={() => { _saveAlert(); }} style={STYLE.MODAL_BUTTON} />
-          { item && item.currency &&
-            <Button caption="Delete" onPress={() => { _saveAlert(); }} style={STYLE.MODAL_BUTTON} /> }
+          <Button
+            caption={item && item.currency ? 'Delete' : 'Save'}
+            onPress={() => { _saveAlert(); }}
+            style={[STYLE.MODAL_BUTTON, styles.modalButton]}
+          />
         </Modal>
         <FlatList data={alerts} keyExtractor={keyExtractor} renderItem={_renderItem} />
       </View>
@@ -121,6 +130,7 @@ AlertsScreen.propTypes = {
   addAlert: func,
   alerts: arrayOf(C.SHAPE.ALERT),
   currency: C.SHAPE.CURRENCY,
+  navigation: C.SHAPE.NAVIGATION,
   removeAlert: func,
 };
 
@@ -128,6 +138,7 @@ AlertsScreen.defaultProps = {
   addAlert() {},
   alerts: [],
   currency: undefined,
+  navigation: undefined,
   removeAlert() {},
 };
 

@@ -94,6 +94,7 @@ export default {
     }),
     NAVIGATION: shape({
       navigate: func,
+      setParams: func,
     }),
     SNAPSHOT: shape({
       PRICE: number,
