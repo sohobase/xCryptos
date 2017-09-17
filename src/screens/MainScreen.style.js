@@ -1,10 +1,11 @@
-import { StyleSheet } from 'react-native';
-import { THEME } from '../config';
+import { Platform, StyleSheet } from 'react-native';
+
+const isAndroid = (Platform.OS !== 'ios');
 
 export default StyleSheet.create({
   logo: {
-    height: THEME.UNIT * 3.0,
-    width: THEME.UNIT * 3.0,
-    alignSelf: 'center',
+    width: isAndroid ? 76 : 40,
+    height: isAndroid ? 48 : 32,
+    resizeMode: 'center',
   },
 });

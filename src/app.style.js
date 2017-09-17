@@ -15,4 +15,8 @@ export default StyleSheet.create({
         height: 0,
       },
     }, androidHeader),
+
+  title: {
+    alignSelf: 'center',
+  },
 });

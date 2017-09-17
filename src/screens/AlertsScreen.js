@@ -24,7 +24,7 @@ class AlertsScreen extends Component {
     super(props);
     this.state = {
       item: undefined,
-      modal: true,
+      modal: false,
     };
     this._closeAlert = this._closeAlert.bind(this);
     this._onChangeAmount = this._onChangeAmount.bind(this);
