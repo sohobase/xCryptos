@@ -8,7 +8,7 @@ import styles from './LoadingScreen.style';
 export default () => {
   return (
     <View style={[STYLE.SCREEN, STYLE.CENTERED, styles.container]}>
-      <Animatable animation="bounceIn" duration={1000} _iterationCount="infinite">
+      <Animatable animation="bounceIn" duration={1000}>
         <Logo style={styles.logo} />
       </Animatable>
     </View>
