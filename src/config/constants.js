@@ -2,6 +2,7 @@ import { bool, date, func, number, shape, string } from 'prop-types';
 
 const add = require('../assets/icon-add.png');
 const alert = require('../assets/icon-alert.png');
+const back = require('../assets/icon-back.png');
 const close = require('../assets/icon-close.png');
 const create = require('../assets/icon-create.png');
 const home = require('../assets/icon-home.png');
@@ -62,7 +63,7 @@ export default {
     SUBJECT: 'Feedback',
   },
 
-  ICON: { add, alert, close, create, home, info, menu, star, share },
+  ICON: { add, alert, back, close, create, home, info, menu, star, share },
 
   SHAPE: {
     ALERT: shape({
