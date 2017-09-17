@@ -72,7 +72,7 @@ const CurrencyContent = (props) => {
           }
         </View>
       </View>
-      <Chart style={styles.chart} dataSource={history} />
+      <Chart animate dataSource={history} style={styles.chart} />
     </View>
   );
 };
