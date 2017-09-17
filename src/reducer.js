@@ -1,5 +1,6 @@
 import {
   ADD_ALERT,
+  ADD_TOKEN,
   REMOVE_ALERT,
   ACTIVE_FAVORITE,
   ADD_FAVORITE,
@@ -19,6 +20,7 @@ const initialState = {
   currencies: [],
   favorites: C.DEFAULT_FAVORITES,
   snapshots: {},
+  token: '',
 };
 
 export default function crypto(state = initialState, action) {
@@ -79,6 +81,10 @@ export default function crypto(state = initialState, action) {
         snapshots: { ...snapshots, [symbol]: currency },
       };
     }
+
+    // -- token
+    case ADD_TOKEN:
+      return { ...state, token: action.token };
 
     default:
       return state;

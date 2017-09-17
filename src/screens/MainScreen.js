@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
-import { updatePricesAction } from '../actions';
+import { addTokenAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies, ServiceNotifications } from '../services';
@@ -37,11 +37,14 @@ class Main extends Component {
     this._handleNotification = this._handleNotification.bind(this);
   }
 
-  componentWillMount() {
+  async componentWillMount() {
+    const { addToken, token } = this.props;
     this._fetch();
-    ServiceNotifications();
-
-    Notifications.addListener(this._handleNotification);
+    if (!token) {
+      addToken(await ServiceNotifications());
+    } else {
+      Notifications.addListener(this._handleNotification);
+    }
   }
 
   // componentDidMount() {
@@ -116,24 +119,30 @@ class Main extends Component {
 }
 
 Main.propTypes = {
+  addToken: func,
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
+  token: string,
   updatePrices: func,
 };
 
 Main.defaultProps = {
+  addToken() {},
   favorites: C.DEFAULT_FAVORITES,
   navigation: {
     navigate() {},
   },
+  token: '',
   updatePrices() {},
 };
 
 const mapStateToProps = state => ({
   favorites: state.favorites,
+  token: state.token,
 });
 
 const mapDispatchToProps = dispatch => ({
+  addToken: token => dispatch(addTokenAction(token)),
   updatePrices: prices => dispatch(updatePricesAction(prices)),
 });
 

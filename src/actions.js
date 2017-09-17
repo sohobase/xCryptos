@@ -43,3 +43,9 @@ export const snapshotsAction = (currency, symbol) => ({
   currency,
   symbol,
 });
+
+export const ADD_TOKEN = '@xCryptos/ADD_TOKEN';
+export const addTokenAction = token => ({
+  type: ADD_TOKEN,
+  token,
+});
