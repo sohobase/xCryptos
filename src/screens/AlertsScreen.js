@@ -95,7 +95,7 @@ class AlertsScreen extends Component {
             <View style={styles.fieldset}>
               <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
               <FormInput
-                autoFocus
+                autoFocus={modal}
                 defaultValue={item && item.low && item.low.toString()}
                 inputStyle={styles.input}
                 onChangeText={_onChangeAmount.bind(null, 'low')} //eslint-disable-line
