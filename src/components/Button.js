@@ -1,4 +1,4 @@
-import { func, number, string } from 'prop-types';
+import { array, func, number, oneOf, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { THEME } from '../config';
@@ -17,7 +17,7 @@ Button.propTypes = {
   caption: string,
   color: string,
   onPress: func,
-  style: number,
+  style: oneOf(array, number),
   tintColor: string,
 };
 

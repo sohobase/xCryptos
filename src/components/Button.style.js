@@ -11,6 +11,11 @@ export default StyleSheet.create({
   },
 
   caption: {
+    fontSize: THEME.FONT_SIZE_NORMAL,
     fontWeight: THEME.FONT_WEIGHT_BOLD,
+  },
+
+  small: {
+    fontSize: THEME.FONT_SIZE_SMALL,
   },
 });
