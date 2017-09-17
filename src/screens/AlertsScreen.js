@@ -24,7 +24,7 @@ class AlertsScreen extends Component {
     super(props);
     this.state = {
       item: undefined,
-      modal: false,
+      modal: true,
     };
     this._closeAlert = this._closeAlert.bind(this);
     this._onChangeAmount = this._onChangeAmount.bind(this);
@@ -77,6 +77,7 @@ class AlertsScreen extends Component {
     const { _closeAlert, _onChangeAmount, _renderItem, _saveAlert } = this;
     const { alerts } = this.props;
     const { item, modal } = this.state;
+    const { low, high } = item || {};
 
     const inputProps = {
       containerStyle: styles.fieldReset,
@@ -96,26 +97,25 @@ class AlertsScreen extends Component {
               <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
               <FormInput
                 autoFocus={modal}
-                defaultValue={item && item.low && item.low.toString()}
+                defaultValue={item && low && low.toString()}
                 inputStyle={styles.input}
                 onChangeText={_onChangeAmount.bind(null, 'low')} //eslint-disable-line
-                ref={input => this.low = input} //eslint-disable-line
                 {...inputProps}
               />
             </View>
             <View style={styles.fieldset}>
               <FormLabel labelStyle={[styles.fieldReset, styles.labelRight]}>High</FormLabel>
               <FormInput
-                defaultValue={item && item.high && item.high.toString()}
+                defaultValue={item && high && high.toString()}
                 inputStyle={[styles.input, styles.inputRight]}
                 onChangeText={_onChangeAmount.bind(null, 'high')} //eslint-disable-line
-                ref={input => this.high = input} //eslint-disable-line
                 {...inputProps}
               />
             </View>
           </View>
           <Button
             caption={item && item.currency ? 'Delete' : 'Save'}
+            disabled={!low || !high}
             onPress={() => { _saveAlert(); }}
             style={[STYLE.MODAL_BUTTON, styles.modalButton]}
           />

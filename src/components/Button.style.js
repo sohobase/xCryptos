@@ -10,6 +10,11 @@ export default StyleSheet.create({
     borderRadius: THEME.OFFSET * 2,
   },
 
+  disabled: {
+    opacity: 0.35,
+    backgroundColor: THEME.FONT_PRIMARY_COLOR,
+  },
+
   caption: {
     fontSize: THEME.FONT_SIZE_NORMAL,
     fontWeight: THEME.FONT_WEIGHT_BOLD,
