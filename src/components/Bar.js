@@ -1,21 +1,32 @@
-import { number, string } from 'prop-types';
+import { bool, number, string } from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
+import { View as Animatable } from 'react-native-animatable';
+import { THEME } from '../config';
 import styles from './Bar.style';
 
-const Bar = ({ color, value }) => (
+const Bar = ({ animate, color, delay, value }) => (
   <View style={styles.container}>
-    <View style={[styles.value, { height: `${value}%`, backgroundColor: color }]} />
+    <Animatable
+      animation={animate ? 'slideInUp' : undefined}
+      delay={delay}
+      duration={THEME.ANIMATION_DURATION}
+      style={[styles.value, { height: `${value}%`, backgroundColor: color }]}
+    />
   </View>
 );
 
 Bar.propTypes = {
+  animate: bool,
   color: string,
+  delay: number,
   value: number,
 };
 
 Bar.defaultProps = {
+  animate: false,
   value: 0,
+  delay: 0,
   color: undefined,
 };
 

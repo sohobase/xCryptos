@@ -37,6 +37,12 @@ export default StyleSheet.create({
     lineHeight: THEME.FONT_SIZE_EXTRA_LARGE,
   },
 
+  MODAL_BUTTON: {
+    marginTop: THEME.OFFSET,
+    paddingTop: THEME.OFFSET,
+    paddingBottom: THEME.OFFSET,
+  },
+
   DRAWER_LABEL: {
     marginLeft: 0,
     fontWeight: THEME.FONT_WEIGHT_BOLD,

@@ -7,6 +7,7 @@ import CurrencyListItem from './CurrencyListItem';
 import ExchangeListItem from './ExchangeListItem';
 import FavoriteItem from './FavoriteItem';
 import Logo from './Logo';
+import Modal from './Modal';
 import Touchable from './Touchable';
 import VirtualKeyboard from './VirtualKeyboard';
 
@@ -20,6 +21,7 @@ export {
   ExchangeListItem,
   FavoriteItem,
   Logo,
+  Modal,
   Touchable,
   VirtualKeyboard,
 };

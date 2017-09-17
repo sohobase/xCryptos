@@ -1,27 +1,26 @@
-import { func, string } from 'prop-types';
+import { array, func, number, oneOf, string } from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import { C } from '../config';
 import Touchable from './Touchable';
-import style from './ButtonIcon.style';
+import styles from './ButtonIcon.style';
 
-const ButtonIcon = (props) => {
-  const { icon, onPress } = props;
-  return (
-    <Touchable onPress={onPress}>
-      <Image style={style.icon} source={C.ICON[icon]} />
-    </Touchable>
-  );
-};
+const ButtonIcon = ({ icon, onPress, style }) => (
+  <Touchable onPress={onPress}>
+    <Image style={[styles.icon, style]} source={C.ICON[icon]} />
+  </Touchable>
+);
 
 ButtonIcon.propTypes = {
   icon: string,
   onPress: func,
+  style: oneOf(array, number),
 };
 
 ButtonIcon.defaultProps = {
-  icon: {},
+  icon: undefined,
   onPress: undefined,
+  style: undefined,
 };
 
 export default ButtonIcon;

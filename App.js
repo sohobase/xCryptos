@@ -8,6 +8,8 @@ import App from './src/app';
 import { LoadingScreen } from './src/screens';
 import reducer from './src/reducer';
 
+// AsyncStorage.clear();
+
 function configureStore() {
   return new Promise((resolve) => {
     const store = createStore(
