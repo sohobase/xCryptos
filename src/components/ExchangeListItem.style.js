@@ -20,6 +20,7 @@ export default StyleSheet.create({
 
   price: {
     fontSize: THEME.FONT_SIZE_SMALL,
+    fontWeight: THEME.FONT_WEIGHT_BOLD,
   },
 
   market: {
