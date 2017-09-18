@@ -18,7 +18,6 @@ export default {
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
   COLOR_LOW: 'rgba(255,0,0,0.35)',
   COLOR_HIGH: 'rgba(0,255,0,0.35)',
-  COLOR_COINBASE: '#0667D0',
   FONT_PRIMARY_COLOR: 'black',
 
   TRANSPARENT: 'transparent',
