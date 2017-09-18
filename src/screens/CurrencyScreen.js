@@ -6,18 +6,15 @@ import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 
-const { DEFAULT_TIMELINE, NODE_ENV: { DEVELOPMENT } } = C;
+const { DEFAULT_TIMELINE } = C;
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
     const { currency = {}, token } = state.params || {};
-    const { env: { NODE_ENV } } = process;
-
-    const showAlerts = (token || NODE_ENV === DEVELOPMENT);
 
     return {
       title: currency.name,
-      headerRight: showAlerts && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      headerRight: token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
     };
   }
 
