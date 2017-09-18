@@ -25,6 +25,7 @@ class ModalAlert extends Component {
     super(props);
     this.state = {
       item: undefined,
+      refreshing: false,
     };
     this._onChange = this._onChange.bind(this);
     this._onSubmit = this._onSubmit.bind(this);
@@ -46,15 +47,17 @@ class ModalAlert extends Component {
     const { addAlert, alert, removeAlert, currency: { symbol }, onClose, token } = this.props;
     const { item = {} } = this.state;
 
+    this.setState({ refreshing: true });
     if (alert) removeAlert(await ServiceAlerts.remove(alert));
     else addAlert(await ServiceAlerts.add({ ...item, currency: symbol, token }));
+    this.setState({ refreshing: false });
     onClose();
   }
 
   render() {
     const { _onChange, _onSubmit } = this;
     const { alert, onClose, visible } = this.props;
-    const { item = alert } = this.state;
+    const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
 
     const inputProps = {
@@ -92,7 +95,7 @@ class ModalAlert extends Component {
         </View>
         <Button
           caption={item && item.currency ? 'Delete' : 'Save'}
-          disabled={!low || !high}
+          disabled={!low || !high || refreshing}
           onPress={() => { _onSubmit(); }}
           style={[STYLE.MODAL_BUTTON, styles.modalButton]}
         />
