@@ -34,6 +34,7 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
+    this._fetchAlerts = this._fetchAlerts.bind(this);
     this._handleNotification = this._handleNotification.bind(this);
   }
 
