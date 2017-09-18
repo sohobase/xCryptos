@@ -1,6 +1,6 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { addAlertAction, removeAlertAction } from '../actions';
@@ -56,7 +56,7 @@ class ModalAlert extends Component {
 
   render() {
     const { _onChange, _onSubmit } = this;
-    const { alert, onClose, visible } = this.props;
+    const { alert, currency: { symbol, usd }, onClose, visible } = this.props;
     const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
 
@@ -68,10 +68,17 @@ class ModalAlert extends Component {
 
     return (
       <Modal
-        title={`${alert ? 'Edit' : 'New'} alert`}
+        title={alert ? 'Alert' : 'New Alert'}
         onClose={onClose}
         visible={visible}
       >
+        <View style={[STYLE.CENTERED, STYLE.ROW]}>
+          <Text style={styles.symbol}>$</Text>
+          <Text style={styles.price}>{usd}</Text>
+          <View style={[STYLE.CHIP, styles.chip]}>
+            <Text style={styles.chipCaption}>{symbol}</Text>
+          </View>
+        </View>
         <View style={[STYLE.ROW]}>
           <View style={styles.fieldset}>
             <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
@@ -94,7 +101,7 @@ class ModalAlert extends Component {
           </View>
         </View>
         <Button
-          caption={item && item.currency ? 'Delete' : 'Save'}
+          caption={item && item.currency ? 'Delete' : 'Create'}
           disabled={!low || !high || refreshing}
           onPress={() => { _onSubmit(); }}
           style={[STYLE.MODAL_BUTTON, styles.modalButton]}
