@@ -1,9 +1,9 @@
 import { arrayOf, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, View } from 'react-native';
+import { FlatList, RefreshControl, View } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
-import { addAlertAction, removeAlertAction } from '../actions';
+import { addAlertAction, removeAlertAction, saveAlertsAction } from '../actions';
 import { C, STYLE, THEME } from '../config';
 import { ServiceAlerts } from '../services';
 import { AlertListItem, Button, ButtonIcon, Modal } from '../components';
@@ -26,10 +26,11 @@ class AlertsScreen extends Component {
     this.state = {
       item: undefined,
       modal: false,
-      refreshing: true,
+      prefetch: false,
+      refreshing: false,
     };
     this._closeAlert = this._closeAlert.bind(this);
-    this._fetchAlerts = this._fetchAlerts.bind(this);
+    this._fetch = this._fetch.bind(this);
     this._onChangeAmount = this._onChangeAmount.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this._saveAlert = this._saveAlert.bind(this);
@@ -37,7 +38,7 @@ class AlertsScreen extends Component {
   }
 
   componentWillMount() {
-    // this._fetchAlerts();
+    this._fetch();
   }
 
   componentDidMount() {
@@ -61,11 +62,12 @@ class AlertsScreen extends Component {
     _closeAlert();
   }
 
-  async _fetchAlerts() {
+  async _fetch() {
     const { saveAlerts, token } = this.props;
+
     this.setState({ refreshing: true });
     saveAlerts(await ServiceAlerts.get(token));
-    this.setState({ refreshing: false });
+    this.setState({ prefetch: true, refreshing: false });
   }
 
   _showAlert(item) {
@@ -88,9 +90,9 @@ class AlertsScreen extends Component {
   }
 
   render() {
-    const { _closeAlert, _onChangeAmount, _renderItem, _saveAlert } = this;
+    const { _closeAlert, _fetch, _onChangeAmount, _renderItem, _saveAlert } = this;
     const { alerts } = this.props;
-    const { item, modal } = this.state;
+    const { item, modal, prefetch, refreshing } = this.state;
     const { low, high } = item || {};
 
     const inputProps = {
@@ -101,6 +103,14 @@ class AlertsScreen extends Component {
 
     return (
       <View style={STYLE.SCREEN}>
+        <FlatList
+          data={alerts}
+          keyExtractor={keyExtractor}
+          refreshControl={
+            <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+          renderItem={_renderItem}
+        />
+
         <Modal
           title={`${modal ? 'New' : 'Edit'} alert`}
           onClose={_closeAlert}
@@ -134,7 +144,6 @@ class AlertsScreen extends Component {
             style={[STYLE.MODAL_BUTTON, styles.modalButton]}
           />
         </Modal>
-        <FlatList data={alerts} keyExtractor={keyExtractor} renderItem={_renderItem} />
       </View>
     );
   }
@@ -171,6 +180,7 @@ const mapStateToProps = ({ alerts = [], token }, props) => {
 const mapDispatchToProps = dispatch => ({
   addAlert: alert => dispatch(addAlertAction(alert)),
   removeAlert: alert => dispatch(removeAlertAction(alert)),
+  saveAlerts: alerts => dispatch(saveAlertsAction(alerts)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlertsScreen);

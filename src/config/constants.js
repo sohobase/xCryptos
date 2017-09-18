@@ -47,6 +47,8 @@ export default {
 
   DEFAULT_TIMELINE,
 
+  DEFAULT_TOKEN: 'xCryptos-Development',
+
   EXCHANGES: [
     'coinbase',
     'bisq',

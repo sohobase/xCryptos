@@ -1,51 +1,32 @@
-import { C } from '../config';
-
-const ALERTS_ENDPOINT = 'https://xcryptos.glitch.me/alerts';
-const { DEVELOPMENT } = C.NODE_ENV;
-
-async function add(data) {
-  if (process.env.NODE_ENV === DEVELOPMENT) return data;
-
-  const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  const json = await response.json();
-
-  return json;
-}
-
-async function get(token) {
-  if (process.env.NODE_ENV === DEVELOPMENT) return [];
-
-  const response = await fetch(`${ALERTS_ENDPOINT}?token=${token}`); // eslint-disable-line
-  const json = await response.json();
-
-  return json;
-}
-
-async function remove(data) {
-  if (process.env.NODE_ENV === DEVELOPMENT) return data;
-
-  const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
-    method: 'DELETE',
-    headers: {
-      Accept: 'application/json',
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-  const json = await response.json();
-
-  return json;
-}
+const ENDPOINT = 'https://xcryptos.glitch.me/alerts';
+const headers = {
+  Accept: 'application/json',
+  'Content-Type': 'application/json',
+};
 
 export default {
-  add,
-  get,
-  remove,
+  async add(data) {
+    const response = await fetch(ENDPOINT, { // eslint-disable-line
+      method: 'POST',
+      headers,
+      body: JSON.stringify(data),
+    });
+
+    return response.json();
+  },
+
+  async get(token) {
+    const response = await fetch(`${ENDPOINT}?token=${token}`); // eslint-disable-line
+    return response.json();
+  },
+
+  async remove(data) {
+    const response = await fetch(ENDPOINT, { // eslint-disable-line
+      method: 'DELETE',
+      headers,
+      body: JSON.stringify(data),
+    });
+
+    return response.json();
+  },
 };
