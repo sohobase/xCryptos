@@ -65,6 +65,11 @@ export default {
 
   ICON: { add, alert, back, close, create, home, info, menu, star, share },
 
+  NODE_ENV: {
+    DEVELOPMENT: 'development',
+    PRODUCTION: 'production',
+  },
+
   SHAPE: {
     ALERT: shape({
       currency: string,

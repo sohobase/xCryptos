@@ -8,14 +8,16 @@ import { snapshotsAction } from '../actions';
 // import styles from './CurrencyScreen.style';
 
 const DEFAULT_TIMELINE = C.TIMELINES[0];
+const { DEVELOPMENT } = C.NODE_ENV;
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
-    const { currency = {} } = state.params || {};
+    const { currency = {}, token } = state.params || {};
+    const showNotification = token || process.env.NODE_ENV === DEVELOPMENT;
 
     return {
       title: currency.name,
-      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      headerRight: showNotification && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
     };
   }
 
@@ -89,11 +91,11 @@ CurrencyScreen.defaultProps = {
   snapshot: {},
 };
 
-const mapStateToProps = ({ snapshots = {} }, props) => {
+const mapStateToProps = ({ snapshots = {}, token }, props) => {
   const { currency = {} } = props.navigation.state.params;
   const snapshot = snapshots[currency.symbol] || {};
 
-  return { currency, snapshot };
+  return { currency, snapshot, token };
 };
 
 const mapDispatchToProps = dispatch => ({

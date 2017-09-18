@@ -98,7 +98,7 @@ class Main extends Component {
         currency={item}
         decimal={decimal}
         conversionUsd={activeCurrency.usd}
-        onPress={() => navigate('Currency', { currency: { ...item, token } })}
+        onPress={() => navigate('Currency', { currency: { ...item }, token })}
         value={value}
       />
     );

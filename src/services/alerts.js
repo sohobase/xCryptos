@@ -1,6 +1,11 @@
+import { C } from '../config';
+
 const ALERTS_ENDPOINT = 'https://xcryptos.glitch.me/alerts';
+const { DEVELOPMENT } = C.NODE_ENV;
 
 async function add(data) {
+  if (process.env.NODE_ENV === DEVELOPMENT) return data;
+
   const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
     method: 'POST',
     headers: {
@@ -15,6 +20,8 @@ async function add(data) {
 }
 
 async function get(token) {
+  if (process.env.NODE_ENV === DEVELOPMENT) return [];
+
   const response = await fetch(`${ALERTS_ENDPOINT}?token=${token}`); // eslint-disable-line
   const json = await response.json();
 
@@ -22,6 +29,8 @@ async function get(token) {
 }
 
 async function remove(data) {
+  if (process.env.NODE_ENV === DEVELOPMENT) return data;
+
   const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
     method: 'DELETE',
     headers: {
