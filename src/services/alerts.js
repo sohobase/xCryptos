@@ -1,4 +1,4 @@
-const ALERTS_ENDPOINT = 'http://localhost:3000/alerts';
+const ALERTS_ENDPOINT = 'https://xcryptos.glitch.me/alerts';
 
 async function add(data) {
   const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
