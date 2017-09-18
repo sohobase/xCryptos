@@ -15,7 +15,7 @@ class CurrencyScreen extends Component {
 
     return {
       title: currency.name,
-      headerRight: currency.token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
     };
   }
 
@@ -69,7 +69,9 @@ class CurrencyScreen extends Component {
         <CurrencyContent {...contentProps} />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
-            exchanges.map(item => <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} currency={currency} exchange={item} />)
+            exchanges.map(item => (
+              <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} currency={currency} exchange={item} />
+            ))
           }
         </ScrollView>
       </View>
