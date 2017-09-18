@@ -5,16 +5,25 @@ import { View as Animatable } from 'react-native-animatable';
 import { STYLE, THEME } from '../../../config';
 import styles from './Price.style';
 
+const { ANIMATION_DURATION, ANIMATION_EASING } = THEME;
+
 const Price = ({ symbol, value }) => (
   <Animatable
     animation="fadeIn"
-    delay={THEME.ANIMATION_DURATION}
-    easing={THEME.ANIMATION_EASING}
+    delay={ANIMATION_DURATION}
+    duration={ANIMATION_DURATION}
+    easing={ANIMATION_EASING}
   >
     <View style={styles.container}>
       <Text style={[styles.label, styles.symbol]}>$</Text>
       <Text style={styles.price}>{value} </Text>
-      <Animatable style={[STYLE.CHIP, styles.chip]}>
+      <Animatable
+        animation="bounceIn"
+        delay={ANIMATION_DURATION * 2}
+        duration={ANIMATION_DURATION}
+        easing={ANIMATION_EASING}
+        style={[STYLE.CHIP, styles.chip]}
+      >
         <Text style={[styles.small, styles.label, styles.bold]}>{symbol}</Text>
       </Animatable>
     </View>
