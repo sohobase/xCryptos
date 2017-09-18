@@ -1,10 +1,11 @@
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FlatList, View } from 'react-native';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { addAlertAction, removeAlertAction } from '../actions';
 import { C, STYLE, THEME } from '../config';
+import { ServiceAlerts } from '../services';
 import { AlertListItem, Button, ButtonIcon, Modal } from '../components';
 import styles from './AlertsScreen.style';
 
@@ -44,13 +45,13 @@ class AlertsScreen extends Component {
     this.setState({ modal: false, item: undefined });
   }
 
-  _saveAlert() {
+  async _saveAlert() {
     const { _closeAlert } = this;
-    const { addAlert, removeAlert, currency: { symbol } } = this.props;
+    const { addAlert, removeAlert, currency: { symbol }, token } = this.props;
     const { item = {} } = this.state;
 
-    if (item.currency) removeAlert(item);
-    else addAlert({ ...item, currency: symbol });
+    if (item.currency) removeAlert(await ServiceAlerts.remove(item));
+    else addAlert(await ServiceAlerts.add({ ...item, currency: symbol, token }));
     _closeAlert();
   }
 
@@ -132,6 +133,7 @@ AlertsScreen.propTypes = {
   currency: C.SHAPE.CURRENCY,
   navigation: C.SHAPE.NAVIGATION,
   removeAlert: func,
+  token: string,
 };
 
 AlertsScreen.defaultProps = {
@@ -140,14 +142,16 @@ AlertsScreen.defaultProps = {
   currency: undefined,
   navigation: undefined,
   removeAlert() {},
+  token: undefined,
 };
 
-const mapStateToProps = ({ alerts = [] }, props) => {
+const mapStateToProps = ({ alerts = [], token }, props) => {
   const { currency = {} } = props.navigation.state.params;
 
   return {
-    currency,
     alerts: alerts.filter(item => currency.symbol === item.currency),
+    currency,
+    token,
   };
 };
 

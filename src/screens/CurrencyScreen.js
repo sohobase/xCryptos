@@ -15,7 +15,7 @@ class CurrencyScreen extends Component {
 
     return {
       title: currency.name,
-      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      headerRight: currency.token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
     };
   }
 

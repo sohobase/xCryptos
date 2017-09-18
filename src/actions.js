@@ -8,6 +8,11 @@ export const removeAlertAction = alert => ({
   type: REMOVE_ALERT,
   alert,
 });
+export const SAVE_ALERTS = '@xCryptos/SAVE_ALERTS';
+export const saveAlertsAction = alerts => ({
+  type: SAVE_ALERTS,
+  alerts,
+});
 
 export const SAVE_CURRENCIES = '@xCryptos/SAVE_CURRENCIES';
 export const saveCurrenciesAction = currencies => ({
@@ -42,4 +47,10 @@ export const snapshotsAction = (currency, symbol) => ({
   type: SNAPSHOTS,
   currency,
   symbol,
+});
+
+export const ADD_TOKEN = '@xCryptos/ADD_TOKEN';
+export const addTokenAction = token => ({
+  type: ADD_TOKEN,
+  token,
 });

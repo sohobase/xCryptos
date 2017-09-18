@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
-import { updatePricesAction } from '../actions';
+import { Notifications } from 'expo';
+import { addTokenAction, saveAlertsAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
-import { ServiceCurrencies } from '../services';
+import { ServiceAlerts, ServiceCurrencies, ServiceNotifications } from '../services';
 import styles from './MainScreen.style';
 
 const keyExtractor = item => item.symbol;
@@ -33,10 +34,20 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
+    this._fetchAlerts = this._fetchAlerts.bind(this);
+    this._handleNotification = this._handleNotification.bind(this);
   }
 
-  componentWillMount() {
+  async componentWillMount() {
+    const { addToken, token } = this.props;
     this._fetch();
+
+    if (!token) {
+      addToken(await ServiceNotifications());
+    } else {
+      this._fetchAlerts();
+      Notifications.addListener(this._handleNotification);
+    }
   }
 
   // componentDidMount() {
@@ -58,6 +69,11 @@ class Main extends Component {
     this.setState({ prefetch: true, refreshing: false });
   }
 
+  async _fetchAlerts() {
+    const { saveAlerts, token } = this.props;
+    saveAlerts(await ServiceAlerts.get(token));
+  }
+
   _onChangeValue({ value, decimal }) {
     this.setState({ value, decimal });
   }
@@ -66,8 +82,15 @@ class Main extends Component {
     this.props.navigation.navigate('Currency', { currency });
   }
 
+  _handleNotification = (notification) => {
+    const { favorites } = this.props;
+    const currency = notification.data.currency;
+    const currencyFind = favorites.find(i => i.symbol === currency);
+    if (currencyFind) this.props.navigation.navigate('Currency', { currency: currencyFind });
+  };
+
   _renderItem({ item }) {
-    const { navigate } = this.props.navigation;
+    const { navigation: { navigate }, token } = this.props;
     const { activeCurrency = {}, decimal, value } = this.state;
 
     return (
@@ -75,7 +98,7 @@ class Main extends Component {
         currency={item}
         decimal={decimal}
         conversionUsd={activeCurrency.usd}
-        onPress={() => navigate('Currency', { currency: item })}
+        onPress={() => navigate('Currency', { currency: { ...item, token } })}
         value={value}
       />
     );
@@ -104,25 +127,32 @@ class Main extends Component {
 }
 
 Main.propTypes = {
+  addToken: func,
   favorites: arrayOf(C.SHAPE.FAVORITE),
   navigation: C.SHAPE.NAVIGATION,
+  token: string,
   updatePrices: func,
 };
 
 Main.defaultProps = {
+  addToken() {},
   favorites: C.DEFAULT_FAVORITES,
   navigation: {
     navigate() {},
   },
+  token: undefined,
   updatePrices() {},
 };
 
 const mapStateToProps = state => ({
   favorites: state.favorites,
+  token: state.token,
 });
 
 const mapDispatchToProps = dispatch => ({
+  addToken: token => dispatch(addTokenAction(token)),
   updatePrices: prices => dispatch(updatePricesAction(prices)),
+  saveAlerts: alerts => dispatch(saveAlertsAction(alerts)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
