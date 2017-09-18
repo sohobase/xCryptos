@@ -16,7 +16,7 @@ const VirtualButton = ({ caption, icon, value, onPress }) => (
     <View style={[styles.container, STYLE.CENTERED]}>
       {
         icon
-          ? <ButtonIcon icon={icon} style={styles.icon} />
+          ? <ButtonIcon icon={icon} onPress={() => onPress(value)} style={styles.icon} />
           : <Text style={styles.text}>{caption || value.toString()}</Text>
       }
     </View>
