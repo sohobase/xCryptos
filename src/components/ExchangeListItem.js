@@ -15,9 +15,9 @@ const ExchangeListItem = ({ currency, exchange: { MARKET, PRICE = 0 } }) => {
         (MARKET.toLowerCase() === 'coinbase') &&
           <Button
             caption={`Get ${currency.symbol} in Coinbase`}
+            captionStyle={styles.buttonCaption}
             onPress={() => Linking.openURL(C.AFILIATES.COINBASE)}
             style={styles.button}
-            tintColor={THEME.COLOR_COINBASE}
           />
       }
     </View>

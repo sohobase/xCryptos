@@ -10,7 +10,8 @@ const Bar = ({ animate, color, delay, value }) => (
     <Animatable
       animation={animate ? 'slideInUp' : undefined}
       delay={delay}
-      duration={THEME.ANIMATION_DURATION}
+      duration={THEME.ANIMATION_QUICK_DURATION}
+      easing={THEME.ANIMATION_EASING}
       style={[styles.value, { height: `${value}%`, backgroundColor: color }]}
     />
   </View>

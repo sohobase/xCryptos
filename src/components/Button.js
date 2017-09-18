@@ -1,34 +1,31 @@
 import { array, bool, func, number, oneOf, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { THEME } from '../config';
 import Touchable from './Touchable';
 import styles from './Button.style';
 
-const Button = ({ caption, color, disabled, onPress, style, tintColor }) => (
+const Button = ({ caption, captionStyle, disabled, onPress, style }) => (
   <Touchable onPress={!disabled ? onPress : undefined}>
-    <View style={[styles.container, style, { backgroundColor: tintColor }, (disabled ? styles.disabled : undefined)]}>
-      <Text style={[styles.caption, { color }]}>{caption}</Text>
+    <View style={[styles.container, style, (disabled ? styles.disabled : undefined)]}>
+      <Text style={[styles.caption, captionStyle]}>{caption}</Text>
     </View>
   </Touchable>
 );
 
 Button.propTypes = {
   caption: string,
-  color: string,
+  captionStyle: oneOf(array, number),
   disabled: bool,
   onPress: func,
   style: oneOf(array, number),
-  tintColor: string,
 };
 
 Button.defaultProps = {
   caption: undefined,
-  color: THEME.WHITE,
+  captionStyle: undefined,
   disabled: false,
   onPress: undefined,
   style: undefined,
-  tintColor: THEME.PRIMARY,
 };
 
 export default Button;

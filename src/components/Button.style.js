@@ -3,24 +3,24 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   container: {
-    backgroundColor: 'red',
-    display: 'flex',
     alignItems: 'center',
-    padding: THEME.UNIT,
+    backgroundColor: THEME.PRIMARY,
     borderRadius: THEME.OFFSET * 2,
+    display: 'flex',
+    paddingBottom: THEME.UNIT,
+    paddingLeft: THEME.OFFSET,
+    paddingRight: THEME.OFFSET,
+    paddingTop: THEME.UNIT,
   },
 
   disabled: {
-    opacity: 0.35,
     backgroundColor: THEME.FONT_PRIMARY_COLOR,
+    opacity: 0.35,
   },
 
   caption: {
+    color: THEME.WHITE,
     fontSize: THEME.FONT_SIZE_NORMAL,
     fontWeight: THEME.FONT_WEIGHT_BOLD,
-  },
-
-  small: {
-    fontSize: THEME.FONT_SIZE_SMALL,
   },
 });

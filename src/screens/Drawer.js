@@ -59,7 +59,6 @@ export default props => (
       />
       <Button
         caption="Get $10 in Coinbase"
-        tintColor={THEME.COLOR_COINBASE}
         onPress={() => Linking.openURL(C.AFILIATES.COINBASE)}
         style={style.button}
       />
