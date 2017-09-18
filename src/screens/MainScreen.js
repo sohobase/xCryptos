@@ -3,10 +3,10 @@ import { connect } from 'react-redux';
 import { arrayOf, func, string } from 'prop-types';
 import { FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
-import { addTokenAction, updatePricesAction } from '../actions';
+import { addTokenAction, saveAlertsAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
-import { ServiceCurrencies, ServiceNotifications } from '../services';
+import { ServiceAlerts, ServiceCurrencies, ServiceNotifications } from '../services';
 import styles from './MainScreen.style';
 
 const keyExtractor = item => item.symbol;
@@ -40,9 +40,11 @@ class Main extends Component {
   async componentWillMount() {
     const { addToken, token } = this.props;
     this._fetch();
+
     if (!token) {
       addToken(await ServiceNotifications());
     } else {
+      this._fetchAlerts();
       Notifications.addListener(this._handleNotification);
     }
   }
@@ -64,6 +66,11 @@ class Main extends Component {
     this.setState({ refreshing: true });
     updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
     this.setState({ prefetch: true, refreshing: false });
+  }
+
+  async _fetchAlerts() {
+    const { saveAlerts, token } = this.props;
+    saveAlerts(await ServiceAlerts.get(token));
   }
 
   _onChangeValue({ value, decimal }) {
@@ -144,6 +151,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
   updatePrices: prices => dispatch(updatePricesAction(prices)),
+  saveAlerts: alerts => dispatch(saveAlertsAction(alerts)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

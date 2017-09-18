@@ -8,6 +8,11 @@ export const removeAlertAction = alert => ({
   type: REMOVE_ALERT,
   alert,
 });
+export const SAVE_ALERTS = '@xCryptos/SAVE_ALERTS';
+export const saveAlertsAction = alerts => ({
+  type: SAVE_ALERTS,
+  alerts,
+});
 
 export const SAVE_CURRENCIES = '@xCryptos/SAVE_CURRENCIES';
 export const saveCurrenciesAction = currencies => ({

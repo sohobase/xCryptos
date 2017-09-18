@@ -5,6 +5,7 @@ import {
   ACTIVE_FAVORITE,
   ADD_FAVORITE,
   REMOVE_FAVORITE,
+  SAVE_ALERTS,
   SAVE_CURRENCIES,
   SNAPSHOTS,
   UPDATE_PRICES,
@@ -36,6 +37,8 @@ export default function crypto(state = initialState, action) {
         alerts: alerts.filter(({ currency, low, high }) => (currency !== alert.currency && low !== alert.low && high !== alert.high)),
       };
     }
+    case SAVE_ALERTS:
+      return { ...state, alerts: [...action.alerts] };
 
     // -- Currencies
     case SAVE_CURRENCIES:
