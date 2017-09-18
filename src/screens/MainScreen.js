@@ -90,7 +90,7 @@ class Main extends Component {
   };
 
   _renderItem({ item }) {
-    const { navigate } = this.props.navigation;
+    const { navigation: { navigate }, token } = this.props;
     const { activeCurrency = {}, decimal, value } = this.state;
 
     return (
@@ -98,7 +98,7 @@ class Main extends Component {
         currency={item}
         decimal={decimal}
         conversionUsd={activeCurrency.usd}
-        onPress={() => navigate('Currency', { currency: item })}
+        onPress={() => navigate('Currency', { currency: { ...item, token } })}
         value={value}
       />
     );
@@ -140,7 +140,7 @@ Main.defaultProps = {
   navigation: {
     navigate() {},
   },
-  token: '',
+  token: undefined,
   updatePrices() {},
 };
 

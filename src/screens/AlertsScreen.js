@@ -1,4 +1,4 @@
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FlatList, View } from 'react-native';
@@ -133,6 +133,7 @@ AlertsScreen.propTypes = {
   currency: C.SHAPE.CURRENCY,
   navigation: C.SHAPE.NAVIGATION,
   removeAlert: func,
+  token: string,
 };
 
 AlertsScreen.defaultProps = {
@@ -141,6 +142,7 @@ AlertsScreen.defaultProps = {
   currency: undefined,
   navigation: undefined,
   removeAlert() {},
+  token: undefined,
 };
 
 const mapStateToProps = ({ alerts = [], token }, props) => {
