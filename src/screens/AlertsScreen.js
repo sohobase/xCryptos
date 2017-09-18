@@ -50,7 +50,7 @@ class AlertsScreen extends Component {
     const { addAlert, removeAlert, currency: { symbol }, token } = this.props;
     const { item = {} } = this.state;
 
-    if (item.currency) removeAlert(item);
+    if (item.currency) removeAlert(await ServiceAlerts.remove(item));
     else addAlert(await ServiceAlerts.add({ ...item, currency: symbol, token }));
     _closeAlert();
   }

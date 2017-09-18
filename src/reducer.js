@@ -13,11 +13,7 @@ import {
 import { C } from './config';
 
 const initialState = {
-  alerts: [
-    { currency: 'BTC', low: 3000, high: 4000 },
-    { currency: 'BTC', low: 3500, high: 3750 },
-    { currency: 'LTC', low: 50, high: 80 },
-  ],
+  alerts: [],
   currencies: [],
   favorites: C.DEFAULT_FAVORITES,
   snapshots: {},
@@ -34,7 +30,7 @@ export default function crypto(state = initialState, action) {
       const { alert } = action;
       return {
         ...state,
-        alerts: alerts.filter(({ currency, low, high }) => (currency !== alert.currency && low !== alert.low && high !== alert.high)),
+        alerts: alerts.filter(({ currency, low, high }) => (!(currency === alert.currency && low === alert.low && high === alert.high))),
       };
     }
     case SAVE_ALERTS:

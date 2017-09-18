@@ -21,15 +21,18 @@ async function get(token) {
   return json;
 }
 
-function remove(data) {
-  return fetch(ALERTS_ENDPOINT, { // eslint-disable-line
+async function remove(data) {
+  const response = await fetch(ALERTS_ENDPOINT, { // eslint-disable-line
     method: 'DELETE',
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',
     },
-    body: JSON.stringify({ data }),
+    body: JSON.stringify(data),
   });
+  const json = await response.json();
+
+  return json;
 }
 
 export default {
