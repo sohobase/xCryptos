@@ -5,19 +5,19 @@ import { C, STYLE } from '../config';
 import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
-// import styles from './CurrencyScreen.style';
 
-const DEFAULT_TIMELINE = C.TIMELINES[0];
-const { DEVELOPMENT } = C.NODE_ENV;
+const { DEFAULT_TIMELINE, NODE_ENV: { DEVELOPMENT } } = C;
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
     const { currency = {}, token } = state.params || {};
-    const showNotification = token || process.env.NODE_ENV === DEVELOPMENT;
+    const { env: { NODE_ENV } } = process;
+
+    const showAlerts = (token || NODE_ENV === DEVELOPMENT);
 
     return {
       title: currency.name,
-      headerRight: showNotification && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      headerRight: showAlerts && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
     };
   }
 

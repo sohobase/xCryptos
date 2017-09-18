@@ -11,6 +11,8 @@ const menu = require('../assets/icon-menu.png');
 const star = require('../assets/icon-star.png');
 const share = require('../assets/icon-share.png');
 
+const DEFAULT_TIMELINE = 'LAST HOUR';
+
 export default {
   AFILIATES: {
     COINBASE: 'https://www.coinbase.com/join/5568d6215c6e772e19000020',
@@ -42,6 +44,8 @@ export default {
     symbol: 'LTC',
     usd: 0,
   }],
+
+  DEFAULT_TIMELINE,
 
   EXCHANGES: [
     'coinbase',
@@ -112,5 +116,5 @@ export default {
     FAVORITES: 'favorites',
   },
 
-  TIMELINES: ['LAST HOUR', 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+  TIMELINES: [DEFAULT_TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
 };

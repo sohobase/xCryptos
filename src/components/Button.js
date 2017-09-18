@@ -22,10 +22,10 @@ Button.propTypes = {
 
 Button.defaultProps = {
   caption: undefined,
-  captionStyle: undefined,
+  captionStyle: [],
   disabled: false,
   onPress: undefined,
-  style: undefined,
+  style: [],
 };
 
 export default Button;

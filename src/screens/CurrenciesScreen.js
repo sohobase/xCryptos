@@ -70,13 +70,12 @@ class CurrenciesScreen extends Component {
   }
 
   _renderItem({ item }) {
-    const { favorites, navigation: { navigate } } = this.props;
+    const { favorites } = this.props;
 
     return (
       <CurrencyListItem
         currency={item}
         favorite={favorites.findIndex(({ symbol }) => symbol === item.symbol) > -1}
-        onPress={() => navigate('Currency', { currency: item })}
         onChange={this._onChangeItem}
       />
     );

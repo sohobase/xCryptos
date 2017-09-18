@@ -20,7 +20,7 @@ ButtonIcon.propTypes = {
 ButtonIcon.defaultProps = {
   icon: undefined,
   onPress: undefined,
-  style: undefined,
+  style: [],
 };
 
 export default ButtonIcon;
