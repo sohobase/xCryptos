@@ -31,4 +31,8 @@ export default StyleSheet.create({
   button: {
     marginRight: THEME.OFFSET,
   },
+
+  buttonCaption: {
+    fontSize: THEME.FONT_SIZE_SMALL,
+  },
 });
