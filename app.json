@@ -4,7 +4,7 @@
     "icon": "./src/assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#3920F5",
-    "version": "0.5.0",
+    "version": "0.4.1",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "20.0.0",
     "loading": {
