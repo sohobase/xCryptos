@@ -14,7 +14,7 @@ export default StyleSheet.create({
   },
 
   symbol: {
-    opacity: 0.75,
+    color: THEME.COLOR_SECONDARY,
     fontSize: THEME.FONT_SIZE_NORMAL,
   },
 
@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
 
   label: {
-    opacity: 0.75,
+    color: THEME.COLOR_SECONDARY,
     fontSize: THEME.FONT_SIZE_SMALL,
   },
 

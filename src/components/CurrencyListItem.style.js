@@ -9,7 +9,7 @@ export default StyleSheet.create({
     fontSize: THEME.FONT_SIZE_NORMAL,
   },
   symbol: {
+    color: THEME.COLOR_SECONDARY,
     fontSize: THEME.FONT_SIZE_SMALL,
-    opacity: 0.75,
   },
 });
