@@ -6,9 +6,10 @@ import { Notifications } from 'expo';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
-import { ServiceAlerts, ServiceCurrencies, ServiceNotifications } from '../services';
+import { ServiceCurrencies, ServiceNotifications } from '../services';
 import styles from './MainScreen.style';
 
+const { DEFAULT_TOKEN, NODE_ENV: { DEVELOPMENT } } = C;
 const keyExtractor = item => item.symbol;
 
 class Main extends Component {
@@ -34,7 +35,6 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
-    this._fetchAlerts = this._fetchAlerts.bind(this);
     this._handleNotification = this._handleNotification.bind(this);
   }
 
@@ -43,17 +43,17 @@ class Main extends Component {
     this._fetch();
 
     if (!token) {
-      addToken(await ServiceNotifications());
+      const { env: { NODE_ENV } } = process;
+      addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications());
     } else {
-      this._fetchAlerts();
       Notifications.addListener(this._handleNotification);
     }
   }
 
-  // componentDidMount() {
-  //   this.props.navigation.navigate('Currency', { currency: this.props.favorites[1] });
-  //   this.props.navigation.navigate('DrawerOpen');
-  // }
+  componentDidMount() {
+    // this.props.navigation.navigate('Currency', { currency: this.props.favorites[1], token: DEFAULT_TOKEN });
+    // this.props.navigation.navigate('DrawerOpen');
+  }
 
   componentWillReceiveProps({ favorites = [] }) {
     this.setState({
@@ -69,11 +69,6 @@ class Main extends Component {
     this.setState({ prefetch: true, refreshing: false });
   }
 
-  async _fetchAlerts() {
-    const { saveAlerts, token } = this.props;
-    saveAlerts(await ServiceAlerts.get(token));
-  }
-
   _onChangeValue({ value, decimal }) {
     this.setState({ value, decimal });
   }
@@ -82,11 +77,12 @@ class Main extends Component {
     this.props.navigation.navigate('Currency', { currency });
   }
 
-  _handleNotification = (notification) => {
+  _handleNotification = ({ data: { currency } }) => {
+    const { _onPressItem } = this;
     const { favorites } = this.props;
-    const currency = notification.data.currency;
-    const currencyFind = favorites.find(i => i.symbol === currency);
-    if (currencyFind) this.props.navigation.navigate('Currency', { currency: currencyFind });
+    const currencyFind = favorites.find(item => item.symbol === currency);
+
+    if (currencyFind) _onPressItem(currencyFind);
   };
 
   _renderItem({ item }) {

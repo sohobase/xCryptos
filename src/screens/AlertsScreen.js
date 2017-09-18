@@ -26,12 +26,18 @@ class AlertsScreen extends Component {
     this.state = {
       item: undefined,
       modal: false,
+      refreshing: true,
     };
     this._closeAlert = this._closeAlert.bind(this);
+    this._fetchAlerts = this._fetchAlerts.bind(this);
     this._onChangeAmount = this._onChangeAmount.bind(this);
     this._renderItem = this._renderItem.bind(this);
     this._saveAlert = this._saveAlert.bind(this);
     this._showAlert = this._showAlert.bind(this);
+  }
+
+  componentWillMount() {
+    // this._fetchAlerts();
   }
 
   componentDidMount() {
@@ -53,6 +59,13 @@ class AlertsScreen extends Component {
     if (item.currency) removeAlert(await ServiceAlerts.remove(item));
     else addAlert(await ServiceAlerts.add({ ...item, currency: symbol, token }));
     _closeAlert();
+  }
+
+  async _fetchAlerts() {
+    const { saveAlerts, token } = this.props;
+    this.setState({ refreshing: true });
+    saveAlerts(await ServiceAlerts.get(token));
+    this.setState({ refreshing: false });
   }
 
   _showAlert(item) {
