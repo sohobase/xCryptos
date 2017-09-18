@@ -1,17 +1,10 @@
 import { arrayOf, bool, func, string } from 'prop-types';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { View as Animatable } from 'react-native-animatable';
-import { C, STYLE, THEME } from '../../config';
+import { View } from 'react-native';
+import { C, STYLE } from '../../config';
 import Chart from '../Chart';
-import { ChipPrice, Prices, TimelineOption } from './components';
+import { ChipPrice, Price, TimelineOption } from './components';
 import styles from './CurrencyContent.style';
-
-const DEFAULT_ANIMATION = {
-  // animation: 'bounceIn',
-  duration: THEME.ANIMATION_DURATION,
-  easing: THEME.ANIMATION_EASING,
-};
 
 const CurrencyContent = (props) => {
   const {
@@ -33,19 +26,18 @@ const CurrencyContent = (props) => {
   return (
     <View style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
-        <ChipPrice caption="high" refreshing={refreshing} value={high} />
-        <Prices symbol={symbol} value={parseFloat(price || usd)} />
-        <ChipPrice caption="low" refreshing={refreshing} value={low} />
+        { !refreshing && <ChipPrice caption="high" value={high} /> }
+        <Price symbol={symbol} value={parseFloat(price || usd)} />
+        { !refreshing && <ChipPrice caption="low" value={low} /> }
       </View>
       <View style={STYLE.ROW}>
         {
-          C.TIMELINES.map((key, index) => {
+          C.TIMELINES.map((key) => {
             return (
               <TimelineOption
                 key={key}
                 caption={key}
                 current={timeline}
-                delay={index + 1}
                 refreshing={refreshing}
                 onPress={() => !refreshing && onChange(key)}
               />

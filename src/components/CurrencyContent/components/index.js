@@ -1,9 +1,9 @@
 import ChipPrice from './ChipPrice';
-import Prices from './Prices';
+import Price from './Price';
 import TimelineOption from './TimelineOption';
 
 export {
   ChipPrice,
-  Prices,
+  Price,
   TimelineOption,
 };

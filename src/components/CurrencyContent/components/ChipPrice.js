@@ -1,18 +1,16 @@
-import { bool, number, string } from 'prop-types';
+import { number, string } from 'prop-types';
 import React from 'react';
 import { Text } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { STYLE, THEME } from '../../../config';
 import styles from './ChipPrice.style';
 
-const { ANIMATION_DURATION, ANIMATION_EASING } = THEME;
-
-const ChipPrice = ({ caption, refreshing, value }) => (
+const ChipPrice = ({ caption, value }) => (
   <Animatable
-    animation={refreshing ? 'bounceOut' : 'bounceIn'}
-    delay={(caption === 'low' && !refreshing) ? 1000 : 0}
-    duration={ANIMATION_DURATION}
-    easing={ANIMATION_EASING}
+    animation="bounceIn"
+    delay={(caption === 'low') ? THEME.ANIMATION_QUICK_DURATION : 0}
+    duration={THEME.ANIMATION_DURATION}
+    easing={THEME.ANIMATION_EASING}
     style={[STYLE.ROW, STYLE.CHIP, styles[caption]]}
   >
     <Text style={styles.label}>$</Text>
@@ -24,13 +22,11 @@ const ChipPrice = ({ caption, refreshing, value }) => (
 ChipPrice.propTypes = {
   caption: string,
   value: number,
-  refreshing: bool,
 };
 
 ChipPrice.defaultProps = {
   caption: undefined,
   value: 0,
-  refreshing: false,
 };
 
 export default ChipPrice;

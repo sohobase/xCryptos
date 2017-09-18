@@ -32,9 +32,9 @@ export default StyleSheet.create({
     color: THEME.CONTRAST,
   },
 
-  chipSymbol: {
+  chip: {
     position: 'absolute',
-    right: THEME.UNIT * -4,
+    right: THEME.UNIT * -3.2,
     top: THEME.UNIT,
   },
 

@@ -7,6 +7,7 @@ const BLUE = '#2283CD';
 export default {
   // -- Transitions
   ANIMATION_DURATION: 400,
+  ANIMATION_QUICK_DURATION: 225,
   ANIMATION_EASING: 'ease-in-out-sine',
 
   // -- Colors
