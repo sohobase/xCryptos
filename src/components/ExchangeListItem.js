@@ -2,13 +2,14 @@ import { Linking, Text, View } from 'react-native';
 import React from 'react';
 import { C, STYLE, THEME } from '../config';
 import { Button } from '../components';
+import { formatCurrency } from '../modules';
 import styles from './ExchangeListItem.style';
 
 const ExchangeListItem = ({ currency, exchange: { MARKET, PRICE = 0 } }) => {
   return (
     <View style={[STYLE.ROW, styles.container]}>
       <View style={[STYLE.CENTERED, styles.priceBox]}>
-        <Text style={styles.price}>${parseFloat(PRICE).toFixed(2)}</Text>
+        <Text style={styles.price}>${formatCurrency(PRICE)}</Text>
       </View>
       <Text style={styles.market}>{MARKET}</Text>
       {

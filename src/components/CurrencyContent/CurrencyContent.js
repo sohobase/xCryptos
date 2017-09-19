@@ -26,7 +26,7 @@ const CurrencyContent = (props) => {
     <View style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
         { !refreshing && <ChipPrice caption="high" value={high} /> }
-        <Price symbol={symbol} value={parseFloat(usd)} />
+        <Price symbol={symbol} value={usd} />
         { !refreshing && <ChipPrice caption="low" value={low} /> }
       </View>
       <View style={STYLE.ROW}>

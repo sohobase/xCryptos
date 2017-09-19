@@ -3,6 +3,7 @@ import React from 'react';
 import { Text, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { STYLE, THEME } from '../../../config';
+import { formatCurrency } from '../../../modules';
 import styles from './Price.style';
 
 const { ANIMATION_DURATION, ANIMATION_EASING } = THEME;
@@ -16,7 +17,7 @@ const Price = ({ symbol, value }) => (
   >
     <View style={styles.container}>
       <Text style={[styles.label, styles.symbol]}>$</Text>
-      <Text style={styles.price}>{value} </Text>
+      <Text style={styles.price}>{formatCurrency(value)} </Text>
       <Animatable
         animation="bounceIn"
         delay={ANIMATION_DURATION * 2}

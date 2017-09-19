@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { activeFavoriteAction } from '../actions';
 import { THEME, STYLE } from '../config';
+import { formatCurrency } from '../modules';
 import Touchable from './Touchable';
 import styles from './FavoriteItem.style';
 
@@ -39,14 +40,15 @@ class FavoriteItem extends Component {
           </View>
           <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
             <View style={styles.values}>
+              { active && <Text style={styles.text}>{`$${formatCurrency(value * usd)}`}</Text> }
               <View style={STYLE.ROW}>
                 <Text style={styles.value}>
-                  { active ? `${value}${decimal ? '.' : ''}` : ((conversionUsd * value) / usd).toFixed(4) }
+                  { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
                 </Text>
                 { active &&
                   <Animatable animation="fadeIn" duration={500} iterationCount="infinite" style={styles.blink} /> }
               </View>
-              <Text style={styles.text}>{`$${usd}`}</Text>
+              <Text style={styles.text}>{`$${formatCurrency(usd)}`}</Text>
             </View>
           </TouchableWithoutFeedback>
         </View>

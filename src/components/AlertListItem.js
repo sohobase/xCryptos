@@ -2,6 +2,7 @@ import { func } from 'prop-types';
 import { Text, View } from 'react-native';
 import React from 'react';
 import { C, STYLE } from '../config';
+import { formatCurrency } from '../modules';
 import Touchable from './Touchable';
 import styles from './AlertListItem.style';
 
@@ -15,14 +16,14 @@ const AlertListItem = (props) => {
         <View style={styles.left}>
           <View style={STYLE.ROW}>
             <Text style={styles.symbol}>$</Text>
-            <Text style={styles.price}>{low.toFixed(2)}</Text>
+            <Text style={styles.price}>{formatCurrency(low)}</Text>
           </View>
           <Text style={styles.label}>low</Text>
         </View>
         <View style={styles.right}>
           <View style={STYLE.ROW}>
             <Text style={styles.symbol}>$</Text>
-            <Text style={styles.price}>{high.toFixed(2)}</Text>
+            <Text style={styles.price}>{formatCurrency(high)}</Text>
           </View>
           <Text style={styles.label}>high</Text>
         </View>

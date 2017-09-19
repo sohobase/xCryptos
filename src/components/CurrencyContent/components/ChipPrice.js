@@ -3,6 +3,7 @@ import React from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { STYLE, THEME } from '../../../config';
+import { formatCurrency } from '../../../modules';
 import styles from './ChipPrice.style';
 
 const ChipPrice = ({ caption, value }) => (
@@ -19,7 +20,7 @@ const ChipPrice = ({ caption, value }) => (
         (
           <View style={STYLE.ROW}>
             <Text style={styles.label}>$</Text>
-            <Text style={styles.price}>{value}</Text>
+            <Text style={styles.price}>{formatCurrency(value)}</Text>
             <Text style={styles.label}>{` ${caption}`}</Text>
           </View>
         )
