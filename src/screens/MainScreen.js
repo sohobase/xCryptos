@@ -43,7 +43,7 @@ class Main extends Component {
     const { env: { NODE_ENV } } = process;
 
     _fetch();
-    if (!token) addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications());
+    if (!token) addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications.getToken());
     Notifications.addListener(_onNotification);
   }
 
