@@ -36,14 +36,10 @@ class ModalAlert extends Component {
   }
 
   _onChange(field, value) {
-    const { currency: { usd } } = this.props;
     const { item = {} } = this.state;
-    let fixedValue = parseFloat(value);
 
-    if ((field === 'low' && fixedValue > usd) || fixedValue <= 0) fixedValue = parseFloat(usd);
-    if (field === 'high' && fixedValue < usd) fixedValue = parseFloat(usd);
     this.setState({
-      item: { ...item, [field]: fixedValue },
+      item: { ...item, [field]: parseFloat(value) },
     });
   }
 
@@ -87,8 +83,9 @@ class ModalAlert extends Component {
           <View style={styles.fieldset}>
             <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
             <FormInput
-              autoFocus={!alert}
+              autoFocus
               defaultValue={item && low && low.toString()}
+              editable={!alert}
               inputStyle={styles.input}
               onChangeText={_onChange.bind(null, 'low')} //eslint-disable-line
               {...inputProps}
@@ -98,6 +95,7 @@ class ModalAlert extends Component {
             <FormLabel labelStyle={[styles.fieldReset, styles.labelRight]}>High</FormLabel>
             <FormInput
               defaultValue={item && high && high.toString()}
+              editable={!alert}
               inputStyle={[styles.input, styles.inputRight]}
               onChangeText={_onChange.bind(null, 'high')} //eslint-disable-line
               {...inputProps}
@@ -106,7 +104,7 @@ class ModalAlert extends Component {
         </View>
         <Button
           caption={item && item.currency ? 'Delete' : 'Create'}
-          disabled={!low || !high || refreshing}
+          disabled={!low || !high || low > usd || high < usd || refreshing}
           onPress={() => { _onSubmit(); }}
           style={[STYLE.MODAL_BUTTON, styles.modalButton]}
         />
