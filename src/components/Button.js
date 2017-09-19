@@ -1,4 +1,4 @@
-import { array, bool, func, number, oneOf, string } from 'prop-types';
+import { array, bool, func, number, oneOfType, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import Touchable from './Touchable';
@@ -14,10 +14,10 @@ const Button = ({ caption, captionStyle, disabled, onPress, style }) => (
 
 Button.propTypes = {
   caption: string,
-  captionStyle: oneOf(array, number),
+  captionStyle: oneOfType(array, number),
   disabled: bool,
   onPress: func,
-  style: oneOf(array, number),
+  style: oneOfType(array, number),
 };
 
 Button.defaultProps = {
