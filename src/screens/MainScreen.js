@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func, string } from 'prop-types';
-import { FlatList, Image, RefreshControl, View } from 'react-native';
+import { AppState, FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
@@ -45,6 +45,7 @@ class Main extends Component {
     _fetch();
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications.getToken());
     Notifications.addListener(_onNotification);
+    AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
 
   componentWillReceiveProps({ favorites = [] }) {

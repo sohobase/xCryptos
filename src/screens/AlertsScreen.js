@@ -1,7 +1,7 @@
 import { arrayOf, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { AppState, FlatList, RefreshControl, View } from 'react-native';
 import { saveAlertsAction } from '../actions';
 import { C, STYLE, THEME } from '../config';
 import { ServiceAlerts } from '../services';
@@ -34,7 +34,10 @@ class AlertsScreen extends Component {
   }
 
   componentWillMount() {
-    this._fetch();
+    const { _fetch } = this;
+
+    _fetch();
+    AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
 
   componentDidMount() {

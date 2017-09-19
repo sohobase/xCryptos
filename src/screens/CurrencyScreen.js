@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ScrollView, View } from 'react-native';
+import { AppState, ScrollView, View } from 'react-native';
 import { C, STYLE } from '../config';
 import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
@@ -30,7 +30,10 @@ class CurrencyScreen extends Component {
   }
 
   componentWillMount() {
-    this._fetch();
+    const { _fetch } = this;
+
+    _fetch();
+    AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
 
   componentWillReceiveProps() {
