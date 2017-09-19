@@ -8,7 +8,18 @@ export default StyleSheet.create({
     backgroundColor: THEME.PRIMARY,
   },
 
+  background: {
+    zIndex: 0,
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+
   info: {
+    zIndex: 1,
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -16,6 +27,7 @@ export default StyleSheet.create({
 
   text: {
     color: THEME.CONTRAST,
+    backgroundColor: 'transparent',
   },
 
   name: {
@@ -23,6 +35,7 @@ export default StyleSheet.create({
     margin: THEME.UNIT * 0.5,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     fontWeight: 'bold',
+    backgroundColor: 'transparent',
   },
 
   version: {
@@ -30,6 +43,7 @@ export default StyleSheet.create({
   },
 
   authors: {
+    zIndex: 1,
     flex: 0,
     flexDirection: 'row',
     alignItems: 'center',
@@ -41,5 +55,6 @@ export default StyleSheet.create({
   author: {
     color: THEME.WHITE,
     fontWeight: 'bold',
+    backgroundColor: 'transparent',
   },
 });

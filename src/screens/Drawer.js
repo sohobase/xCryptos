@@ -1,5 +1,5 @@
 import React from 'react';
-import { Linking, Image, Platform, ScrollView, Share, Text, View } from 'react-native';
+import { Linking, Image, Platform, ScrollView, Text, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
 import { C, STYLE, THEME } from '../config';
 import { Button, Logo, Touchable } from '../components';
@@ -34,11 +34,6 @@ export default props => (
         activeTintColor={THEME.PRIMARY}
         style={style.drawerItems}
         labelStyle={[STYLE.DRAWER_LABEL, style.item]}
-      />
-      <DrawerLinkItem
-        caption="Share us"
-        icon={C.ICON.share}
-        onPress={() => Share.share({ message: storeURL })}
       />
       <DrawerLinkItem
         caption="Like Us"

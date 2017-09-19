@@ -1,12 +1,14 @@
 import React, { Component } from 'react';
-import { Image, Linking, Text, View } from 'react-native';
+import { Image, Linking, Platform, Share, Text, View } from 'react-native';
 import { C, STYLE } from '../config';
 import { ButtonIcon, Logo } from '../components';
 import styles from './AboutScreen.style';
 import pkg from '../../package.json';
 
+const background = require('../assets/app-about.jpg');
 const javi = pkg.contributors[0];
 const mikel = pkg.contributors[1];
+const storeURL = (Platform.OS === 'ios') ? C.STORE_URL.IOS : C.STORE_URL.ANDROID;
 
 class AboutScreen extends Component {
   static navigationOptions({ navigation }) {
@@ -16,12 +18,14 @@ class AboutScreen extends Component {
       drawerIcon: ({ tintColor }) => <Image source={C.ICON.info} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: 'About',
+      headerRight: <ButtonIcon icon="share" onPress={() => Share.share({ message: storeURL })} />,
     };
   }
 
   render() {
     return (
       <View style={[STYLE.SCREEN, styles.container]}>
+        <Image style={styles.background} source={background} />
         <View style={styles.info}>
           <Logo />
           <Text style={styles.name}>{pkg.name}</Text>
