@@ -35,24 +35,16 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
-    this._handleNotification = this._handleNotification.bind(this);
+    this._onNotification = this._onNotification.bind(this);
   }
 
   async componentWillMount() {
-    const { addToken, token } = this.props;
-    this._fetch();
+    const { _fetch, _onNotification, props: { addToken, token } } = this;
+    const { env: { NODE_ENV } } = process;
 
-    if (!token) {
-      const { env: { NODE_ENV } } = process;
-      addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications());
-    } else {
-      Notifications.addListener(this._handleNotification);
-    }
-  }
-
-  componentDidMount() {
-    // this.props.navigation.navigate('Currency', { currency: this.props.favorites[1], token: DEFAULT_TOKEN });
-    // this.props.navigation.navigate('DrawerOpen');
+    _fetch();
+    if (!token) addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications());
+    Notifications.addListener(_onNotification);
   }
 
   componentWillReceiveProps({ favorites = [] }) {
@@ -77,7 +69,7 @@ class Main extends Component {
     this.props.navigation.navigate('Currency', { currency });
   }
 
-  _handleNotification = ({ data: { currency } }) => {
+  _onNotification = ({ data: { currency } }) => {
     const { _onPressItem } = this;
     const { favorites } = this.props;
     const currencyFind = favorites.find(item => item.symbol === currency);
