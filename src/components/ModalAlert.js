@@ -36,10 +36,14 @@ class ModalAlert extends Component {
   }
 
   _onChange(field, value) {
+    const { currency: { usd } } = this.props;
     const { item = {} } = this.state;
+    let fixedValue = parseFloat(value);
 
+    if ((field === 'low' && fixedValue > usd) || fixedValue <= 0) fixedValue = parseFloat(usd);
+    if (field === 'high' && fixedValue < usd) fixedValue = parseFloat(usd);
     this.setState({
-      item: { ...item, [field]: parseFloat(value) },
+      item: { ...item, [field]: fixedValue },
     });
   }
 
