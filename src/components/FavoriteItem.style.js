@@ -20,6 +20,9 @@ export default StyleSheet.create({
     color: THEME.CONTRAST,
     fontSize: THEME.FONT_SIZE_SMALL,
   },
+  highlight: {
+    color: THEME.WHITE,
+  },
   values: {
     flex: 1,
     paddingHorizontal: 12,

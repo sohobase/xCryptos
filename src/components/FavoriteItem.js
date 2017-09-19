@@ -40,7 +40,7 @@ class FavoriteItem extends Component {
           </View>
           <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
             <View style={styles.values}>
-              { active && <Text style={styles.text}>{`$${formatCurrency(value * usd)}`}</Text> }
+              { active && <Text style={[styles.text, styles.highlight]}>{`$${formatCurrency(value * usd)}`}</Text> }
               <View style={STYLE.ROW}>
                 <Text style={styles.value}>
                   { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
