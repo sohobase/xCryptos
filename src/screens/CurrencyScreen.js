@@ -61,7 +61,7 @@ class CurrencyScreen extends Component {
     const { currency, snapshot } = this.props;
     const { refreshing, timeline, history = snapshot.history || [] } = this.state;
     const { exchanges = [] } = snapshot;
-    const contentProps = { currency, history, onChange: _onPressTimeline, refreshing, snapshot, timeline };
+    const contentProps = { currency, history, onChange: _onPressTimeline, refreshing, timeline };
 
     return (
       <View style={STYLE.SCREEN}>

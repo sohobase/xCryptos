@@ -12,7 +12,6 @@ const CurrencyContent = (props) => {
     history,
     onChange,
     refreshing,
-    snapshot: { price },
     timeline,
   } = props;
 
@@ -27,7 +26,7 @@ const CurrencyContent = (props) => {
     <View style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
         { !refreshing && <ChipPrice caption="high" value={high} /> }
-        <Price symbol={symbol} value={parseFloat(price || usd)} />
+        <Price symbol={symbol} value={parseFloat(usd)} />
         { !refreshing && <ChipPrice caption="low" value={low} /> }
       </View>
       <View style={STYLE.ROW}>
@@ -55,7 +54,6 @@ CurrencyContent.propTypes = {
   history: arrayOf(C.SHAPE.HISTORY),
   onChange: func,
   refreshing: bool,
-  snapshot: C.SHAPE.SNAPSHOT,
   timeline: string,
 };
 
@@ -64,7 +62,6 @@ CurrencyContent.defaultProps = {
   history: [],
   onChange: undefined,
   refreshing: false,
-  snapshot: {},
   timeline: undefined,
 };
 
