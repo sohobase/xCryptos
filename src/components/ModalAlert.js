@@ -104,7 +104,7 @@ class ModalAlert extends Component {
         </View>
         <Button
           caption={item && item.currency ? 'Delete' : 'Create'}
-          disabled={!low || !high || low > usd || high < usd || refreshing}
+          disabled={(!alert && (!low || !high || low > usd || high < usd)) || refreshing}
           onPress={() => { _onSubmit(); }}
           style={[STYLE.MODAL_BUTTON, styles.modalButton]}
         />
