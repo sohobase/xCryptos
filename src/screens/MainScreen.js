@@ -71,8 +71,7 @@ class Main extends Component {
   }
 
   _onNotification = ({ data: { currency } }) => {
-    const { _onPressItem } = this;
-    const { favorites } = this.props;
+    const { _onPressItem, props: { favorites = [] } } = this;
     const currencyFind = favorites.find(item => item.symbol === currency);
 
     if (currencyFind) _onPressItem(currencyFind);
