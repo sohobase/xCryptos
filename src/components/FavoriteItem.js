@@ -38,8 +38,8 @@ class FavoriteItem extends Component {
     return (
       <Touchable onPress={_onPress}>
         <View style={[styles.container, (active && styles.active)]}>
-          <View>
-            { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
+          <View style={[styles.thumb, styles.image]}>
+            { image && <Image style={styles.image} source={{ uri: image }} /> }
             { alert && <Image style={styles.alert} source={C.ICON.alert} /> }
           </View>
           <View style={styles.currency}>

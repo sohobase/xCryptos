@@ -1,6 +1,8 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
+const THUMBNAIL_SIZE = THEME.UNIT * 3.6;
+
 export default StyleSheet.create({
   container: {
     flex: 1,
@@ -39,12 +41,24 @@ export default StyleSheet.create({
     marginLeft: THEME.UNIT * 0.3,
     backgroundColor: THEME.CONTRAST,
   },
+
+  thumb: {
+    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
+    marginRight: THEME.OFFSET,
+    borderRadius: THUMBNAIL_SIZE / 2,
+  },
+
+  image: {
+    width: THUMBNAIL_SIZE,
+    height: THUMBNAIL_SIZE,
+  },
+
   alert: {
     position: 'absolute',
     bottom: -(THEME.UNIT / 2),
-    right: THEME.UNIT,
+    right: -(THEME.UNIT / 2),
     tintColor: THEME.WHITE,
     width: THEME.FONT_SIZE_LARGE,
     height: THEME.FONT_SIZE_LARGE,
-  }
+  },
 });

@@ -25,12 +25,6 @@ export default StyleSheet.create({
     borderRadius: THEME.UNIT * 2,
   },
 
-  CURRENCY_ICON: {
-    width: THEME.UNIT * 3.6,
-    height: THEME.UNIT * 3.6,
-    marginRight: THEME.OFFSET,
-  },
-
   CURRENCY_SYMBOL: {
     color: THEME.WHITE,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
