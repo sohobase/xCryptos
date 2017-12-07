@@ -1,10 +1,10 @@
-import { bool, func, shape, string, number } from 'prop-types';
+import { arrayOf, bool, func, shape, string, number } from 'prop-types';
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { connect } from 'react-redux';
 import React, { Component } from 'react';
 import { activeFavoriteAction } from '../actions';
-import { THEME, STYLE } from '../config';
+import { C, THEME, STYLE } from '../config';
 import { formatCurrency } from '../modules';
 import Touchable from './Touchable';
 import styles from './FavoriteItem.style';
@@ -26,14 +26,22 @@ class FavoriteItem extends Component {
   }
 
   render() {
-    const { _onPress, _onActiveItem } = this;
-    const { conversionUsd, currency, decimal, value } = this.props;
-    const { active, name, image, symbol, usd } = currency;
+    const {
+      _onPress, _onActiveItem,
+      props: {
+        alerts, conversionUsd, decimal, value,
+        currency: { active, name, image, symbol, usd },
+      },
+    } = this;
+    const alert = alerts.find(item => item.currency == symbol);
 
     return (
       <Touchable onPress={_onPress}>
         <View style={[styles.container, (active && styles.active)]}>
-          { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
+          <View>
+            { image && <Image style={STYLE.CURRENCY_ICON} source={{ uri: image }} /> }
+            { alert && <Image style={styles.alert} source={C.ICON.alert} /> }
+          </View>
           <View style={styles.currency}>
             <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
             <Text style={styles.text}>{name}</Text>
@@ -59,6 +67,7 @@ class FavoriteItem extends Component {
 
 FavoriteItem.propTypes = {
   activeFavorite: func,
+  alerts: arrayOf(C.SHAPE.ALERT),
   conversionUsd: number,
   currency: shape({
     active: bool,
@@ -74,6 +83,7 @@ FavoriteItem.propTypes = {
 
 FavoriteItem.defaultProps = {
   activeFavorite() {},
+  alerts: [],
   conversionUsd: 1,
   currency: {
     active: false,
@@ -84,7 +94,9 @@ FavoriteItem.defaultProps = {
   value: 0,
 };
 
-const mapStateToProps = () => ({});
+const mapStateToProps = ({ alerts }) => ({
+  alerts,
+});
 
 const mapDispatchToProps = dispatch => ({
   activeFavorite: favorite => dispatch(activeFavoriteAction(favorite)),

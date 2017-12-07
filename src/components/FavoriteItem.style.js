@@ -39,4 +39,12 @@ export default StyleSheet.create({
     marginLeft: THEME.UNIT * 0.3,
     backgroundColor: THEME.CONTRAST,
   },
+  alert: {
+    position: 'absolute',
+    bottom: -(THEME.UNIT / 2),
+    right: THEME.UNIT,
+    tintColor: THEME.WHITE,
+    width: THEME.FONT_SIZE_LARGE,
+    height: THEME.FONT_SIZE_LARGE,
+  }
 });
