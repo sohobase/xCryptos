@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { compose, createStore } from 'redux';
 import { autoRehydrate, persistStore } from 'redux-persist';
@@ -7,8 +8,6 @@ import { AsyncStorage } from 'react-native';
 import App from './src/app';
 import { LoadingScreen } from './src/screens';
 import reducer from './src/reducer';
-
-// AsyncStorage.clear();
 
 function configureStore() {
   return new Promise((resolve) => {
@@ -46,12 +45,16 @@ class Main extends Component {
     const { store } = this.state;
 
     return (
-      !store ?
-        <LoadingScreen />
-        :
-        <Provider store={this.state.store}>
-          <App />
-        </Provider>
+      <View style={{ height: '100%' }}>
+        <StatusBar barStyle="light-content" />
+        { !store
+          ? <LoadingScreen />
+          :
+            <Provider store={this.state.store}>
+              <App />
+            </Provider> }
+      </View>
+
     );
   }
 }
