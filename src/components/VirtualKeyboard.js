@@ -1,6 +1,7 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { STYLE } from '../config';
 import VirtualButton from './VirtualButton';
 import styles from './VirtualKeyboard.style';
 
@@ -40,7 +41,7 @@ class VirtualKeyboard extends Component {
     const { _onDecimal, _onDelete, _onNumber } = this;
 
     return (
-      <View style={styles.container}>
+      <View style={[STYLE.LAYOUT_SECONDARY, styles.container]}>
         { NUMBERS.map(num => <VirtualButton key={num} value={num} onPress={_onNumber} />) }
         <VirtualButton caption="." onPress={_onDecimal} />
         <VirtualButton value={0} onPress={_onNumber} />

@@ -1,16 +1,16 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
-const THUMBNAIL_SIZE = THEME.UNIT * 3.6;
+const { UNIT } = THEME;
+const THUMBNAIL_SIZE = UNIT * 3.6;
 
 export default StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: THEME.PRIMARY,
-    paddingVertical: 4,
-    paddingLeft: 12,
+    paddingVertical: UNIT  / 2,
+    paddingHorizontal: UNIT,
   },
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
@@ -27,8 +27,7 @@ export default StyleSheet.create({
   },
   values: {
     flex: 1,
-    paddingHorizontal: 12,
-    paddingVertical: 8,
+    paddingVertical: UNIT  / 4,
     alignItems: 'flex-end',
   },
   value: {
@@ -36,16 +35,15 @@ export default StyleSheet.create({
     fontSize: THEME.FONT_SIZE_LARGE,
   },
   blink: {
-    width: THEME.UNIT * 0.2,
+    width: UNIT * 0.2,
     height: '100%',
-    marginLeft: THEME.UNIT * 0.3,
+    marginLeft: UNIT * 0.3,
     backgroundColor: THEME.CONTRAST,
   },
 
   thumb: {
-    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    marginRight: THEME.OFFSET,
-    borderRadius: THUMBNAIL_SIZE / 2,
+    padding: UNIT / 2,
+    marginRight: UNIT,
   },
 
   image: {
@@ -53,10 +51,15 @@ export default StyleSheet.create({
     height: THUMBNAIL_SIZE,
   },
 
+  imageWrap: {
+    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
+    borderRadius: THUMBNAIL_SIZE / 2,
+  },
+
   alert: {
     position: 'absolute',
-    bottom: -(THEME.UNIT / 2),
-    right: -(THEME.UNIT / 2),
+    bottom: 0,
+    right: 0,
     tintColor: THEME.WHITE,
     width: THEME.FONT_SIZE_LARGE,
     height: THEME.FONT_SIZE_LARGE,

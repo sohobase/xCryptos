@@ -1,7 +1,8 @@
 import { arrayOf, bool, func, string } from 'prop-types';
+import { LinearGradient } from 'expo';
 import React from 'react';
 import { View } from 'react-native';
-import { C, STYLE } from '../../config';
+import { C, STYLE, THEME } from '../../config';
 import Chart from '../Chart';
 import { ChipPrice, Price, TimelineOption } from './components';
 import styles from './CurrencyContent.style';
@@ -23,7 +24,7 @@ const CurrencyContent = (props) => {
   }
 
   return (
-    <View style={[STYLE.LAYOUT_MAIN, styles.container]}>
+    <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
         { !refreshing && <ChipPrice caption="high" value={high} /> }
         <Price symbol={symbol} value={usd} />
@@ -45,7 +46,7 @@ const CurrencyContent = (props) => {
         }
       </View>
       <Chart animate dataSource={history} style={styles.chart} />
-    </View>
+    </LinearGradient>
   );
 };
 

@@ -57,11 +57,17 @@ export default StyleSheet.create({
   },
 
   LAYOUT_SECONDARY: {
+    zIndex: 1,
     flex: 0,
     height: THEME.SECOND_LAYOUT_HEIGHT,
     minHeight: THEME.SECOND_LAYOUT_HEIGHT,
     maxHeight: THEME.SECOND_LAYOUT_HEIGHT,
     backgroundColor: THEME.WHITE,
+    elevation: 8,
+    shadowColor: THEME.BLACK,
+    shadowOffset: { height: 8 },
+    shadowOpacity: 0.5,
+    shadowRadius: 8,
   },
 
   LIST_ITEM: {
