@@ -1,4 +1,4 @@
-#xCryptos
+# xCryptos
 Smart Crypto Currencies
 
 ## Introduction
