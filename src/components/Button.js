@@ -14,10 +14,10 @@ const Button = ({ caption, captionStyle, disabled, onPress, style }) => (
 
 Button.propTypes = {
   caption: string,
-  captionStyle: oneOfType(array, number),
+  captionStyle: oneOfType([array, number]),
   disabled: bool,
   onPress: func,
-  style: oneOfType(array, number),
+  style: oneOfType([array, number]),
 };
 
 Button.defaultProps = {

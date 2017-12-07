@@ -14,7 +14,7 @@ const ButtonIcon = ({ icon, onPress, style }) => (
 ButtonIcon.propTypes = {
   icon: string,
   onPress: func,
-  style: oneOfType(array, number),
+  style: oneOfType([array, number]),
 };
 
 ButtonIcon.defaultProps = {
