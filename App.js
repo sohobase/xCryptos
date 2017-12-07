@@ -6,6 +6,7 @@ import { autoRehydrate, persistStore } from 'redux-persist';
 import { AsyncStorage } from 'react-native';
 
 import App from './src/app';
+import { THEME } from './src/config';
 import { LoadingScreen } from './src/screens';
 import reducer from './src/reducer';
 
@@ -46,7 +47,7 @@ class Main extends Component {
 
     return (
       <View style={{ height: '100%' }}>
-        <StatusBar barStyle="light-content" />
+        <StatusBar backgroundColor={THEME.PRIMARY} barStyle="light-content" />
         { !store
           ? <LoadingScreen />
           :
