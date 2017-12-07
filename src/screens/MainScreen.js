@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { arrayOf, func, string } from 'prop-types';
 import { AppState, FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
-import { addTokenAction, saveAlertsAction, updatePricesAction } from '../actions';
+import { addTokenAction, updatePricesAction } from '../actions';
 import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
 import { C, STYLE, THEME } from '../config';
 import { ServiceCurrencies, ServiceNotifications } from '../services';
@@ -78,8 +78,10 @@ class Main extends Component {
   };
 
   _renderItem({ item }) {
-    const { navigation: { navigate }, token } = this.props;
-    const { activeCurrency = {}, decimal, value } = this.state;
+    const {
+      props: { navigation: { navigate }, token },
+      state: { activeCurrency = {}, decimal, value },
+    } = this;
 
     return (
       <FavoriteItem
@@ -93,9 +95,11 @@ class Main extends Component {
   }
 
   render() {
-    const { _fetch } = this;
-    const { favorites } = this.props;
-    const { decimal, prefetch, refreshing, value } = this.state;
+    const {
+      _fetch, _onChangeValue, _renderItem,
+      props: { favorites },
+      state: { decimal, prefetch, refreshing, value },
+    } = this;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -105,7 +109,7 @@ class Main extends Component {
           keyExtractor={(keyExtractor)}
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-          renderItem={this._renderItem}
+          renderItem={_renderItem}
           style={[STYLE.LAYOUT_MAIN]}
         />
         <VirtualKeyboard decimal={decimal} onChange={this._onChangeValue} value={value} />
@@ -132,15 +136,14 @@ Main.defaultProps = {
   updatePrices() {},
 };
 
-const mapStateToProps = state => ({
-  favorites: state.favorites,
-  token: state.token,
+const mapStateToProps = ({ favorites, token }) => ({
+  favorites,
+  token,
 });
 
 const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
   updatePrices: prices => dispatch(updatePricesAction(prices)),
-  saveAlerts: alerts => dispatch(saveAlertsAction(alerts)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
