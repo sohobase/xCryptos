@@ -1,9 +1,9 @@
 import { C } from '../config';
 import { fetch } from './modules';
 
-const { CURRENCY: { USD }, EXCHANGES, TIMELINES } = C;
-const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
-const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
+const {
+  CURRENCY: { USD }, EXCHANGES, SERVICE: { CURRENCIES: { API, MIN_API } }, TIMELINES,
+} = C;
 const TIMELINE_SERVICE = [
   { timeline: TIMELINES[0], endpoint: 'histominute', limit: 60 },
   { timeline: TIMELINES[1], endpoint: 'histohour', limit: 72 },
@@ -12,7 +12,7 @@ const TIMELINE_SERVICE = [
 
 export default {
   async list() {
-    const response = await fetch(`${CRYPTOCOMPARE}/coinlist`);
+    const response = await fetch(`${API}/coinlist`);
     if (!response) return undefined;
 
     const { BaseImageUrl: url, Data } = response;
@@ -26,7 +26,7 @@ export default {
   },
 
   async prices(currencies = []) {
-    const response = await fetch(`${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${USD}`);
+    const response = await fetch(`${MIN_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${USD}`);
     if (!response) return undefined;
 
     const values = {};
@@ -38,7 +38,7 @@ export default {
   },
 
   async fetch(symbol) {
-    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${USD}`;
+    const url = `${API}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${USD}`;
     const response = await fetch(url);
     if (!response) return undefined;
     const { Data: { AggregatedData = {}, Exchanges = [] } } = response;
@@ -63,7 +63,7 @@ export default {
 
   async history(currency, timeline = TIMELINES[0]) {
     const { endpoint, limit } = TIMELINE_SERVICE.find(item => item.timeline === timeline);
-    const response = await fetch(`${CRYPTOCOMPARE_API}/${endpoint}?fsym=${currency}&tsym=${USD}&limit=${limit}`);
+    const response = await fetch(`${MIN_API}/${endpoint}?fsym=${currency}&tsym=${USD}&limit=${limit}`);
     if (!response) return undefined;
 
     return response.Data.map(({ time, close }) => ({ timestamp: time, value: close }));

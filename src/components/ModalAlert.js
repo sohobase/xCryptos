@@ -44,19 +44,23 @@ class ModalAlert extends Component {
   }
 
   async _onSubmit() {
-    const { addAlert, alert, removeAlert, currency: { symbol }, onClose, token } = this.props;
+    const {
+      addAlert, alert, removeAlert, currency: { symbol }, onClose, token,
+    } = this.props;
     const { item = {} } = this.state;
 
     this.setState({ refreshing: true });
-    if (alert) removeAlert(await ServiceAlerts.remove(alert));
-    else addAlert(await ServiceAlerts.add({ ...item, currency: symbol, token }));
+    if (alert) await ServiceAlerts.remove(alert).then(removeAlert);
+    else await ServiceAlerts.add({ ...item, currency: symbol, token }).then(addAlert);
     this.setState({ refreshing: false });
     onClose();
   }
 
   render() {
     const { _onChange, _onSubmit } = this;
-    const { alert, currency: { symbol, usd }, onClose, visible } = this.props;
+    const {
+      alert, currency: { symbol, usd }, onClose, visible,
+    } = this.props;
     const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
 
@@ -138,8 +142,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addAlert: alert => dispatch(addAlertAction(alert)),
-  removeAlert: alert => dispatch(removeAlertAction(alert)),
+  addAlert: alert => alert && dispatch(addAlertAction(alert)),
+  removeAlert: alert => alert && dispatch(removeAlertAction(alert)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ModalAlert);

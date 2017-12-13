@@ -59,6 +59,14 @@ export default {
     PRODUCTION: 'production',
   },
 
+  SERVICE: {
+    ALERTS: 'https://xcryptos.glitch.me/alerts',
+    CURRENCIES: {
+      API: 'https://www.cryptocompare.com/api/data',
+      MIN_API: 'https://min-api.cryptocompare.com/data',
+    },
+  },
+
   SHAPE: {
     ALERT: shape({
       currency: string,

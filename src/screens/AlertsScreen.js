@@ -55,7 +55,7 @@ class AlertsScreen extends Component {
     const { saveAlerts, token } = this.props;
 
     this.setState({ refreshing: true });
-    saveAlerts(await ServiceAlerts.get(token));
+    await ServiceAlerts.get(token).then(saveAlerts);
     this.setState({ prefetch: true, refreshing: false });
   }
 
@@ -73,7 +73,9 @@ class AlertsScreen extends Component {
   render() {
     const { _closeAlert, _fetch, _renderItem } = this;
     const { alerts, currency } = this.props;
-    const { alert, modal, prefetch, refreshing } = this.state;
+    const {
+      alert, modal, prefetch, refreshing,
+    } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -115,7 +117,7 @@ const mapStateToProps = ({ alerts = [], token }, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  saveAlerts: alerts => dispatch(saveAlertsAction(alerts)),
+  saveAlerts: alerts => alerts && dispatch(saveAlertsAction(alerts)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(AlertsScreen);

@@ -9,10 +9,10 @@ const DEFAULT_HEADERS = {
 };
 
 export default async(endpoint, props = {}) => {
-  const { method = 'GET' } = props;
+  const { headers, method = 'GET', ...others } = props;
 
   return new Promise((resolve) => {
-    fetch(endpoint, { header: { ...DEFAULT_HEADERS }, ...props, method })  // eslint-disable-line
+    fetch(endpoint, { headers: { ...DEFAULT_HEADERS, ...headers }, method, ...others })  // eslint-disable-line
       .then(async(response) => {
         const json = await response.json();
         if (response.status >= 400) {
