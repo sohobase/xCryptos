@@ -44,7 +44,7 @@ class CurrencyScreen extends Component {
     const { currency, snapshots } = this.props;
 
     this.setState({ history: undefined, refreshing: true, timeline: DEFAULT_TIMELINE });
-    const snapshot = await ServiceCurrencies.fetch(currency.symbol);
+    const snapshot = await ServiceCurrencies.fetch(currency.symbol) || {};
     const history = await ServiceCurrencies.history(currency.symbol);
 
     snapshots({ ...snapshot, history }, currency.symbol);
@@ -64,7 +64,9 @@ class CurrencyScreen extends Component {
     const { currency, snapshot } = this.props;
     const { refreshing, timeline, history = snapshot.history || [] } = this.state;
     const { exchanges = [] } = snapshot;
-    const contentProps = { currency, history, onChange: _onPressTimeline, refreshing, timeline };
+    const contentProps = {
+      currency, history, onChange: _onPressTimeline, refreshing, timeline,
+    };
 
     return (
       <View style={STYLE.SCREEN}>
@@ -99,7 +101,7 @@ const mapStateToProps = ({ snapshots = {}, token }, props) => {
 };
 
 const mapDispatchToProps = dispatch => ({
-  snapshots: (currency, symbol) => dispatch(snapshotsAction(currency, symbol)),
+  snapshots: (currency, symbol) => currency && symbol && dispatch(snapshotsAction(currency, symbol)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrencyScreen);

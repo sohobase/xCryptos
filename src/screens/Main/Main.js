@@ -60,7 +60,7 @@ class Main extends Component {
     const { favorites, updatePrices } = this.props;
 
     this.setState({ refreshing: true });
-    updatePrices(await ServiceCurrencies.prices(favorites.map(fav => fav.symbol)));
+    ServiceCurrencies.prices(favorites.map(({ symbol }) => symbol)).then(updatePrices);
     this.setState({ prefetch: true, refreshing: false });
   }
 
@@ -148,7 +148,7 @@ const mapStateToProps = ({ favorites, token }) => ({
 
 const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
-  updatePrices: prices => dispatch(updatePricesAction(prices)),
+  updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

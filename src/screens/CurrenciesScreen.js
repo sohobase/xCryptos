@@ -43,18 +43,20 @@ class CurrenciesScreen extends Component {
     const { saveCurrencies } = this.props;
 
     this.setState({ refreshing: true });
-    saveCurrencies(await ServiceCurrencies.list());
+    await ServiceCurrencies.list().then(saveCurrencies);
     this.setState({ refreshing: false });
   }
 
   async _onChangeItem({ currency, favorite }) {
-    const { addFavorite, favorites, removeFavorite, updatePrices } = this.props;
+    const {
+      addFavorite, favorites, removeFavorite, updatePrices,
+    } = this.props;
 
     if (favorite) removeFavorite(currency);
     else {
       addFavorite(currency);
       const symbols = [...favorites, currency].map(({ symbol }) => symbol);
-      updatePrices(await ServiceCurrencies.prices(symbols));
+      ServiceCurrencies.prices(symbols).then(updatePrices);
     }
   }
 
@@ -137,8 +139,8 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addFavorite: favorite => dispatch(addFavoriteAction(favorite)),
   removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
-  saveCurrencies: currencies => dispatch(saveCurrenciesAction(currencies)),
-  updatePrices: prices => dispatch(updatePricesAction(prices)),
+  saveCurrencies: currencies => currencies && dispatch(saveCurrenciesAction(currencies)),
+  updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);

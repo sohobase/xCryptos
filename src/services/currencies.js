@@ -1,57 +1,50 @@
 import { C } from '../config';
+import { fetch } from './modules';
 
+const { CURRENCY: { USD }, EXCHANGES, TIMELINES } = C;
 const CRYPTOCOMPARE_API = 'https://min-api.cryptocompare.com/data';
 const CRYPTOCOMPARE = 'https://www.cryptocompare.com/api/data';
-const DEFAULT_CURRENCY = 'USD';
 const TIMELINE_SERVICE = [
-  { timeline: C.TIMELINES[0], endpoint: 'histominute', limit: 60 },
-  { timeline: C.TIMELINES[1], endpoint: 'histohour', limit: 72 },
-  { timeline: C.TIMELINES[2], endpoint: 'histoday', limit: 60 },
+  { timeline: TIMELINES[0], endpoint: 'histominute', limit: 60 },
+  { timeline: TIMELINES[1], endpoint: 'histohour', limit: 72 },
+  { timeline: TIMELINES[2], endpoint: 'histoday', limit: 60 },
 ];
 
 export default {
   async list() {
-    const response = await fetch(`${CRYPTOCOMPARE}/coinlist`); // eslint-disable-line
-    const json = await response.json();
-    const { BaseImageUrl, Data } = json;
+    const response = await fetch(`${CRYPTOCOMPARE}/coinlist`);
+    if (!response) return undefined;
 
-    let dataSource = Object.keys(Data).map((key) => {
-      const { Id, ImageUrl, Name, CoinName, SortOrder } = Data[key];
+    const { BaseImageUrl: url, Data } = response;
+    const dataSource = Object.values(Data).map(({
+      Id: id, ImageUrl: image, Name: symbol, CoinName: name, SortOrder,
+    }) => ({
+      id, image: `${url}${image}`, name, symbol, rank: parseInt(SortOrder, 0),
+    }));
 
-      return {
-        id: Id,
-        image: `${BaseImageUrl}${ImageUrl}`,
-        name: CoinName,
-        symbol: Name,
-        rank: parseInt(SortOrder, 0),
-      };
-    });
-    dataSource = dataSource.sort((a, b) => a.rank - b.rank);
-
-    return dataSource;
+    return dataSource.sort((a, b) => a.rank - b.rank);
   },
 
   async prices(currencies = []) {
-    const url = `${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${DEFAULT_CURRENCY}`;
-    const response = await fetch(url); // eslint-disable-line
-    const json = await response.json();
+    const response = await fetch(`${CRYPTOCOMPARE_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${USD}`);
+    if (!response) return undefined;
 
-    const dataSource = {};
-    Object.keys(json).forEach((key) => {
-      dataSource[key] = json[key][DEFAULT_CURRENCY];
+    const values = {};
+    Object.keys(response).forEach((key) => {
+      values[key] = values[key][USD];
     });
 
-    return dataSource;
+    return values;
   },
 
   async fetch(symbol) {
-    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${DEFAULT_CURRENCY}`;
-    const response = await fetch(url); // eslint-disable-line
-    const { Data } = await response.json();
-    const { AggregatedData = {}, Exchanges = [] } = Data;
+    const url = `${CRYPTOCOMPARE}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${USD}`;
+    const response = await fetch(url);
+    if (!response) return undefined;
+    const { Data: { AggregatedData = {}, Exchanges = [] } } = response;
 
     const exchanges = [];
-    C.EXCHANGES.forEach((exchange) => {
+    EXCHANGES.forEach((exchange) => {
       const found = Exchanges.find(item => item.MARKET.toLowerCase() === exchange);
       if (found) exchanges.push(found);
     });
@@ -68,12 +61,11 @@ export default {
     };
   },
 
-  async history(currency, timeline = C.TIMELINES[0]) {
+  async history(currency, timeline = TIMELINES[0]) {
     const { endpoint, limit } = TIMELINE_SERVICE.find(item => item.timeline === timeline);
-    const url = `${CRYPTOCOMPARE_API}/${endpoint}?fsym=${currency}&tsym=${DEFAULT_CURRENCY}&limit=${limit}`;
-    const response = await fetch(url); // eslint-disable-line
-    const { Data = [] } = await response.json();
+    const response = await fetch(`${CRYPTOCOMPARE_API}/${endpoint}?fsym=${currency}&tsym=${USD}&limit=${limit}`);
+    if (!response) return undefined;
 
-    return Data.map(({ time, close }) => ({ timestamp: time, value: close }));
+    return response.Data.map(({ time, close }) => ({ timestamp: time, value: close }));
   },
 };

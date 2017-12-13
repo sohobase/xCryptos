@@ -8,9 +8,8 @@ export default {
     ETORO: 'http://etoro.tw/2vM4b6u',
   },
 
-  STORE_URL: {
-    ANDROID: 'http://play.google.com/store/apps/details?id=com.sohobase.xcryptos',
-    IOS: 'http://sohobase.com',
+  CURRENCY: {
+    USD: 'USD',
   },
 
   DEFAULT_FAVORITES: [{
@@ -40,7 +39,6 @@ export default {
 
   EXCHANGES: [
     'coinbase',
-    'bisq',
     'bitfinex',
     'bitsquare',
     'bitstamp',
@@ -49,8 +47,6 @@ export default {
     'gdax',
     'kraken',
     'poloniex',
-    'coinmama',
-    'yobit',
   ],
 
   FEEDBACK: {
@@ -105,5 +101,12 @@ export default {
     FAVORITES: 'favorites',
   },
 
+  STORE_URL: {
+    ANDROID: 'http://play.google.com/store/apps/details?id=com.sohobase.xcryptos',
+    IOS: 'http://sohobase.com',
+  },
+
   TIMELINES: [DEFAULT_TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+
+  TIMEOUT_SERVICE: 10000,
 };
