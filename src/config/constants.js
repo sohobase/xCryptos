@@ -49,11 +49,6 @@ export default {
     'poloniex',
   ],
 
-  FEEDBACK: {
-    MAIL: 'hello@soyjavi.com',
-    SUBJECT: 'Feedback',
-  },
-
   NODE_ENV: {
     DEVELOPMENT: 'development',
     PRODUCTION: 'production',
@@ -102,6 +97,11 @@ export default {
     SNAPSHOT: shape({
       PRICE: number,
     }),
+  },
+
+  SOHOBASE: {
+    URL: 'http://sohobase.co',
+    MAIL: 'hi@sohobase.co',
   },
 
   STORAGE: {

@@ -1,11 +1,15 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
+const {
+  CONTRAST, PRIMARY, WHITE, OFFSET, UNIT,
+} = THEME;
+
 export default StyleSheet.create({
   container: {
     width: null,
     height: null,
-    backgroundColor: THEME.PRIMARY,
+    backgroundColor: PRIMARY,
   },
 
   background: {
@@ -26,35 +30,35 @@ export default StyleSheet.create({
   },
 
   text: {
-    color: THEME.CONTRAST,
+    color: CONTRAST,
     backgroundColor: 'transparent',
+    textAlign: 'center',
+    marginBottom: UNIT / 4,
+    marginTop: UNIT / 4,
+    fontSize: THEME.FONT_SIZE_SMALL,
   },
 
   name: {
-    color: THEME.WHITE,
-    margin: THEME.UNIT * 0.5,
+    color: WHITE,
+    margin: UNIT * 0.5,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     fontWeight: 'bold',
     backgroundColor: 'transparent',
   },
 
-  version: {
-    fontSize: THEME.FONT_SIZE_SMALL,
+  brand: {
+    height: UNIT,
+    resizeMode: 'contain',
+    marginBottom: UNIT / 2,
   },
 
-  authors: {
+  copyright: {
     zIndex: 1,
     flex: 0,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-    padding: THEME.OFFSET,
-  },
-
-  author: {
-    color: THEME.WHITE,
-    fontWeight: 'bold',
-    backgroundColor: 'transparent',
+    padding: OFFSET * 2,
   },
 });

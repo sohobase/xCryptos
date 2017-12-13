@@ -1,12 +1,14 @@
 import React from 'react';
 import { Linking, Image, Platform, ScrollView, Text, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
-import { ASSETS, C, STYLE, THEME } from '../config';
+import { ASSETS, C, STYLE, TEXT, THEME } from '../config';
 import { Button, Logo, Touchable } from '../components';
 import style from './Drawer.style';
 import pkg from '../../package.json';
 
-const { FEEDBACK: { MAIL, SUBJECT }, STORE_URL: { ANDROID, IOS } } = C;
+const { SOHOBASE: { MAIL }, STORE_URL: { ANDROID, IOS } } = C;
+const { EN: { SUBJECT } } = TEXT;
+
 const storeURL = (Platform.OS === 'ios') ? IOS : ANDROID;
 
 const DrawerLinkItem = ({ onPress, icon, caption }) => ( // eslint-disable-line
@@ -43,7 +45,7 @@ export default props => (
       <DrawerLinkItem
         caption="Feedback"
         icon={ASSETS.create}
-        onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=body`)}
+        onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=...`)}
       />
       <DrawerItems
         {...props}

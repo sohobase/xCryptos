@@ -1,15 +1,17 @@
 import React, { Component } from 'react';
 import { Image, Linking, Platform, Share, Text, View } from 'react-native';
-import { ASSETS, C, STYLE } from '../config';
+import { ASSETS, C, STYLE, TEXT } from '../config';
 import { ButtonIcon, Logo } from '../components';
 import styles from './AboutScreen.style';
-import pkg from '../../package.json';
+import PKG from '../../package.json';
 
 const background = require('../../assets/app-about.jpg');
 
-const javi = pkg.contributors[0];
-const mikel = pkg.contributors[1];
-const storeURL = (Platform.OS === 'ios') ? C.STORE_URL.IOS : C.STORE_URL.ANDROID;
+const { SOHOBASE, STORE_URL: { ANDROID, IOS } } = C;
+const { EN: { COPYRIGHT } } = TEXT;
+const { name, version } = PKG;
+
+const storeURL = (Platform.OS === 'ios') ? IOS : ANDROID;
 
 class AboutScreen extends Component {
   static navigationOptions({ navigation }) {
@@ -29,15 +31,13 @@ class AboutScreen extends Component {
         <Image style={styles.background} source={background} />
         <View style={styles.info}>
           <Logo />
-          <Text style={styles.name}>{pkg.name}</Text>
-          <Text style={[styles.text, styles.version]}>v{pkg.version}</Text>
+          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.text}>v{version}</Text>
         </View>
-        <View style={styles.authors}>
-          <Text style={styles.text}>Created by </Text>
-          <Text style={styles.author} onPress={() => Linking.openURL(javi.url)}>{javi.name}</Text>
-          <Text style={styles.text}> & </Text>
-          <Text style={styles.author} onPress={() => Linking.openURL(mikel.url)}>{mikel.name}</Text>
-          <Text style={styles.text}>.</Text>
+        <View style={styles.copyright}>
+          <Image onPress={() => Linking.openURL(SOHOBASE.URL)} style={styles.brand} source={ASSETS.sohobase} />
+          <Text style={styles.text}>❤️</Text>
+          <Text style={styles.text}>{COPYRIGHT}</Text>
         </View>
       </View>
     );

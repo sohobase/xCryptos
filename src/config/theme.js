@@ -5,8 +5,8 @@ const UNIT = 10;
 // const GREEN = '#00CED9';
 // const RED = '#FF5C84';
 // const BLUE = '#2283CD';
-// const WHITE = '#ffffff';
-// const BLACK = '#000000';
+const WHITE = '#ffffff';
+const BLACK = '#000000';
 
 export default {
   // -- Transitions
@@ -15,8 +15,8 @@ export default {
   ANIMATION_EASING: 'ease-in-out-sine',
 
   // -- Colors
-  WHITE: 'white',
-  BLACK: 'black',
+  WHITE,
+  BLACK,
   PRIMARY: '#3920F5',
   ACCENT: '#C668FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',

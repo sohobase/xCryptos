@@ -11,7 +11,7 @@
       "backgroundColor": "#3920F5",
       "exponentIconColor": "white",
       "hideExponentText": true,
-      "icon": "./assets/app-brand.png"
+      "icon": "./assets/app-sohobase.png"
     },
     "notification": {
       "icon": "./assets/app-logo.png",
