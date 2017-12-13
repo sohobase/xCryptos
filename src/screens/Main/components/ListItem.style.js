@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { THEME } from '../config';
+import { THEME } from '../../../config';
 
 const { UNIT } = THEME;
 const THUMBNAIL_SIZE = UNIT * 3.6;
@@ -9,7 +9,7 @@ export default StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     alignItems: 'center',
-    paddingVertical: UNIT  / 2,
+    paddingVertical: UNIT / 2,
     paddingHorizontal: UNIT,
   },
   active: {
@@ -27,7 +27,7 @@ export default StyleSheet.create({
   },
   values: {
     flex: 1,
-    paddingVertical: UNIT  / 4,
+    paddingVertical: UNIT / 4,
     alignItems: 'flex-end',
   },
   value: {

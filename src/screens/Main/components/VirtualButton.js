@@ -1,12 +1,13 @@
 import { func, number, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
-import { STYLE } from '../config';
-import Touchable from './Touchable';
-import ButtonIcon from './ButtonIcon';
+import { STYLE } from '../../../config';
+import { ButtonIcon, Touchable } from '../../../components';
 import styles from './VirtualButton.style';
 
-const VirtualButton = ({ caption, icon, value, onPress }) => (
+const VirtualButton = ({
+  caption, icon, value, onPress,
+}) => (
   <Touchable
     key={value}
     onPress={() => onPress(value)}

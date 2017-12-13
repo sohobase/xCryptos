@@ -1,13 +1,15 @@
+import { LinearGradient } from 'expo';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { arrayOf, func, string } from 'prop-types';
 import { AppState, FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
-import { addTokenAction, updatePricesAction } from '../actions';
-import { ButtonIcon, FavoriteItem, Logo, VirtualKeyboard } from '../components';
-import { C, STYLE, THEME } from '../config';
-import { ServiceCurrencies, ServiceNotifications } from '../services';
-import styles from './MainScreen.style';
+import { addTokenAction, updatePricesAction } from '../../actions';
+import { ButtonIcon, Logo } from '../../components';
+import { C, STYLE, THEME } from '../../config';
+import { ServiceCurrencies, ServiceNotifications } from '../../services';
+import { ListItem, VirtualKeyboard } from './components';
+import styles from './Main.style';
 
 const { DEFAULT_TOKEN, NODE_ENV: { DEVELOPMENT } } = C;
 const keyExtractor = item => item.symbol;
@@ -84,7 +86,7 @@ class Main extends Component {
     } = this;
 
     return (
-      <FavoriteItem
+      <ListItem
         currency={item}
         decimal={decimal}
         conversionUsd={activeCurrency.usd}
@@ -98,21 +100,24 @@ class Main extends Component {
     const {
       _fetch, _onChangeValue, _renderItem,
       props: { favorites },
-      state: { decimal, prefetch, refreshing, value },
+      state: {
+        decimal, prefetch, refreshing, value,
+      },
     } = this;
 
     return (
       <View style={STYLE.SCREEN}>
-        <FlatList
-          data={favorites}
-          extraData={this.state}
-          keyExtractor={(keyExtractor)}
-          refreshControl={
-            <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-          renderItem={_renderItem}
-          style={[STYLE.LAYOUT_MAIN]}
-        />
-        <VirtualKeyboard decimal={decimal} onChange={this._onChangeValue} value={value} />
+        <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={STYLE.LAYOUT_MAIN}>
+          <FlatList
+            data={favorites}
+            extraData={this.state}
+            keyExtractor={(keyExtractor)}
+            refreshControl={
+              <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+            renderItem={_renderItem}
+          />
+        </LinearGradient>
+        <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} />
       </View>
     );
   }

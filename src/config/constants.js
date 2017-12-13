@@ -69,7 +69,9 @@ export default {
     SUBJECT: 'Feedback',
   },
 
-  ICON: { add, alert, back, close, create, home, info, menu, star, share },
+  ICON: {
+    add, alert, back, close, create, home, info, menu, star, share,
+  },
 
   NODE_ENV: {
     DEVELOPMENT: 'development',

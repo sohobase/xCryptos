@@ -1,7 +1,7 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
-import { STYLE } from '../config';
+import { STYLE } from '../../../config';
 import VirtualButton from './VirtualButton';
 import styles from './VirtualKeyboard.style';
 

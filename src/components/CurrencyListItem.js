@@ -1,6 +1,6 @@
 import { bool, func } from 'prop-types';
-import { Switch, Text, View } from 'react-native';
 import React from 'react';
+import { Switch, Text, View } from 'react-native';
 import { C, STYLE } from '../config';
 import styles from './CurrencyListItem.style';
 
@@ -12,7 +12,7 @@ const CurrencyListItem = (props) => {
     <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
       <View style={styles.currency}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.symbol}>{symbol.toUpperCase()}</Text>
+        { 1 === 2 && <Text style={styles.symbol}>{symbol.toUpperCase()}</Text> }
       </View>
       <Switch
         style={styles.switch}
