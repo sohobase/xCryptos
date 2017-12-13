@@ -6,7 +6,7 @@ import Swipeout from 'react-native-swipeout';
 import { connect } from 'react-redux';
 import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
 import { Touchable } from '../../../components';
-import { C, THEME, STYLE } from '../../../config';
+import { ASSETS, C, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
@@ -44,7 +44,12 @@ class ListItem extends Component {
     const alert = alerts.find(item => item.currency === symbol);
     const options = [
       { ...OPTION, text: 'Holdings' },
-      { ...OPTION, text: 'Remove', onPress: () => removeFavorite(currency) },
+      {
+        ...OPTION,
+        component: null,
+        text: 'Remove',
+        onPress: () => removeFavorite(currency),
+      },
     ];
 
     return (
@@ -55,7 +60,7 @@ class ListItem extends Component {
               <View style={[styles.imageWrap, styles.image]}>
                 <Image style={styles.image} source={{ uri: image }} />
               </View>
-              { alert && <Image style={styles.alert} source={C.ICON.alert} /> }
+              { alert && <Image style={styles.alert} source={ASSETS.alert} /> }
             </View>
             <View style={styles.currency}>
               <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
@@ -94,6 +99,7 @@ ListItem.propTypes = {
   }),
   decimal: bool,
   onPress: func,
+  removeFavorite: func,
   value: string,
 };
 
@@ -107,6 +113,7 @@ ListItem.defaultProps = {
   },
   decimal: false,
   onPress: undefined,
+  removeFavorite() {},
   value: 0,
 };
 

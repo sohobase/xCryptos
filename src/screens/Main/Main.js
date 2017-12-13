@@ -6,7 +6,7 @@ import { AppState, FlatList, Image, RefreshControl, View } from 'react-native';
 import { Notifications } from 'expo';
 import { addTokenAction, updatePricesAction } from '../../actions';
 import { ButtonIcon, Logo } from '../../components';
-import { C, STYLE, THEME } from '../../config';
+import { ASSETS, C, STYLE, THEME } from '../../config';
 import { ServiceCurrencies, ServiceNotifications } from '../../services';
 import { ListItem, VirtualKeyboard } from './components';
 import styles from './Main.style';
@@ -18,7 +18,7 @@ class Main extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
       drawerLabel: 'Favorites',
-      drawerIcon: ({ tintColor }) => <Image source={C.ICON.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
+      drawerIcon: ({ tintColor }) => <Image source={ASSETS.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: <Logo style={styles.logo} />,
       headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,

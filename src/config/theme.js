@@ -1,12 +1,12 @@
-import Color from 'color';
+// import Color from 'color';
 
 const UNIT = 10;
 
-const GREEN = '#00CED9';
-const RED = '#FF5C84';
-const BLUE = '#2283CD';
-const WHITE = '#ffffff';
-const BLACK = '#000000';
+// const GREEN = '#00CED9';
+// const RED = '#FF5C84';
+// const BLUE = '#2283CD';
+// const WHITE = '#ffffff';
+// const BLACK = '#000000';
 
 export default {
   // -- Transitions

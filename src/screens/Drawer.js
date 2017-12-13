@@ -1,7 +1,7 @@
 import React from 'react';
 import { Linking, Image, Platform, ScrollView, Text, View } from 'react-native';
 import { DrawerItems } from 'react-navigation';
-import { C, STYLE, THEME } from '../config';
+import { ASSETS, C, STYLE, THEME } from '../config';
 import { Button, Logo, Touchable } from '../components';
 import style from './Drawer.style';
 import pkg from '../../package.json';
@@ -37,12 +37,12 @@ export default props => (
       />
       <DrawerLinkItem
         caption="Like Us"
-        icon={C.ICON.star}
+        icon={ASSETS.star}
         onPress={() => Linking.openURL(storeURL)}
       />
       <DrawerLinkItem
         caption="Feedback"
-        icon={C.ICON.create}
+        icon={ASSETS.create}
         onPress={() => Linking.openURL(`mailto:${MAIL}?subject=${SUBJECT}&body=body`)}
       />
       <DrawerItems

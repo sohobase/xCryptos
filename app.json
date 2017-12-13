@@ -1,7 +1,7 @@
 {
    "expo": {
     "name": "xCryptos",
-    "icon": "./src/assets/app-icon.png",
+    "icon": "./assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#3920F5",
     "version": "0.7.1",
@@ -11,10 +11,10 @@
       "backgroundColor": "#3920F5",
       "exponentIconColor": "white",
       "hideExponentText": true,
-      "icon": "./src/assets/app-brand.png"
+      "icon": "./assets/app-brand.png"
     },
     "notification": {
-      "icon": "./src/assets/app-logo.png",
+      "icon": "./assets/app-logo.png",
       "color": "#FFFFFF",
     },
     "ios": {
