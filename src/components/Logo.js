@@ -1,10 +1,10 @@
 import { number } from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
-import { ASSETS } from '../config';
+import { ASSET } from '../config';
 import styles from './Logo.style';
 
-const Logo = ({ style }) => <Image style={[styles.container, style]} source={ASSETS.logo} />;
+const Logo = ({ style }) => <Image style={[styles.container, style]} source={ASSET.logo} />;
 
 Logo.propTypes = {
   style: number,

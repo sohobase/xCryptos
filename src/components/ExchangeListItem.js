@@ -1,9 +1,12 @@
+import { shape } from 'prop-types';
 import { Linking, Text, View } from 'react-native';
 import React from 'react';
-import { C, STYLE, THEME } from '../config';
+import { C, SHAPE, STYLE } from '../config';
 import { Button } from '../components';
 import { formatCurrency } from '../modules';
 import styles from './ExchangeListItem.style';
+
+const { CURRENCY, EXCHANGE } = SHAPE;
 
 const ExchangeListItem = ({ currency, exchange: { MARKET, PRICE = 0 } }) => {
   return (
@@ -26,8 +29,8 @@ const ExchangeListItem = ({ currency, exchange: { MARKET, PRICE = 0 } }) => {
 };
 
 ExchangeListItem.propTypes = {
-  currency: C.SHAPE.CURRENCY,
-  exchange: C.SHAPE.EXCHANGE,
+  currency: shape(CURRENCY),
+  exchange: shape(EXCHANGE),
 };
 
 ExchangeListItem.defaultProps = {

@@ -1,12 +1,14 @@
-import ASSETS from './assets';
+import ASSET from './assets';
 import C from './constants';
+import SHAPE from './shape';
 import STYLE from './style';
 import TEXT from './text';
 import THEME from './theme';
 
 export {
-  ASSETS,
+  ASSET,
   C,
+  SHAPE,
   STYLE,
   TEXT,
   THEME,

@@ -31,7 +31,7 @@ export default {
 
     const values = {};
     Object.keys(response).forEach((key) => {
-      values[key] = values[key][USD];
+      values[key] = response[key][USD];
     });
 
     return values;

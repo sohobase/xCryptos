@@ -1,11 +1,13 @@
-import { arrayOf, bool, func, string } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { LinearGradient } from 'expo';
 import React from 'react';
 import { View } from 'react-native';
-import { C, STYLE, THEME } from '../../config';
+import { C, SHAPE, STYLE, THEME } from '../../config';
 import Chart from '../Chart';
 import { ChipPrice, Price, TimelineOption } from './components';
 import styles from './CurrencyContent.style';
+
+const { CURRENCY, HISTORY } = SHAPE;
 
 const CurrencyContent = (props) => {
   const {
@@ -51,8 +53,8 @@ const CurrencyContent = (props) => {
 };
 
 CurrencyContent.propTypes = {
-  currency: C.SHAPE.CURRENCY,
-  history: arrayOf(C.SHAPE.HISTORY),
+  currency: shape(CURRENCY),
+  history: arrayOf(shape(HISTORY)),
   onChange: func,
   refreshing: bool,
   timeline: string,

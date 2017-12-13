@@ -1,10 +1,12 @@
-import { func } from 'prop-types';
+import { func, shape } from 'prop-types';
 import { Text, View } from 'react-native';
 import React from 'react';
-import { C, STYLE } from '../config';
+import { SHAPE, STYLE } from '../config';
 import { formatCurrency } from '../modules';
 import Touchable from './Touchable';
 import styles from './AlertListItem.style';
+
+const { ALERT } = SHAPE;
 
 const AlertListItem = (props) => {
   const { alert, onPress } = props;
@@ -33,7 +35,7 @@ const AlertListItem = (props) => {
 };
 
 AlertListItem.propTypes = {
-  alert: C.SHAPE.ALERT,
+  alert: shape(ALERT),
   onPress: func,
 };
 

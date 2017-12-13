@@ -1,24 +1,24 @@
-import { LinearGradient } from 'expo';
+import { arrayOf, func, string, shape } from 'prop-types';
+import { LinearGradient, Notifications } from 'expo';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { arrayOf, func, string } from 'prop-types';
 import { AppState, FlatList, Image, RefreshControl, View } from 'react-native';
-import { Notifications } from 'expo';
 import { addTokenAction, updatePricesAction } from '../../actions';
 import { ButtonIcon, Logo } from '../../components';
-import { ASSETS, C, STYLE, THEME } from '../../config';
+import { ASSET, C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceCurrencies, ServiceNotifications } from '../../services';
 import { ListItem, VirtualKeyboard } from './components';
 import styles from './Main.style';
 
 const { DEFAULT_TOKEN, NODE_ENV: { DEVELOPMENT } } = C;
+const { FAVORITE, NAVIGATION } = SHAPE;
 const keyExtractor = item => item.symbol;
 
 class Main extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
       drawerLabel: 'Favorites',
-      drawerIcon: ({ tintColor }) => <Image source={ASSETS.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
+      drawerIcon: ({ tintColor }) => <Image source={ASSET.home} style={[STYLE.DRAWER_ICON, { tintColor }]} />,
       headerLeft: <ButtonIcon icon="menu" onPress={() => navigate('DrawerOpen')} />,
       title: <Logo style={styles.logo} />,
       headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} />,
@@ -125,8 +125,8 @@ class Main extends Component {
 
 Main.propTypes = {
   addToken: func,
-  favorites: arrayOf(C.SHAPE.FAVORITE),
-  navigation: C.SHAPE.NAVIGATION,
+  favorites: arrayOf(shape(FAVORITE)),
+  navigation: shape(NAVIGATION),
   token: string,
   updatePrices: func,
 };

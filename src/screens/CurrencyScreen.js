@@ -1,12 +1,14 @@
+import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, ScrollView, View } from 'react-native';
-import { C, STYLE } from '../config';
+import { C, SHAPE, STYLE } from '../config';
 import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
 import { ServiceCurrencies } from '../services';
 import { snapshotsAction } from '../actions';
 
 const { DEFAULT_TIMELINE } = C;
+const { CURRENCY, SNAPSHOT } = SHAPE;
 
 class CurrencyScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
@@ -84,8 +86,8 @@ class CurrencyScreen extends Component {
 }
 
 CurrencyScreen.propTypes = {
-  currency: C.SHAPE.CURRENCY,
-  snapshot: C.SHAPE.SNAPSHOT,
+  currency: shape(CURRENCY),
+  snapshot: shape(SNAPSHOT),
 };
 
 CurrencyScreen.defaultProps = {

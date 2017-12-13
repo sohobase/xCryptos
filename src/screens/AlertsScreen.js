@@ -1,11 +1,13 @@
-import { arrayOf, string } from 'prop-types';
+import { arrayOf, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl, View } from 'react-native';
 import { saveAlertsAction } from '../actions';
-import { C, STYLE, THEME } from '../config';
+import { SHAPE, STYLE, THEME } from '../config';
 import { ServiceAlerts } from '../services';
 import { AlertListItem, ButtonIcon, ModalAlert } from '../components';
+
+const { ALERT, CURRENCY, NAVIGATION } = SHAPE;
 
 const keyExtractor = ({ currency, low, high }) => `${currency}${low}${high}${new Date()}`;
 
@@ -93,9 +95,9 @@ class AlertsScreen extends Component {
 }
 
 AlertsScreen.propTypes = {
-  alerts: arrayOf(C.SHAPE.ALERT),
-  currency: C.SHAPE.CURRENCY,
-  navigation: C.SHAPE.NAVIGATION,
+  alerts: arrayOf(shape(ALERT)),
+  currency: shape(CURRENCY),
+  navigation: shape(NAVIGATION),
   token: string,
 };
 

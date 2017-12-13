@@ -1,15 +1,17 @@
-import { bool, func, string } from 'prop-types';
+import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { addAlertAction, removeAlertAction } from '../actions';
-import { C, STYLE, THEME } from '../config';
+import { SHAPE, STYLE, THEME } from '../config';
 import { ServiceAlerts } from '../services';
 import Button from './Button';
 import ButtonIcon from './ButtonIcon';
 import Modal from './Modal';
 import styles from './ModalAlert.style';
+
+const { ALERT, CURRENCY } = SHAPE;
 
 class ModalAlert extends Component {
   static navigationOptions({ navigation: { state } }) {
@@ -119,8 +121,8 @@ class ModalAlert extends Component {
 
 ModalAlert.propTypes = {
   addAlert: func,
-  alert: C.SHAPE.ALERT,
-  currency: C.SHAPE.CURRENCY,
+  alert: shape(ALERT),
+  currency: shape(CURRENCY),
   visible: bool,
   onClose: func,
   removeAlert: func,

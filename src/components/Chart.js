@@ -1,9 +1,11 @@
-import { arrayOf, bool, number } from 'prop-types';
+import { arrayOf, bool, number, shape } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { C, STYLE, THEME } from '../config';
+import { SHAPE, STYLE, THEME } from '../config';
 import Bar from './Bar';
 import styles from './Chart.style';
+
+const { HISTORY } = SHAPE;
 
 const Chart = ({ animate, dataSource = [], style }) => {
   const withData = dataSource.length > 0;
@@ -37,7 +39,7 @@ const Chart = ({ animate, dataSource = [], style }) => {
 
 Chart.propTypes = {
   animate: bool,
-  dataSource: arrayOf(C.SHAPE.HISTORY),
+  dataSource: arrayOf(shape(HISTORY)),
   style: number,
 };
 

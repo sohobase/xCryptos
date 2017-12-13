@@ -1,4 +1,4 @@
-import { arrayOf, func } from 'prop-types';
+import { arrayOf, shape, func } from 'prop-types';
 import React, { Component } from 'react';
 import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
@@ -10,10 +10,11 @@ import {
   updatePricesAction,
 } from '../actions';
 import { CurrencyListItem } from '../components';
-import { C, STYLE } from '../config';
+import { SHAPE, STYLE } from '../config';
 import { ServiceCurrencies } from '../services';
 import styles from './CurrenciesScreen.style';
 
+const { CURRENCY, FAVORITE } = SHAPE;
 const keyExtractor = item => item.rank;
 
 class CurrenciesScreen extends Component {
@@ -111,9 +112,8 @@ class CurrenciesScreen extends Component {
 
 CurrenciesScreen.propTypes = {
   addFavorite: func,
-  currencies: arrayOf(C.SHAPE.CURRENCY),
-  favorites: arrayOf(C.SHAPE.FAVORITE),
-  navigation: C.SHAPE.NAVIGATION,
+  currencies: arrayOf(shape(CURRENCY)),
+  favorites: arrayOf(shape(FAVORITE)),
   removeFavorite: func,
   saveCurrencies: func,
   updatePrices: func,
@@ -123,9 +123,6 @@ CurrenciesScreen.defaultProps = {
   addFavorite() {},
   currencies: [],
   favorites: [],
-  navigation: {
-    navigate() {},
-  },
   removeFavorite() {},
   saveCurrencies() {},
   updatePrices() {},
