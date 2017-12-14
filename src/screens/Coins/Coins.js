@@ -8,18 +8,18 @@ import {
   removeFavoriteAction,
   saveCurrenciesAction,
   updatePricesAction,
-} from '../actions';
-import { CurrencyListItem } from '../components';
-import { SHAPE, STYLE } from '../config';
-import { ServiceCurrencies } from '../services';
-import styles from './CurrenciesScreen.style';
+} from '../../actions';
+import { SHAPE, STYLE, TEXT } from '../../config';
+import { ServiceCurrencies } from '../../services';
+import { ListItem } from './components';
+import styles from './Coins.style';
 
 const { CURRENCY, FAVORITE } = SHAPE;
-const keyExtractor = item => item.rank;
+const { EN: { COINS, SEARCH } } = TEXT;
 
-class CurrenciesScreen extends Component {
+class CoinsScreen extends Component {
   static navigationOptions = {
-    title: 'Currencies',
+    title: COINS,
   };
 
   constructor(props) {
@@ -76,7 +76,7 @@ class CurrenciesScreen extends Component {
     const { favorites } = this.props;
 
     return (
-      <CurrencyListItem
+      <ListItem
         currency={item}
         favorite={favorites.findIndex(({ symbol }) => symbol === item.symbol) > -1}
         onChange={this._onChangeItem}
@@ -92,25 +92,26 @@ class CurrenciesScreen extends Component {
     return (
       <View style={STYLE.SCREEN}>
         <SearchBar
-          containerStyle={styles.searchContainer}
-          inputStyle={styles.searchInput}
+          containerStyle={styles.searchBar}
+          inputStyle={styles.input}
           lightTheme
           onChangeText={_onSearch}
-          placeholder="Type Here..."
+          placeholder={`${SEARCH}...`}
         />
         <FlatList
           data={filteredCurrencies || currencies}
-          keyExtractor={keyExtractor}
+          keyExtractor={item => item.rank}
           extraData={favorites}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
           renderItem={_renderItem}
+          style={styles.list}
         />
       </View>
     );
   }
 }
 
-CurrenciesScreen.propTypes = {
+CoinsScreen.propTypes = {
   addFavorite: func,
   currencies: arrayOf(shape(CURRENCY)),
   favorites: arrayOf(shape(FAVORITE)),
@@ -119,7 +120,7 @@ CurrenciesScreen.propTypes = {
   updatePrices: func,
 };
 
-CurrenciesScreen.defaultProps = {
+CoinsScreen.defaultProps = {
   addFavorite() {},
   currencies: [],
   favorites: [],
@@ -140,4 +141,4 @@ const mapDispatchToProps = dispatch => ({
   updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrenciesScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CoinsScreen);

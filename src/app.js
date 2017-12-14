@@ -2,7 +2,7 @@ import { DrawerNavigator, StackNavigator } from 'react-navigation';
 import {
   AboutScreen,
   AlertsScreen,
-  CurrenciesScreen,
+  CoinsScreen,
   CurrencyScreen,
   Drawer,
   MainScreen,
@@ -26,7 +26,7 @@ const App = DrawerNavigator({
   Main: {
     screen: StackNavigator({
       Main: { screen: MainScreen, navigationOptions },
-      Currencies: { screen: CurrenciesScreen, navigationOptions },
+      Currencies: { screen: CoinsScreen, navigationOptions },
       Currency: { screen: CurrencyScreen, navigationOptions },
       Alerts: { screen: AlertsScreen, navigationOptions },
     }),

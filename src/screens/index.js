@@ -1,6 +1,6 @@
 import AboutScreen from './AboutScreen';
 import AlertsScreen from './AlertsScreen';
-import CurrenciesScreen from './CurrenciesScreen';
+import CoinsScreen from './Coins';
 import CurrencyScreen from './CurrencyScreen';
 import Drawer from './Drawer';
 import MainScreen from './Main';
@@ -9,7 +9,7 @@ import LoadingScreen from './LoadingScreen';
 export {
   AboutScreen,
   AlertsScreen,
-  CurrenciesScreen,
+  CoinsScreen,
   CurrencyScreen,
   Drawer,
   MainScreen,

@@ -1,8 +1,8 @@
 import { bool, func, shape } from 'prop-types';
 import React from 'react';
 import { Switch, Text, View } from 'react-native';
-import { SHAPE, STYLE } from '../config';
-import styles from './CurrencyListItem.style';
+import { SHAPE, STYLE } from '../../../config';
+import styles from './ListItem.style';
 
 const { CURRENCY } = SHAPE;
 
