@@ -3,7 +3,7 @@ import {
   AboutScreen,
   AlertsScreen,
   CoinsScreen,
-  CurrencyScreen,
+  CoinScreen,
   Drawer,
   MainScreen,
 } from './screens';
@@ -27,7 +27,7 @@ const App = DrawerNavigator({
     screen: StackNavigator({
       Main: { screen: MainScreen, navigationOptions },
       Currencies: { screen: CoinsScreen, navigationOptions },
-      Currency: { screen: CurrencyScreen, navigationOptions },
+      Currency: { screen: CoinScreen, navigationOptions },
       Alerts: { screen: AlertsScreen, navigationOptions },
     }),
   },

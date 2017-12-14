@@ -1,12 +1,14 @@
-import { bool, func, number, string } from 'prop-types';
+import { bool, func, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
-import Touchable from '../../Touchable';
 import { STYLE, THEME } from '../../../config';
+import { Touchable } from '../../../components';
 import styles from './TimelineOption.style';
 
-const TimelineOption = ({ caption, current, delay, onPress, refreshing }) => {
+const TimelineOption = ({
+  caption, current, onPress, refreshing,
+}) => {
   const styleBullet = [STYLE.BULLET, styles.bullet];
   const styleOption = [styles.caption];
   if (caption === current) {
@@ -20,7 +22,7 @@ const TimelineOption = ({ caption, current, delay, onPress, refreshing }) => {
   return (
     <Touchable onPress={onPress}>
       <Animatable
-        animation={'fadeIn'}
+        animation="fadeIn"
         delay={THEME.ANIMATION_DURATION}
         duration={THEME.ANIMATION_DURATION}
         easing={THEME.ANIMATION_EASING}

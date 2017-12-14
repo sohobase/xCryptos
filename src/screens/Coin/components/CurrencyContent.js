@@ -2,9 +2,11 @@ import { arrayOf, bool, func, shape, string } from 'prop-types';
 import { LinearGradient } from 'expo';
 import React from 'react';
 import { View } from 'react-native';
-import { C, SHAPE, STYLE, THEME } from '../../config';
-import Chart from '../Chart';
-import { ChipPrice, Price, TimelineOption } from './components';
+import { C, SHAPE, STYLE, THEME } from '../../../config';
+import Chart from './Chart';
+import ChipPrice from './ChipPrice';
+import Price from './Price';
+import TimelineOption from './TimelineOption';
 import styles from './CurrencyContent.style';
 
 const { CURRENCY, HISTORY } = SHAPE;

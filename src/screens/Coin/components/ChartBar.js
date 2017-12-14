@@ -2,10 +2,12 @@ import { bool, number, string } from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
-import { THEME } from '../config';
-import styles from './Bar.style';
+import { THEME } from '../../../config';
+import styles from './ChartBar.style';
 
-const Bar = ({ animate, color, delay, value }) => (
+const ChartBar = ({
+  animate, color, delay, value,
+}) => (
   <View style={styles.container}>
     <Animatable
       animation={animate ? 'slideInUp' : undefined}
@@ -17,18 +19,18 @@ const Bar = ({ animate, color, delay, value }) => (
   </View>
 );
 
-Bar.propTypes = {
+ChartBar.propTypes = {
   animate: bool,
   color: string,
   delay: number,
   value: number,
 };
 
-Bar.defaultProps = {
+ChartBar.defaultProps = {
   animate: false,
   value: 0,
   delay: 0,
   color: undefined,
 };
 
-export default Bar;
+export default ChartBar;

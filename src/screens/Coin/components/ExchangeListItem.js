@@ -1,14 +1,16 @@
 import { shape } from 'prop-types';
 import { Linking, Text, View } from 'react-native';
 import React from 'react';
-import { C, SHAPE, STYLE } from '../config';
-import { Button } from '../components';
-import { formatCurrency } from '../modules';
+import { C, SHAPE, STYLE } from '../../../config';
+import { Button } from '../../../components';
+import { formatCurrency } from '../../../modules';
 import styles from './ExchangeListItem.style';
 
 const { CURRENCY, EXCHANGE } = SHAPE;
 
-const ExchangeListItem = ({ currency, exchange: { MARKET, PRICE = 0 } }) => {
+const ExchangeListItem = ({
+  currency, exchange: { MARKET, PRICE = 0 },
+}) => {
   return (
     <View style={[STYLE.ROW, styles.container]}>
       <View style={[STYLE.CENTERED, styles.priceBox]}>

@@ -19,6 +19,7 @@ export default StyleSheet.create({
   caption: {
     color: THEME.CONTRAST,
     fontSize: THEME.FONT_SIZE_SMALL,
+    backgroundColor: 'transparent',
   },
 
   captionActive: {

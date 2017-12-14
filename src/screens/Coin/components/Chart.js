@@ -1,8 +1,8 @@
 import { arrayOf, bool, number, shape } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
-import { SHAPE, STYLE, THEME } from '../config';
-import Bar from './Bar';
+import { SHAPE, STYLE, THEME } from '../../../config';
+import ChartBar from './ChartBar';
 import styles from './Chart.style';
 
 const { HISTORY } = SHAPE;
@@ -23,7 +23,7 @@ const Chart = ({ animate, dataSource = [], style }) => {
           if (value === max) color = THEME.COLOR_HIGH;
 
           return (
-            <Bar
+            <ChartBar
               animate={animate}
               key={timestamp}
               color={color}

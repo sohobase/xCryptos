@@ -1,5 +1,5 @@
 import { StyleSheet } from 'react-native';
-import { THEME } from '../config';
+import { THEME } from '../../../config';
 
 const PRICE_BOX_SIZE = THEME.UNIT * 8;
 

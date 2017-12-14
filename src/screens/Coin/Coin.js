@@ -2,15 +2,17 @@ import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, ScrollView, View } from 'react-native';
-import { C, SHAPE, STYLE } from '../config';
-import { ButtonIcon, CurrencyContent, ExchangeListItem } from '../components';
-import { ServiceCurrencies } from '../services';
-import { snapshotsAction } from '../actions';
+import { C, SHAPE, STYLE } from '../../config';
+import { ButtonIcon } from '../../components';
+import { ServiceCurrencies } from '../../services';
+import { snapshotsAction } from '../../actions';
+import { CurrencyContent, ExchangeListItem } from './components';
+
 
 const { DEFAULT_TIMELINE } = C;
 const { CURRENCY, SNAPSHOT } = SHAPE;
 
-class CurrencyScreen extends Component {
+class CoinScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
     const { currency = {}, token } = state.params || {};
 
@@ -46,10 +48,9 @@ class CurrencyScreen extends Component {
     const { currency, snapshots } = this.props;
 
     this.setState({ history: undefined, refreshing: true, timeline: DEFAULT_TIMELINE });
-    const snapshot = await ServiceCurrencies.fetch(currency.symbol) || {};
+    const snapshot = await ServiceCurrencies.fetch(currency.symbol);
     const history = await ServiceCurrencies.history(currency.symbol);
-
-    snapshots({ ...snapshot, history }, currency.symbol);
+    if (snapshot && history) snapshots({ ...snapshot, history }, currency.symbol);
     this.setState({ refreshing: false });
   }
 
@@ -85,12 +86,12 @@ class CurrencyScreen extends Component {
   }
 }
 
-CurrencyScreen.propTypes = {
+CoinScreen.propTypes = {
   currency: shape(CURRENCY),
   snapshot: shape(SNAPSHOT),
 };
 
-CurrencyScreen.defaultProps = {
+CoinScreen.defaultProps = {
   currency: {},
   snapshot: {},
 };
@@ -106,4 +107,4 @@ const mapDispatchToProps = dispatch => ({
   snapshots: (currency, symbol) => currency && symbol && dispatch(snapshotsAction(currency, symbol)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CurrencyScreen);
+export default connect(mapStateToProps, mapDispatchToProps)(CoinScreen);
