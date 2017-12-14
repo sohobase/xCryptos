@@ -78,7 +78,6 @@ export default StyleSheet.create({
   option: {
     alignSelf: 'center',
     tintColor: THEME.WHITE,
-    // marginTop: '25%',
     marginTop: UNIT * 1.2,
   },
 });

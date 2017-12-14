@@ -6,11 +6,13 @@ import Swipeout from 'react-native-swipeout';
 import { connect } from 'react-redux';
 import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
 import { ButtonIcon, Touchable } from '../../../components';
-import { ASSET, SHAPE, THEME, STYLE } from '../../../config';
+import { ASSET, SHAPE, TEXT, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
+import InputHodl from './InputHodl';
 import styles from './ListItem.style';
 
 const { ALERT, CURRENCY } = SHAPE;
+const { EN: { HINT_SET_HODL } } = TEXT;
 const SWIPE_BUTTON = {
   backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT, underlayColor: THEME.BACKGROUND_DARK,
 };
@@ -39,15 +41,12 @@ class ListItem extends Component {
       },
     } = this;
     const {
-      active, image, symbol, usd = 0,
+      active, hodl, image, symbol, usd = 0,
     } = currency;
 
     const alert = alerts.find(item => item.currency === symbol);
     const options = [
-      {
-        ...SWIPE_BUTTON,
-        text: 'HODL...',
-      },
+      { ...SWIPE_BUTTON, component: <InputHodl currency={currency} /> },
       {
         ...SWIPE_BUTTON,
         component: <ButtonIcon icon="alert" onPress={onAlert} style={styles.option} />,
@@ -77,7 +76,7 @@ class ListItem extends Component {
             </View>
             <View style={styles.currency}>
               <Text style={styles.symbol}>{symbol}</Text>
-              <Text style={styles.text}>your hodl...</Text>
+              <Text style={styles.text}>{hodl ? `$${formatCurrency(hodl * usd)}` : HINT_SET_HODL}</Text>
             </View>
             <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
               <View style={styles.values}>
