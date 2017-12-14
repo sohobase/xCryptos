@@ -25,12 +25,6 @@ export default StyleSheet.create({
     borderRadius: THEME.UNIT * 2,
   },
 
-  CURRENCY_SYMBOL: {
-    color: THEME.WHITE,
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
-    lineHeight: THEME.FONT_SIZE_EXTRA_LARGE,
-  },
-
   MODAL_BUTTON: {
     marginTop: THEME.OFFSET,
     paddingTop: THEME.OFFSET,

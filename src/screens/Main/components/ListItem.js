@@ -1,16 +1,17 @@
 import { arrayOf, bool, func, shape, string, number } from 'prop-types';
 import React, { Component } from 'react';
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { View as Animatable } from 'react-native-animatable';
+import { View as Motion } from 'react-native-animatable';
 import Swipeout from 'react-native-swipeout';
 import { connect } from 'react-redux';
 import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
-import { Touchable } from '../../../components';
-import { ASSETS, C, THEME, STYLE } from '../../../config';
+import { ButtonIcon, Touchable } from '../../../components';
+import { ASSET, SHAPE, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
-const OPTION = {
+const { ALERT, CURRENCY } = SHAPE;
+const SWIPE_BUTTON = {
   backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT, underlayColor: THEME.BACKGROUND_DARK,
 };
 
@@ -34,49 +35,60 @@ class ListItem extends Component {
     const {
       _onPress, _onActiveItem,
       props: {
-        alerts, conversionUsd, decimal, removeFavorite, value, currency,
+        alerts, conversionUsd = 0, currency, decimal, onAlert, removeFavorite, value,
       },
     } = this;
     const {
-      active, name, image, symbol, usd,
+      active, image, symbol, usd = 0,
     } = currency;
 
     const alert = alerts.find(item => item.currency === symbol);
     const options = [
-      { ...OPTION, text: 'Holdings' },
       {
-        ...OPTION,
-        component: null,
-        text: 'Remove',
-        onPress: () => removeFavorite(currency),
+        ...SWIPE_BUTTON,
+        text: 'HODL...',
+      },
+      {
+        ...SWIPE_BUTTON,
+        component: <ButtonIcon icon="alert" onPress={onAlert} style={styles.option} />,
+      },
+      {
+        ...SWIPE_BUTTON,
+        component: <ButtonIcon icon="remove" onPress={() => removeFavorite(currency)} style={styles.option} />,
       },
     ];
 
     return (
-      <Swipeout right={options} autoClose backgroundColor={THEME.TRANSPARENT}>
+      <Swipeout
+        autoClose
+        backgroundColor={THEME.TRANSPARENT}
+        buttonWidth={64}
+        close={!active}
+        onOpen={_onActiveItem}
+        right={options}
+      >
         <Touchable onPress={_onPress}>
           <View style={[styles.container, (active && styles.active)]}>
             <View style={styles.thumb}>
               <View style={[styles.imageWrap, styles.image]}>
                 <Image style={styles.image} source={{ uri: image }} />
               </View>
-              { alert && <Image style={styles.alert} source={ASSETS.alert} /> }
+              { alert && <Image style={styles.alert} source={ASSET.alert} /> }
             </View>
             <View style={styles.currency}>
-              <Text style={STYLE.CURRENCY_SYMBOL}>{symbol}</Text>
-              { 1 === 2 && <Text style={styles.text}>{name}</Text> }
+              <Text style={styles.symbol}>{symbol}</Text>
+              <Text style={styles.text}>your hodl...</Text>
             </View>
             <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
               <View style={styles.values}>
-                { active && <Text style={[styles.text, styles.highlight]}>{`$${formatCurrency(value * usd)}`}</Text> }
                 <View style={STYLE.ROW}>
                   <Text style={styles.value}>
                     { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
                   </Text>
                   { active &&
-                    <Animatable animation="fadeIn" duration={500} iterationCount="infinite" style={styles.blink} /> }
+                    <Motion animation="fadeIn" duration={500} iterationCount="infinite" style={styles.blink} /> }
                 </View>
-                <Text style={styles.text}>{`$${formatCurrency(usd)}`}</Text>
+                <Text style={styles.text}>{`$${formatCurrency((active ? value : 1) * usd)}`}</Text>
               </View>
             </TouchableWithoutFeedback>
           </View>
@@ -88,16 +100,11 @@ class ListItem extends Component {
 
 ListItem.propTypes = {
   activeFavorite: func,
-  alerts: arrayOf(C.SHAPE.ALERT),
+  alerts: arrayOf(shape(ALERT)),
   conversionUsd: number,
-  currency: shape({
-    active: bool,
-    name: string,
-    rank: number,
-    symbol: string,
-    usd: number,
-  }),
+  currency: shape(CURRENCY),
   decimal: bool,
+  onAlert: func,
   onPress: func,
   removeFavorite: func,
   value: string,
@@ -107,11 +114,9 @@ ListItem.defaultProps = {
   activeFavorite() {},
   alerts: [],
   conversionUsd: 1,
-  currency: {
-    active: false,
-    usd: 0,
-  },
+  currency: {},
   decimal: false,
+  onAlert: undefined,
   onPress: undefined,
   removeFavorite() {},
   value: 0,

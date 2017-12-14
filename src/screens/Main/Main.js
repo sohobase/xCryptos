@@ -79,7 +79,7 @@ class Main extends Component {
     if (currencyFind) _onPressItem(currencyFind);
   };
 
-  _renderItem({ item }) {
+  _renderItem({ item: currency }) {
     const {
       props: { navigation: { navigate }, token },
       state: { activeCurrency = {}, decimal, value },
@@ -87,10 +87,11 @@ class Main extends Component {
 
     return (
       <ListItem
-        currency={item}
+        currency={currency}
         decimal={decimal}
         conversionUsd={activeCurrency.usd}
-        onPress={() => navigate('Currency', { currency: { ...item }, token })}
+        onAlert={() => navigate('Alerts', { currency })}
+        onPress={() => navigate('Currency', { currency, token })}
         value={value}
       />
     );

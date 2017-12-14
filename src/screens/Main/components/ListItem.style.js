@@ -12,28 +12,38 @@ export default StyleSheet.create({
     paddingVertical: UNIT / 2,
     paddingHorizontal: UNIT,
   },
+
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
+    elevation: 8,
   },
+
   currency: {
     flex: 1,
   },
+
+  symbol: {
+    color: THEME.WHITE,
+    fontSize: THEME.FONT_SIZE_LARGE,
+    lineHeight: THEME.FONT_SIZE_LARGE,
+  },
+
   text: {
     color: THEME.CONTRAST,
     fontSize: THEME.FONT_SIZE_SMALL,
   },
-  highlight: {
-    color: THEME.WHITE,
-  },
+
   values: {
     flex: 1,
     paddingVertical: UNIT / 4,
     alignItems: 'flex-end',
   },
+
   value: {
     color: THEME.WHITE,
     fontSize: THEME.FONT_SIZE_LARGE,
   },
+
   blink: {
     width: UNIT * 0.2,
     height: '100%',
@@ -63,5 +73,12 @@ export default StyleSheet.create({
     tintColor: THEME.WHITE,
     width: THEME.FONT_SIZE_LARGE,
     height: THEME.FONT_SIZE_LARGE,
+  },
+
+  option: {
+    alignSelf: 'center',
+    tintColor: THEME.WHITE,
+    // marginTop: '25%',
+    marginTop: UNIT * 1.2,
   },
 });

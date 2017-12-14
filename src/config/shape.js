@@ -8,6 +8,7 @@ export default {
     createdAt: date,
   },
   CURRENCY: {
+    active: bool,
     name: string,
     rank: number,
     symbol: string,
