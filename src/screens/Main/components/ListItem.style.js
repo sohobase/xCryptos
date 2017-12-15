@@ -44,13 +44,6 @@ export default StyleSheet.create({
     fontSize: THEME.FONT_SIZE_LARGE,
   },
 
-  blink: {
-    width: UNIT * 0.2,
-    height: '100%',
-    marginLeft: UNIT * 0.3,
-    backgroundColor: THEME.CONTRAST,
-  },
-
   thumb: {
     padding: UNIT / 2,
     marginRight: UNIT,

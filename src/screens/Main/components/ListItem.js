@@ -1,11 +1,10 @@
 import { arrayOf, bool, func, shape, string, number } from 'prop-types';
 import React, { Component } from 'react';
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
 import Swipeout from 'react-native-swipeout';
 import { connect } from 'react-redux';
 import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
-import { ButtonIcon, Touchable } from '../../../components';
+import { ButtonIcon, CursorBlink, Touchable } from '../../../components';
 import { ASSET, SHAPE, TEXT, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
 import InputHodl from './InputHodl';
@@ -84,8 +83,7 @@ class ListItem extends Component {
                   <Text style={styles.value}>
                     { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
                   </Text>
-                  { active &&
-                    <Motion animation="fadeIn" duration={500} iterationCount="infinite" style={styles.blink} /> }
+                  { active && <CursorBlink /> }
                 </View>
                 <Text style={styles.text}>{`$${formatCurrency((active ? value : 1) * usd)}`}</Text>
               </View>
