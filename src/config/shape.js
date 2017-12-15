@@ -21,6 +21,7 @@ export default {
   },
   FAVORITE: {
     active: bool,
+    hodl: number,
     name: string,
     symbol: string,
     usd: number,

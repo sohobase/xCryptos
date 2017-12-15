@@ -10,6 +10,7 @@ const home = require('../../assets/icon-home.png');
 const info = require('../../assets/icon-info.png');
 const menu = require('../../assets/icon-menu.png');
 const remove = require('../../assets/icon-remove.png');
+const settings = require('../../assets/icon-settings.png');
 const share = require('../../assets/icon-share.png');
 const star = require('../../assets/icon-star.png');
 
@@ -26,6 +27,7 @@ export default {
   info,
   menu,
   remove,
+  settings,
   share,
   star,
 };

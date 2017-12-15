@@ -52,11 +52,11 @@ export default StyleSheet.create({
   image: {
     width: THUMBNAIL_SIZE,
     height: THUMBNAIL_SIZE,
+    borderRadius: THUMBNAIL_SIZE / 2,
   },
 
   imageWrap: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    borderRadius: THUMBNAIL_SIZE / 2,
   },
 
   alert: {

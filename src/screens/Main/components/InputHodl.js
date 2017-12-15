@@ -20,7 +20,7 @@ class InputHodl extends Component {
 
   _onChangeText(hodl) {
     const { currency, updateFavorite } = this.props;
-    updateFavorite({ ...currency, hodl });
+    updateFavorite({ ...currency, hodl: parseFloat(hodl, 10) });
   }
 
   _onBlur() {

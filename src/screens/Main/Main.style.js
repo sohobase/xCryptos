@@ -1,11 +1,7 @@
-import { Platform, StyleSheet } from 'react-native';
-
-const isAndroid = (Platform.OS !== 'ios');
+import { StyleSheet } from 'react-native';
 
 export default StyleSheet.create({
-  logo: {
-    width: isAndroid ? 76 : 40,
-    height: isAndroid ? 48 : 32,
-    resizeMode: 'center',
+  icon: {
+    tintColor: 'white',
   },
 });
