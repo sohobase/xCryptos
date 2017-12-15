@@ -19,7 +19,10 @@ const SWIPE_BUTTON = {
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    this.state = { swipe: false };
     this._onActiveItem = this._onActiveItem.bind(this);
+    this._onInputBlur = this._onInputBlur.bind(this);
+    this._onInputFocus = this._onInputFocus.bind(this);
     this._onPress = this._onPress.bind(this);
   }
 
@@ -32,12 +35,21 @@ class ListItem extends Component {
     this._onActiveItem();
   }
 
+  _onInputBlur() {
+    this.setState({ swipe: false });
+  }
+
+  _onInputFocus() {
+    this.setState({ swipe: true });
+  }
+
   render() {
     const {
-      _onPress, _onActiveItem,
+      _onInputBlur, _onInputFocus, _onPress, _onActiveItem,
       props: {
         alerts, conversionUsd = 0, currency, decimal, onAlert, removeFavorite, value,
       },
+      state: { swipe },
     } = this;
     const {
       active, hodl, image, symbol, usd = 0,
@@ -45,7 +57,7 @@ class ListItem extends Component {
 
     const alert = alerts.find(item => item.currency === symbol);
     const options = [
-      { ...SWIPE_BUTTON, component: <InputHodl currency={currency} /> },
+      { ...SWIPE_BUTTON, component: <InputHodl currency={currency} onBlur={_onInputBlur} onFocus={_onInputFocus} /> },
       {
         ...SWIPE_BUTTON,
         component: <ButtonIcon icon="alert" onPress={onAlert} style={styles.option} />,
@@ -83,7 +95,7 @@ class ListItem extends Component {
                   <Text style={styles.value}>
                     { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
                   </Text>
-                  { active && <CursorBlink /> }
+                  { active && !swipe && <CursorBlink /> }
                 </View>
                 <Text style={styles.text}>{`$${formatCurrency((active ? value : 1) * usd)}`}</Text>
               </View>

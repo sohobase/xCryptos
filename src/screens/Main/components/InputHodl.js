@@ -1,9 +1,10 @@
 import { func, shape } from 'prop-types';
 import React, { Component } from 'react';
-import { TextInput } from 'react-native';
+import { TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { updateFavoriteAction } from '../../../actions';
-import { SHAPE, THEME } from '../../../config';
+import { SHAPE, STYLE, THEME } from '../../../config';
+import { CursorBlink } from '../../../components';
 import styles from './InputHodl.style';
 
 const { CURRENCY } = SHAPE;
@@ -11,7 +12,10 @@ const { CURRENCY } = SHAPE;
 class InputHodl extends Component {
   constructor(props) {
     super(props);
+    this.state = { focus: false };
     this._onChangeText = this._onChangeText.bind(this);
+    this._onBlur = this._onBlur.bind(this);
+    this._onFocus = this._onFocus.bind(this);
   }
 
   _onChangeText(hodl) {
@@ -19,33 +23,56 @@ class InputHodl extends Component {
     updateFavorite({ ...currency, hodl });
   }
 
+  _onBlur() {
+    this.setState({ focus: false });
+    this.props.onBlur();
+  }
+
+  _onFocus() {
+    this.setState({ focus: true });
+    this.props.onFocus();
+  }
+
   render() {
-    const { _onChangeText, props: { currency: { hodl } } } = this;
+    const {
+      _onChangeText, _onBlur, _onFocus,
+      props: { currency: { hodl } },
+      state: { focus },
+    } = this;
 
     return (
-      <TextInput
-        autoCorrect={false}
-        autoCapitalize="none"
-        defaultValue={hodl ? hodl.toString() : undefined}
-        keyboardType="numeric"
-        onChangeText={_onChangeText}
-        placeholder="0.0"
-        placeholderTextColor={THEME.CONTRAST}
-        style={styles.input}
-        tintColor="yellow"
-        underlineColorAndroid="transparent"
-      />
+      <View style={[STYLE.ROW, styles.container]}>
+        <TextInput
+          autoCorrect={false}
+          autoCapitalize="none"
+          defaultValue={hodl ? hodl.toString() : undefined}
+          keyboardType="numeric"
+          onChangeText={_onChangeText}
+          onBlur={_onBlur}
+          onFocus={_onFocus}
+          placeholder="0.0"
+          placeholderTextColor={THEME.CONTRAST}
+          style={styles.input}
+          tintColor="yellow"
+          underlineColorAndroid="transparent"
+        />
+        { focus && <CursorBlink /> }
+      </View>
     );
   }
 }
 
 InputHodl.propTypes = {
   currency: shape(CURRENCY),
+  onBlur: func,
+  onFocus: func,
   updateFavorite: func,
 };
 
 InputHodl.defaultProps = {
   currency: {},
+  onBlur() {},
+  onFocus() {},
   updateFavorite() {},
 };
 
