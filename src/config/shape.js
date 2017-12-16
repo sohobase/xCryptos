@@ -34,6 +34,10 @@ export default {
     navigate: func,
     setParams: func,
   },
+  SETTINGS: {
+    currency: string,
+    language: string,
+  },
   SNAPSHOT: {
     PRICE: number,
   },

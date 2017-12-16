@@ -80,6 +80,7 @@ export default StyleSheet.create({
 
   SCREEN: {
     flex: 1,
+    backgroundColor: THEME.WHITE,
   },
 
 });

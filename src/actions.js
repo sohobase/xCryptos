@@ -47,6 +47,12 @@ export const updatePricesAction = prices => ({
   prices,
 });
 
+export const UPDATE_SETTINGS = '@xCryptos/UPDATE_SETTINGS';
+export const updateSettingsAction = settings => ({
+  type: UPDATE_SETTINGS,
+  settings,
+});
+
 export const SNAPSHOTS = '@xCryptos/SNAPSHOTS';
 export const snapshotsAction = (currency, symbol) => ({
   type: SNAPSHOTS,

@@ -18,7 +18,7 @@ class Main extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
       headerLeft: <Hodl />,
-      headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Currencies')} style={styles.icon} />,
+      headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
     };
   }
 

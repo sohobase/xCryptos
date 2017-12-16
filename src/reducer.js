@@ -8,6 +8,7 @@ import {
   REMOVE_FAVORITE,
   SAVE_ALERTS,
   SAVE_CURRENCIES,
+  UPDATE_SETTINGS,
   SNAPSHOTS,
   UPDATE_PRICES,
 } from './actions';
@@ -17,6 +18,7 @@ const initialState = {
   alerts: [],
   currencies: [],
   favorites: C.DEFAULT_FAVORITES,
+  settings: {},
   snapshots: {},
   token: '',
 };
@@ -78,6 +80,15 @@ export default function crypto(state = initialState, action) {
       return {
         ...state,
         favorites: favorites.map(item => ({ ...item, usd: prices[item.symbol] })),
+      };
+    }
+
+    // -- SETTINGS
+    case UPDATE_SETTINGS: {
+      const { settings = {} } = state;
+      return {
+        ...state,
+        settings: { ...settings, ...action.settings },
       };
     }
 

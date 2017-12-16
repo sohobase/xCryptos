@@ -1,11 +1,10 @@
-import { DrawerNavigator, StackNavigator } from 'react-navigation';
+import { StackNavigator } from 'react-navigation';
 import {
-  AboutScreen,
   AlertsScreen,
   CoinsScreen,
   CoinScreen,
-  Drawer,
   MainScreen,
+  SettingsScreen,
 } from './screens';
 import { THEME } from './config';
 import styles from './app.style';
@@ -17,25 +16,19 @@ const navigationOptions = {
   headerTintColor: THEME.WHITE,
 };
 
-const drawerOptions = {
+const stackOptions = {
   initialRouteName: 'Main',
-  contentComponent: Drawer,
 };
 
-const App = DrawerNavigator({
-  Main: {
-    screen: StackNavigator({
-      Main: { screen: MainScreen, navigationOptions },
-      Currencies: { screen: CoinsScreen, navigationOptions },
-      Currency: { screen: CoinScreen, navigationOptions },
-      Alerts: { screen: AlertsScreen, navigationOptions },
-    }),
+const App = StackNavigator(
+  {
+    Main: { screen: MainScreen, navigationOptions },
+    Currency: { screen: CoinScreen, navigationOptions },
+    Settings: { screen: SettingsScreen, navigationOptions },
+    Currencies: { screen: CoinsScreen, navigationOptions },
+    Alerts: { screen: AlertsScreen, navigationOptions },
   },
-  About: {
-    screen: StackNavigator({
-      About: { screen: AboutScreen, navigationOptions },
-    }),
-  },
-}, drawerOptions);
+  stackOptions,
+);
 
 export default App;
