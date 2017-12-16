@@ -9,7 +9,17 @@ export default {
   },
 
   CURRENCY: {
+    EUR: 'EUR',
     USD: 'USD',
+    GBP: 'GBP',
+    JPY: 'JPY',
+  },
+
+  SYMBOL: {
+    EUR: '€',
+    USD: '$',
+    GBP: '£',
+    JPY: '¥',
   },
 
   DEFAULT_FAVORITES: [{
@@ -60,43 +70,6 @@ export default {
       API: 'https://www.cryptocompare.com/api/data',
       MIN_API: 'https://min-api.cryptocompare.com/data',
     },
-  },
-
-  SHAPE: {
-    ALERT: shape({
-      currency: string,
-      low: number,
-      high: number,
-      createdAt: date,
-    }),
-    CURRENCY: shape({
-      name: string,
-      rank: number,
-      symbol: string,
-      usd: number,
-      btc: number,
-    }),
-    EXCHANGE: shape({
-      MARKET: string,
-      PRICE: string,
-    }),
-    FAVORITE: shape({
-      active: bool,
-      name: string,
-      symbol: string,
-      usd: number,
-    }),
-    HISTORY: shape({
-      timestamp: number,
-      value: number,
-    }),
-    NAVIGATION: shape({
-      navigate: func,
-      setParams: func,
-    }),
-    SNAPSHOT: shape({
-      PRICE: number,
-    }),
   },
 
   SOHOBASE: {
