@@ -15,11 +15,12 @@ export default StyleSheet.create({
     backgroundColor: THEME.WHITE,
     borderTopLeftRadius: THEME.UNIT,
     borderTopRightRadius: THEME.UNIT,
-    padding: THEME.OFFSET,
+    paddingVertical: THEME.OFFSET,
   },
 
   header: {
     marginBottom: THEME.OFFSET,
+    paddingHorizontal: THEME.OFFSET,
   },
 
   title: {

@@ -1,6 +1,6 @@
 import { bool, func, node, string } from 'prop-types';
 import React from 'react';
-import { Modal, Text, View } from 'react-native';
+import { Modal as ModalNative, Text, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
 import { STYLE, THEME } from '../config';
 import ButtonIcon from './ButtonIcon';
@@ -8,8 +8,10 @@ import styles from './Modal.style';
 
 const CONTAINER_DURATION = THEME.ANIMATION_DURATION / 2;
 
-const ModalBox = ({ children, onClose, title, visible }) => (
-  <Modal
+const Modal = ({
+  children, onClose, title, visible,
+}) => (
+  <ModalNative
     transparent
     visible={visible}
     onRequestClose={() => { }}
@@ -29,21 +31,21 @@ const ModalBox = ({ children, onClose, title, visible }) => (
         { children }
       </Animatable>
     </Animatable>
-  </Modal>
+  </ModalNative>
 );
 
-ModalBox.propTypes = {
+Modal.propTypes = {
   children: node,
   onClose: func,
   title: string,
   visible: bool,
 };
 
-ModalBox.defaultProps = {
+Modal.defaultProps = {
   children: undefined,
   onClose: undefined,
   title: undefined,
   visible: false,
 };
 
-export default ModalBox;
+export default Modal;
