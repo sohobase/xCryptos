@@ -4,13 +4,13 @@ import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 import { connect } from 'react-redux';
 import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
-import { ButtonIcon, CursorBlink, Touchable } from '../../../components';
+import { Amount, ButtonIcon, CursorBlink, Touchable } from '../../../components';
 import { ASSET, SHAPE, TEXT, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
 import InputHodl from './InputHodl';
 import styles from './ListItem.style';
 
-const { ALERT, CURRENCY } = SHAPE;
+const { ALERT, CURRENCY, SETTINGS } = SHAPE;
 const { EN: { HINT_SET_HODL } } = TEXT;
 const SWIPE_BUTTON = {
   backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT, underlayColor: THEME.BACKGROUND_DARK,
@@ -52,7 +52,7 @@ class ListItem extends Component {
       state: { swipe },
     } = this;
     const {
-      active, hodl, image, symbol, usd = 0,
+      active, hodl, image, symbol, price = 0,
     } = currency;
 
     const alert = alerts.find(item => item.currency === symbol);
@@ -87,17 +87,21 @@ class ListItem extends Component {
             </View>
             <View style={styles.currency}>
               <Text style={styles.symbol}>{symbol}</Text>
-              <Text style={styles.text}>{hodl ? `$${formatCurrency(hodl * usd)}` : HINT_SET_HODL}</Text>
+              {
+                hodl
+                ? <Amount style={styles.text} value={hodl * price} />
+                : <Text style={[styles.text, styles.hint]}>{HINT_SET_HODL}</Text>
+              }
             </View>
             <TouchableWithoutFeedback underlayColor={THEME.TRANSPARENT} onPress={_onActiveItem}>
               <View style={styles.values}>
                 <View style={STYLE.ROW}>
                   <Text style={styles.value}>
-                    { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / usd), 4)}
+                    { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / price), 4)}
                   </Text>
                   { active && !swipe && <CursorBlink /> }
                 </View>
-                <Text style={styles.text}>{`$${formatCurrency((active ? value : 1) * usd)}`}</Text>
+                <Amount style={styles.text} value={(active ? value : 1) * price} />
               </View>
             </TouchableWithoutFeedback>
           </View>
@@ -116,6 +120,7 @@ ListItem.propTypes = {
   onAlert: func,
   onPress: func,
   removeFavorite: func,
+  settings: shape(SETTINGS),
   value: string,
 };
 
@@ -128,11 +133,13 @@ ListItem.defaultProps = {
   onAlert: undefined,
   onPress: undefined,
   removeFavorite() {},
+  settings: {},
   value: 0,
 };
 
-const mapStateToProps = ({ alerts }) => ({
+const mapStateToProps = ({ alerts, settings }) => ({
   alerts,
+  settings,
 });
 
 const mapDispatchToProps = dispatch => ({

@@ -14,7 +14,7 @@ import { ServiceCurrencies } from '../../services';
 import { ListItem } from './components';
 import styles from './Coins.style';
 
-const { CURRENCY, FAVORITE } = SHAPE;
+const { CURRENCY, FAVORITE, SETTINGS } = SHAPE;
 const { EN: { COINS, SEARCH } } = TEXT;
 
 class CoinsScreen extends Component {
@@ -50,14 +50,14 @@ class CoinsScreen extends Component {
 
   async _onChangeItem({ currency, favorite }) {
     const {
-      addFavorite, favorites, removeFavorite, updatePrices,
+      addFavorite, favorites, removeFavorite, settings, updatePrices,
     } = this.props;
 
     if (favorite) removeFavorite(currency);
     else {
       addFavorite(currency);
       const symbols = [...favorites, currency].map(({ symbol }) => symbol);
-      ServiceCurrencies.prices(symbols).then(updatePrices);
+      ServiceCurrencies.prices(symbols, settings.currency).then(updatePrices);
     }
   }
 
@@ -117,6 +117,7 @@ CoinsScreen.propTypes = {
   favorites: arrayOf(shape(FAVORITE)),
   removeFavorite: func,
   saveCurrencies: func,
+  settings: shape(SETTINGS),
   updatePrices: func,
 };
 
@@ -126,12 +127,14 @@ CoinsScreen.defaultProps = {
   favorites: [],
   removeFavorite() {},
   saveCurrencies() {},
+  settings: {},
   updatePrices() {},
 };
 
-const mapStateToProps = state => ({
-  currencies: state.currencies,
-  favorites: state.favorites,
+const mapStateToProps = ({ currencies, favorites, settings }) => ({
+  currencies,
+  favorites,
+  settings,
 });
 
 const mapDispatchToProps = dispatch => ({

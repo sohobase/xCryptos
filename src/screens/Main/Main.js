@@ -10,8 +10,8 @@ import { ServiceCurrencies, ServiceNotifications } from '../../services';
 import { Hodl, ListItem, VirtualKeyboard } from './components';
 import styles from './Main.style';
 
-const { DEFAULT_TOKEN, NODE_ENV: { DEVELOPMENT } } = C;
-const { FAVORITE, NAVIGATION } = SHAPE;
+const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
+const { FAVORITE, NAVIGATION, SETTINGS } = SHAPE;
 const keyExtractor = item => item.symbol;
 
 class Main extends Component {
@@ -42,7 +42,7 @@ class Main extends Component {
     const { env: { NODE_ENV } } = process;
 
     _fetch();
-    if (!token) addToken(NODE_ENV === DEVELOPMENT ? DEFAULT_TOKEN : await ServiceNotifications.getToken());
+    if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
@@ -54,10 +54,10 @@ class Main extends Component {
   }
 
   async _fetch() {
-    const { favorites, updatePrices } = this.props;
+    const { favorites, settings: { currency }, updatePrices } = this.props;
 
     this.setState({ refreshing: true });
-    ServiceCurrencies.prices(favorites.map(({ symbol }) => symbol)).then(updatePrices);
+    ServiceCurrencies.prices(favorites.map(({ symbol }) => symbol), currency).then(updatePrices);
     this.setState({ prefetch: true, refreshing: false });
   }
 
@@ -125,22 +125,25 @@ Main.propTypes = {
   addToken: func,
   favorites: arrayOf(shape(FAVORITE)),
   navigation: shape(NAVIGATION),
+  settings: shape(SETTINGS),
   token: string,
   updatePrices: func,
 };
 
 Main.defaultProps = {
   addToken() {},
-  favorites: C.DEFAULT_FAVORITES,
+  favorites: FAVORITES,
   navigation: {
     navigate() {},
   },
+  settings: C.DEFAULT.SETTINGS,
   token: undefined,
   updatePrices() {},
 };
 
-const mapStateToProps = ({ favorites, token }) => ({
+const mapStateToProps = ({ favorites, settings, token }) => ({
   favorites,
+  settings,
   token,
 });
 

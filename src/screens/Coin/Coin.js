@@ -9,7 +9,7 @@ import { snapshotsAction } from '../../actions';
 import { CurrencyContent, ExchangeListItem } from './components';
 
 
-const { DEFAULT_TIMELINE } = C;
+const { DEFAULT: { TIMELINE } } = C;
 const { CURRENCY, SNAPSHOT } = SHAPE;
 
 class CoinScreen extends Component {
@@ -27,7 +27,7 @@ class CoinScreen extends Component {
     this.state = {
       history: undefined,
       refreshing: false,
-      timeline: DEFAULT_TIMELINE,
+      timeline: TIMELINE,
     };
     this._fetch = this._fetch.bind(this);
     this._onPressTimeline = this._onPressTimeline.bind(this);
@@ -41,15 +41,15 @@ class CoinScreen extends Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({ history: undefined, timeline: DEFAULT_TIMELINE });
+    this.setState({ history: undefined, timeline: TIMELINE });
   }
 
   async _fetch() {
-    const { currency, snapshots } = this.props;
+    const { currency, settings, snapshots } = this.props;
 
-    this.setState({ history: undefined, refreshing: true, timeline: DEFAULT_TIMELINE });
-    const snapshot = await ServiceCurrencies.fetch(currency.symbol);
-    const history = await ServiceCurrencies.history(currency.symbol);
+    this.setState({ history: undefined, refreshing: true, timeline: TIMELINE });
+    const snapshot = await ServiceCurrencies.fetch(currency.symbol, settings.currency);
+    const history = await ServiceCurrencies.history(currency.symbol, TIMELINE, settings.currency);
     if (snapshot && history) snapshots({ ...snapshot, history }, currency.symbol);
     this.setState({ refreshing: false });
   }
@@ -96,11 +96,13 @@ CoinScreen.defaultProps = {
   snapshot: {},
 };
 
-const mapStateToProps = ({ snapshots = {}, token }, props) => {
+const mapStateToProps = ({ settings, snapshots = {}, token }, props) => {
   const { currency = {} } = props.navigation.state.params;
   const snapshot = snapshots[currency.symbol] || {};
 
-  return { currency, snapshot, token };
+  return {
+    currency, settings, snapshot, token,
+  };
 };
 
 const mapDispatchToProps = dispatch => ({

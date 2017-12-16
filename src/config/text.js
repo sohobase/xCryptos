@@ -12,6 +12,6 @@ export default {
     SEARCH: 'Search',
     SUBJECT: 'Subject',
 
-    HINT_SET_HODL: 'Swipe to set your holdings',
+    HINT_SET_HODL: 'Swipe & set your holdings',
   },
 };

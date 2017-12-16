@@ -1,22 +1,21 @@
 import { arrayOf, shape } from 'prop-types';
 import React from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { SHAPE, STYLE } from '../../../config';
-import { Logo } from '../../../components';
-import { formatCurrency } from '../../../modules';
+import { Amount, Logo } from '../../../components';
 import styles from './Hodl.style';
 
 const { FAVORITE } = SHAPE;
 
 const Hodl = ({ favorites }) => {
   let total = 0;
-  favorites.forEach(({ hodl, usd }) => total += hodl ? (parseFloat(hodl, 10) * usd) : 0);
+  favorites.forEach(({ hodl, price = 0 }) => total += hodl ? (parseFloat(hodl, 10) * price) : 0); // eslint-disable-line
 
   return (
     <View style={[STYLE.ROW, styles.container]}>
       <Logo style={styles.logo} />
-      <Text style={styles.amount}>{`$${formatCurrency(total)}`}</Text>
+      <Amount style={styles.amount} value={total} />
     </View>
   );
 };

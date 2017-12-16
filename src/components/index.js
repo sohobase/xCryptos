@@ -1,4 +1,5 @@
 import AlertListItem from './AlertListItem';
+import Amount from './Amount';
 import Button from './Button';
 import ButtonIcon from './ButtonIcon';
 import CursorBlink from './CursorBlink';
@@ -9,6 +10,7 @@ import Touchable from './Touchable';
 
 export {
   AlertListItem,
+  Amount,
   Button,
   ButtonIcon,
   CursorBlink,

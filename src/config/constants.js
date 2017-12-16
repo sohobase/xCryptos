@@ -1,6 +1,6 @@
 import { bool, date, func, number, shape, string } from 'prop-types';
 
-const DEFAULT_TIMELINE = 'LAST HOUR';
+const TIMELINE = 'LAST HOUR';
 
 export default {
   AFILIATES: {
@@ -22,30 +22,31 @@ export default {
     JPY: '¥',
   },
 
-  DEFAULT_FAVORITES: [{
-    active: true,
-    id: 1182,
-    image: 'https://www.cryptocompare.com/media/19633/btc.png',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    usd: 0,
-  }, {
-    id: 7605,
-    image: 'https://www.cryptocompare.com/media/20646/eth.png',
-    name: 'Ethereum',
-    symbol: 'ETH',
-    usd: 0,
-  }, {
-    id: 3808,
-    image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
-    name: 'Litecoin',
-    symbol: 'LTC',
-    usd: 0,
-  }],
-
-  DEFAULT_TIMELINE,
-
-  DEFAULT_TOKEN: 'xCryptos-Development',
+  DEFAULT: {
+    FAVORITES: [{
+      active: true,
+      id: 1182,
+      image: 'https://www.cryptocompare.com/media/19633/btc.png',
+      name: 'Bitcoin',
+      symbol: 'BTC',
+      usd: 0,
+    }, {
+      id: 7605,
+      image: 'https://www.cryptocompare.com/media/20646/eth.png',
+      name: 'Ethereum',
+      symbol: 'ETH',
+      usd: 0,
+    }, {
+      id: 3808,
+      image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
+      name: 'Litecoin',
+      symbol: 'LTC',
+      usd: 0,
+    }],
+    SETTINGS: { currency: 'USD', language: 'English' },
+    TIMELINE,
+    TOKEN: 'xCryptos-Development',
+  },
 
   EXCHANGES: [
     'coinbase',
@@ -87,7 +88,7 @@ export default {
     IOS: 'http://sohobase.com',
   },
 
-  TIMELINES: [DEFAULT_TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+  TIMELINES: [TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
 
   TIMEOUT_SERVICE: 10000,
 };

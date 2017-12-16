@@ -16,6 +16,6 @@ export default StyleSheet.create({
 
   amount: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT_SIZE_NORMAL,
+    fontSize: THEME.FONT_SIZE_LARGE,
   },
 });

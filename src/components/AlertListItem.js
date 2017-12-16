@@ -3,6 +3,7 @@ import { Text, View } from 'react-native';
 import React from 'react';
 import { SHAPE, STYLE } from '../config';
 import { formatCurrency } from '../modules';
+import Amount from './Amount';
 import Touchable from './Touchable';
 import styles from './AlertListItem.style';
 
@@ -16,17 +17,11 @@ const AlertListItem = (props) => {
     <Touchable onPress={onPress}>
       <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
         <View style={styles.left}>
-          <View style={STYLE.ROW}>
-            <Text style={styles.symbol}>$</Text>
-            <Text style={styles.price}>{formatCurrency(low)}</Text>
-          </View>
+          <Amount style={styles.price} value={low} />
           <Text style={styles.label}>low</Text>
         </View>
         <View style={styles.right}>
-          <View style={STYLE.ROW}>
-            <Text style={styles.symbol}>$</Text>
-            <Text style={styles.price}>{formatCurrency(high)}</Text>
-          </View>
+          <Amount style={styles.price} value={high} />
           <Text style={styles.label}>high</Text>
         </View>
       </View>

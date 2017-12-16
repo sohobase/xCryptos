@@ -10,9 +10,9 @@ export default {
   CURRENCY: {
     active: bool,
     name: string,
+    price: number,
     rank: number,
     symbol: string,
-    usd: number,
     btc: number,
   },
   EXCHANGE: {
@@ -21,10 +21,10 @@ export default {
   },
   FAVORITE: {
     active: bool,
+    price: number,
     hodl: number,
     name: string,
     symbol: string,
-    usd: number,
   },
   HISTORY: {
     timestamp: number,

@@ -33,6 +33,10 @@ export default StyleSheet.create({
     fontSize: THEME.FONT_SIZE_SMALL,
   },
 
+  hint: {
+    opacity: 0.75,
+  },
+
   values: {
     flex: 1,
     paddingVertical: UNIT / 4,

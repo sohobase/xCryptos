@@ -15,7 +15,7 @@ export default StyleSheet.create({
     backgroundColor: THEME.COLOR_HIGH,
   },
 
-  price: {
+  value: {
     fontWeight: THEME.FONT_WEIGHT_BOLD,
     color: THEME.WHITE,
   },

@@ -25,20 +25,20 @@ export default {
     return dataSource.sort((a, b) => a.rank - b.rank);
   },
 
-  async prices(currencies = []) {
-    const response = await fetch(`${MIN_API}/pricemulti?fsyms=${currencies.join(',')}&tsyms=${USD}`);
+  async prices(coins = [], currency = USD) {
+    const response = await fetch(`${MIN_API}/pricemulti?fsyms=${coins.join(',')}&tsyms=${currency}`);
     if (!response) return undefined;
 
     const values = {};
     Object.keys(response).forEach((key) => {
-      values[key] = response[key][USD];
+      values[key] = response[key][currency];
     });
 
     return values;
   },
 
-  async fetch(symbol) {
-    const url = `${API}/coinsnapshot/?fsym=${symbol.toUpperCase()}&tsym=${USD}`;
+  async fetch(coin, currency = USD) {
+    const url = `${API}/coinsnapshot/?fsym=${coin.toUpperCase()}&tsym=${currency}`;
     const response = await fetch(url);
     if (!response) return undefined;
     const { Data: { AggregatedData = {}, Exchanges = [] } } = response;
@@ -61,9 +61,9 @@ export default {
     };
   },
 
-  async history(currency, timeline = TIMELINES[0]) {
+  async history(coin, timeline = TIMELINES[0], currency = USD) {
     const { endpoint, limit } = TIMELINE_SERVICE.find(item => item.timeline === timeline);
-    const response = await fetch(`${MIN_API}/${endpoint}?fsym=${currency}&tsym=${USD}&limit=${limit}`);
+    const response = await fetch(`${MIN_API}/${endpoint}?fsym=${coin}&tsym=${currency}&limit=${limit}`);
     if (!response) return undefined;
 
     return response.Data.map(({ time, close }) => ({ timestamp: time, value: close }));

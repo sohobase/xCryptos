@@ -14,11 +14,13 @@ import {
 } from './actions';
 import { C } from './config';
 
+const { DEFAULT: { FAVORITES, SETTINGS } } = C;
+
 const initialState = {
   alerts: [],
   currencies: [],
-  favorites: C.DEFAULT_FAVORITES,
-  settings: {},
+  favorites: FAVORITES,
+  settings: SETTINGS,
   snapshots: {},
   token: '',
 };
@@ -79,7 +81,7 @@ export default function crypto(state = initialState, action) {
       const { prices } = action;
       return {
         ...state,
-        favorites: favorites.map(item => ({ ...item, usd: prices[item.symbol] })),
+        favorites: favorites.map(item => ({ ...item, price: prices[item.symbol] })),
       };
     }
 

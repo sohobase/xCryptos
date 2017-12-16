@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { FormLabel, FormInput } from 'react-native-elements';
 import { addAlertAction, removeAlertAction } from '../actions';
 import { SHAPE, STYLE, THEME } from '../config';
+import { Amount } from '../components';
 import { ServiceAlerts } from '../services';
 import Button from './Button';
 import ButtonIcon from './ButtonIcon';
@@ -61,7 +62,7 @@ class ModalAlert extends Component {
   render() {
     const { _onChange, _onSubmit } = this;
     const {
-      alert, currency: { symbol, usd }, onClose, visible,
+      alert, currency: { symbol, price }, onClose, visible,
     } = this.props;
     const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
@@ -79,8 +80,7 @@ class ModalAlert extends Component {
         visible={visible}
       >
         <View style={[STYLE.CENTERED, STYLE.ROW]}>
-          <Text style={styles.symbol}>$</Text>
-          <Text style={styles.price}>{usd}</Text>
+          <Amount style={styles.price} value={price} />
           <View style={[STYLE.CHIP, styles.chip]}>
             <Text style={styles.chipCaption}>{symbol}</Text>
           </View>

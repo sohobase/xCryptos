@@ -7,6 +7,12 @@ export default StyleSheet.create({
     alignItems: 'center',
   },
 
+  price: {
+    fontSize: THEME.UNIT * 5.6,
+    fontWeight: THEME.FONT_WEIGHT_LIGHT,
+    color: THEME.WHITE,
+  },
+
   prices: {
     display: 'flex',
     flex: 1,
