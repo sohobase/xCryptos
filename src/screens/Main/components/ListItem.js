@@ -10,7 +10,7 @@ import { formatCurrency } from '../../../modules';
 import InputHodl from './InputHodl';
 import styles from './ListItem.style';
 
-const { ALERT, CURRENCY, SETTINGS } = SHAPE;
+const { ALERT, CURRENCY } = SHAPE;
 const { EN: { HINT_SET_HODL } } = TEXT;
 const SWIPE_BUTTON = {
   backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT, underlayColor: THEME.BACKGROUND_DARK,
@@ -47,7 +47,7 @@ class ListItem extends Component {
     const {
       _onInputBlur, _onInputFocus, _onPress, _onActiveItem,
       props: {
-        alerts, conversionUsd = 0, currency, decimal, onAlert, removeFavorite, value,
+        alerts, conversion = 0, currency, decimal, onAlert, removeFavorite, value,
       },
       state: { swipe },
     } = this;
@@ -97,7 +97,7 @@ class ListItem extends Component {
               <View style={styles.values}>
                 <View style={STYLE.ROW}>
                   <Text style={styles.value}>
-                    { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversionUsd * value) / price), 4)}
+                    { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversion * value) / price), 4)}
                   </Text>
                   { active && !swipe && <CursorBlink /> }
                 </View>
@@ -114,32 +114,29 @@ class ListItem extends Component {
 ListItem.propTypes = {
   activeFavorite: func,
   alerts: arrayOf(shape(ALERT)),
-  conversionUsd: number,
+  conversion: number,
   currency: shape(CURRENCY),
   decimal: bool,
   onAlert: func,
   onPress: func,
   removeFavorite: func,
-  settings: shape(SETTINGS),
   value: string,
 };
 
 ListItem.defaultProps = {
   activeFavorite() {},
   alerts: [],
-  conversionUsd: 1,
+  conversion: 1,
   currency: {},
   decimal: false,
   onAlert: undefined,
   onPress: undefined,
   removeFavorite() {},
-  settings: {},
   value: 0,
 };
 
-const mapStateToProps = ({ alerts, settings }) => ({
+const mapStateToProps = ({ alerts }) => ({
   alerts,
-  settings,
 });
 
 const mapDispatchToProps = dispatch => ({

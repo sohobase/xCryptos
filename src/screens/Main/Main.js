@@ -86,7 +86,7 @@ class Main extends Component {
       <ListItem
         currency={currency}
         decimal={decimal}
-        conversionUsd={activeCurrency.usd}
+        conversion={activeCurrency.price}
         onAlert={() => navigate('Alerts', { currency })}
         onPress={() => navigate('Currency', { currency, token })}
         value={value}
