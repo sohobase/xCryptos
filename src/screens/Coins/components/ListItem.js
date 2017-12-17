@@ -4,37 +4,29 @@ import { Switch, Text, View } from 'react-native';
 import { SHAPE, STYLE } from '../../../config';
 import styles from './ListItem.style';
 
-const { CURRENCY } = SHAPE;
+const { COIN } = SHAPE;
 
-const CurrencyListItem = (props) => {
-  const { currency, favorite, onChange } = props;
-  const { name, symbol } = currency;
+const CoinListItem = ({ coin = {}, favorite, onChange }) => (
+  <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
+    <Text style={styles.name}>{coin.name}</Text>
+    <Switch
+      style={styles.switcher}
+      onValueChange={() => onChange({ coin, favorite })}
+      value={favorite}
+    />
+  </View>
+);
 
-  return (
-    <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
-      <View style={styles.currency}>
-        <Text style={styles.name}>{name}</Text>
-        { 1 === 2 && <Text style={styles.symbol}>{symbol.toUpperCase()}</Text> }
-      </View>
-      <Switch
-        style={styles.switch}
-        onValueChange={() => onChange({ currency, favorite })}
-        value={favorite}
-      />
-    </View>
-  );
-};
-
-CurrencyListItem.propTypes = {
-  currency: shape(CURRENCY),
+CoinListItem.propTypes = {
+  coin: shape(COIN),
   favorite: bool,
   onChange: func,
 };
 
-CurrencyListItem.defaultProps = {
-  currency: {},
+CoinListItem.defaultProps = {
+  coin: {},
   favorite: false,
   onChange: undefined,
 };
 
-export default CurrencyListItem;
+export default CoinListItem;

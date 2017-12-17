@@ -2,18 +2,17 @@ import { bool, date, func, number, string } from 'prop-types';
 
 export default {
   ALERT: {
-    currency: string,
+    coin: string, // Example: 'BTC'
+    currency: string, // Example: 'USD'
     low: number,
     high: number,
     createdAt: date,
   },
-  CURRENCY: {
-    active: bool,
+  COIN: {
+    coin: string,
     name: string,
     price: number,
     rank: number,
-    symbol: string,
-    btc: number,
   },
   EXCHANGE: {
     MARKET: string,
@@ -21,10 +20,10 @@ export default {
   },
   FAVORITE: {
     active: bool,
-    price: number,
+    coin: string,
     hodl: number,
     name: string,
-    symbol: string,
+    price: number,
   },
   HISTORY: {
     timestamp: number,
@@ -35,7 +34,7 @@ export default {
     setParams: func,
   },
   SETTINGS: {
-    currency: string,
+    currency: string, // Example: 'USD'
     language: string,
   },
   SNAPSHOT: {

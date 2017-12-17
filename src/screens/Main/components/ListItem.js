@@ -10,7 +10,7 @@ import { formatCurrency } from '../../../modules';
 import InputHodl from './InputHodl';
 import styles from './ListItem.style';
 
-const { ALERT, CURRENCY } = SHAPE;
+const { ALERT, COIN } = SHAPE;
 const { EN: { HINT_SET_HODL } } = TEXT;
 const SWIPE_BUTTON = {
   backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT, underlayColor: THEME.BACKGROUND_DARK,
@@ -27,7 +27,7 @@ class ListItem extends Component {
   }
 
   _onActiveItem() {
-    this.props.activeFavorite(this.props.currency);
+    this.props.activeFavorite(this.props.coin);
   }
 
   _onPress() {
@@ -47,24 +47,24 @@ class ListItem extends Component {
     const {
       _onInputBlur, _onInputFocus, _onPress, _onActiveItem,
       props: {
-        alerts, conversion = 0, currency, decimal, onAlert, removeFavorite, value,
+        alerts, conversion = 0, coin, decimal, onAlert, removeFavorite, value,
       },
       state: { swipe },
     } = this;
     const {
-      active, hodl, image, symbol, price = 0,
-    } = currency;
+      active, hodl, image, price = 0,
+    } = coin;
 
-    const alert = alerts.find(item => item.currency === symbol);
+    const alert = alerts.find(item => item.coin === coin.coin);
     const options = [
-      { ...SWIPE_BUTTON, component: <InputHodl currency={currency} onBlur={_onInputBlur} onFocus={_onInputFocus} /> },
+      { ...SWIPE_BUTTON, component: <InputHodl coin={coin} onBlur={_onInputBlur} onFocus={_onInputFocus} /> },
       {
         ...SWIPE_BUTTON,
         component: <ButtonIcon icon="alert" onPress={onAlert} style={styles.option} />,
       },
       {
         ...SWIPE_BUTTON,
-        component: <ButtonIcon icon="remove" onPress={() => removeFavorite(currency)} style={styles.option} />,
+        component: <ButtonIcon icon="remove" onPress={() => removeFavorite(coin)} style={styles.option} />,
       },
     ];
 
@@ -85,8 +85,8 @@ class ListItem extends Component {
               </View>
               { alert && <Image style={styles.alert} source={ASSET.alert} /> }
             </View>
-            <View style={styles.currency}>
-              <Text style={styles.symbol}>{symbol}</Text>
+            <View style={styles.coin}>
+              <Text style={styles.symbol}>{coin.coin}</Text>
               {
                 hodl
                 ? <Amount style={styles.text} value={hodl * price} />
@@ -115,7 +115,7 @@ ListItem.propTypes = {
   activeFavorite: func,
   alerts: arrayOf(shape(ALERT)),
   conversion: number,
-  currency: shape(CURRENCY),
+  coin: shape(COIN),
   decimal: bool,
   onAlert: func,
   onPress: func,
@@ -127,7 +127,7 @@ ListItem.defaultProps = {
   activeFavorite() {},
   alerts: [],
   conversion: 1,
-  currency: {},
+  coin: {},
   decimal: false,
   onAlert: undefined,
   onPress: undefined,

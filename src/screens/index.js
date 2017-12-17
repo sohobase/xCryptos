@@ -1,8 +1,8 @@
-import AlertsScreen from './AlertsScreen';
+import AlertsScreen from './Alerts';
 import CoinScreen from './Coin';
 import CoinsScreen from './Coins';
 import MainScreen from './Main';
-import LoadingScreen from './LoadingScreen';
+import LoadingScreen from './Loading';
 import SettingsScreen from './Settings';
 
 export {

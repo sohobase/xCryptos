@@ -4,40 +4,25 @@ import { TextInput, View } from 'react-native';
 import { connect } from 'react-redux';
 import { updateFavoriteAction } from '../../../actions';
 import { SHAPE, STYLE, THEME } from '../../../config';
-import { CursorBlink } from '../../../components';
 import styles from './InputHodl.style';
 
-const { CURRENCY } = SHAPE;
+const { COIN } = SHAPE;
 
 class InputHodl extends Component {
   constructor(props) {
     super(props);
-    this.state = { focus: false };
     this._onChangeText = this._onChangeText.bind(this);
-    this._onBlur = this._onBlur.bind(this);
-    this._onFocus = this._onFocus.bind(this);
   }
 
   _onChangeText(hodl) {
-    const { currency, updateFavorite } = this.props;
-    updateFavorite({ ...currency, hodl: parseFloat(hodl, 10) });
-  }
-
-  _onBlur() {
-    this.setState({ focus: false });
-    this.props.onBlur();
-  }
-
-  _onFocus() {
-    this.setState({ focus: true });
-    this.props.onFocus();
+    const { coin, updateFavorite } = this.props;
+    updateFavorite({ ...coin, hodl: parseFloat(hodl, 10) });
   }
 
   render() {
     const {
-      _onChangeText, _onBlur, _onFocus,
-      props: { currency: { hodl } },
-      state: { focus },
+      _onChangeText,
+      props: { coin: { hodl }, onBlur, onFocus },
     } = this;
 
     return (
@@ -48,29 +33,28 @@ class InputHodl extends Component {
           defaultValue={hodl ? hodl.toString() : undefined}
           keyboardType="numeric"
           onChangeText={_onChangeText}
-          onBlur={_onBlur}
-          onFocus={_onFocus}
+          onBlur={onBlur}
+          onFocus={onFocus}
           placeholder="0.0"
           placeholderTextColor={THEME.CONTRAST}
           style={styles.input}
           tintColor="yellow"
           underlineColorAndroid="transparent"
         />
-        { focus && <CursorBlink /> }
       </View>
     );
   }
 }
 
 InputHodl.propTypes = {
-  currency: shape(CURRENCY),
+  coin: shape(COIN),
   onBlur: func,
   onFocus: func,
   updateFavorite: func,
 };
 
 InputHodl.defaultProps = {
-  currency: {},
+  coin: {},
   onBlur() {},
   onFocus() {},
   updateFavorite() {},

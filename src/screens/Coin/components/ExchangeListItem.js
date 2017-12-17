@@ -5,10 +5,10 @@ import { C, SHAPE, STYLE } from '../../../config';
 import { Amount, Button } from '../../../components';
 import styles from './ExchangeListItem.style';
 
-const { CURRENCY, EXCHANGE } = SHAPE;
+const { COIN, EXCHANGE } = SHAPE;
 
 const ExchangeListItem = ({
-  currency, exchange: { MARKET, PRICE = 0 },
+  coin: { coin }, exchange: { MARKET, PRICE = 0 },
 }) => (
   <View style={[STYLE.ROW, styles.container]}>
     <View style={[STYLE.CENTERED, styles.priceBox]}>
@@ -18,7 +18,7 @@ const ExchangeListItem = ({
     {
       (MARKET.toLowerCase() === 'coinbase') &&
         <Button
-          caption={`Get ${currency.symbol} in Coinbase`}
+          caption={`Get ${coin} in Coinbase`}
           captionStyle={styles.buttonCaption}
           onPress={() => Linking.openURL(C.AFILIATES.COINBASE)}
           style={styles.button}
@@ -28,12 +28,12 @@ const ExchangeListItem = ({
 );
 
 ExchangeListItem.propTypes = {
-  currency: shape(CURRENCY),
+  coin: shape(COIN),
   exchange: shape(EXCHANGE),
 };
 
 ExchangeListItem.defaultProps = {
-  currency: {},
+  coin: {},
   exchange: {},
 };
 

@@ -1,29 +1,17 @@
 import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { View } from 'react-native';
 import { connect } from 'react-redux';
 import { FormLabel, FormInput } from 'react-native-elements';
-import { addAlertAction, removeAlertAction } from '../actions';
-import { SHAPE, STYLE, THEME } from '../config';
-import { Amount } from '../components';
-import { ServiceAlerts } from '../services';
-import Button from './Button';
-import ButtonIcon from './ButtonIcon';
-import Modal from './Modal';
+import { addAlertAction, removeAlertAction } from '../../../actions';
+import { Amount, Button, Modal } from '../../../components';
+import { SHAPE, STYLE, THEME } from '../../../config';
+import { ServiceAlerts } from '../../../services';
 import styles from './ModalAlert.style';
 
-const { ALERT, CURRENCY } = SHAPE;
+const { ALERT, COIN, SETTINGS } = SHAPE;
 
 class ModalAlert extends Component {
-  static navigationOptions({ navigation: { state } }) {
-    const { currency = {}, _showAlert } = state.params || {};
-
-    return {
-      title: `${currency.name} Alerts`,
-      headerRight: <ButtonIcon icon="add" onPress={() => { _showAlert(); }} />,
-    };
-  }
-
   constructor(props) {
     super(props);
     this.state = {
@@ -48,13 +36,18 @@ class ModalAlert extends Component {
 
   async _onSubmit() {
     const {
-      addAlert, alert, removeAlert, currency: { symbol }, onClose, token,
+      addAlert, alert, removeAlert, coin: { coin }, onClose, settings: { currency }, token,
     } = this.props;
-    const { item = {} } = this.state;
+    const { item: { low, high } = {} } = this.state;
 
     this.setState({ refreshing: true });
-    if (alert) await ServiceAlerts.remove(alert).then(removeAlert);
-    else await ServiceAlerts.add({ ...item, currency: symbol, token }).then(addAlert);
+    if (alert) {
+      await ServiceAlerts.remove(alert).then(removeAlert);
+    } else {
+      await ServiceAlerts.add({
+        coin, currency, low, high, token,
+      }).then(addAlert);
+    }
     this.setState({ refreshing: false });
     onClose();
   }
@@ -62,7 +55,7 @@ class ModalAlert extends Component {
   render() {
     const { _onChange, _onSubmit } = this;
     const {
-      alert, currency: { symbol, price }, onClose, visible,
+      alert, coin: { price }, onClose, visible,
     } = this.props;
     const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
@@ -74,18 +67,11 @@ class ModalAlert extends Component {
     };
 
     return (
-      <Modal
-        title={alert ? 'Alert' : 'New Alert'}
-        onClose={onClose}
-        visible={visible}
-      >
-        <View style={[STYLE.CENTERED, STYLE.ROW]}>
+      <Modal title={alert ? 'Alert' : 'New Alert'} onClose={onClose} visible={visible}>
+        <View style={STYLE.CENTERED}>
           <Amount style={styles.price} value={price} />
-          <View style={[STYLE.CHIP, styles.chip]}>
-            <Text style={styles.chipCaption}>{symbol}</Text>
-          </View>
         </View>
-        <View style={[STYLE.ROW]}>
+        <View style={[STYLE.ROW, styles.content]}>
           <View style={styles.fieldset}>
             <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
             <FormInput
@@ -109,8 +95,8 @@ class ModalAlert extends Component {
           </View>
         </View>
         <Button
-          caption={item && item.currency ? 'Delete' : 'Create'}
-          disabled={(!alert && (!low || !high || low > usd || high < usd)) || refreshing}
+          caption={item && item.coin ? 'Delete' : 'Create'}
+          disabled={(!alert && (!low || !high || low > price || high < price)) || refreshing}
           onPress={() => { _onSubmit(); }}
           style={[STYLE.MODAL_BUTTON, styles.modalButton]}
         />
@@ -122,25 +108,28 @@ class ModalAlert extends Component {
 ModalAlert.propTypes = {
   addAlert: func,
   alert: shape(ALERT),
-  currency: shape(CURRENCY),
-  visible: bool,
+  coin: shape(COIN),
   onClose: func,
   removeAlert: func,
+  settings: shape(SETTINGS),
   token: string,
+  visible: bool,
 };
 
 ModalAlert.defaultProps = {
   addAlert() {},
   alert: undefined,
-  currency: undefined,
-  visible: false,
+  coin: undefined,
   onClose() {},
   removeAlert() {},
+  settings: {},
   token: undefined,
+  visible: false,
 };
 
-const mapStateToProps = state => ({
-  token: state.token,
+const mapStateToProps = ({ settings, token }) => ({
+  settings,
+  token,
 });
 
 const mapDispatchToProps = dispatch => ({

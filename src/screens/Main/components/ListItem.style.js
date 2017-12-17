@@ -15,7 +15,6 @@ export default StyleSheet.create({
 
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    elevation: 8,
   },
 
   currency: {

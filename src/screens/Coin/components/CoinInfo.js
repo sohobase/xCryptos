@@ -8,18 +8,18 @@ import { Amount } from '../../../components';
 import Chart from './Chart';
 import ChipPrice from './ChipPrice';
 import TimelineOption from './TimelineOption';
-import styles from './CurrencyContent.style';
+import styles from './CoinInfo.style';
 
 const { SYMBOL } = C;
-const { CURRENCY, HISTORY, SETTINGS } = SHAPE;
+const { COIN, HISTORY, SETTINGS } = SHAPE;
 
-const CurrencyContent = (props) => {
+const CoinInfo = (props) => {
   const {
-    currency: { price },
+    coin: { price },
     history,
     onChange,
     refreshing,
-    settings,
+    settings: { currency },
     timeline,
   } = props;
 
@@ -29,7 +29,7 @@ const CurrencyContent = (props) => {
     high = Math.max.apply(null, history.map(({ value }) => value));
     low = Math.min.apply(null, history.map(({ value }) => value));
   }
-  const symbol = SYMBOL[settings.currency];
+  const symbol = SYMBOL[currency];
 
   return (
     <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={[STYLE.LAYOUT_MAIN, styles.container]}>
@@ -58,8 +58,8 @@ const CurrencyContent = (props) => {
   );
 };
 
-CurrencyContent.propTypes = {
-  currency: shape(CURRENCY),
+CoinInfo.propTypes = {
+  coin: shape(COIN),
   history: arrayOf(shape(HISTORY)),
   onChange: func,
   refreshing: bool,
@@ -67,8 +67,8 @@ CurrencyContent.propTypes = {
   timeline: string,
 };
 
-CurrencyContent.defaultProps = {
-  currency: {},
+CoinInfo.defaultProps = {
+  coin: {},
   history: [],
   onChange: undefined,
   refreshing: false,
@@ -80,4 +80,4 @@ const mapStateToProps = ({ settings }) => ({
   settings,
 });
 
-export default connect(mapStateToProps)(CurrencyContent);
+export default connect(mapStateToProps)(CoinInfo);

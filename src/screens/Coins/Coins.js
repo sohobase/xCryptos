@@ -6,15 +6,15 @@ import { FlatList, RefreshControl, View } from 'react-native';
 import {
   addFavoriteAction,
   removeFavoriteAction,
-  saveCurrenciesAction,
+  saveCoinsAction,
   updatePricesAction,
 } from '../../actions';
 import { SHAPE, STYLE, TEXT } from '../../config';
-import { ServiceCurrencies } from '../../services';
+import { ServiceCoins } from '../../services';
 import { ListItem } from './components';
 import styles from './Coins.style';
 
-const { CURRENCY, FAVORITE, SETTINGS } = SHAPE;
+const { COIN, FAVORITE, SETTINGS } = SHAPE;
 const { EN: { COINS, SEARCH } } = TEXT;
 
 class CoinsScreen extends Component {
@@ -25,7 +25,7 @@ class CoinsScreen extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredCurrencies: undefined,
+      filteredCoins: undefined,
       refreshing: false,
     };
     this._onChangeItem = this._onChangeItem.bind(this);
@@ -35,39 +35,37 @@ class CoinsScreen extends Component {
   }
 
   async componentWillMount() {
-    const { currencies } = this.props;
-
-    if (currencies.length === 0) this._fetch();
+    if (this.props.coins.length === 0) this._fetch();
   }
 
   async _fetch() {
-    const { saveCurrencies } = this.props;
+    const { saveCoins } = this.props;
 
     this.setState({ refreshing: true });
-    await ServiceCurrencies.list().then(saveCurrencies);
+    await ServiceCoins.list().then(saveCoins);
     this.setState({ refreshing: false });
   }
 
-  async _onChangeItem({ currency, favorite }) {
+  async _onChangeItem({ coin, favorite }) {
     const {
       addFavorite, favorites, removeFavorite, settings, updatePrices,
     } = this.props;
 
-    if (favorite) removeFavorite(currency);
+    if (favorite) removeFavorite(coin);
     else {
-      addFavorite(currency);
-      const symbols = [...favorites, currency].map(({ symbol }) => symbol);
-      ServiceCurrencies.prices(symbols, settings.currency).then(updatePrices);
+      addFavorite(coin);
+      const coins = [...favorites, coin].map(item => item.coin);
+      ServiceCoins.prices(coins, settings.coin).then(updatePrices);
     }
   }
 
   _onSearch(value) {
-    const { currencies } = this.props;
+    const { coins } = this.props;
     const search = value.toLowerCase();
 
     this.setState({
-      filteredCurrencies: currencies.filter(({ name, symbol }) => {
-        return name.toLowerCase().indexOf(search) > -1 || symbol.toLowerCase().indexOf(search) > -1;
+      filteredCoins: coins.filter(({ name, coin }) => {
+        return name.toLowerCase().indexOf(search) > -1 || coin.toLowerCase().indexOf(search) > -1;
       }),
     });
   }
@@ -77,8 +75,8 @@ class CoinsScreen extends Component {
 
     return (
       <ListItem
-        currency={item}
-        favorite={favorites.findIndex(({ symbol }) => symbol === item.symbol) > -1}
+        coin={item}
+        favorite={favorites.findIndex(({ coin }) => coin === item.coin) > -1}
         onChange={this._onChangeItem}
       />
     );
@@ -86,8 +84,8 @@ class CoinsScreen extends Component {
 
   render() {
     const { _fetch, _onSearch, _renderItem } = this;
-    const { currencies, favorites } = this.props;
-    const { filteredCurrencies, refreshing } = this.state;
+    const { coins, favorites } = this.props;
+    const { filteredCoins, refreshing } = this.state;
 
     return (
       <View style={STYLE.SCREEN}>
@@ -99,8 +97,8 @@ class CoinsScreen extends Component {
           placeholder={`${SEARCH}...`}
         />
         <FlatList
-          data={filteredCurrencies || currencies}
-          keyExtractor={item => item.rank}
+          data={filteredCoins || coins}
+          keyExtractor={item => item.coin}
           extraData={favorites}
           refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
           renderItem={_renderItem}
@@ -113,26 +111,26 @@ class CoinsScreen extends Component {
 
 CoinsScreen.propTypes = {
   addFavorite: func,
-  currencies: arrayOf(shape(CURRENCY)),
+  coins: arrayOf(shape(COIN)),
   favorites: arrayOf(shape(FAVORITE)),
   removeFavorite: func,
-  saveCurrencies: func,
+  saveCoins: func,
   settings: shape(SETTINGS),
   updatePrices: func,
 };
 
 CoinsScreen.defaultProps = {
   addFavorite() {},
-  currencies: [],
+  coins: [],
   favorites: [],
   removeFavorite() {},
-  saveCurrencies() {},
+  saveCoins() {},
   settings: {},
   updatePrices() {},
 };
 
-const mapStateToProps = ({ currencies, favorites, settings }) => ({
-  currencies,
+const mapStateToProps = ({ coins, favorites, settings }) => ({
+  coins,
   favorites,
   settings,
 });
@@ -140,7 +138,7 @@ const mapStateToProps = ({ currencies, favorites, settings }) => ({
 const mapDispatchToProps = dispatch => ({
   addFavorite: favorite => dispatch(addFavoriteAction(favorite)),
   removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
-  saveCurrencies: currencies => currencies && dispatch(saveCurrenciesAction(currencies)),
+  saveCoins: coins => coins && dispatch(saveCoinsAction(coins)),
   updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
 });
 

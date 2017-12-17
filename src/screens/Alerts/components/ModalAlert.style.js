@@ -1,7 +1,11 @@
 import { StyleSheet } from 'react-native';
-import { THEME } from '../config';
+import { THEME } from '../../../config';
 
 export default StyleSheet.create({
+
+  content: {
+    paddingHorizontal: THEME.OFFSET,
+  },
 
   symbol: {
     color: THEME.COLOR_SECONDARY,

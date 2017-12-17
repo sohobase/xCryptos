@@ -14,10 +14,10 @@ export const saveAlertsAction = alerts => ({
   alerts,
 });
 
-export const SAVE_CURRENCIES = '@xCryptos/SAVE_CURRENCIES';
-export const saveCurrenciesAction = currencies => ({
-  type: SAVE_CURRENCIES,
-  currencies,
+export const SAVE_COINS = '@xCryptos/SAVE_COINS';
+export const saveCoinsAction = coins => ({
+  type: SAVE_COINS,
+  coins,
 });
 
 export const ADD_FAVORITE = '@xCryptos/ADD_FAVORITE';
@@ -54,10 +54,10 @@ export const updateSettingsAction = settings => ({
 });
 
 export const SNAPSHOTS = '@xCryptos/SNAPSHOTS';
-export const snapshotsAction = (currency, symbol) => ({
+export const snapshotsAction = (data, coin) => ({
   type: SNAPSHOTS,
-  currency,
-  symbol,
+  data,
+  coin,
 });
 
 export const ADD_TOKEN = '@xCryptos/ADD_TOKEN';

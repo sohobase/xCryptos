@@ -4,21 +4,21 @@ import { connect } from 'react-redux';
 import { AppState, ScrollView, View } from 'react-native';
 import { C, SHAPE, STYLE } from '../../config';
 import { ButtonIcon } from '../../components';
-import { ServiceCurrencies } from '../../services';
+import { ServiceCoins } from '../../services';
 import { snapshotsAction } from '../../actions';
-import { CurrencyContent, ExchangeListItem } from './components';
+import { CoinInfo, ExchangeListItem } from './components';
 
 
 const { DEFAULT: { TIMELINE } } = C;
-const { CURRENCY, SNAPSHOT } = SHAPE;
+const { COIN, SNAPSHOT } = SHAPE;
 
 class CoinScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
-    const { currency = {}, token } = state.params || {};
+    const { coin = {}, token } = state.params || {};
 
     return {
-      title: currency.name,
-      headerRight: token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { currency })} />,
+      title: coin.name,
+      headerRight: token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} />,
     };
   }
 
@@ -45,39 +45,42 @@ class CoinScreen extends Component {
   }
 
   async _fetch() {
-    const { currency, settings, snapshots } = this.props;
+    const { coin: { coin }, settings: { currency }, snapshots } = this.props;
 
     this.setState({ history: undefined, refreshing: true, timeline: TIMELINE });
-    const snapshot = await ServiceCurrencies.fetch(currency.symbol, settings.currency);
-    const history = await ServiceCurrencies.history(currency.symbol, TIMELINE, settings.currency);
-    if (snapshot && history) snapshots({ ...snapshot, history }, currency.symbol);
+    const snapshot = await ServiceCoins.fetch(coin, currency);
+    const history = await ServiceCoins.history(coin, TIMELINE, currency);
+    if (snapshot && history) snapshots({ ...snapshot, history }, coin);
     this.setState({ refreshing: false });
   }
 
   async _onPressTimeline(timeline) {
-    const { currency: { symbol } } = this.props;
+    const { coin: { coin } } = this.props;
 
     this.setState({ history: [], timeline });
-    const history = await ServiceCurrencies.history(symbol, timeline);
+    const history = await ServiceCoins.history(coin, timeline);
     this.setState({ history });
   }
 
   render() {
-    const { _onPressTimeline } = this;
-    const { currency, snapshot } = this.props;
-    const { refreshing, timeline, history = snapshot.history || [] } = this.state;
+    const {
+      _onPressTimeline,
+      props: { coin, snapshot },
+      state: { refreshing, timeline, history = snapshot.history || [] },
+    } = this;
     const { exchanges = [] } = snapshot;
-    const contentProps = {
-      currency, history, onChange: _onPressTimeline, refreshing, timeline,
+
+    const props = {
+      coin, history, onChange: _onPressTimeline, refreshing, timeline,
     };
 
     return (
       <View style={STYLE.SCREEN}>
-        <CurrencyContent {...contentProps} />
+        <CoinInfo {...props} />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           {
             exchanges.map(item => (
-              <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} currency={currency} exchange={item} />
+              <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} coin={coin} exchange={item} />
             ))
           }
         </ScrollView>
@@ -87,26 +90,26 @@ class CoinScreen extends Component {
 }
 
 CoinScreen.propTypes = {
-  currency: shape(CURRENCY),
+  coin: shape(COIN),
   snapshot: shape(SNAPSHOT),
 };
 
 CoinScreen.defaultProps = {
-  currency: {},
+  coin: {},
   snapshot: {},
 };
 
 const mapStateToProps = ({ settings, snapshots = {}, token }, props) => {
-  const { currency = {} } = props.navigation.state.params;
-  const snapshot = snapshots[currency.symbol] || {};
+  const { coin = {} } = props.navigation.state.params;
+  const snapshot = snapshots[coin.coin] || {};
 
   return {
-    currency, settings, snapshot, token,
+    coin, settings, snapshot, token,
   };
 };
 
 const mapDispatchToProps = dispatch => ({
-  snapshots: (currency, symbol) => currency && symbol && dispatch(snapshotsAction(currency, symbol)),
+  snapshots: (data, coin) => data && coin && dispatch(snapshotsAction(data, coin)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CoinScreen);

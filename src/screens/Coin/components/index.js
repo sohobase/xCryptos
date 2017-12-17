@@ -1,7 +1,7 @@
-import CurrencyContent from './CurrencyContent';
+import CoinInfo from './CoinInfo';
 import ExchangeListItem from './ExchangeListItem';
 
 export {
-  CurrencyContent,
+  CoinInfo,
   ExchangeListItem,
 };

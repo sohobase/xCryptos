@@ -3,16 +3,15 @@ import { LinearGradient, Notifications } from 'expo';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl, View } from 'react-native';
-import { addTokenAction, updatePricesAction } from '../../actions';
+import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
-import { ServiceCurrencies, ServiceNotifications } from '../../services';
+import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, ListItem, VirtualKeyboard } from './components';
 import styles from './Main.style';
 
 const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
 const { FAVORITE, NAVIGATION, SETTINGS } = SHAPE;
-const keyExtractor = item => item.symbol;
 
 class Main extends Component {
   static navigationOptions({ navigation: { navigate } }) {
@@ -25,7 +24,7 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeCurrency: undefined,
+      activeCoin: undefined,
       decimal: false,
       prefetch: false,
       refreshing: false,
@@ -49,15 +48,18 @@ class Main extends Component {
 
   componentWillReceiveProps({ favorites = [] }) {
     this.setState({
-      activeCurrency: favorites.find(({ active }) => (active)),
+      activeCoin: favorites.find(({ active }) => active),
     });
   }
 
   async _fetch() {
-    const { favorites, settings: { currency }, updatePrices } = this.props;
+    const {
+      favorites, settings: { currency }, saveAlerts, updatePrices, token,
+    } = this.props;
 
     this.setState({ refreshing: true });
-    ServiceCurrencies.prices(favorites.map(({ symbol }) => symbol), currency).then(updatePrices);
+    ServiceCoins.prices(favorites.map(({ coin }) => coin), currency).then(updatePrices);
+    ServiceAlerts.get(token).then(saveAlerts);
     this.setState({ prefetch: true, refreshing: false });
   }
 
@@ -65,30 +67,29 @@ class Main extends Component {
     this.setState({ value, decimal });
   }
 
-  _onPressItem(currency) {
-    this.props.navigation.navigate('Currency', { currency });
+  _onPressItem(coin) {
+    this.props.navigation.navigate('Coin', { coin });
   }
 
-  _onNotification = ({ data: { currency } }) => {
+  _onNotification = ({ data: { coin } }) => {
     const { _onPressItem, props: { favorites = [] } } = this;
-    const currencyFind = favorites.find(item => item.symbol === currency);
-
-    if (currencyFind) _onPressItem(currencyFind);
+    const storeCoin = favorites.find(item => item.coin === coin);
+    if (storeCoin) _onPressItem(storeCoin);
   };
 
-  _renderItem({ item: currency }) {
+  _renderItem({ item: coin }) {
     const {
       props: { navigation: { navigate }, token },
-      state: { activeCurrency = {}, decimal, value },
+      state: { activeCoin = {}, decimal, value },
     } = this;
 
     return (
       <ListItem
-        currency={currency}
+        coin={coin}
         decimal={decimal}
-        conversion={activeCurrency.price}
-        onAlert={() => navigate('Alerts', { currency })}
-        onPress={() => navigate('Currency', { currency, token })}
+        conversion={activeCoin.price}
+        onAlert={() => navigate('Alerts', { coin })}
+        onPress={() => navigate('Coin', { coin, token })}
         value={value}
       />
     );
@@ -109,7 +110,7 @@ class Main extends Component {
           <FlatList
             data={favorites}
             extraData={this.state}
-            keyExtractor={(keyExtractor)}
+            keyExtractor={item => item.coin}
             refreshControl={
               <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
             renderItem={_renderItem}
@@ -149,6 +150,7 @@ const mapStateToProps = ({ favorites, settings, token }) => ({
 
 const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
+  saveAlerts: alerts => alerts && dispatch(saveAlertsAction(alerts)),
   updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
 });
 

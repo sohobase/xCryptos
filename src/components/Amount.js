@@ -5,7 +5,7 @@ import { View, Text } from 'react-native';
 import { C, SHAPE, STYLE } from '../config';
 import { formatCurrency } from '../modules';
 
-const { CURRENCY } = SHAPE;
+const { SETTINGS } = SHAPE;
 const { CURRENCY: { USD }, SYMBOL } = C;
 
 const symbolStyle = {
@@ -22,7 +22,7 @@ const Amount = ({ settings: { currency }, style, value }) => (
 );
 
 Amount.propTypes = {
-  settings: shape(CURRENCY),
+  settings: shape(SETTINGS),
   style: oneOfType([array, number]),
   value: number,
 };

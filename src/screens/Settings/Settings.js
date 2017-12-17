@@ -11,7 +11,7 @@ import styles from './Settings.style';
 
 const { CURRENCY: { USD }, SOHOBASE } = C;
 const { name, version } = PKG;
-const { NAVIGATION, SETTINGS } = SHAPE;
+const { SETTINGS } = SHAPE;
 const { EN: { COPYRIGHT, LANGUAGE, LOCAL_CURRENCY } } = TEXT;
 
 const onClickSohobase = () => Linking.openURL(SOHOBASE.URL);
@@ -19,9 +19,8 @@ const onClickSohobase = () => Linking.openURL(SOHOBASE.URL);
 class Settings extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
-      // headerLeft: <Hodl />,
       title: 'Settings',
-      headerRight: <ButtonIcon icon="add" onPress={() => navigate('Currencies')} style={styles.icon} />,
+      headerRight: <ButtonIcon icon="add" onPress={() => navigate('Coins')} style={styles.icon} />,
     };
   }
 
@@ -55,13 +54,17 @@ class Settings extends Component {
           <Text style={styles.text}>v{version}</Text>
         </View>
         <View style={styles.form}>
-          <Touchable onPress={_onModal} style={[STYLE.LIST_ITEM, styles.fieldset]}>
-            <Text style={styles.label}>{LOCAL_CURRENCY}</Text>
-            <Text style={styles.value}>{currency}</Text>
+          <Touchable onPress={_onModal}>
+            <View style={[STYLE.LIST_ITEM, styles.fieldset]}>
+              <Text style={styles.label}>{LOCAL_CURRENCY}</Text>
+              <Text style={styles.value}>{currency}</Text>
+            </View>
           </Touchable>
           <View style={[STYLE.LIST_ITEM, styles.fieldset]}>
-            <Text style={styles.label}>{LANGUAGE}</Text>
-            <Text style={[styles.value, styles.disabled]}>{language}</Text>
+            <View>
+              <Text style={styles.label}>{LANGUAGE}</Text>
+              <Text style={[styles.value, styles.disabled]}>{language}</Text>
+            </View>
           </View>
         </View>
         <View style={[STYLE.CENTERED, styles.content]}>
@@ -76,15 +79,11 @@ class Settings extends Component {
 }
 
 Settings.propTypes = {
-  navigation: shape(NAVIGATION),
   settings: shape(SETTINGS),
   updateSettings: func,
 };
 
 Settings.defaultProps = {
-  navigation: {
-    navigate() {},
-  },
   settings: {},
   updateSettings() {},
 };

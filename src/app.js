@@ -23,9 +23,9 @@ const stackOptions = {
 const App = StackNavigator(
   {
     Main: { screen: MainScreen, navigationOptions },
-    Currency: { screen: CoinScreen, navigationOptions },
+    Coin: { screen: CoinScreen, navigationOptions },
+    Coins: { screen: CoinsScreen, navigationOptions },
     Settings: { screen: SettingsScreen, navigationOptions },
-    Currencies: { screen: CoinsScreen, navigationOptions },
     Alerts: { screen: AlertsScreen, navigationOptions },
   },
   stackOptions,

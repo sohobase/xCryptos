@@ -17,9 +17,9 @@ export default {
 
     const { BaseImageUrl: url, Data } = response;
     const dataSource = Object.values(Data).map(({
-      Id: id, ImageUrl: image, Name: symbol, CoinName: name, SortOrder,
+      Id: id, ImageUrl: image, Name: coin, CoinName: name, SortOrder,
     }) => ({
-      id, image: `${url}${image}`, name, symbol, rank: parseInt(SortOrder, 0),
+      id, image: `${url}${image}`, name, coin, rank: parseInt(SortOrder, 0),
     }));
 
     return dataSource.sort((a, b) => a.rank - b.rank);

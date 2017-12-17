@@ -1,10 +1,8 @@
 import { func, shape } from 'prop-types';
 import { Text, View } from 'react-native';
 import React from 'react';
-import { SHAPE, STYLE } from '../config';
-import { formatCurrency } from '../modules';
-import Amount from './Amount';
-import Touchable from './Touchable';
+import { Amount, Touchable } from '../../../components';
+import { SHAPE, STYLE } from '../../../config';
 import styles from './AlertListItem.style';
 
 const { ALERT } = SHAPE;

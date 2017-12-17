@@ -1,5 +1,3 @@
-import { bool, date, func, number, shape, string } from 'prop-types';
-
 const TIMELINE = 'LAST HOUR';
 
 export default {
@@ -25,23 +23,23 @@ export default {
   DEFAULT: {
     FAVORITES: [{
       active: true,
-      id: 1182,
+      coin: 'BTC',
+      hodl: undefined,
       image: 'https://www.cryptocompare.com/media/19633/btc.png',
       name: 'Bitcoin',
-      symbol: 'BTC',
-      usd: 0,
+      price: 0,
     }, {
-      id: 7605,
+      coin: 'ETH',
+      hodl: undefined,
       image: 'https://www.cryptocompare.com/media/20646/eth.png',
       name: 'Ethereum',
-      symbol: 'ETH',
-      usd: 0,
+      price: 0,
     }, {
-      id: 3808,
+      coin: 'LTC',
+      hodl: undefined,
       image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
       name: 'Litecoin',
-      symbol: 'LTC',
-      usd: 0,
+      price: 0,
     }],
     SETTINGS: { currency: 'USD', language: 'English' },
     TIMELINE,

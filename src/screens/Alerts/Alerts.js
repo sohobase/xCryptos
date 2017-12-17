@@ -2,21 +2,22 @@ import { arrayOf, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl, View } from 'react-native';
-import { saveAlertsAction } from '../actions';
-import { SHAPE, STYLE, THEME } from '../config';
-import { ServiceAlerts } from '../services';
-import { AlertListItem, ButtonIcon, ModalAlert } from '../components';
+import { saveAlertsAction } from '../../actions';
+import { ButtonIcon } from '../../components';
+import { SHAPE, STYLE, THEME } from '../../config';
+import { ServiceAlerts } from '../../services';
+import { AlertListItem, ModalAlert } from './components';
 
-const { ALERT, CURRENCY, NAVIGATION } = SHAPE;
+const { ALERT, COIN, NAVIGATION } = SHAPE;
 
-const keyExtractor = ({ currency, low, high }) => `${currency}${low}${high}${new Date()}`;
+const keyExtractor = ({ coin, low, high }) => `${coin}${low}${high}${new Date()}`;
 
 class AlertsScreen extends Component {
   static navigationOptions({ navigation: { state } }) {
-    const { currency = {}, _showAlert } = state.params || {};
+    const { coin: { name }, _showAlert } = state.params || {};
 
     return {
-      title: `${currency.name} Alerts`,
+      title: `${name} Alerts`,
       headerRight: <ButtonIcon icon="add" onPress={() => { _showAlert(); }} />,
     };
   }
@@ -74,7 +75,7 @@ class AlertsScreen extends Component {
 
   render() {
     const { _closeAlert, _fetch, _renderItem } = this;
-    const { alerts, currency } = this.props;
+    const { alerts, coin } = this.props;
     const {
       alert, modal, prefetch, refreshing,
     } = this.state;
@@ -88,7 +89,7 @@ class AlertsScreen extends Component {
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={_renderItem}
         />
-        <ModalAlert alert={alert} currency={currency} onClose={_closeAlert} visible={modal} />
+        <ModalAlert alert={alert} coin={coin} onClose={_closeAlert} visible={modal} />
       </View>
     );
   }
@@ -96,24 +97,24 @@ class AlertsScreen extends Component {
 
 AlertsScreen.propTypes = {
   alerts: arrayOf(shape(ALERT)),
-  currency: shape(CURRENCY),
+  coin: shape(COIN),
   navigation: shape(NAVIGATION),
   token: string,
 };
 
 AlertsScreen.defaultProps = {
   alerts: [],
-  currency: undefined,
+  coin: undefined,
   navigation: undefined,
   token: undefined,
 };
 
 const mapStateToProps = ({ alerts = [], token }, props) => {
-  const { currency = {} } = props.navigation.state.params;
+  const { coin = {} } = props.navigation.state.params;
 
   return {
-    alerts: alerts.filter(item => currency.symbol === item.currency),
-    currency,
+    alerts: alerts.filter(item => coin.coin === item.coin),
+    coin,
     token,
   };
 };
