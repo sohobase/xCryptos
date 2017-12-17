@@ -1,37 +1,40 @@
 import { bool, func, node, string } from 'prop-types';
 import React from 'react';
-import { Modal as ModalNative, Text, View } from 'react-native';
-import { View as Animatable } from 'react-native-animatable';
+import { KeyboardAvoidingView, Modal as ReactModalNative, Platform, Text, View } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
 import { STYLE, THEME } from '../config';
 import ButtonIcon from './ButtonIcon';
 import styles from './Modal.style';
 
-const CONTAINER_DURATION = THEME.ANIMATION_DURATION / 2;
+const DURATION = THEME.ANIMATION_DURATION / 2;
 
 const Modal = ({
   children, onClose, title, visible,
 }) => (
-  <ModalNative
-    transparent
-    visible={visible}
-    onRequestClose={() => { }}
-  >
-    <Animatable animation="fadeIn" duration={CONTAINER_DURATION} style={styles.container}>
-      <Animatable
-        animation="bounceInUp"
-        delay={CONTAINER_DURATION}
-        duration={THEME.ANIMATION_DURATION}
-        easing={THEME.ANIMATION_EASING}
-        style={styles.content}
-      >
-        <View style={[STYLE.ROW, STYLE.CENTERED, styles.header]}>
-          { title && <Text style={styles.title}>{title}</Text> }
-          <ButtonIcon icon="close" onPress={onClose} style={styles.close} />
-        </View>
-        { children }
-      </Animatable>
-    </Animatable>
-  </ModalNative>
+  <ReactModalNative transparent visible={visible} onRequestClose={onClose}>
+    <Motion
+      animation={visible ? 'fadeIn' : 'fadeOut'}
+      duration={DURATION / 2}
+      delay={visible ? 0 : DURATION / 2}
+      style={styles.background}
+    >
+      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : undefined}>
+        <Motion
+          animation={visible ? 'bounceInUp' : 'bounceOutDown'}
+          duration={DURATION}
+          style={styles.container}
+        >
+          <View style={[STYLE.ROW, STYLE.CENTERED, styles.header]}>
+            { title && <Text style={styles.title}>{title}</Text> }
+            <ButtonIcon icon="close" onPress={onClose} style={styles.close} />
+          </View>
+          <View style={styles.content}>
+            { children }
+          </View>
+        </Motion>
+      </KeyboardAvoidingView>
+    </Motion>
+  </ReactModalNative>
 );
 
 Modal.propTypes = {

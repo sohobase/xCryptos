@@ -13,6 +13,7 @@ const remove = require('../../assets/icon-remove.png');
 const settings = require('../../assets/icon-settings.png');
 const share = require('../../assets/icon-share.png');
 const star = require('../../assets/icon-star.png');
+const wallet = require('../../assets/icon-wallet.png');
 
 export default {
   logo,
@@ -30,4 +31,5 @@ export default {
   settings,
   share,
   star,
+  wallet,
 };

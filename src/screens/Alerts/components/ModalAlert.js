@@ -2,10 +2,9 @@ import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
 import { connect } from 'react-redux';
-import { FormLabel, FormInput } from 'react-native-elements';
 import { addAlertAction, removeAlertAction } from '../../../actions';
-import { Amount, Button, Modal } from '../../../components';
-import { SHAPE, STYLE, THEME } from '../../../config';
+import { Amount, Button, Input, Modal } from '../../../components';
+import { SHAPE, STYLE } from '../../../config';
 import { ServiceAlerts } from '../../../services';
 import styles from './ModalAlert.style';
 
@@ -60,46 +59,36 @@ class ModalAlert extends Component {
     const { item = alert, refreshing } = this.state;
     const { low, high } = item || {};
 
-    const inputProps = {
-      containerStyle: styles.fieldReset,
-      keyboardType: 'numeric',
-      underlineColorAndroid: THEME.PRIMARY,
-    };
-
     return (
       <Modal title={alert ? 'Alert' : 'New Alert'} onClose={onClose} visible={visible}>
-        <View style={STYLE.CENTERED}>
+        <View style={[STYLE.CENTERED, STYLE.LIST_ITEM, styles.content]}>
           <Amount style={styles.price} value={price} />
         </View>
-        <View style={[STYLE.ROW, styles.content]}>
-          <View style={styles.fieldset}>
-            <FormLabel labelStyle={[styles.fieldReset]}>Low</FormLabel>
-            <FormInput
-              autoFocus
-              defaultValue={item && low && low.toString()}
-              editable={!alert}
-              inputStyle={styles.input}
-              onChangeText={_onChange.bind(null, 'low')} //eslint-disable-line
-              {...inputProps}
-            />
-          </View>
-          <View style={styles.fieldset}>
-            <FormLabel labelStyle={[styles.fieldReset, styles.labelRight]}>High</FormLabel>
-            <FormInput
-              defaultValue={item && high && high.toString()}
-              editable={!alert}
-              inputStyle={[styles.input, styles.inputRight]}
-              onChangeText={_onChange.bind(null, 'high')} //eslint-disable-line
-              {...inputProps}
-            />
-          </View>
+        <View style={[STYLE.ROW, STYLE.LIST_ITEM, styles.content]}>
+          <Input
+            autoFocus
+            defaultValue={item && low && low.toString()}
+            editable={!alert}
+            placeholder="low"
+            style={styles.input}
+            onChangeText={_onChange.bind(null, 'low')} //eslint-disable-line
+          />
+          <Input
+            defaultValue={item && high && high.toString()}
+            editable={!alert}
+            placeholder="high"
+            style={[styles.input, styles.inputRight]}
+            onChangeText={_onChange.bind(null, 'high')} //eslint-disable-line
+          />
         </View>
-        <Button
-          caption={item && item.coin ? 'Delete' : 'Create'}
-          disabled={(!alert && (!low || !high || low > price || high < price)) || refreshing}
-          onPress={() => { _onSubmit(); }}
-          style={[STYLE.MODAL_BUTTON, styles.modalButton]}
-        />
+        <View style={STYLE.MODAL_FOOTER}>
+          <Button
+            caption={item && item.coin ? 'Delete' : 'Create'}
+            disabled={(!alert && (!low || !high || low > price || high < price)) || refreshing}
+            onPress={_onSubmit}
+            style={styles.button}
+          />
+        </View>
       </Modal>
     );
   }

@@ -1,17 +1,20 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
+const { OFFSET, UNIT } = THEME;
+
 export default StyleSheet.create({
 
   content: {
-    paddingHorizontal: THEME.OFFSET,
+    paddingHorizontal: OFFSET,
+    paddingVertical: UNIT,
   },
 
   symbol: {
     color: THEME.COLOR_SECONDARY,
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     fontWeight: THEME.FONT_WEIGHT_LIGHT,
-    marginLeft: THEME.UNIT * 2,
+    marginLeft: UNIT * 2,
   },
 
   price: {
@@ -19,42 +22,17 @@ export default StyleSheet.create({
     fontWeight: THEME.FONT_WEIGHT_LIGHT,
   },
 
-  chip: {
-    backgroundColor: THEME.BACKGROUND_DARK_HIGHLIGHT,
-  },
-
-  chipCaption: {
-    color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_SMALL,
-  },
-
-  fieldset: {
-    width: '50%',
-    marginBottom: THEME.OFFSET,
-  },
-
-  fieldReset: {
-    marginLeft: 0,
-    marginRight: 0,
-    paddingLeft: 0,
-    paddingRight: 0,
-  },
-
-  labelRight: {
-    alignSelf: 'flex-end',
-  },
-
   input: {
+    width: '50%',
     fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
     color: THEME.FONT_PRIMARY_COLOR,
-    width: '100%',
   },
 
   inputRight: {
     textAlign: 'right',
   },
 
-  modalButton: {
-    marginBottom: THEME.OFFSET,
+  button: {
+    paddingVertical: OFFSET,
   },
 });

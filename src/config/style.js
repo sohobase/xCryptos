@@ -25,10 +25,8 @@ export default StyleSheet.create({
     borderRadius: THEME.UNIT * 2,
   },
 
-  MODAL_BUTTON: {
-    marginTop: THEME.OFFSET,
-    paddingTop: THEME.OFFSET,
-    paddingBottom: THEME.OFFSET,
+  MODAL_FOOTER: {
+    padding: THEME.OFFSET,
   },
 
   DRAWER_LABEL: {
@@ -57,7 +55,7 @@ export default StyleSheet.create({
     minHeight: THEME.SECOND_LAYOUT_HEIGHT,
     maxHeight: THEME.SECOND_LAYOUT_HEIGHT,
     backgroundColor: THEME.WHITE,
-    elevation: 8,
+    elevation: 12,
     shadowColor: THEME.BLACK,
     shadowOffset: { height: 8 },
     shadowOpacity: 0.5,

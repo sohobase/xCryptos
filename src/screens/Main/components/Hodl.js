@@ -10,7 +10,7 @@ const { FAVORITE } = SHAPE;
 
 const Hodl = ({ favorites }) => {
   let total = 0;
-  favorites.forEach(({ hodl, price = 0 }) => total += hodl ? (parseFloat(hodl, 10) * price) : 0); // eslint-disable-line
+  favorites.forEach(({ hodl = 0, price = 0 }) => total += hodl ? (parseFloat(hodl, 10) * price) : 0); // eslint-disable-line
 
   return (
     <View style={[STYLE.ROW, styles.container]}>

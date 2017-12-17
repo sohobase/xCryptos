@@ -1,18 +1,19 @@
 import { fetch } from './modules';
 import { C } from '../config';
 
-const { SERVICE: { ALERTS } } = C;
+const { SERVICE: { API } } = C;
 
 export default {
   async add(data) {
-    return fetch(ALERTS, { method: 'POST', body: JSON.stringify(data) });
+    return fetch(`${API}/alert`, { method: 'POST', body: JSON.stringify(data) });
   },
 
   async get(token) {
-    return fetch(`${ALERTS}?token=${token}`);
+    return fetch(`${API}/alerts?token=${token}`);
   },
 
   async remove(data) {
-    return fetch(ALERTS, { method: 'DELETE', body: JSON.stringify(data) });
+    console.log('remove', API, data);
+    return fetch(`${API}/alert`, { method: 'DELETE', body: JSON.stringify(data) });
   },
 };

@@ -42,6 +42,6 @@ export default {
   // -- Sizes
   UNIT,
   OFFSET: UNIT * 1.6,
-  MAIN_LAYOUT_HEIGHT: '55%',
-  SECOND_LAYOUT_HEIGHT: '45%',
+  MAIN_LAYOUT_HEIGHT: '60%',
+  SECOND_LAYOUT_HEIGHT: '40%',
 };

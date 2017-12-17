@@ -64,7 +64,7 @@ export default {
   },
 
   SERVICE: {
-    ALERTS: 'https://xcryptos.glitch.me/alerts',
+    API: 'https://xcryptos.glitch.me',
     CURRENCIES: {
       API: 'https://www.cryptocompare.com/api/data',
       MIN_API: 'https://min-api.cryptocompare.com/data',

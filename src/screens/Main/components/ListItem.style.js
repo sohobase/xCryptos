@@ -6,9 +6,6 @@ const THUMBNAIL_SIZE = UNIT * 3.6;
 
 export default StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
     paddingVertical: UNIT / 2,
     paddingHorizontal: UNIT,
   },
@@ -17,7 +14,7 @@ export default StyleSheet.create({
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
 
-  currency: {
+  coin: {
     flex: 1,
   },
 
@@ -37,8 +34,8 @@ export default StyleSheet.create({
   },
 
   values: {
-    flex: 1,
-    paddingVertical: UNIT / 4,
+    flex: 0,
+    minWidth: '30%',
     alignItems: 'flex-end',
   },
 
@@ -74,6 +71,6 @@ export default StyleSheet.create({
   option: {
     alignSelf: 'center',
     tintColor: THEME.WHITE,
-    marginTop: UNIT * 1.2,
+    marginTop: UNIT * 1.32,
   },
 });

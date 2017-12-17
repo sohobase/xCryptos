@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
 export default StyleSheet.create({
-  container: {
+  background: {
     backgroundColor: THEME.MODAL_BACKDROP,
     flex: 1,
     height: '100%',
@@ -11,7 +11,7 @@ export default StyleSheet.create({
     marginRight: THEME.UNIT * 0.1,
   },
 
-  content: {
+  container: {
     backgroundColor: THEME.WHITE,
     borderTopLeftRadius: THEME.UNIT,
     borderTopRightRadius: THEME.UNIT,
@@ -34,5 +34,10 @@ export default StyleSheet.create({
     marginLeft: THEME.UNIT * -2.8,
     marginRight: 0,
     opacity: 0.5,
+  },
+
+  content: {
+    borderTopColor: THEME.BACKGROUND_DARK_HIGHLIGHT,
+    borderTopWidth: 1,
   },
 });
