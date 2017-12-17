@@ -17,8 +17,10 @@ export default StyleSheet.create({
     borderTopWidth: 1,
   },
 
-  fieldset: {
-
+  brandname: {
+    tintColor: THEME.FONT_PRIMARY_COLOR,
+    height: THEME.FONT_SIZE_LARGE,
+    resizeMode: 'contain',
   },
 
   label: {

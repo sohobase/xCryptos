@@ -3,12 +3,12 @@
     "name": "xCryptos",
     "icon": "./assets/app-icon.png",
     "orientation": "portrait",
-    "primaryColor": "#3920F5",
+    "primaryColor": "#4A29F7",
     "version": "0.8.0",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "23.0.0",
     "loading": {
-      "backgroundColor": "#3920F5",
+      "backgroundColor": "#4A29F7",
       "exponentIconColor": "white",
       "hideExponentText": true,
       "icon": "./assets/app-sohobase.png"
@@ -25,7 +25,7 @@
       "versionCode": 80
     },
     "androidStatusBar": {
-      "backgroundColor": "#3920F5",
+      "backgroundColor": "#4A29F7",
       "barStyle": "light-content"
     }
    }

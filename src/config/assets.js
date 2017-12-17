@@ -1,3 +1,4 @@
+const brandname = require('../../assets/app-brandname.png');
 const logo = require('../../assets/app-logo.png');
 const sohobase = require('../../assets/app-sohobase.png');
 
@@ -16,6 +17,7 @@ const star = require('../../assets/icon-star.png');
 const wallet = require('../../assets/icon-wallet.png');
 
 export default {
+  brandname,
   logo,
   sohobase,
 

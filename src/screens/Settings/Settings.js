@@ -50,17 +50,17 @@ class Settings extends Component {
     return (
       <View style={STYLE.SCREEN}>
         <View style={[STYLE.CENTERED, styles.content]}>
-          <Text style={styles.name}>{name}</Text>
+          <Image style={styles.brandname} source={ASSET.brandname} />
           <Text style={styles.text}>v{version}</Text>
         </View>
         <View style={styles.form}>
           <Touchable onPress={_onModal}>
-            <View style={[STYLE.LIST_ITEM, styles.fieldset]}>
+            <View style={STYLE.LIST_ITEM}>
               <Text style={styles.label}>{LOCAL_CURRENCY}</Text>
               <Text style={styles.value}>{currency}</Text>
             </View>
           </Touchable>
-          <View style={[STYLE.LIST_ITEM, styles.fieldset]}>
+          <View style={STYLE.LIST_ITEM}>
             <View>
               <Text style={styles.label}>{LANGUAGE}</Text>
               <Text style={[styles.value, styles.disabled]}>{language}</Text>

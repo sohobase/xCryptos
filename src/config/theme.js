@@ -17,8 +17,8 @@ export default {
   // -- Colors
   WHITE,
   BLACK,
-  PRIMARY: '#3920F5',
-  ACCENT: '#C668FD',
+  PRIMARY: '#4A29F7',
+  ACCENT: '#C363FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
   COLOR_LOW: 'rgba(255,0,0,0.35)',
   COLOR_HIGH: 'rgba(0,255,0,0.35)',

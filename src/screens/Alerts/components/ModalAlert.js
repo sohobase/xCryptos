@@ -67,14 +67,14 @@ class ModalAlert extends Component {
         <View style={[STYLE.ROW, STYLE.LIST_ITEM, styles.content]}>
           <Input
             autoFocus
-            defaultValue={item && low && low.toString()}
+            defaultValue={item && low ? low.toString() : undefined}
             editable={!alert}
             placeholder="low"
             style={styles.input}
             onChangeText={_onChange.bind(null, 'low')} //eslint-disable-line
           />
           <Input
-            defaultValue={item && high && high.toString()}
+            defaultValue={item && high ? high.toString() : undefined}
             editable={!alert}
             placeholder="high"
             style={[styles.input, styles.inputRight]}
