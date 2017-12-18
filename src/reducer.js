@@ -4,18 +4,23 @@ import {
   REMOVE_ALERT,
   ACTIVE_FAVORITE,
   ADD_FAVORITE,
+  UPDATE_FAVORITE,
   REMOVE_FAVORITE,
   SAVE_ALERTS,
-  SAVE_CURRENCIES,
+  SAVE_COINS,
+  UPDATE_SETTINGS,
   SNAPSHOTS,
   UPDATE_PRICES,
 } from './actions';
 import { C } from './config';
 
+const { DEFAULT: { FAVORITES, SETTINGS } } = C;
+
 const initialState = {
   alerts: [],
-  currencies: [],
-  favorites: C.DEFAULT_FAVORITES,
+  coins: [],
+  favorites: FAVORITES,
+  settings: SETTINGS,
   snapshots: {},
   token: '',
 };
@@ -30,15 +35,15 @@ export default function crypto(state = initialState, action) {
       const { alert } = action;
       return {
         ...state,
-        alerts: alerts.filter(({ currency, low, high }) => (!(currency === alert.currency && low === alert.low && high === alert.high))),
+        alerts: alerts.filter(({ coin, low, high }) => (!(coin === alert.coin && low === alert.low && high === alert.high))),
       };
     }
     case SAVE_ALERTS:
       return { ...state, alerts: [...action.alerts] };
 
     // -- Currencies
-    case SAVE_CURRENCIES:
-      return { ...state, currencies: action.currencies };
+    case SAVE_COINS:
+      return { ...state, coins: action.coins };
 
     // -- Favorites
     case ACTIVE_FAVORITE: {
@@ -46,17 +51,29 @@ export default function crypto(state = initialState, action) {
       const { favorite } = action;
       return {
         ...state,
-        favorites: favorites.map(item => ({ ...item, active: favorite.symbol === item.symbol })),
+        favorites: favorites.map(item => ({ ...item, active: favorite.coin === item.coin })),
       };
     }
     case ADD_FAVORITE:
       return { ...state, favorites: [...state.favorites, action.favorite] };
+
+    case UPDATE_FAVORITE: {
+      const { favorites } = state;
+      const { favorite } = action;
+
+      return {
+        ...state,
+        favorites: favorites.map(fav => (fav.coin !== favorite.coin ? fav : { ...fav, ...favorite })),
+      };
+    }
+
     case REMOVE_FAVORITE: {
       const { favorites } = state;
       const { favorite } = action;
+
       return {
         ...state,
-        favorites: favorites.filter(({ symbol }) => (symbol !== favorite.symbol)),
+        favorites: favorites.filter(({ coin }) => (coin !== favorite.coin)),
       };
     }
 
@@ -66,18 +83,27 @@ export default function crypto(state = initialState, action) {
       const { prices } = action;
       return {
         ...state,
-        favorites: favorites.map(item => ({ ...item, usd: prices[item.symbol] })),
+        favorites: favorites.map(item => ({ ...item, price: prices[item.coin] })),
+      };
+    }
+
+    // -- SETTINGS
+    case UPDATE_SETTINGS: {
+      const { settings = {} } = state;
+      return {
+        ...state,
+        settings: { ...settings, ...action.settings },
       };
     }
 
     // -- Snapshots
     case SNAPSHOTS: {
       const { snapshots = {} } = state;
-      const { currency, symbol } = action;
+      const { data, coin } = action;
 
       return {
         ...state,
-        snapshots: { ...snapshots, [symbol]: currency },
+        snapshots: { ...snapshots, [coin]: data },
       };
     }
 

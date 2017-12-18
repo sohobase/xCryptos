@@ -1,23 +1,21 @@
 import React, { Component } from 'react';
-import { StatusBar, View } from 'react-native';
+import { AsyncStorage, StatusBar, View } from 'react-native';
 import { Provider } from 'react-redux';
 import { compose, createStore } from 'redux';
 import { autoRehydrate, persistStore } from 'redux-persist';
-import { AsyncStorage } from 'react-native';
-
 import App from './src/app';
 import { THEME } from './src/config';
 import { LoadingScreen } from './src/screens';
 import reducer from './src/reducer';
+
+// AsyncStorage.clear();
 
 function configureStore() {
   return new Promise((resolve) => {
     const store = createStore(
       reducer,
       undefined,
-      compose(
-        autoRehydrate(),
-      ),
+      compose(autoRehydrate()),
     );
 
     persistStore(
@@ -50,10 +48,7 @@ class Main extends Component {
         <StatusBar backgroundColor={THEME.PRIMARY} barStyle="light-content" />
         { !store
           ? <LoadingScreen />
-          :
-            <Provider store={this.state.store}>
-              <App />
-            </Provider> }
+          : <Provider store={this.state.store}><App /></Provider> }
       </View>
 
     );

@@ -1,17 +1,4 @@
-import { bool, date, func, number, shape, string } from 'prop-types';
-
-const add = require('../assets/icon-add.png');
-const alert = require('../assets/icon-alert.png');
-const back = require('../assets/icon-back.png');
-const close = require('../assets/icon-close.png');
-const create = require('../assets/icon-create.png');
-const home = require('../assets/icon-home.png');
-const info = require('../assets/icon-info.png');
-const menu = require('../assets/icon-menu.png');
-const star = require('../assets/icon-star.png');
-const share = require('../assets/icon-share.png');
-
-const DEFAULT_TIMELINE = 'LAST HOUR';
+const TIMELINE = 'LAST HOUR';
 
 export default {
   AFILIATES: {
@@ -19,39 +6,48 @@ export default {
     ETORO: 'http://etoro.tw/2vM4b6u',
   },
 
-  STORE_URL: {
-    ANDROID: 'http://play.google.com/store/apps/details?id=com.sohobase.xcryptos',
-    IOS: 'http://sohobase.com',
+  CURRENCY: {
+    EUR: 'EUR',
+    USD: 'USD',
+    GBP: 'GBP',
+    JPY: 'JPY',
   },
 
-  DEFAULT_FAVORITES: [{
-    active: true,
-    id: 1182,
-    image: 'https://www.cryptocompare.com/media/19633/btc.png',
-    name: 'Bitcoin',
-    symbol: 'BTC',
-    usd: 0,
-  }, {
-    id: 7605,
-    image: 'https://www.cryptocompare.com/media/20646/eth.png',
-    name: 'Ethereum',
-    symbol: 'ETH',
-    usd: 0,
-  }, {
-    id: 3808,
-    image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
-    name: 'Litecoin',
-    symbol: 'LTC',
-    usd: 0,
-  }],
+  SYMBOL: {
+    EUR: '€',
+    USD: '$',
+    GBP: '£',
+    JPY: '¥',
+  },
 
-  DEFAULT_TIMELINE,
-
-  DEFAULT_TOKEN: 'xCryptos-Development',
+  DEFAULT: {
+    FAVORITES: [{
+      active: true,
+      coin: 'BTC',
+      hodl: undefined,
+      image: 'https://www.cryptocompare.com/media/19633/btc.png',
+      name: 'Bitcoin',
+      price: 0,
+    }, {
+      coin: 'ETH',
+      hodl: undefined,
+      image: 'https://www.cryptocompare.com/media/20646/eth.png',
+      name: 'Ethereum',
+      price: 0,
+    }, {
+      coin: 'LTC',
+      hodl: undefined,
+      image: 'https://www.cryptocompare.com/media/19782/litecoin-logo.png',
+      name: 'Litecoin',
+      price: 0,
+    }],
+    SETTINGS: { currency: 'USD', language: 'English' },
+    TIMELINE,
+    TOKEN: 'xCryptos-Development',
+  },
 
   EXCHANGES: [
     'coinbase',
-    'bisq',
     'bitfinex',
     'bitsquare',
     'bitstamp',
@@ -60,57 +56,24 @@ export default {
     'gdax',
     'kraken',
     'poloniex',
-    'coinmama',
-    'yobit',
   ],
-
-  FEEDBACK: {
-    MAIL: 'hello@soyjavi.com',
-    SUBJECT: 'Feedback',
-  },
-
-  ICON: { add, alert, back, close, create, home, info, menu, star, share },
 
   NODE_ENV: {
     DEVELOPMENT: 'development',
     PRODUCTION: 'production',
   },
 
-  SHAPE: {
-    ALERT: shape({
-      currency: string,
-      low: number,
-      high: number,
-      createdAt: date,
-    }),
-    CURRENCY: shape({
-      name: string,
-      rank: number,
-      symbol: string,
-      usd: number,
-      btc: number,
-    }),
-    EXCHANGE: shape({
-      MARKET: string,
-      PRICE: string,
-    }),
-    FAVORITE: shape({
-      active: bool,
-      name: string,
-      symbol: string,
-      usd: number,
-    }),
-    HISTORY: shape({
-      timestamp: number,
-      value: number,
-    }),
-    NAVIGATION: shape({
-      navigate: func,
-      setParams: func,
-    }),
-    SNAPSHOT: shape({
-      PRICE: number,
-    }),
+  SERVICE: {
+    API: 'https://xcryptos.glitch.me',
+    CURRENCIES: {
+      API: 'https://www.cryptocompare.com/api/data',
+      MIN_API: 'https://min-api.cryptocompare.com/data',
+    },
+  },
+
+  SOHOBASE: {
+    URL: 'http://sohobase.co',
+    MAIL: 'hi@sohobase.co',
   },
 
   STORAGE: {
@@ -118,5 +81,12 @@ export default {
     FAVORITES: 'favorites',
   },
 
-  TIMELINES: [DEFAULT_TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+  STORE_URL: {
+    ANDROID: 'http://play.google.com/store/apps/details?id=com.sohobase.xcryptos',
+    IOS: 'http://sohobase.com',
+  },
+
+  TIMELINES: [TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+
+  TIMEOUT_SERVICE: 10000,
 };

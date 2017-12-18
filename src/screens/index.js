@@ -1,17 +1,15 @@
-import AboutScreen from './AboutScreen';
-import AlertsScreen from './AlertsScreen';
-import CurrenciesScreen from './CurrenciesScreen';
-import CurrencyScreen from './CurrencyScreen';
-import Drawer from './Drawer';
-import MainScreen from './MainScreen';
-import LoadingScreen from './LoadingScreen';
+import AlertsScreen from './Alerts';
+import CoinScreen from './Coin';
+import CoinsScreen from './Coins';
+import MainScreen from './Main';
+import LoadingScreen from './Loading';
+import SettingsScreen from './Settings';
 
 export {
-  AboutScreen,
   AlertsScreen,
-  CurrenciesScreen,
-  CurrencyScreen,
-  Drawer,
+  CoinsScreen,
+  CoinScreen,
   MainScreen,
   LoadingScreen,
+  SettingsScreen,
 };

@@ -1,0 +1,157 @@
+import { arrayOf, func, string, shape } from 'prop-types';
+import { LinearGradient, Notifications } from 'expo';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { AppState, FlatList, RefreshControl, View } from 'react-native';
+import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
+import { ButtonIcon } from '../../components';
+import { C, SHAPE, STYLE, THEME } from '../../config';
+import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
+import { Hodl, ListItem, VirtualKeyboard } from './components';
+import styles from './Main.style';
+
+const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
+const { FAVORITE, NAVIGATION, SETTINGS } = SHAPE;
+
+class Main extends Component {
+  static navigationOptions({ navigation: { navigate } }) {
+    return {
+      headerLeft: <Hodl />,
+      headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
+    };
+  }
+
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeCoin: undefined,
+      decimal: false,
+      prefetch: false,
+      refreshing: false,
+      value: '1',
+    };
+    this._renderItem = this._renderItem.bind(this);
+    this._onChangeValue = this._onChangeValue.bind(this);
+    this._fetch = this._fetch.bind(this);
+    this._onNotification = this._onNotification.bind(this);
+  }
+
+  async componentWillMount() {
+    const { _fetch, _onNotification, props: { addToken, token } } = this;
+    const { env: { NODE_ENV } } = process;
+
+    _fetch();
+    if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
+    Notifications.addListener(_onNotification);
+    AppState.addEventListener('change', state => state === 'active' && _fetch());
+  }
+
+  componentWillReceiveProps({ favorites = [] }) {
+    this.setState({
+      activeCoin: favorites.find(({ active }) => active),
+    });
+  }
+
+  async _fetch() {
+    const {
+      favorites, settings: { currency }, saveAlerts, updatePrices, token,
+    } = this.props;
+
+    this.setState({ refreshing: true });
+    ServiceCoins.prices(favorites.map(({ coin }) => coin), currency).then(updatePrices);
+    ServiceAlerts.get(token).then(saveAlerts);
+    this.setState({ prefetch: true, refreshing: false });
+  }
+
+  _onChangeValue({ value, decimal }) {
+    this.setState({ value, decimal });
+  }
+
+  _onPressItem(coin) {
+    this.props.navigation.navigate('Coin', { coin });
+  }
+
+  _onNotification = ({ data: { coin } }) => {
+    const { _onPressItem, props: { favorites = [] } } = this;
+    const storeCoin = favorites.find(item => item.coin === coin);
+    if (storeCoin) _onPressItem(storeCoin);
+  };
+
+  _renderItem({ item: coin }) {
+    const {
+      props: { navigation: { navigate }, token },
+      state: { activeCoin = {}, decimal, value },
+    } = this;
+
+    return (
+      <ListItem
+        coin={coin}
+        decimal={decimal}
+        conversion={activeCoin.price}
+        onAlert={() => navigate('Alerts', { coin })}
+        onPress={() => navigate('Coin', { coin, token })}
+        value={value}
+      />
+    );
+  }
+
+  render() {
+    const {
+      _fetch, _onChangeValue, _renderItem,
+      props: { favorites },
+      state: {
+        decimal, prefetch, refreshing, value,
+      },
+    } = this;
+
+    return (
+      <View style={STYLE.SCREEN}>
+        <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={STYLE.LAYOUT_MAIN}>
+          <FlatList
+            data={favorites}
+            extraData={this.state}
+            keyExtractor={item => item.coin}
+            refreshControl={
+              <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+            renderItem={_renderItem}
+          />
+        </LinearGradient>
+        <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} />
+      </View>
+    );
+  }
+}
+
+Main.propTypes = {
+  addToken: func,
+  favorites: arrayOf(shape(FAVORITE)),
+  navigation: shape(NAVIGATION),
+  settings: shape(SETTINGS),
+  token: string,
+  updatePrices: func,
+};
+
+Main.defaultProps = {
+  addToken() {},
+  favorites: FAVORITES,
+  navigation: {
+    navigate() {},
+  },
+  settings: C.DEFAULT.SETTINGS,
+  token: undefined,
+  updatePrices() {},
+};
+
+const mapStateToProps = ({ favorites, settings, token }) => ({
+  favorites,
+  settings,
+  token,
+});
+
+const mapDispatchToProps = dispatch => ({
+  addToken: token => dispatch(addTokenAction(token)),
+  saveAlerts: alerts => alerts && dispatch(saveAlertsAction(alerts)),
+  updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

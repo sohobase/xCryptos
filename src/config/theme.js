@@ -1,8 +1,12 @@
+// import Color from 'color';
+
 const UNIT = 10;
 
-const GREEN = '#00CED9';
-const RED = '#FF5C84';
-const BLUE = '#2283CD';
+// const GREEN = '#00CED9';
+// const RED = '#FF5C84';
+// const BLUE = '#2283CD';
+const WHITE = '#ffffff';
+const BLACK = '#000000';
 
 export default {
   // -- Transitions
@@ -11,10 +15,10 @@ export default {
   ANIMATION_EASING: 'ease-in-out-sine',
 
   // -- Colors
-  WHITE: 'white',
-  BLACK: 'black',
-  PRIMARY: '#3920F5',
-  ACCENT: '#C668FD',
+  WHITE,
+  BLACK,
+  PRIMARY: '#4A29F7',
+  ACCENT: '#C363FD',
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
   COLOR_LOW: 'rgba(255,0,0,0.35)',
   COLOR_HIGH: 'rgba(0,255,0,0.35)',
@@ -22,7 +26,8 @@ export default {
   COLOR_SECONDARY: 'rgba(0, 0, 0, 0.5)',
 
   TRANSPARENT: 'transparent',
-  BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.1)',
+  BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.15)',
+  BACKGROUND_DARK: 'rgba(0, 0, 0, 0.15)',
   BACKGROUND_DARK_HIGHLIGHT: 'rgba(0, 0, 0, 0.1)',
   MODAL_BACKDROP: 'rgba(0, 0, 0, 0.5)',
 
@@ -37,6 +42,6 @@ export default {
   // -- Sizes
   UNIT,
   OFFSET: UNIT * 1.6,
-  MAIN_LAYOUT_HEIGHT: '55%',
-  SECOND_LAYOUT_HEIGHT: '45%',
+  MAIN_LAYOUT_HEIGHT: '60%',
+  SECOND_LAYOUT_HEIGHT: '40%',
 };

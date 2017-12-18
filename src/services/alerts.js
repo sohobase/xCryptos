@@ -1,32 +1,19 @@
-const ENDPOINT = 'https://xcryptos.glitch.me/alerts';
-const headers = {
-  Accept: 'application/json',
-  'Content-Type': 'application/json',
-};
+import { fetch } from './modules';
+import { C } from '../config';
+
+const { SERVICE: { API } } = C;
 
 export default {
   async add(data) {
-    const response = await fetch(ENDPOINT, { // eslint-disable-line
-      method: 'POST',
-      headers,
-      body: JSON.stringify(data),
-    });
-
-    return response.json();
+    return fetch(`${API}/alert`, { method: 'POST', body: JSON.stringify(data) });
   },
 
   async get(token) {
-    const response = await fetch(`${ENDPOINT}?token=${token}`); // eslint-disable-line
-    return response.json();
+    return fetch(`${API}/alerts?token=${token}`);
   },
 
   async remove(data) {
-    const response = await fetch(ENDPOINT, { // eslint-disable-line
-      method: 'DELETE',
-      headers,
-      body: JSON.stringify(data),
-    });
-
-    return response.json();
+    console.log('remove', API, data);
+    return fetch(`${API}/alert`, { method: 'DELETE', body: JSON.stringify(data) });
   },
 };
