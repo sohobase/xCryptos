@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const { UNIT } = THEME;
-const THUMBNAIL_SIZE = UNIT * 3.6;
+const IMAGE_SIZE = UNIT * 3.2;
 
 export default StyleSheet.create({
   container: {
@@ -50,18 +50,21 @@ export default StyleSheet.create({
   },
 
   image: {
-    width: THUMBNAIL_SIZE,
-    height: THUMBNAIL_SIZE,
-    borderRadius: THUMBNAIL_SIZE / 2,
+    width: IMAGE_SIZE,
+    height: IMAGE_SIZE,
+    borderRadius: IMAGE_SIZE / 2,
   },
 
   imageWrap: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
+    width: IMAGE_SIZE * 1.2,
+    height: IMAGE_SIZE * 1.2,
+    borderRadius: (IMAGE_SIZE * 1.2) / 2,
   },
 
   alert: {
     position: 'absolute',
-    bottom: 0,
+    bottom: UNIT / 3,
     right: 0,
     tintColor: THEME.WHITE,
     width: THEME.FONT_SIZE_LARGE,

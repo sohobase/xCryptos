@@ -20,7 +20,7 @@ const SWIPE_BUTTON = {
 class ListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = { modal: false, swipe: false };
+    this.state = { modal: false };
     this._onFocus = this._onFocus.bind(this);
     this._onHodl = this._onHodl.bind(this);
     this._onPress = this._onPress.bind(this);
@@ -77,7 +77,7 @@ class ListItem extends Component {
           <TouchableWithoutFeedback onPress={_onPress}>
             <View style={[STYLE.ROW, styles.coin]}>
               <View style={styles.thumb}>
-                <View style={[styles.imageWrap, styles.image]}>
+                <View style={[STYLE.CENTERED, styles.imageWrap]}>
                   <Image style={styles.image} source={{ uri: image }} />
                 </View>
                 { alert && <Image style={styles.alert} source={ASSET.alert} /> }
