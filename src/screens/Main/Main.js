@@ -67,14 +67,10 @@ class Main extends Component {
     this.setState({ value, decimal });
   }
 
-  _onPressItem(coin) {
-    this.props.navigation.navigate('Coin', { coin });
-  }
-
   _onNotification = ({ data: { coin } }) => {
-    const { _onPressItem, props: { favorites = [] } } = this;
+    const { props: { favorites = [], navigation } } = this;
     const storeCoin = favorites.find(item => item.coin === coin);
-    if (storeCoin) _onPressItem(storeCoin);
+    if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
   _renderItem({ item: coin }) {
