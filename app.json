@@ -1,12 +1,12 @@
 {
-   "expo": {
+  "expo": {
     "name": "xCryptos",
     "icon": "./assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#4A29F7",
     "version": "0.8.0",
     "slug": "sohobase-xcryptos",
-    "sdkVersion": "23.0.0",
+    "sdkVersion": "24.0.0",
     "loading": {
       "backgroundColor": "#4A29F7",
       "exponentIconColor": "white",
@@ -18,7 +18,8 @@
       "color": "#FFFFFF",
     },
     "ios": {
-      "bundleIdentifier": "com.sohobase.xcryptos"
+      "bundleIdentifier": "com.sohobase.xcryptos",
+      "loadJSInBackgroundExperimental": false,
     },
     "android": {
       "package": "com.sohobase.xcryptos",
@@ -27,6 +28,9 @@
     "androidStatusBar": {
       "backgroundColor": "#4A29F7",
       "barStyle": "light-content"
-    }
+    },
+    "assetBundlePatterns": [
+      "assets/*"
+    ],
    }
  }
