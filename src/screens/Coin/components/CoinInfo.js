@@ -15,7 +15,7 @@ const { COIN, HISTORY, SETTINGS } = SHAPE;
 
 const CoinInfo = (props) => {
   const {
-    coin: { price },
+    coin,
     history,
     onChange,
     refreshing,
@@ -29,28 +29,26 @@ const CoinInfo = (props) => {
     high = Math.max.apply(null, history.map(({ value }) => value));
     low = Math.min.apply(null, history.map(({ value }) => value));
   }
-  const symbol = SYMBOL[currency];
+  const chipProps = { coin, symbol: SYMBOL[currency] };
 
   return (
     <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
-        { !refreshing && <ChipPrice caption="high" symbol={symbol} value={high} /> }
-        <Amount value={price} style={styles.price} />
-        { !refreshing && <ChipPrice caption="low" symbol={symbol} value={low} /> }
+        { !refreshing && <ChipPrice {...chipProps} icon="up" value={high} /> }
+        <Amount value={coin.price} style={styles.price} />
+        { !refreshing && <ChipPrice {...chipProps} icon="down" value={low} /> }
       </View>
       <View style={STYLE.ROW}>
         {
-          C.TIMELINES.map((key) => {
-            return (
-              <TimelineOption
-                key={key}
-                caption={key}
-                current={timeline}
-                refreshing={refreshing}
-                onPress={() => !refreshing && onChange(key)}
-              />
-            );
-          })
+          C.TIMELINES.map(key => (
+            <TimelineOption
+              key={key}
+              caption={key}
+              current={timeline}
+              refreshing={refreshing}
+              onPress={() => !refreshing && onChange(key)}
+            />
+          ))
         }
       </View>
       <Chart animate dataSource={history} style={styles.chart} />
@@ -59,7 +57,7 @@ const CoinInfo = (props) => {
 };
 
 CoinInfo.propTypes = {
-  coin: shape(COIN),
+  coin: shape(COIN).isRequired,
   history: arrayOf(shape(HISTORY)),
   onChange: func,
   refreshing: bool,
@@ -68,7 +66,6 @@ CoinInfo.propTypes = {
 };
 
 CoinInfo.defaultProps = {
-  coin: {},
   history: [],
   onChange: undefined,
   refreshing: false,

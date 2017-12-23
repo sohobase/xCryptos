@@ -63,7 +63,8 @@ export default {
 
   async history(coin, timeline = TIMELINES[0], currency = USD) {
     const { endpoint, limit } = TIMELINE_SERVICE.find(item => item.timeline === timeline);
-    const response = await fetch(`${MIN_API}/${endpoint}?fsym=${coin}&tsym=${currency}&limit=${limit}`);
+    const url = `${MIN_API}/${endpoint}?fsym=${coin}&tsym=${currency}&limit=${limit}`;
+    const response = await fetch(url);
     if (!response) return undefined;
 
     return response.Data.map(({ time, close }) => ({ timestamp: time, value: close }));
