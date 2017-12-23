@@ -4,7 +4,7 @@
     "icon": "./assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#4A29F7",
-    "version": "0.8.0",
+    "version": "0.8.1",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "24.0.0",
     "loading": {
@@ -23,7 +23,7 @@
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 80
+      "versionCode": 81
     },
     "androidStatusBar": {
       "backgroundColor": "#4A29F7",
