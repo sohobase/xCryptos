@@ -20,13 +20,13 @@ export default StyleSheet.create({
 
   symbol: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT_SIZE_LARGE,
-    lineHeight: THEME.FONT_SIZE_LARGE,
+    fontSize: THEME.FONT.SIZE.LARGE,
+    lineHeight: THEME.FONT.SIZE.LARGE,
   },
 
   text: {
     color: THEME.CONTRAST,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: THEME.FONT.SIZE.SMALL,
   },
 
   hint: {
@@ -41,7 +41,7 @@ export default StyleSheet.create({
 
   value: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT_SIZE_LARGE,
+    fontSize: THEME.FONT.SIZE.LARGE,
   },
 
   thumb: {
@@ -67,8 +67,8 @@ export default StyleSheet.create({
     bottom: UNIT / 3,
     right: 0,
     tintColor: THEME.WHITE,
-    width: THEME.FONT_SIZE_LARGE,
-    height: THEME.FONT_SIZE_LARGE,
+    width: THEME.FONT.SIZE.LARGE,
+    height: THEME.FONT.SIZE.LARGE,
   },
 
   option: {

@@ -4,7 +4,7 @@ import { THEME } from '../config';
 export default StyleSheet.create({
   container: {
     alignItems: 'center',
-    backgroundColor: THEME.PRIMARY,
+    backgroundColor: THEME.ACCENT,
     borderRadius: THEME.OFFSET * 2,
     display: 'flex',
     paddingBottom: THEME.UNIT,
@@ -20,7 +20,7 @@ export default StyleSheet.create({
 
   caption: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT_SIZE_NORMAL,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    fontSize: THEME.FONT.SIZE.NORMAL,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
   },
 });

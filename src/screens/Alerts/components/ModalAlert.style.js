@@ -12,19 +12,19 @@ export default StyleSheet.create({
 
   symbol: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
-    fontWeight: THEME.FONT_WEIGHT_LIGHT,
+    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
+    fontWeight: THEME.FONT.WEIGHT.LIGHT,
     marginLeft: UNIT * 2,
   },
 
   price: {
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE * 2,
-    fontWeight: THEME.FONT_WEIGHT_LIGHT,
+    fontSize: THEME.FONT.SIZE.EXTRA_LARGE * 2,
+    fontWeight: THEME.FONT.WEIGHT.LIGHT,
   },
 
   input: {
     width: '50%',
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
+    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
     color: THEME.FONT_PRIMARY_COLOR,
   },
 

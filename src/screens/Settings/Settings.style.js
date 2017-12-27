@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../config';
 
-const { OFFSET, UNIT } = THEME;
+const { OFFSET, FONT, UNIT } = THEME;
 
 export default StyleSheet.create({
   content: {
@@ -19,19 +19,19 @@ export default StyleSheet.create({
 
   brandname: {
     tintColor: THEME.FONT_PRIMARY_COLOR,
-    height: THEME.FONT_SIZE_LARGE,
+    height: FONT.SIZE.LARGE,
     resizeMode: 'contain',
   },
 
   label: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: FONT.SIZE.SMALL,
     marginBottom: UNIT / 2,
   },
 
   value: {
     color: THEME.FONT_PRIMARY_COLOR,
-    fontSize: THEME.FONT_SIZE_DEFAULT,
+    fontSize: FONT.SIZE.LARGE,
   },
 
   disabled: {
@@ -40,13 +40,13 @@ export default StyleSheet.create({
 
   sohobase: {
     tintColor: THEME.FONT_PRIMARY_COLOR,
-    height: THEME.FONT_SIZE_NORMAL,
+    height: FONT.SIZE.NORMAL,
     resizeMode: 'contain',
   },
 
   text: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: FONT.SIZE.SMALL,
     textAlign: 'center',
     maxWidth: '90%',
     marginTop: UNIT / 2,

@@ -19,8 +19,8 @@ export default StyleSheet.create({
   },
 
   price: {
-    fontSize: THEME.FONT_SIZE_SMALL,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    fontSize: THEME.FONT.SIZE.SMALL,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
   },
 
   market: {
@@ -34,6 +34,6 @@ export default StyleSheet.create({
   },
 
   buttonCaption: {
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: THEME.FONT.SIZE.SMALL,
   },
 });

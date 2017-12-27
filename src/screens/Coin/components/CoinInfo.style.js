@@ -9,8 +9,9 @@ export default StyleSheet.create({
 
   price: {
     fontSize: THEME.UNIT * 5.6,
-    fontWeight: THEME.FONT_WEIGHT_LIGHT,
+    fontWeight: THEME.FONT.WEIGHT.LIGHT,
     color: THEME.WHITE,
+    backgroundColor: 'transparent',
   },
 
   prices: {

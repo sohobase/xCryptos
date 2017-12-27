@@ -15,16 +15,16 @@ export default StyleSheet.create({
 
   symbol: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_NORMAL,
+    fontSize: THEME.FONT.SIZE.NORMAL,
   },
 
   price: {
-    fontSize: THEME.FONT_SIZE_LARGE,
+    fontSize: THEME.FONT.SIZE.LARGE,
   },
 
   label: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: THEME.FONT.SIZE.SMALL,
   },
 
 });

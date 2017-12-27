@@ -31,7 +31,7 @@ export default StyleSheet.create({
 
   DRAWER_LABEL: {
     marginLeft: 0,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
   },
 
   DRAWER_ICON: {

@@ -4,11 +4,11 @@ import { THEME } from '../../../config';
 export default StyleSheet.create({
   caption: {
     color: THEME.FONT_PRIMARY_COLOR,
-    fontSize: THEME.FONT_SIZE_NORMAL,
+    fontSize: THEME.FONT.SIZE.NORMAL,
   },
 
   hint: {
     color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: THEME.FONT.SIZE.SMALL,
   },
 });

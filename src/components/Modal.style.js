@@ -25,8 +25,8 @@ export default StyleSheet.create({
 
   title: {
     flex: 1,
-    fontSize: THEME.FONT_SIZE_LARGE,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    fontSize: THEME.FONT.SIZE.LARGE,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
     textAlign: 'center',
   },
 

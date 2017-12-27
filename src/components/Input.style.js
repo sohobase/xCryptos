@@ -5,7 +5,7 @@ const { UNIT } = THEME;
 
 export default StyleSheet.create({
   input: {
-    fontSize: THEME.FONT_SIZE_LARGE,
+    fontSize: THEME.FONT.SIZE.LARGE,
     paddingTop: UNIT,
     paddingBottom: UNIT,
     paddingLeft: UNIT / 4,

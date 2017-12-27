@@ -8,6 +8,6 @@ export default StyleSheet.create({
   },
 
   text: {
-    fontSize: THEME.FONT_SIZE_EXTRA_LARGE,
+    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
   },
 });

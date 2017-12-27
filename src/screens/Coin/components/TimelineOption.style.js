@@ -18,13 +18,13 @@ export default StyleSheet.create({
 
   caption: {
     color: THEME.CONTRAST,
-    fontSize: THEME.FONT_SIZE_SMALL,
+    fontSize: THEME.FONT.SIZE.SMALL,
     backgroundColor: 'transparent',
   },
 
   captionActive: {
     color: THEME.WHITE,
-    fontWeight: THEME.FONT_WEIGHT_BOLD,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
   },
 
   disabled: {
