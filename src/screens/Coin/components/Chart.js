@@ -5,6 +5,7 @@ import { SHAPE, STYLE, THEME } from '../../../config';
 import ChartBar from './ChartBar';
 import styles from './Chart.style';
 
+const { COLOR } = THEME;
 const { HISTORY } = SHAPE;
 
 const Chart = ({ animate, dataSource = [], style }) => {
@@ -18,9 +19,9 @@ const Chart = ({ animate, dataSource = [], style }) => {
       { !withData && <ActivityIndicator color={THEME.WHITE} size="large" /> }
       {
         withData && dataSource.map(({ timestamp, value }, index) => {
-          let color = 'rgba(255, 255, 255, 0.35)';
-          if (value === min) color = THEME.COLOR_LOW;
-          if (value === max) color = THEME.COLOR_HIGH;
+          let color = COLOR.CHART;
+          if (value === min) color = COLOR.LOW;
+          if (value === max) color = COLOR.HIGH;
 
           return (
             <ChartBar

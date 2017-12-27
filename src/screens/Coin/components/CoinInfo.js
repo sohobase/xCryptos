@@ -32,7 +32,7 @@ const CoinInfo = (props) => {
   const chipProps = { coin, symbol: SYMBOL[currency] };
 
   return (
-    <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={[STYLE.LAYOUT_MAIN, styles.container]}>
+    <LinearGradient colors={THEME.GRADIENT} style={[STYLE.LAYOUT_MAIN, styles.container]}>
       <View style={styles.prices}>
         { !refreshing && <ChipPrice {...chipProps} icon="up" value={high} /> }
         <Amount value={coin.price} style={styles.price} />

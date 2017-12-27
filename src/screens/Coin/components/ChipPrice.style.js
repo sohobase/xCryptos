@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
-  CONTRAST, COLOR_LOW, COLOR_HIGH, FONT, UNIT, WHITE,
+  CONTRAST, COLOR, FONT, UNIT, WHITE,
 } = THEME;
 
 export default StyleSheet.create({
@@ -12,11 +12,11 @@ export default StyleSheet.create({
   },
 
   down: {
-    backgroundColor: COLOR_LOW,
+    backgroundColor: COLOR.LOW,
   },
 
   up: {
-    backgroundColor: COLOR_HIGH,
+    backgroundColor: COLOR.HIGH,
   },
 
   value: {

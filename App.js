@@ -8,8 +8,6 @@ import { THEME } from './src/config';
 import { LoadingScreen } from './src/screens';
 import reducer from './src/reducer';
 
-// AsyncStorage.clear();
-
 function configureStore() {
   return new Promise((resolve) => {
     const store = createStore(
@@ -38,7 +36,6 @@ class Main extends Component {
   async componentWillMount() {
     this.setState({ store: await configureStore() });
   }
-
 
   render() {
     const { store } = this.state;

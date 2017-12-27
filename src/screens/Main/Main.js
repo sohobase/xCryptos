@@ -102,7 +102,7 @@ class Main extends Component {
 
     return (
       <View style={STYLE.SCREEN}>
-        <LinearGradient colors={[THEME.PRIMARY, THEME.PRIMARY, THEME.ACCENT]} style={STYLE.LAYOUT_MAIN}>
+        <LinearGradient colors={THEME.GRADIENT} style={STYLE.LAYOUT_MAIN}>
           <FlatList
             data={favorites}
             extraData={this.state}
