@@ -3,30 +3,32 @@
     "name": "xCryptos",
     "icon": "./assets/app-icon.png",
     "orientation": "portrait",
-    "primaryColor": "#4A29F7",
-    "version": "0.8.1",
+    "primaryColor": "#852d91",
+    "version": "0.8.2",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "24.0.0",
     "loading": {
-      "backgroundColor": "#4A29F7",
+      "backgroundColor": "#852d91",
       "exponentIconColor": "white",
       "hideExponentText": true,
       "icon": "./assets/app-sohobase.png"
     },
     "notification": {
-      "icon": "./assets/app-logo.png",
+      "icon": "./assets/app-notification.png",
       "color": "#FFFFFF",
     },
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos",
       "loadJSInBackgroundExperimental": false,
+      "buildNumber": "82",
+      "supportsTablet": false
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 81
+      "versionCode": 82
     },
     "androidStatusBar": {
-      "backgroundColor": "#4A29F7",
+      "backgroundColor": "#852d91",
       "barStyle": "light-content"
     },
     "assetBundlePatterns": [
