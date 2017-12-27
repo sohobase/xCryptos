@@ -1,20 +1,18 @@
-import { func, shape } from 'prop-types';
+import { arrayOf, func, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Image, Linking, Text, View } from 'react-native';
 import PKG from '../../../package.json';
-import { updateSettingsAction } from '../../actions';
+import { updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon, Touchable } from '../../components';
 import { ASSET, C, SHAPE, STYLE, TEXT } from '../../config';
+import { ServiceCoins } from '../../services';
 import { ModalCurrency } from './components';
 import styles from './Settings.style';
 
 const { CURRENCY: { USD }, SOHOBASE } = C;
-const { name, version } = PKG;
-const { SETTINGS } = SHAPE;
+const { version } = PKG;
 const { EN: { COPYRIGHT, LANGUAGE, LOCAL_CURRENCY } } = TEXT;
-
-const onClickSohobase = () => Linking.openURL(SOHOBASE.URL);
 
 class Settings extends Component {
   static navigationOptions({ navigation: { navigate } }) {
@@ -32,8 +30,10 @@ class Settings extends Component {
   }
 
   _onCurrency(currency) {
+    const { props: { favorites, updatePrices, updateSettings } } = this;
     this.setState({ modal: false });
-    this.props.updateSettings({ currency });
+    updateSettings({ currency });
+    ServiceCoins.prices(favorites.map(({ coin }) => coin), currency).then(updatePrices);
   }
 
   _onModal() {
@@ -68,7 +68,11 @@ class Settings extends Component {
           </View>
         </View>
         <View style={[STYLE.CENTERED, styles.content]}>
-          <Image onPress={onClickSohobase} style={styles.sohobase} source={ASSET.sohobase} />
+          <Image
+            onPress={() => Linking.openURL(SOHOBASE.URL)}
+            style={styles.sohobase}
+            source={ASSET.sohobase}
+          />
           <Text style={styles.text}>❤️</Text>
           <Text style={styles.text}>{COPYRIGHT}</Text>
         </View>
@@ -79,20 +83,26 @@ class Settings extends Component {
 }
 
 Settings.propTypes = {
-  settings: shape(SETTINGS),
+  favorites: arrayOf(shape(SHAPE.FAVORITE)),
+  settings: shape(SHAPE.SETTINGS),
+  updatePrices: func,
   updateSettings: func,
 };
 
 Settings.defaultProps = {
+  favorites: [],
   settings: {},
+  updatePrices() {},
   updateSettings() {},
 };
 
-const mapStateToProps = ({ settings = {} }) => ({
+const mapStateToProps = ({ favorites, settings = {} }) => ({
+  favorites,
   settings,
 });
 
 const mapDispatchToProps = dispatch => ({
+  updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
   updateSettings: settings => dispatch(updateSettingsAction(settings)),
 });
 
