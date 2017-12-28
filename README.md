@@ -1,6 +1,8 @@
 # xCryptos
 Smart Crypto Currencies
 
+<img src='https://i.imgur.com/KnlaGXT.png' center width='400'>
+
 ## Introduction
 xCryptos for Android, the most simple & beautiful crypto currency convertor. Using material design and making a intuitive and graceful experience to global travelers. Supporting more than 1900 crypto currencies and get real-time updates for global exchange rates. One last thing, xCryptos is Ads free.
 
