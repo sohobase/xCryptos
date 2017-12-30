@@ -7,10 +7,8 @@ export default StyleSheet.create({
     backgroundColor: THEME.ACCENT,
     borderRadius: THEME.OFFSET * 2,
     display: 'flex',
-    paddingBottom: THEME.UNIT,
-    paddingLeft: THEME.OFFSET,
-    paddingRight: THEME.OFFSET,
-    paddingTop: THEME.UNIT,
+    paddingVertical: THEME.UNIT,
+    paddingHorizontal: THEME.OFFSET,
   },
 
   disabled: {
