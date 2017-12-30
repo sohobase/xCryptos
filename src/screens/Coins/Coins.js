@@ -9,6 +9,7 @@ import {
   saveCoinsAction,
   updatePricesAction,
 } from '../../actions';
+import { ButtonIcon } from '../../components';
 import { SHAPE, STYLE, TEXT } from '../../config';
 import { ServiceCoins } from '../../services';
 import { ListItem } from './components';
@@ -18,9 +19,12 @@ const { COIN, FAVORITE, SETTINGS } = SHAPE;
 const { EN: { COINS, SEARCH } } = TEXT;
 
 class CoinsScreen extends Component {
-  static navigationOptions = {
-    title: COINS,
-  };
+  static navigationOptions({ navigation: { navigate } }) {
+    return {
+      title: COINS,
+      headerRight: <ButtonIcon />,
+    };
+  }
 
   constructor(props) {
     super(props);
