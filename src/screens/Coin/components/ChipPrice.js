@@ -1,8 +1,8 @@
-import { number, shape, string } from 'prop-types';
+import { number, string } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, Image, Text, View } from 'react-native';
 import { View as Animatable } from 'react-native-animatable';
-import { ASSET, SHAPE, STYLE, THEME } from '../../../config';
+import { ASSET, STYLE, THEME } from '../../../config';
 import { Amount } from '../../../components';
 import styles from './ChipPrice.style';
 
@@ -10,7 +10,7 @@ const {
   ANIMATION_DURATION, ANIMATION_EASING, ANIMATION_QUICK_DURATION, WHITE,
 } = THEME;
 
-const ChipPrice = ({ icon, coin: { price }, value }) => (
+const ChipPrice = ({ icon, price, value }) => (
   <Animatable
     animation="bounceIn"
     delay={icon === 'down' ? ANIMATION_QUICK_DURATION : 0}
@@ -36,12 +36,13 @@ const ChipPrice = ({ icon, coin: { price }, value }) => (
 );
 
 ChipPrice.propTypes = {
-  coin: shape(SHAPE.COIN).isRequired,
+  price: number,
   icon: string,
   value: number,
 };
 
 ChipPrice.defaultProps = {
+  price: number,
   icon: undefined,
   value: 0,
 };

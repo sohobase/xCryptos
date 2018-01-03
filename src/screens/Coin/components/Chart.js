@@ -1,4 +1,4 @@
-import { arrayOf, bool, number, shape } from 'prop-types';
+import { arrayOf, func, number, shape } from 'prop-types';
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { SHAPE, STYLE, THEME } from '../../../config';
@@ -8,7 +8,7 @@ import styles from './Chart.style';
 const { COLOR } = THEME;
 const { HISTORY } = SHAPE;
 
-const Chart = ({ animate, dataSource = [], style }) => {
+const Chart = ({ dataSource = [], onValue, style }) => {
   const withData = dataSource.length > 0;
   const max = Math.max.apply(null, dataSource.map(({ value }) => value));
   const min = Math.min.apply(null, dataSource.map(({ value }) => value));
@@ -25,10 +25,11 @@ const Chart = ({ animate, dataSource = [], style }) => {
 
           return (
             <ChartBar
-              animate={animate}
-              key={timestamp}
               color={color}
               delay={index * 5}
+              key={timestamp}
+              onPressIn={() => onValue(value)}
+              onPressOut={() => onValue()}
               value={((value - min) * 100) / diff}
             />
           );
@@ -39,14 +40,14 @@ const Chart = ({ animate, dataSource = [], style }) => {
 };
 
 Chart.propTypes = {
-  animate: bool,
   dataSource: arrayOf(shape(HISTORY)),
+  onValue: func,
   style: number,
 };
 
 Chart.defaultProps = {
-  animate: false,
   dataSource: [],
+  onValue() {},
   style: undefined,
 };
 
