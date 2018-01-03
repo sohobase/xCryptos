@@ -4,7 +4,8 @@
     "icon": "./assets/app-icon.png",
     "orientation": "portrait",
     "primaryColor": "#852d91",
-    "version": "0.8.3",
+    "privacy": "public",
+    "version": "0.8.4",
     "slug": "sohobase-xcryptos",
     "sdkVersion": "24.0.0",
     "loading": {
@@ -20,12 +21,12 @@
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos",
       "loadJSInBackgroundExperimental": false,
-      "buildNumber": "83",
+      "buildNumber": "84",
       "supportsTablet": false
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 83
+      "versionCode": 84
     },
     "androidStatusBar": {
       "backgroundColor": "#852d91",
