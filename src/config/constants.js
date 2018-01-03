@@ -1,4 +1,4 @@
-const TIMELINE = 'LAST HOUR';
+const TIMELINE = 'LAST 24 HOURS';
 
 export default {
   AFILIATES: {
@@ -86,7 +86,7 @@ export default {
     IOS: 'http://sohobase.com',
   },
 
-  TIMELINES: [TIMELINE, 'LAST 3 DAYS', 'LAST 2 MONTHS'],
+  TIMELINES: [TIMELINE, 'LAST 30 DAYS', 'LAST 3 MONTHS'],
 
   TIMEOUT_SERVICE: 10000,
 };

@@ -5,9 +5,9 @@ const {
   CURRENCY: { USD }, EXCHANGES, SERVICE: { CURRENCIES: { API, MIN_API } }, TIMELINES,
 } = C;
 const TIMELINE_SERVICE = [
-  { timeline: TIMELINES[0], endpoint: 'histominute', limit: 60 },
-  { timeline: TIMELINES[1], endpoint: 'histohour', limit: 72 },
-  { timeline: TIMELINES[2], endpoint: 'histoday', limit: 60 },
+  { timeline: TIMELINES[0], endpoint: 'histohour', limit: 30 },
+  { timeline: TIMELINES[1], endpoint: 'histoday', limit: 30 },
+  { timeline: TIMELINES[2], endpoint: 'histoday', limit: 90 },
 ];
 
 export default {
