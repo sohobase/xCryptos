@@ -3,12 +3,11 @@ import { THEME } from '../config';
 
 export default StyleSheet.create({
   background: {
-    backgroundColor: THEME.MODAL_BACKDROP,
+    backgroundColor: THEME.MODAL_BACKGROUND,
     flex: 1,
+    width: '100%',
     height: '100%',
     justifyContent: 'flex-end',
-    marginLeft: THEME.UNIT * 0.1,
-    marginRight: THEME.UNIT * 0.1,
   },
 
   container: {

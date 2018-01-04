@@ -34,7 +34,7 @@ export default {
   BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.15)',
   BACKGROUND_DARK: 'rgba(0, 0, 0, 0.15)',
   BACKGROUND_DARK_HIGHLIGHT: 'rgba(0, 0, 0, 0.1)',
-  MODAL_BACKDROP: 'rgba(0, 0, 0, 0.5)',
+  MODAL_BACKGROUND: 'rgba(0, 0, 0, 0.5)',
 
   // -- Fonts
   FONT: {
