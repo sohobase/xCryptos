@@ -9,8 +9,8 @@ const { SETTINGS } = SHAPE;
 const { CURRENCY: { USD }, SYMBOL } = C;
 
 const symbolStyle = {
-  opacity: 0.85,
-  transform: [{ scale: 0.85 }],
+  opacity: 0.75,
+  transform: [{ scale: 0.75 }],
 };
 
 const Amount = ({ settings: { currency }, style, value }) => (
