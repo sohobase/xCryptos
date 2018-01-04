@@ -132,7 +132,7 @@ class Main extends Component {
 Main.propTypes = {
   addToken: func,
   favorites: arrayOf(shape(FAVORITE)),
-  navigation: shape(NAVIGATION),
+  navigation: shape(NAVIGATION).isRequired,
   settings: shape(SETTINGS),
   token: string,
   updatePrices: func,
@@ -141,9 +141,6 @@ Main.propTypes = {
 Main.defaultProps = {
   addToken() {},
   favorites: FAVORITES,
-  navigation: {
-    navigate() {},
-  },
   settings: C.DEFAULT.SETTINGS,
   token: undefined,
   updatePrices() {},

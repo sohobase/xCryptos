@@ -13,7 +13,6 @@ export default {
   },
 
   async remove(data) {
-    console.log('remove', API, data);
     return fetch(`${API}/alert`, { method: 'DELETE', body: JSON.stringify(data) });
   },
 };
