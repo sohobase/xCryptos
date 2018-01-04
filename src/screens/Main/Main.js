@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl, View } from 'react-native';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
+import { ModalAlert } from '../../containers';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, ListItem, VirtualKeyboard } from './components';
@@ -26,12 +27,14 @@ class Main extends Component {
     this.state = {
       activeCoin: undefined,
       decimal: false,
+      modal: false,
       prefetch: false,
       refreshing: false,
       value: '1',
     };
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
+    this._onModal = this._onModal.bind(this);
     this._fetch = this._fetch.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
@@ -73,10 +76,17 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
+  _onModal() {
+    this.setState({ modal: !this.state.modal });
+  }
+
   _renderItem({ item: coin }) {
     const {
+      _onModal,
       props: { navigation: { navigate }, token },
-      state: { activeCoin = {}, decimal, value },
+      state: {
+        activeCoin = {}, decimal, value,
+      },
     } = this;
 
     return (
@@ -84,7 +94,7 @@ class Main extends Component {
         coin={coin}
         decimal={decimal}
         conversion={activeCoin.price}
-        onAlert={() => navigate('Alerts', { coin })}
+        onAlert={_onModal}
         onPress={() => navigate('Coin', { coin, token })}
         value={value}
       />
@@ -93,10 +103,10 @@ class Main extends Component {
 
   render() {
     const {
-      _fetch, _onChangeValue, _renderItem,
+      _fetch, _onChangeValue, _onModal, _renderItem,
       props: { favorites },
       state: {
-        decimal, prefetch, refreshing, value,
+        activeCoin, decimal, modal, prefetch, refreshing, value,
       },
     } = this;
 
@@ -113,6 +123,7 @@ class Main extends Component {
           />
         </LinearGradient>
         <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} />
+        { activeCoin && <ModalAlert coin={activeCoin} onClose={_onModal} visible={modal} /> }
       </View>
     );
   }
