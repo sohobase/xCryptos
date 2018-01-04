@@ -1,30 +1,38 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
-const { OFFSET, UNIT } = THEME;
+const { FONT, OFFSET, UNIT } = THEME;
 
 export default StyleSheet.create({
-
   content: {
     paddingHorizontal: OFFSET,
     paddingVertical: UNIT,
   },
 
-  symbol: {
-    color: THEME.COLOR_SECONDARY,
-    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
-    fontWeight: THEME.FONT.WEIGHT.LIGHT,
-    marginLeft: UNIT * 2,
+  price: {
+    fontSize: FONT.SIZE.EXTRA_LARGE * 2,
+    fontWeight: FONT.WEIGHT.LIGHT,
   },
 
-  price: {
-    fontSize: THEME.FONT.SIZE.EXTRA_LARGE * 2,
-    fontWeight: THEME.FONT.WEIGHT.LIGHT,
+  fieldset: {
+    width: '50%',
+  },
+
+  alignRight: {
+    alignItems: 'flex-end',
+  },
+
+  label: {
+    fontSize: FONT.SIZE.NORMAL,
+    color: THEME.COLOR_SECONDARY,
+  },
+
+  percent: {
+    fontSize: FONT.SIZE.SMALL,
   },
 
   input: {
-    width: '50%',
-    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
+    fontSize: FONT.SIZE.EXTRA_LARGE,
     color: THEME.FONT_PRIMARY_COLOR,
   },
 

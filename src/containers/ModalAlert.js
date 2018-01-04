@@ -1,6 +1,6 @@
 import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
 import { addAlertAction, removeAlertAction } from '../actions';
 import { Amount, Button, Input, Modal } from '../components';
@@ -9,6 +9,34 @@ import { ServiceAlerts } from '../services';
 import styles from './ModalAlert.style';
 
 const { ALERT, COIN, SETTINGS } = SHAPE;
+
+const Fieldset = ({
+  label, disabled, onChange, price, right, value = 0, // eslint-disable-line
+}) => (
+  <View style={[styles.fieldset, right && styles.alignRight]}>
+    <View style={STYLE.ROW}>
+      <Text style={styles.label}>{label}</Text>
+      {
+        value > 0 &&
+        <Text style={[styles.label, styles.percent]}>
+          {` (${parseInt(((value * 100) / price) - 100, 10)}%)`}
+        </Text>
+      }
+    </View>
+    {
+      disabled
+      ?
+        <Amount style={styles.input} value={value} />
+      :
+        <Input
+          autoFocus
+          defaultValue={value ? value.toString() : undefined}
+          style={[styles.input, right && styles.inputRight]}
+          onChangeText={newValue => onChange(label, newValue)}
+        />
+    }
+  </View>
+);
 
 class ModalAlert extends Component {
   constructor(props) {
@@ -27,7 +55,6 @@ class ModalAlert extends Component {
 
   _onChange(field, value) {
     const { item = {} } = this.state;
-
     this.setState({
       item: { ...item, [field]: parseFloat(value) },
     });
@@ -35,9 +62,15 @@ class ModalAlert extends Component {
 
   async _onSubmit() {
     const {
-      addAlert, alert, removeAlert, coin: { coin }, onClose, settings: { currency }, token,
-    } = this.props;
-    const { item: { low, high } = {} } = this.state;
+      props: {
+        addAlert, alert, removeAlert, onClose, token,
+        coin: { coin },
+        settings: { currency },
+      },
+      state: {
+        item: { low, high } = {},
+      },
+    } = this;
 
     this.setState({ refreshing: true });
     if (alert) {
@@ -51,40 +84,35 @@ class ModalAlert extends Component {
     onClose();
   }
 
+  renderFieldset() {
+
+  }
+
   render() {
-    const { _onChange, _onSubmit } = this;
     const {
-      alert, coin: { price }, onClose, visible,
-    } = this.props;
-    const { item = alert, refreshing } = this.state;
-    const { low, high } = item || {};
+      _onChange, _onSubmit,
+      props: {
+        alert, coin: { coin, price }, onClose, visible,
+      },
+      state: {
+        item: { low, high } = alert || {}, refreshing,
+      },
+    } = this;
+    const invalid = !alert && (!low || !high || low > price || high < price);
 
     return (
-      <Modal title={alert ? 'Alert' : 'New Alert'} onClose={onClose} visible={visible}>
+      <Modal title={`${!alert ? 'New' : ''} ${coin} Alert`} onClose={onClose} visible={visible}>
         <View style={[STYLE.CENTERED, STYLE.LIST_ITEM, styles.content]}>
           <Amount style={styles.price} value={price} />
         </View>
         <View style={[STYLE.ROW, STYLE.LIST_ITEM, styles.content]}>
-          <Input
-            autoFocus
-            defaultValue={item && low ? low.toString() : undefined}
-            editable={!alert}
-            placeholder="low"
-            style={styles.input}
-            onChangeText={_onChange.bind(null, 'low')} //eslint-disable-line
-          />
-          <Input
-            defaultValue={item && high ? high.toString() : undefined}
-            editable={!alert}
-            placeholder="high"
-            style={[styles.input, styles.inputRight]}
-            onChangeText={_onChange.bind(null, 'high')} //eslint-disable-line
-          />
+          <Fieldset disabled={alert} label="low" onChange={_onChange} value={low} price={price} />
+          <Fieldset disabled={alert} label="high" onChange={_onChange} right value={high} price={price} />
         </View>
         <View style={STYLE.MODAL_FOOTER}>
           <Button
-            caption={item && item.coin ? 'Delete' : 'Create'}
-            disabled={(!alert && (!low || !high || low > price || high < price)) || refreshing}
+            caption={alert ? 'Delete' : 'Create'}
+            disabled={invalid || refreshing}
             onPress={_onSubmit}
             style={styles.button}
           />
@@ -97,7 +125,7 @@ class ModalAlert extends Component {
 ModalAlert.propTypes = {
   addAlert: func,
   alert: shape(ALERT),
-  coin: shape(COIN),
+  coin: shape(COIN).isRequired,
   onClose: func,
   removeAlert: func,
   settings: shape(SETTINGS),
@@ -108,7 +136,6 @@ ModalAlert.propTypes = {
 ModalAlert.defaultProps = {
   addAlert() {},
   alert: undefined,
-  coin: undefined,
   onClose() {},
   removeAlert() {},
   settings: {},
