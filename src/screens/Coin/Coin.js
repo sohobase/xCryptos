@@ -26,11 +26,11 @@ class CoinScreen extends Component {
     super(props);
     this.state = {
       history: undefined,
-      refreshing: false,
+      fetching: false,
       timeline: TIMELINE,
     };
     this._fetch = this._fetch.bind(this);
-    this._onPressTimeline = this._onPressTimeline.bind(this);
+    this._onTimeline = this._onTimeline.bind(this);
   }
 
   componentWillMount() {
@@ -41,37 +41,39 @@ class CoinScreen extends Component {
   }
 
   componentWillReceiveProps() {
-    this.setState({ history: undefined, timeline: TIMELINE });
+    this.setState({ fetching: false, history: undefined, timeline: TIMELINE });
   }
 
   async _fetch() {
     const { coin: { coin }, settings: { currency }, snapshots } = this.props;
 
-    this.setState({ history: undefined, refreshing: true, timeline: TIMELINE });
+    this.setState({ fetching: true });
     const snapshot = await ServiceCoins.fetch(coin, currency);
     const history = await ServiceCoins.history(coin, TIMELINE, currency);
     if (snapshot && history) snapshots({ ...snapshot, history }, coin);
-    this.setState({ refreshing: false });
+    this.setState({ fetching: false, history });
   }
 
-  async _onPressTimeline(timeline) {
+  async _onTimeline(timeline) {
     const { coin: { coin } } = this.props;
 
-    this.setState({ history: [], timeline });
-    const history = await ServiceCoins.history(coin, timeline);
-    this.setState({ history });
+    this.setState({ fetching: true, timeline });
+    this.setState({
+      fetching: false,
+      history: await ServiceCoins.history(coin, timeline),
+    });
   }
 
   render() {
     const {
-      _onPressTimeline,
+      _onTimeline,
       props: { coin, snapshot },
-      state: { refreshing, timeline, history = snapshot.history || [] },
+      state: { fetching, timeline, history = snapshot.history || [] },
     } = this;
     const { exchanges = [] } = snapshot;
 
     const props = {
-      coin, history, onChange: _onPressTimeline, refreshing, timeline,
+      coin, history, onTimeline: _onTimeline, fetching, timeline,
     };
 
     return (

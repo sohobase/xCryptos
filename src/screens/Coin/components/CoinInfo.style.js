@@ -1,6 +1,10 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
+const {
+  CHART_HEIGHT, FONT, UNIT, WHITE,
+} = THEME;
+
 export default StyleSheet.create({
   container: {
     display: 'flex',
@@ -8,9 +12,9 @@ export default StyleSheet.create({
   },
 
   price: {
-    fontSize: THEME.UNIT * 5.6,
-    fontWeight: THEME.FONT.WEIGHT.LIGHT,
-    color: THEME.WHITE,
+    fontSize: UNIT * 5.6,
+    fontWeight: FONT.WEIGHT.LIGHT,
+    color: WHITE,
     backgroundColor: 'transparent',
   },
 
@@ -20,9 +24,5 @@ export default StyleSheet.create({
     alignItems: 'center',
     alignContent: 'center',
     justifyContent: 'center',
-  },
-
-  chart: {
-    height: THEME.UNIT * 9.6,
   },
 });

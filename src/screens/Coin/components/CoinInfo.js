@@ -2,6 +2,7 @@ import { LinearGradient } from 'expo';
 import { arrayOf, bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { View } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
 import { connect } from 'react-redux';
 import { Amount } from '../../../components';
 import { C, SHAPE, STYLE, THEME } from '../../../config';
@@ -12,6 +13,7 @@ import styles from './CoinInfo.style';
 
 const { SYMBOL } = C;
 const { COIN, HISTORY, SETTINGS } = SHAPE;
+const { MOTION } = THEME;
 
 class CoinInfo extends Component {
   constructor(props) {
@@ -28,40 +30,40 @@ class CoinInfo extends Component {
     const {
       _onValue,
       props: {
-        history, onChange, refreshing, settings: { currency }, timeline,
+        history, onTimeline, fetching, timeline,
       },
       state: { price = this.props.coin.price },
     } = this;
 
     let high = 0;
     let low = 0;
-    if (history.length > 0) {
+    if (!fetching && history.length > 0) {
       high = Math.max.apply(null, history.map(({ value }) => value));
       low = Math.min.apply(null, history.map(({ value }) => value));
     }
-    const chipProps = { price, symbol: SYMBOL[currency] };
 
     return (
       <LinearGradient colors={THEME.GRADIENT} style={[STYLE.LAYOUT_MAIN, styles.container]}>
         <View style={styles.prices}>
-          { !refreshing && <ChipPrice {...chipProps} icon="up" value={high} /> }
-          <Amount value={price} style={styles.price} />
-          { !refreshing && <ChipPrice {...chipProps} icon="down" value={low} /> }
+          <ChipPrice price={price} icon="up" value={high} />
+          <Motion {...MOTION.DEFAULT} delay={300}>
+            <Amount value={price} style={styles.price} />
+          </Motion>
+          <ChipPrice price={price} icon="down" value={low} />
         </View>
         <View style={STYLE.ROW}>
           {
             C.TIMELINES.map(key => (
               <TimelineOption
-                key={key}
+                active={key === timeline}
                 caption={key}
-                current={timeline}
-                refreshing={refreshing}
-                onPress={() => !refreshing && onChange(key)}
+                key={key}
+                onPress={() => !fetching && onTimeline(key)}
               />
             ))
           }
         </View>
-        <Chart dataSource={history} onValue={_onValue} style={styles.chart} />
+        <Chart dataSource={history} fetching={fetching} onValue={_onValue} />
       </LinearGradient>
     );
   }
@@ -70,16 +72,16 @@ class CoinInfo extends Component {
 CoinInfo.propTypes = {
   coin: shape(COIN).isRequired,
   history: arrayOf(shape(HISTORY)),
-  onChange: func,
-  refreshing: bool,
+  onTimeline: func,
+  fetching: bool,
   settings: shape(SETTINGS),
   timeline: string,
 };
 
 CoinInfo.defaultProps = {
   history: [],
-  onChange: undefined,
-  refreshing: false,
+  onTimeline: undefined,
+  fetching: false,
   settings: {},
   timeline: undefined,
 };
