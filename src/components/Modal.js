@@ -6,7 +6,7 @@ import { STYLE, THEME } from '../config';
 import ButtonIcon from './ButtonIcon';
 import styles from './Modal.style';
 
-const DURATION = THEME.ANIMATION_DURATION / 2;
+const { MOTION: { DURATION } } = THEME;
 
 const Modal = ({
   children, onClose, title, visible,

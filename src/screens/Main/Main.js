@@ -104,7 +104,7 @@ class Main extends Component {
   render() {
     const {
       _fetch, _onChangeValue, _onModal, _renderItem,
-      props: { favorites },
+      props: { favorites = [] },
       state: {
         activeCoin, decimal, modal, prefetch, refreshing, value,
       },
@@ -114,7 +114,7 @@ class Main extends Component {
       <View style={STYLE.SCREEN}>
         <LinearGradient colors={THEME.GRADIENT} style={STYLE.LAYOUT_MAIN}>
           <FlatList
-            data={favorites}
+            data={favorites.sort((a, b) => a.total < b.total ? 0 : -1)}
             extraData={this.state}
             keyExtractor={item => item.coin}
             refreshControl={

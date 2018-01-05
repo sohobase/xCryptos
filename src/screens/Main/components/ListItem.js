@@ -54,7 +54,7 @@ class ListItem extends Component {
       state: { modal },
     } = this;
     const {
-      active, hodl = 0, image, price = 0,
+      active, hodl = 0, image, price = 0, total = 0,
     } = coin;
 
     const alert = alerts.find(item => item.coin === coin.coin);
@@ -84,7 +84,7 @@ class ListItem extends Component {
               </View>
               <View style={styles.coin}>
                 <Text style={styles.symbol}>{coin.coin}</Text>
-                { hodl !== 0 && <Amount style={styles.text} value={hodl * price} /> }
+                { hodl > 0 && <Amount style={styles.text} value={total} /> }
                 { hodl === 0 && active && <Text style={[styles.text, styles.hint]}>{HINT_SET_HODL}</Text> }
               </View>
             </View>
