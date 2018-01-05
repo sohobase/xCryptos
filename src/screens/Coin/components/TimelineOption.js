@@ -1,52 +1,35 @@
 import { bool, func, string } from 'prop-types';
 import React from 'react';
-import { Text, View } from 'react-native';
-import { View as Animatable } from 'react-native-animatable';
+import { Text } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
 import { STYLE, THEME } from '../../../config';
 import { Touchable } from '../../../components';
 import styles from './TimelineOption.style';
 
-const TimelineOption = ({
-  caption, current, onPress, refreshing,
-}) => {
-  const styleBullet = [STYLE.BULLET, styles.bullet];
-  const styleOption = [styles.caption];
-  if (caption === current) {
-    styleBullet.push(styles.bulletActive);
-    styleOption.push(styles.captionActive);
-  } else if (refreshing) {
-    styleBullet.push(styles.disabled);
-    styleOption.push(styles.disabled);
-  }
+const { MOTION } = THEME;
 
-  return (
-    <Touchable onPress={onPress}>
-      <Animatable
-        animation="fadeIn"
-        delay={THEME.ANIMATION_DURATION}
-        duration={THEME.ANIMATION_DURATION}
-        easing={THEME.ANIMATION_EASING}
-        style={[STYLE.ROW, styles.container]}
-      >
-        <View style={styleBullet} />
-        <Text style={styleOption}>{caption}</Text>
-      </Animatable>
-    </Touchable>
-  );
-};
+const TimelineOption = ({ active, caption, onPress }) => (
+  <Touchable onPress={onPress}>
+    <Motion
+      {...MOTION.DEFAULT}
+      delay={MOTION.DURATION}
+      style={[STYLE.CHIP, STYLE.ROW, styles.container, (active && styles.active)]}
+    >
+      <Text style={[styles.caption, (active && styles.captionActive)]}>{caption}</Text>
+    </Motion>
+  </Touchable>
+);
 
 TimelineOption.propTypes = {
+  active: bool,
   caption: string,
-  current: string,
   onPress: func,
-  refreshing: bool,
 };
 
 TimelineOption.defaultProps = {
+  active: false,
   caption: undefined,
-  current: undefined,
   onPress: undefined,
-  refreshing: false,
 };
 
 export default TimelineOption;

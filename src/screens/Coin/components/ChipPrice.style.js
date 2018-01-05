@@ -6,13 +6,24 @@ const {
 } = THEME;
 
 export default StyleSheet.create({
+  down: {
+    backgroundColor: COLOR.LOW,
+  },
+
+  icon: {
+    height: FONT.SIZE.SMALL,
+    width: FONT.SIZE.SMALL,
+    tintColor: WHITE,
+    resizeMode: 'contain',
+  },
+
+  margin: {
+    marginHorizontal: UNIT / 2,
+  },
+
   label: {
     color: CONTRAST,
     fontSize: FONT.SIZE.SMALL,
-  },
-
-  down: {
-    backgroundColor: COLOR.LOW,
   },
 
   up: {
@@ -22,13 +33,5 @@ export default StyleSheet.create({
   value: {
     fontWeight: FONT.WEIGHT.BOLD,
     color: WHITE,
-  },
-
-  icon: {
-    marginRight: UNIT / 2,
-    height: FONT.SIZE.SMALL,
-    width: FONT.SIZE.SMALL,
-    tintColor: WHITE,
-    resizeMode: 'contain',
   },
 });

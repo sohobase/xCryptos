@@ -1,33 +1,26 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
+const { COLOR, UNIT } = THEME;
+
 export default StyleSheet.create({
   container: {
-    marginBottom: THEME.UNIT / 2,
-    padding: THEME.UNIT / 2,
+    marginBottom: UNIT,
+    backgroundColor: 'transparent',
   },
 
-  bullet: {
-    backgroundColor: THEME.CONTRAST,
-    marginRight: THEME.UNIT / 2,
-  },
-
-  bulletActive: {
-    backgroundColor: THEME.WHITE,
+  active: {
+    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
 
   caption: {
-    color: THEME.CONTRAST,
-    fontSize: THEME.FONT.SIZE.SMALL,
     backgroundColor: 'transparent',
+    color: COLOR.CHART,
+    fontSize: THEME.FONT.SIZE.SMALL,
+    fontWeight: THEME.FONT.WEIGHT.BOLD,
   },
 
   captionActive: {
     color: THEME.WHITE,
-    fontWeight: THEME.FONT.WEIGHT.BOLD,
-  },
-
-  disabled: {
-    opacity: 0.5,
   },
 });

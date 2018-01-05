@@ -1,49 +1,46 @@
 import { number, string } from 'prop-types';
 import React from 'react';
-import { ActivityIndicator, Image, Text, View } from 'react-native';
-import { View as Animatable } from 'react-native-animatable';
+import { Image, View } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
 import { ASSET, STYLE, THEME } from '../../../config';
 import { Amount } from '../../../components';
 import styles from './ChipPrice.style';
 
-const {
-  ANIMATION_DURATION, ANIMATION_EASING, ANIMATION_QUICK_DURATION, WHITE,
-} = THEME;
+const { MOTION } = THEME;
 
-const ChipPrice = ({ icon, price, value }) => (
-  <Animatable
-    animation="bounceIn"
-    delay={icon === 'down' ? ANIMATION_QUICK_DURATION : 0}
-    duration={ANIMATION_DURATION}
-    easing={ANIMATION_EASING}
+const ChipPrice = ({
+  icon, price, value = 0,
+}) => (
+  <Motion
+    {...MOTION.DEFAULT}
+    animation={value > 0 ? 'bounceIn' : 'bounceOut'}
+    delay={value > 0 ? (icon === 'up' ? 100 : 500) : 0} // eslint-disable-line
     style={[STYLE.CHIP, styles[icon]]}
   >
-    {
-      value !== 0
-        ?
-        (
-          <View style={STYLE.ROW}>
-            <Image style={styles.icon} source={ASSET[icon]} />
-            <Amount style={styles.value} value={value} />
-            <Text style={styles.label}>
-              {` (${parseInt(((value * 100) / price) - 100, 10)}%)`}
-            </Text>
-          </View>
-        )
-        : <ActivityIndicator color={WHITE} />
-    }
-  </Animatable>
+    { value > 0 &&
+      <View style={STYLE.ROW}>
+        <Image style={styles.icon} source={ASSET[icon]} />
+        <View style={styles.margin}>
+          <Amount style={styles.value} value={value} />
+        </View>
+        <Amount
+          style={styles.label}
+          value={parseInt(((value * 100) / price) - 100, 10)}
+          symbol="%"
+        />
+      </View> }
+  </Motion>
 );
 
 ChipPrice.propTypes = {
-  price: number,
   icon: string,
+  price: number,
   value: number,
 };
 
 ChipPrice.defaultProps = {
-  price: number,
   icon: undefined,
+  price: number,
   value: 0,
 };
 

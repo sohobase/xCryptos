@@ -5,10 +5,15 @@ const PRIMARY_DARK = '#312a6c';
 const ACCENT = '#ed1e79';
 
 export default {
-  // -- Transitions
-  ANIMATION_DURATION: 400,
-  ANIMATION_QUICK_DURATION: 225,
-  ANIMATION_EASING: 'ease-in-out-sine',
+  // -- Motion
+  MOTION: {
+    DURATION: 900,
+    DEFAULT: {
+      animation: 'bounceIn',
+      delay: 0,
+      duration: 900,
+    },
+  },
 
   // -- Colors
   WHITE: '#ffffff',
@@ -17,8 +22,6 @@ export default {
   PRIMARY_DARK,
   ACCENT,
   CONTRAST: 'rgba(255, 255, 255, 0.75)',
-  COLOR_LOW: 'rgba(255,0,0,0.35)',
-  COLOR_HIGH: 'rgba(0,255,0,0.35)',
   FONT_PRIMARY_COLOR: 'black',
   COLOR_SECONDARY: 'rgba(0, 0, 0, 0.5)',
 
