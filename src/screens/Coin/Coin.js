@@ -35,7 +35,7 @@ class CoinScreen extends Component {
   componentWillMount() {
     const { _fetch } = this;
 
-    _fetch();
+    _fetch(false);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
 
@@ -43,10 +43,10 @@ class CoinScreen extends Component {
     this.setState({ fetching: false, history: undefined, timeline: TIMELINE });
   }
 
-  async _fetch() {
+  async _fetch(reload = true) {
     const { coin: { coin }, settings: { currency }, snapshots } = this.props;
 
-    this.setState({ fetching: true });
+    if (reload) this.setState({ fetching: true });
     const snapshot = await ServiceCoins.fetch(coin, currency);
     const history = await ServiceCoins.history(coin, TIMELINE, currency);
     if (snapshot && history) snapshots({ ...snapshot, history }, coin);
