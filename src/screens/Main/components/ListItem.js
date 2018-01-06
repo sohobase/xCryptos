@@ -64,8 +64,6 @@ class ListItem extends Component {
       { ...SWIPE_BUTTON, component: <ButtonIcon icon="remove" onPress={_onRemove} style={styles.option} /> },
     ];
 
-    if (active) console.log('>>>>>', parseFloat(value), parseFloat(value) !== 1);
-
     return (
       <Swipeout
         autoClose
