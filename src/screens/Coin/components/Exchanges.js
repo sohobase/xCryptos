@@ -20,7 +20,7 @@ Exchanges.propTypes = {
 };
 
 Exchanges.defaultProps = {
-  dataSource: {},
+  dataSource: [],
 };
 
 export default Exchanges;
