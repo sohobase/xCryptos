@@ -43,12 +43,6 @@ export default {
     if (!response) return undefined;
     const { Data: { AggregatedData = {}, Exchanges = [] } } = response;
 
-    const exchanges = [];
-    EXCHANGES.forEach((exchange) => {
-      const found = Exchanges.find(item => item.MARKET.toLowerCase() === exchange);
-      if (found) exchanges.push(found);
-    });
-
     return {
       price: AggregatedData.PRICE,
       lastUpdate: AggregatedData.LASTUPDATE,
@@ -57,7 +51,9 @@ export default {
       open: AggregatedData.OPEN24HOUR,
       high: AggregatedData.HIGH24HOUR,
       low: AggregatedData.LOW24HOUR,
-      exchanges,
+      exchanges: Exchanges
+        .filter(({ MARKET }) => EXCHANGES.includes(MARKET.toLowerCase()))
+        .sort((a, b) => (a.PRICE > b.PRICE ? 0 : -1)),
     };
   },
 

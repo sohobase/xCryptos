@@ -1,7 +1,7 @@
 import CoinInfo from './CoinInfo';
-import ExchangeListItem from './ExchangeListItem';
+import Exchanges from './Exchanges';
 
 export {
   CoinInfo,
-  ExchangeListItem,
+  Exchanges,
 };

@@ -6,8 +6,7 @@ import { C, SHAPE, STYLE } from '../../config';
 import { ButtonIcon } from '../../components';
 import { ServiceCoins } from '../../services';
 import { snapshotsAction } from '../../actions';
-import { CoinInfo, ExchangeListItem } from './components';
-
+import { CoinInfo, Exchanges } from './components';
 
 const { DEFAULT: { TIMELINE } } = C;
 const { COIN, SNAPSHOT } = SHAPE;
@@ -70,8 +69,6 @@ class CoinScreen extends Component {
       props: { coin, snapshot },
       state: { fetching, timeline, history = snapshot.history || [] },
     } = this;
-    const { exchanges = [] } = snapshot;
-
     const props = {
       coin, history, onTimeline: _onTimeline, fetching, timeline,
     };
@@ -80,11 +77,7 @@ class CoinScreen extends Component {
       <View style={STYLE.SCREEN}>
         <CoinInfo {...props} />
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
-          {
-            exchanges.map(item => (
-              <ExchangeListItem key={`${item.MARKET}${item.PRICE}`} coin={coin} exchange={item} />
-            ))
-          }
+          <Exchanges coin={coin} dataSource={snapshot.exchanges} />
         </ScrollView>
       </View>
     );
