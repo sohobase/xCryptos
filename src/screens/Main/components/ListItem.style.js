@@ -29,6 +29,11 @@ export default StyleSheet.create({
     fontSize: THEME.FONT.SIZE.SMALL,
   },
 
+  operation: {
+    opacity: 0.75,
+    transform: [{ scale: 0.75 }],
+  },
+
   hint: {
     opacity: 0.75,
   },

@@ -64,6 +64,8 @@ class ListItem extends Component {
       { ...SWIPE_BUTTON, component: <ButtonIcon icon="remove" onPress={_onRemove} style={styles.option} /> },
     ];
 
+    if (active) console.log('>>>>>', parseFloat(value), parseFloat(value) !== 1);
+
     return (
       <Swipeout
         autoClose
@@ -97,7 +99,15 @@ class ListItem extends Component {
                 </Text>
                 { active && <CursorBlink /> }
               </View>
-              <Amount style={styles.text} value={(active ? value : 1) * price} />
+              <View style={STYLE.ROW}>
+                <Amount style={styles.text} value={price} />
+                { active && value !== '1' && value !== '0' &&
+                  <View style={[STYLE.ROW, STYLE.CENTERED]}>
+                    <Text style={[styles.text, styles.operation]}>{` x${value} `}</Text>
+                    <Text style={styles.text}>= </Text>
+                    <Amount style={styles.text} value={value * price} />
+                  </View> }
+              </View>
             </View>
           </TouchableWithoutFeedback>
         </View>
@@ -128,7 +138,7 @@ ListItem.defaultProps = {
   onAlert: undefined,
   onPress: undefined,
   removeFavorite() {},
-  value: 0,
+  value: '0',
 };
 
 const mapStateToProps = ({ alerts }) => ({
