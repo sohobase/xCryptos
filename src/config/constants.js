@@ -54,8 +54,15 @@ export default {
     'bittrex',
     'cexio',
     'gdax',
+    'hitbtc',
     'kraken',
     'poloniex',
+    'localbitcoins',
+    'gatecoin',
+    'yobit',
+    'coinfloor',
+    'livecoin',
+    'gemini',
   ],
 
   NODE_ENV: {
