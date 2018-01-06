@@ -114,7 +114,7 @@ class Main extends Component {
       <View style={STYLE.SCREEN}>
         <LinearGradient colors={THEME.GRADIENT} style={STYLE.LAYOUT_MAIN}>
           <FlatList
-            data={favorites.sort((a, b) => a.total < b.total ? 0 : -1)}
+            data={favorites}
             extraData={this.state}
             keyExtractor={item => item.coin}
             refreshControl={
@@ -147,7 +147,10 @@ Main.defaultProps = {
 };
 
 const mapStateToProps = ({ favorites, settings, token }) => ({
-  favorites,
+  favorites: favorites.sort((a, b) => {
+    if (a.total === 0 && b.total === 0) return a.rank > b.rank ? 0 : -1;
+    return a.total < b.total ? 0 : -1;
+  }),
   settings,
   token,
 });
