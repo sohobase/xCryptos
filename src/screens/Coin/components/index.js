@@ -1,7 +1,11 @@
-import CoinInfo from './CoinInfo';
+import Chart from './Chart';
 import Exchanges from './Exchanges';
+import ModalHodl from './ModalHodl';
+import Prices from './Prices';
 
 export {
-  CoinInfo,
+  Chart,
   Exchanges,
+  ModalHodl,
+  Prices,
 };

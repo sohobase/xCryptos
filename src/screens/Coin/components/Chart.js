@@ -1,62 +1,91 @@
-import { arrayOf, bool, func, shape } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 import React from 'react';
-import { TouchableOpacity, View } from 'react-native';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { View as Motion } from 'react-native-animatable';
-import { SHAPE, STYLE, THEME } from '../../../config';
+import { Touchable } from '../../../components';
+import { C, SHAPE, STYLE, THEME } from '../../../config';
 import styles from './Chart.style';
 
-const { MOTION: { DURATION }, COLOR } = THEME;
+const { TIMELINES } = C;
+const { MOTION, COLOR } = THEME;
 const { HISTORY } = SHAPE;
 
+const Option = ({
+  active, caption, onPress, // eslint-disable-line
+}) => (
+  <Touchable onPress={onPress}>
+    <Motion
+      {...MOTION.DEFAULT}
+      delay={MOTION.DURATION}
+      style={[STYLE.CHIP, STYLE.ROW, styles.option, (active && styles.active)]}
+    >
+      <Text style={[styles.caption, (active && styles.captionActive)]}>{caption}</Text>
+    </Motion>
+  </Touchable>
+);
+
 const Chart = ({
-  fetching, dataSource = [], onValue,
+  fetching, dataSource = [], onTimeline, onValue, timeline,
 }) => {
   const max = Math.max.apply(null, dataSource.map(({ value }) => value));
   const min = Math.min.apply(null, dataSource.map(({ value }) => value));
   const diff = max - min;
 
   return (
-    <Motion
-      animation={fetching ? 'slideOutDown' : 'slideInUp'}
-      delay={fetching ? 0 : DURATION}
-      duration={DURATION / 3}
-    >
-      <View style={[STYLE.ROW, styles.container]}>
+    <View style={styles.container}>
+      <View style={STYLE.ROW}>
         {
-          dataSource.map(({ value }, index) => {
-            let color = COLOR.CHART;
-            if (value === min) color = COLOR.LOW;
-            if (value === max) color = COLOR.HIGH;
-
-            return (
-              <TouchableOpacity
-                key={index} // eslint-disable-line
-                onPressIn={() => onValue(value)}
-                onPressOut={() => onValue()}
-                style={styles.bar}
-              >
-                <View
-                  style={[styles.value, { height: `${((value - min) * 100) / diff}%`, backgroundColor: color }]}
-                />
-              </TouchableOpacity>
-            );
-          })
+          TIMELINES.map(key => (
+            <Option active={key === timeline} caption={key} key={key} onPress={() => !fetching && onTimeline(key)} />
+          ))
         }
       </View>
-    </Motion>
+      <Motion
+        animation={fetching ? 'slideOutDown' : 'slideInUp'}
+        delay={fetching ? 0 : MOTION.DURATION}
+        duration={MOTION.DURATION / 3}
+      >
+        <View style={[STYLE.ROW, styles.bars]}>
+          {
+            dataSource.map(({ value }, index) => {
+              let color = COLOR.CHART;
+              if (value === min) color = COLOR.LOW;
+              if (value === max) color = COLOR.HIGH;
+
+              return (
+                <TouchableOpacity
+                  key={index} // eslint-disable-line
+                  onPressIn={() => onValue(value)}
+                  onPressOut={() => onValue()}
+                  style={styles.bar}
+                >
+                  <View
+                    style={[styles.value, { height: `${((value - min) * 100) / diff}%`, backgroundColor: color }]}
+                  />
+                </TouchableOpacity>
+              );
+            })
+          }
+        </View>
+      </Motion>
+    </View>
   );
 };
 
 Chart.propTypes = {
   fetching: bool,
   dataSource: arrayOf(shape(HISTORY)),
+  onTimeline: func,
   onValue: func,
+  timeline: string,
 };
 
 Chart.defaultProps = {
   fetching: false,
   dataSource: [],
+  onTimeline() {},
   onValue() {},
+  timeline: undefined,
 };
 
 export default Chart;

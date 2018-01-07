@@ -14,7 +14,7 @@ const ChipPrice = ({
   <Motion
     {...MOTION.DEFAULT}
     animation={value > 0 ? 'bounceIn' : 'bounceOut'}
-    delay={value > 0 ? (icon === 'up' ? 100 : 500) : 0} // eslint-disable-line
+    delay={value > 0 ? (icon === 'up' ? 200 : 400) : 0} // eslint-disable-line
     style={[STYLE.CHIP, styles[icon]]}
   >
     { value > 0 &&

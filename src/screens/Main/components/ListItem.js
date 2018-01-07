@@ -7,7 +7,6 @@ import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
 import { Amount, ButtonIcon, CursorBlink } from '../../../components';
 import { ASSET, SHAPE, TEXT, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
-import ModalHodl from './ModalHodl';
 import styles from './ListItem.style';
 
 const { ALERT, COIN } = SHAPE;
@@ -22,7 +21,6 @@ class ListItem extends Component {
     super(props);
     this.state = { modal: false };
     this._onFocus = this._onFocus.bind(this);
-    this._onHodl = this._onHodl.bind(this);
     this._onPress = this._onPress.bind(this);
     this._onRemove = this._onRemove.bind(this);
   }
@@ -47,9 +45,9 @@ class ListItem extends Component {
 
   render() {
     const {
-      _onFocus, _onHodl, _onPress, _onRemove,
+      _onFocus, _onPress, _onRemove,
       props: {
-        alerts, conversion = 0, coin, decimal, onAlert, value,
+        alerts, conversion = 0, coin, decimal, value,
       },
       state: { modal },
     } = this;
@@ -59,8 +57,6 @@ class ListItem extends Component {
 
     const alert = alerts.find(item => item.coin === coin.coin);
     const menu = [
-      { ...SWIPE_BUTTON, component: <ButtonIcon icon="wallet" onPress={_onHodl} style={styles.option} /> },
-      { ...SWIPE_BUTTON, component: <ButtonIcon icon="alert" onPress={onAlert} style={styles.option} /> },
       { ...SWIPE_BUTTON, component: <ButtonIcon icon="remove" onPress={_onRemove} style={styles.option} /> },
     ];
 
@@ -109,7 +105,6 @@ class ListItem extends Component {
             </View>
           </TouchableWithoutFeedback>
         </View>
-        <ModalHodl coin={coin} visible={modal} onClose={_onHodl} />
       </Swipeout>
     );
   }
@@ -121,7 +116,6 @@ ListItem.propTypes = {
   conversion: number,
   coin: shape(COIN),
   decimal: bool,
-  onAlert: func,
   onPress: func,
   removeFavorite: func,
   value: string,
@@ -133,7 +127,6 @@ ListItem.defaultProps = {
   conversion: 1,
   coin: {},
   decimal: false,
-  onAlert: undefined,
   onPress: undefined,
   removeFavorite() {},
   value: '0',

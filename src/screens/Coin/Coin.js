@@ -1,40 +1,46 @@
+import { LinearGradient } from 'expo';
 import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState, ScrollView, View } from 'react-native';
-import { C, SHAPE, STYLE } from '../../config';
-import { ButtonIcon } from '../../components';
+import { AppState, ScrollView, Text, View } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
+import { C, SHAPE, STYLE, THEME } from '../../config';
+import { Amount, ButtonIcon, Touchable } from '../../components';
 import { ServiceCoins } from '../../services';
 import { snapshotsAction } from '../../actions';
-import { CoinInfo, Exchanges } from './components';
+import { Chart, Exchanges, ModalHodl, Prices } from './components';
+import styles from './Coin.style';
 
 const { DEFAULT: { TIMELINE } } = C;
 const { COIN, SNAPSHOT } = SHAPE;
+const { GRADIENT, MOTION } = THEME;
 
 class CoinScreen extends Component {
   static navigationOptions({ navigation: { navigate, state } }) {
-    const { coin = {}, token } = state.params || {};
+    const { coin = {} } = state.params || {};
 
     return {
       title: coin.name,
-      headerRight: token && <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} />,
+      headerRight: <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} />,
     };
   }
 
   constructor(props) {
     super(props);
     this.state = {
-      history: undefined,
       fetching: false,
+      history: undefined,
+      modal: false,
       timeline: TIMELINE,
     };
     this._fetch = this._fetch.bind(this);
+    this._onModal = this._onModal.bind(this);
     this._onTimeline = this._onTimeline.bind(this);
+    this._onValue = this._onValue.bind(this);
   }
 
   componentWillMount() {
     const { _fetch } = this;
-
     _fetch(false);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
@@ -53,6 +59,10 @@ class CoinScreen extends Component {
     this.setState({ fetching: false, history });
   }
 
+  _onModal() {
+    this.setState({ modal: !this.state.modal });
+  }
+
   async _onTimeline(timeline) {
     const { coin: { coin } } = this.props;
 
@@ -63,22 +73,41 @@ class CoinScreen extends Component {
     });
   }
 
+  _onValue(price) {
+    this.setState({ price });
+  }
+
   render() {
     const {
-      _onTimeline,
+      _onModal, _onTimeline, _onValue,
       props: { coin, snapshot },
-      state: { fetching, timeline, history = snapshot.history || [] },
+      state: {
+        fetching, history = snapshot.history || [], modal, price = coin.price, timeline,
+      },
     } = this;
-    const props = {
-      coin, history, onTimeline: _onTimeline, fetching, timeline,
-    };
+    let high = 0;
+    let low = 0;
+    if (!fetching && history.length > 0) {
+      high = Math.max.apply(null, history.map(({ value }) => value));
+      low = Math.min.apply(null, history.map(({ value }) => value));
+    }
 
     return (
       <View style={STYLE.SCREEN}>
-        <CoinInfo {...props} />
+        <LinearGradient colors={GRADIENT} style={[STYLE.LAYOUT_MAIN, styles.container]}>
+          <Motion {...MOTION.DEFAULT} delay={100}>
+            <Touchable onPress={_onModal} style={[STYLE.CHIP, STYLE.CENTERED, styles.chip]}>
+              { coin.hodl > 0 && <Amount value={coin.hodl * coin.price} style={styles.hodl} /> }
+              <Text style={styles.caption}>{coin.hodl > 0 ? `${coin.hodl} ${coin.coin}` : 'Set your holdings'}</Text>
+            </Touchable>
+          </Motion>
+          <Prices low={low} high={high} price={price} />
+          <Chart dataSource={history} fetching={fetching} onTimeline={_onTimeline}timeline={timeline}  onValue={_onValue} />
+        </LinearGradient>
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           <Exchanges coin={coin} dataSource={snapshot.exchanges} />
         </ScrollView>
+        <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
       </View>
     );
   }
@@ -94,12 +123,14 @@ CoinScreen.defaultProps = {
   snapshot: {},
 };
 
-const mapStateToProps = ({ settings, snapshots = {}, token }, props) => {
+const mapStateToProps = ({ favorites, settings, snapshots = {} }, props) => {
   const { coin = {} } = props.navigation.state.params;
   const snapshot = snapshots[coin.coin] || {};
 
   return {
-    coin, settings, snapshot, token,
+    coin: favorites.find((favorite) => favorite.coin === coin.coin),
+    settings,
+    snapshot,
   };
 };
 

@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl, View } from 'react-native';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
-import { ModalAlert } from '../../containers';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, ListItem, VirtualKeyboard } from './components';
@@ -26,16 +25,16 @@ class Main extends Component {
     super(props);
     this.state = {
       activeCoin: undefined,
+      keyboard: true,
       decimal: false,
-      modal: false,
       prefetch: false,
       refreshing: false,
       value: '1',
     };
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
-    this._onModal = this._onModal.bind(this);
     this._fetch = this._fetch.bind(this);
+    this._onScroll = this._onScroll.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
 
@@ -76,16 +75,15 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
-  _onModal() {
-    this.setState({ modal: !this.state.modal });
+  _onScroll() {
+    this.setState({ keyboard: false });
   }
 
   _renderItem({ item: coin }) {
     const {
-      _onModal,
-      props: { navigation: { navigate }, token },
+      props: { navigation: { navigate } },
       state: {
-        activeCoin = {}, decimal, value,
+        activeCoin: { price } = {}, decimal, value,
       },
     } = this;
 
@@ -93,9 +91,8 @@ class Main extends Component {
       <ListItem
         coin={coin}
         decimal={decimal}
-        conversion={activeCoin.price}
-        onAlert={_onModal}
-        onPress={() => navigate('Coin', { coin, token })}
+        conversion={price}
+        onPress={() => navigate('Coin', { coin })}
         value={value}
       />
     );
@@ -103,10 +100,10 @@ class Main extends Component {
 
   render() {
     const {
-      _fetch, _onChangeValue, _onModal, _renderItem,
+      _fetch, _onChangeValue, _onScroll, _renderItem,
       props: { favorites = [] },
       state: {
-        activeCoin, decimal, modal, prefetch, refreshing, value,
+        decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
 
@@ -117,13 +114,14 @@ class Main extends Component {
             data={favorites}
             extraData={this.state}
             keyExtractor={item => item.coin}
+            onScroll={_onScroll}
             refreshControl={
               <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
             renderItem={_renderItem}
           />
         </LinearGradient>
-        <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} />
-        { activeCoin && <ModalAlert coin={activeCoin} onClose={_onModal} visible={modal} /> }
+        { keyboard &&
+          <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} /> }
       </View>
     );
   }

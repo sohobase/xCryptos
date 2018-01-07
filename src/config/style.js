@@ -13,10 +13,8 @@ export default StyleSheet.create({
 
   CHIP: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    paddingTop: UNIT * 0.5,
-    paddingBottom: UNIT * 0.5,
-    paddingLeft: UNIT,
-    paddingRight: UNIT,
+    paddingVertical: UNIT * 0.5,
+    paddingHorizontal: UNIT,
     borderRadius: UNIT * 2,
     minHeight: UNIT * 2,
     minWidth: UNIT,
@@ -43,6 +41,7 @@ export default StyleSheet.create({
     minHeight: THEME.MAIN_LAYOUT_HEIGHT,
     maxHeight: THEME.MAIN_LAYOUT_HEIGHT,
     backgroundColor: THEME.PRIMARY,
+    width: '100%',
   },
 
   LAYOUT_SECONDARY: {
@@ -57,6 +56,7 @@ export default StyleSheet.create({
     shadowOffset: { height: 16 },
     shadowOpacity: 0.5,
     shadowRadius: 8,
+    width: '100%',
   },
 
   LIST_ITEM: {

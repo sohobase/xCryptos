@@ -6,11 +6,6 @@ const {
 } = THEME;
 
 export default StyleSheet.create({
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-  },
-
   price: {
     fontSize: UNIT * 5.6,
     fontWeight: FONT.WEIGHT.LIGHT,
