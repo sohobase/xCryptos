@@ -7,19 +7,12 @@ export default StyleSheet.create({
   container: {
     flexWrap: 'wrap',
     flexDirection: 'row',
-    margin: UNIT / 2,
-    justifyContent: 'center',
+    paddingVertical: UNIT,
   },
 
   item: {
     padding: UNIT,
-    margin: UNIT / 2,
-    elevation: 2,
-    shadowColor: THEME.BLACK,
-    shadowOffset: { height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 1,
-    width: '30%',
+    width: '33.3%',
   },
 
   market: {
