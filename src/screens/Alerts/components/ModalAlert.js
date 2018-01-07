@@ -2,7 +2,7 @@ import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { addAlertAction, removeAlertAction } from '../actions';
+import { addAlertAction, removeAlertAction } from '../../../actions';
 import { Amount, Button, Input, Modal } from '../../../components';
 import { SHAPE, STYLE } from '../../../config';
 import { ServiceAlerts } from '../../../services';
