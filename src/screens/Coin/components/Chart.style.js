@@ -11,6 +11,7 @@ export default StyleSheet.create({
 
   bars: {
     height: UNIT * 10.4,
+    marginTop: UNIT / 2,
     width: '100%',
   },
 
@@ -29,7 +30,6 @@ export default StyleSheet.create({
   },
 
   option: {
-    marginBottom: UNIT,
     backgroundColor: 'transparent',
   },
 

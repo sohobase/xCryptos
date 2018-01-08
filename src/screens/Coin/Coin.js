@@ -97,14 +97,20 @@ class CoinScreen extends Component {
         <LinearGradient colors={GRADIENT} style={[STYLE.LAYOUT_MAIN, styles.container]}>
           <Motion {...MOTION.DEFAULT} delay={100}>
             <Touchable onPress={_onModal}>
-              <View style={[STYLE.CHIP, STYLE.CENTERED, styles.chip]}>
+              <View style={[STYLE.CHIP, STYLE.ROW]}>
                 { coin.hodl > 0 && <Amount value={coin.hodl * coin.price} style={styles.hodl} /> }
-                <Text style={styles.caption}>{coin.hodl > 0 ? `${coin.hodl} ${coin.coin}` : 'Set your holdings'}</Text>
+                <Text style={styles.caption}>{coin.hodl > 0 ? ` ${coin.hodl}${coin.coin}` : 'Set your holdings'}</Text>
               </View>
             </Touchable>
           </Motion>
           <Prices low={low} high={high} price={price} />
-          <Chart dataSource={history} fetching={fetching} onTimeline={_onTimeline} timeline={timeline} onValue={_onValue} />
+          <Chart
+            dataSource={history}
+            fetching={fetching}
+            onTimeline={_onTimeline}
+            timeline={timeline}
+            onValue={_onValue}
+          />
         </LinearGradient>
         <ScrollView style={STYLE.LAYOUT_SECONDARY}>
           <Exchanges coin={coin} dataSource={snapshot.exchanges} />
@@ -130,7 +136,7 @@ const mapStateToProps = ({ favorites, settings, snapshots = {} }, props) => {
   const snapshot = snapshots[coin.coin] || {};
 
   return {
-    coin: favorites.find((favorite) => favorite.coin === coin.coin),
+    coin: favorites.find(favorite => favorite.coin === coin.coin),
     settings,
     snapshot,
   };
