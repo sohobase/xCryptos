@@ -26,16 +26,14 @@ class ListItem extends Component {
   }
 
   _onFocus() {
-    this.props.activeFavorite(this.props.coin);
+    const { props: { activeFavorite, coin, onFocus } } = this;
+    activeFavorite(coin);
+    onFocus();
   }
 
   _onPress() {
     this.props.onPress();
     this._onFocus();
-  }
-
-  _onHodl() {
-    this.setState({ modal: !this.state.modal });
   }
 
   _onRemove() {
@@ -116,6 +114,7 @@ ListItem.propTypes = {
   conversion: number,
   coin: shape(COIN),
   decimal: bool,
+  onFocus: func,
   onPress: func,
   removeFavorite: func,
   value: string,
@@ -127,7 +126,8 @@ ListItem.defaultProps = {
   conversion: 1,
   coin: {},
   decimal: false,
-  onPress: undefined,
+  onFocus() {},
+  onPress() {},
   removeFavorite() {},
   value: '0',
 };

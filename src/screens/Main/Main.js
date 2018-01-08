@@ -92,6 +92,7 @@ class Main extends Component {
         coin={coin}
         decimal={decimal}
         conversion={price}
+        onFocus={() => this.setState({ keyboard: true })}
         onPress={() => navigate('Coin', { coin })}
         value={value}
       />
@@ -109,7 +110,7 @@ class Main extends Component {
 
     return (
       <View style={STYLE.SCREEN}>
-        <LinearGradient colors={THEME.GRADIENT} style={STYLE.LAYOUT_MAIN}>
+        <LinearGradient colors={THEME.GRADIENT} style={keyboard && STYLE.LAYOUT_MAIN}>
           <FlatList
             data={favorites}
             extraData={this.state}
@@ -120,8 +121,7 @@ class Main extends Component {
             renderItem={_renderItem}
           />
         </LinearGradient>
-        { keyboard &&
-          <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} /> }
+        { <VirtualKeyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
       </View>
     );
   }

@@ -53,9 +53,9 @@ export default StyleSheet.create({
     backgroundColor: THEME.WHITE,
     elevation: 16,
     shadowColor: THEME.BLACK,
-    shadowOffset: { height: 16 },
-    shadowOpacity: 0.5,
-    shadowRadius: 8,
+    shadowOffset: { height: -2, width: 0 },
+    shadowOpacity: 0.26,
+    shadowRadius: 5,
     width: '100%',
   },
 

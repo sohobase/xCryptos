@@ -4,6 +4,6 @@ export default StyleSheet.create({
   container: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    backgroundColor: 'white',
+    height: '100%',
   },
 });
