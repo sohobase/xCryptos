@@ -6,7 +6,7 @@ import { STYLE, SHAPE } from '../../../config';
 import styles from './Exchanges.style';
 
 const Exchanges = ({ dataSource = [] }) => (
-  <View style={styles.container}>
+  <View style={[STYLE.CENTERED, styles.container]}>
     { dataSource.map(({ PRICE, MARKET }) => (
       <View key={`${MARKET}${PRICE}`} style={[STYLE.CENTERED, styles.item]}>
         <Amount value={parseFloat(PRICE)} />
