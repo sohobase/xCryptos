@@ -10,14 +10,12 @@ const { MOTION } = THEME;
 const Button = ({
   caption, icon, value, onPress, // eslint-disable-line
 }) => (
-  <Touchable
-    onPress={() => onPress(value)}
-    style={[STYLE.CENTERED, styles.button]}
-    underlayColor="rgba(0,0,0,0.1)"
-  >
-    { icon
-      ? <ButtonIcon icon={icon} onPress={() => onPress(value)} style={styles.icon} />
-      : <Text style={styles.caption}>{caption || value.toString()}</Text> }
+  <Touchable onPress={() => onPress(value)} underlayColor="rgba(0,0,0,0.1)">
+    <View style={[STYLE.CENTERED, styles.button]}>
+      { icon
+        ? <ButtonIcon icon={icon} onPress={() => onPress(value)} style={styles.icon} />
+        : <Text style={styles.caption}>{caption || value.toString()}</Text> }
+    </View>
   </Touchable>
 );
 const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
@@ -64,7 +62,7 @@ class Keyboard extends Component {
         animation={active ? 'bounceInUp' : 'bounceOutDown'}
         style={styles.container}
       >
-        <View style={styles.content}>
+        <View style={[STYLE.CENTERED, styles.content]}>
           { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
           <Button caption="." onPress={_onDecimal} />
           <Button value={0} onPress={_onNumber} />

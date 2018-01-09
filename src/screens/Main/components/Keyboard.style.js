@@ -1,26 +1,31 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
-const { BLACK, WHITE } = THEME;
+const {
+  BLACK, FONT, WHITE, OFFSET,
+} = THEME;
 
 export default StyleSheet.create({
 
   container: {
     backgroundColor: WHITE,
-    bottom: 0,
+    bottom: OFFSET * -1,
     elevation: 10,
     height: '40%',
+    paddingBottom: OFFSET,
     position: 'absolute',
     shadowColor: BLACK,
     shadowOffset: { height: -2, width: 0 },
     shadowOpacity: 0.26,
     shadowRadius: 5,
+    width: '100%',
     zIndex: 1,
   },
 
   content: {
     flexDirection: 'row',
     flexWrap: 'wrap',
+    width: '100%',
     height: '100%',
   },
 
@@ -30,6 +35,6 @@ export default StyleSheet.create({
   },
 
   caption: {
-    fontSize: THEME.FONT.SIZE.EXTRA_LARGE,
+    fontSize: FONT.SIZE.EXTRA_LARGE,
   },
 });

@@ -81,7 +81,6 @@ class Main extends Component {
 
   _renderItem({ item: coin }) {
     const {
-      props: { navigation: { navigate } },
       state: {
         coin: { price } = {}, decimal, value,
       },
@@ -93,7 +92,7 @@ class Main extends Component {
         decimal={decimal}
         conversion={price}
         onFocus={() => this.setState({ keyboard: true })}
-        onPress={() => this.setState({ keyboard: false })}
+        onPress={() => this.setState({ keyboard: false, value: '1' })}
         value={value}
       />
     );
