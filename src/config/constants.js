@@ -1,4 +1,4 @@
-const TIMELINE = '24 HOURS';
+const TIMELINE = '1 HOUR';
 
 export default {
   AFILIATES: {
@@ -46,25 +46,6 @@ export default {
     TOKEN: 'xCryptos-Development',
   },
 
-  EXCHANGES: [
-    'coinbase',
-    'bitfinex',
-    'bitsquare',
-    'bitstamp',
-    'bittrex',
-    'cexio',
-    'gdax',
-    'hitbtc',
-    'kraken',
-    'poloniex',
-    'localbitcoins',
-    'gatecoin',
-    'yobit',
-    'coinfloor',
-    'livecoin',
-    'gemini',
-  ],
-
   NODE_ENV: {
     DEVELOPMENT: 'development',
     PRODUCTION: 'production',
@@ -93,7 +74,7 @@ export default {
     IOS: 'http://sohobase.com',
   },
 
-  TIMELINES: [TIMELINE, '30 DAYS', '3 MONTHS'],
+  TIMELINES: ['1 HOUR', '24 HOURS', '30 DAYS', '3 MONTHS'],
 
   TIMEOUT_SERVICE: 10000,
 };

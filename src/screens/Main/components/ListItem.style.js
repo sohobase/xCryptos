@@ -1,21 +1,29 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
-const { UNIT } = THEME;
+const { OFFSET, UNIT } = THEME;
 const IMAGE_SIZE = UNIT * 3.2;
 
 export default StyleSheet.create({
   container: {
     paddingVertical: UNIT / 2,
-    paddingHorizontal: UNIT,
+    paddingHorizontal: OFFSET,
+    backgroundColor: 'transparent',
   },
 
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
 
-  coin: {
+  info: {
     flex: 1,
+  },
+
+  price: {
+    flex: 0,
+    minWidth: '30%',
+    maxWidth: '50%',
+    alignItems: 'flex-end',
   },
 
   symbol: {
@@ -38,19 +46,13 @@ export default StyleSheet.create({
     opacity: 0.75,
   },
 
-  values: {
-    flex: 0,
-    minWidth: '30%',
-    alignItems: 'flex-end',
-  },
-
   value: {
     color: THEME.WHITE,
     fontSize: THEME.FONT.SIZE.LARGE,
   },
 
   thumb: {
-    padding: UNIT / 2,
+    marginVertical: UNIT / 2,
     marginRight: UNIT,
   },
 

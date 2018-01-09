@@ -5,9 +5,10 @@ const {
   CURRENCY: { USD }, EXCHANGES, SERVICE: { CURRENCIES: { API, MIN_API } }, TIMELINES,
 } = C;
 const TIMELINE_SERVICE = [
-  { timeline: TIMELINES[0], endpoint: 'histohour', limit: 30 },
-  { timeline: TIMELINES[1], endpoint: 'histoday', limit: 30 },
-  { timeline: TIMELINES[2], endpoint: 'histoday', limit: 90 },
+  { timeline: TIMELINES[0], endpoint: 'histominute', limit: 60 },
+  { timeline: TIMELINES[1], endpoint: 'histohour', limit: 30 },
+  { timeline: TIMELINES[2], endpoint: 'histoday', limit: 30 },
+  { timeline: TIMELINES[3], endpoint: 'histoday', limit: 90 },
 ];
 
 export default {
@@ -41,19 +42,16 @@ export default {
     const url = `${API}/coinsnapshot/?fsym=${coin.toUpperCase()}&tsym=${currency}`;
     const response = await fetch(url);
     if (!response) return undefined;
-    const { Data: { AggregatedData = {}, Exchanges = [] } } = response;
+    const { Data: { AggregatedData: data = {} } } = response;
 
     return {
-      price: AggregatedData.PRICE,
-      lastUpdate: AggregatedData.LASTUPDATE,
-      lastVolume: AggregatedData.LASTVOLUMETO,
-      volume: AggregatedData.VOLUME24HOURTO,
-      open: AggregatedData.OPEN24HOUR,
-      high: AggregatedData.HIGH24HOUR,
-      low: AggregatedData.LOW24HOUR,
-      exchanges: Exchanges
-        .filter(({ MARKET }) => EXCHANGES.includes(MARKET.toLowerCase()))
-        .sort((a, b) => (a.PRICE > b.PRICE ? 0 : -1)),
+      price: data.PRICE,
+      lastUpdate: data.LASTUPDATE,
+      lastVolume: data.LASTVOLUMETO,
+      volume: data.VOLUME24HOURTO,
+      open: data.OPEN24HOUR,
+      high: data.HIGH24HOUR,
+      low: data.LOW24HOUR,
     };
   },
 

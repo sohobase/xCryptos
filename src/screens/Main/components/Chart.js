@@ -9,27 +9,22 @@ import ChipPrice from './ChipPrice';
 
 const { TIMELINES } = C;
 const { MOTION, COLOR } = THEME;
-const { HISTORY } = SHAPE;
 
 const Option = ({
   active, caption, onPress, // eslint-disable-line
 }) => (
   <Touchable onPress={onPress}>
-    <Motion
-      {...MOTION.DEFAULT}
-      delay={400}
-      style={[STYLE.CHIP, STYLE.ROW, styles.option, (active && styles.active)]}
-    >
+    <View style={[STYLE.CHIP, STYLE.ROW, styles.option, (active && styles.active)]}>
       <Text style={[styles.caption, (active && styles.captionActive)]}>{caption}</Text>
-    </Motion>
+    </View>
   </Touchable>
 );
 
 const Chart = ({
-  fetching, dataSource = [], onTimeline, price, timeline,
+  coin: { price }, fetching, dataSource = [], onTimeline, timeline,
 }) => {
-  const max = Math.max.apply(null, dataSource.map(({ value }) => value));
-  const min = Math.min.apply(null, dataSource.map(({ value }) => value));
+  const max = fetching ? 0 : Math.max.apply(null, dataSource.map(({ value }) => value));
+  const min = fetching ? 0 : Math.min.apply(null, dataSource.map(({ value }) => value));
   const diff = max - min;
 
   return (
@@ -45,12 +40,15 @@ const Chart = ({
             let color = COLOR.CHART;
             if (value === min) color = COLOR.LOW;
             if (value === max) color = COLOR.HIGH;
+            const key = `${timeline}-${new Date()}-${index}`;
+            const height = fetching ? 0 : ((value - min) * 100) / diff;
 
             return (
-              <TouchableOpacity key={`${timeline}-${index}`} style={styles.bar}>
+              <TouchableOpacity key={key} style={styles.bar}>
                 <Motion
                   {...MOTION.DEFAULT}
-                  style={[styles.value, { height: `${((value - min) * 100) / diff}%`, backgroundColor: color }]}
+                  delay={index * 5}
+                  style={[styles.value, { height: `${height}%`, backgroundColor: color }]}
                 />
               </TouchableOpacity>
             );
@@ -60,7 +58,11 @@ const Chart = ({
       <View style={STYLE.ROW}>
         {
           TIMELINES.map(key => (
-            <Option active={key === timeline} caption={key} key={key} onPress={() => !fetching && onTimeline(key)} />
+            <Option
+              active={key === timeline}
+              caption={key}
+              key={key}
+              onPress={() => !fetching && onTimeline(key)} />
           ))
         }
       </View>
@@ -69,18 +71,18 @@ const Chart = ({
 };
 
 Chart.propTypes = {
+  coin: shape(SHAPE.COIN),
   fetching: bool,
-  dataSource: arrayOf(shape(HISTORY)),
+  dataSource: arrayOf(shape(SHAPE.HISTORY)),
   onTimeline: func,
-  price: number,
   timeline: string,
 };
 
 Chart.defaultProps = {
+  coin: undefined,
   fetching: false,
   dataSource: [],
   onTimeline() {},
-  price: undefined,
   timeline: undefined,
 };
 

@@ -1,9 +1,13 @@
 import Hodl from './Hodl';
-import ListItem from './ListItem';
+import Info from './Info';
 import Keyboard from './Keyboard';
+import ListItem from './ListItem';
+import ModalHodl from './ModalHodl';
 
 export {
   Hodl,
-  ListItem,
+  Info,
   Keyboard,
+  ListItem,
+  ModalHodl,
 };

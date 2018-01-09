@@ -31,7 +31,7 @@ export default {
     LOW: '#F44336',
   },
 
-  GRADIENT: [PRIMARY, PRIMARY_DARK],
+  GRADIENT: [PRIMARY, PRIMARY, PRIMARY_DARK],
 
   TRANSPARENT: 'transparent',
   BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.15)',
@@ -56,6 +56,4 @@ export default {
   // -- Sizes
   UNIT,
   OFFSET: UNIT * 1.6,
-  MAIN_LAYOUT_HEIGHT: '60%',
-  SECOND_LAYOUT_HEIGHT: '40%',
 };

@@ -35,30 +35,6 @@ export default StyleSheet.create({
     tintColor: 'rgba(0,0,0,0.5)',
   },
 
-  LAYOUT_MAIN: {
-    flex: 1,
-    height: THEME.MAIN_LAYOUT_HEIGHT,
-    minHeight: THEME.MAIN_LAYOUT_HEIGHT,
-    maxHeight: THEME.MAIN_LAYOUT_HEIGHT,
-    backgroundColor: THEME.PRIMARY,
-    width: '100%',
-  },
-
-  LAYOUT_SECONDARY: {
-    zIndex: 1,
-    flex: 0,
-    height: THEME.SECOND_LAYOUT_HEIGHT,
-    minHeight: THEME.SECOND_LAYOUT_HEIGHT,
-    maxHeight: THEME.SECOND_LAYOUT_HEIGHT,
-    backgroundColor: THEME.WHITE,
-    elevation: 16,
-    shadowColor: THEME.BLACK,
-    shadowOffset: { height: -2, width: 0 },
-    shadowOpacity: 0.26,
-    shadowRadius: 5,
-    width: '100%',
-  },
-
   LIST_ITEM: {
     backgroundColor: THEME.WHITE,
     borderBottomColor: THEME.BACKGROUND_DARK_HIGHLIGHT,

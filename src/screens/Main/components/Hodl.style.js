@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
-const { UNIT, OFFSET } = THEME;
+const { FONT, UNIT, OFFSET, WHITE } = THEME;
 
 export default StyleSheet.create({
   container: {
@@ -15,7 +15,8 @@ export default StyleSheet.create({
   },
 
   amount: {
-    color: THEME.WHITE,
-    fontSize: THEME.FONT.SIZE.LARGE,
+    color: WHITE,
+    fontSize: FONT.SIZE.LARGE,
+    fontWeight: FONT.WEIGHT.BOLD,
   },
 });

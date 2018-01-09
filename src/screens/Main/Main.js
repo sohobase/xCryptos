@@ -2,12 +2,12 @@ import { arrayOf, func, string, shape } from 'prop-types';
 import { LinearGradient, Notifications } from 'expo';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState, FlatList, RefreshControl, View } from 'react-native';
+import { AppState, FlatList, RefreshControl } from 'react-native';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
-import { Hodl, ListItem, VirtualKeyboard } from './components';
+import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
 
 const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
@@ -24,8 +24,8 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeCoin: undefined,
-      keyboard: true,
+      coin: undefined,
+      keyboard: false,
       decimal: false,
       prefetch: false,
       refreshing: false,
@@ -50,7 +50,7 @@ class Main extends Component {
 
   componentWillReceiveProps({ favorites = [] }) {
     this.setState({
-      activeCoin: favorites.find(({ active }) => active),
+      coin: favorites.find(({ active }) => active),
     });
   }
 
@@ -83,7 +83,7 @@ class Main extends Component {
     const {
       props: { navigation: { navigate } },
       state: {
-        activeCoin: { price } = {}, decimal, value,
+        coin: { price } = {}, decimal, value,
       },
     } = this;
 
@@ -93,7 +93,7 @@ class Main extends Component {
         decimal={decimal}
         conversion={price}
         onFocus={() => this.setState({ keyboard: true })}
-        onPress={() => navigate('Coin', { coin })}
+        onPress={() => this.setState({ keyboard: false })}
         value={value}
       />
     );
@@ -102,27 +102,27 @@ class Main extends Component {
   render() {
     const {
       _fetch, _onChangeValue, _onScroll, _renderItem,
-      props: { favorites = [] },
+      props: { favorites = [], navigation },
       state: {
-        decimal, keyboard, prefetch, refreshing, value,
+        coin, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
 
     return (
-      <View style={STYLE.SCREEN}>
-        <LinearGradient colors={THEME.GRADIENT} style={keyboard && STYLE.LAYOUT_MAIN}>
-          <FlatList
-            data={favorites}
-            extraData={this.state}
-            keyExtractor={item => item.coin}
-            onScroll={_onScroll}
-            refreshControl={
-              <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-            renderItem={_renderItem}
-          />
-        </LinearGradient>
-        { <VirtualKeyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
-      </View>
+      <LinearGradient colors={THEME.GRADIENT} style={STYLE.SCREEN}>
+        <FlatList
+          data={favorites}
+          extraData={this.state}
+          keyExtractor={item => item.coin}
+          onScroll={_onScroll}
+          refreshControl={
+            <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+          renderItem={_renderItem}
+          style={styles.list}
+        />
+        { coin && <Info coin={coin} navigation={navigation} /> }
+        { <Keyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
+      </LinearGradient>
     );
   }
 }
