@@ -9,7 +9,6 @@ import { formatCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
 const { ALERT, COIN } = SHAPE;
-const { EN: { HINT_SET_HODL } } = TEXT;
 const { TRANSPARENT } = THEME;
 
 class ListItem extends Component {
@@ -56,7 +55,6 @@ class ListItem extends Component {
             <View style={styles.coin}>
               <Text style={styles.symbol}>{coin.coin}</Text>
               { hodl > 0 && <Amount style={styles.text} value={total} /> }
-              { hodl === 0 && active && <Text style={[styles.text, styles.hint]}>{HINT_SET_HODL}</Text> }
             </View>
           </View>
         </TouchableWithoutFeedback>
