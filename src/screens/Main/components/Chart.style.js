@@ -11,6 +11,10 @@ export default StyleSheet.create({
     margin: OFFSET,
   },
 
+  prices: {
+    minHeight: UNIT * 2.6,
+  },
+
   space: {
     flex: 1,
   },

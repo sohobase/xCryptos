@@ -4,7 +4,6 @@ import { THEME } from '../../../config';
 const {
   CONTRAST, WHITE, FONT, UNIT, OFFSET,
 } = THEME;
-const IMAGE_SIZE = UNIT * 3.2;
 
 export default StyleSheet.create({
   container: {
@@ -17,19 +16,6 @@ export default StyleSheet.create({
   coin: {
     flex: 1,
     paddingHorizontal: OFFSET,
-  },
-
-  image: {
-    width: IMAGE_SIZE,
-    height: IMAGE_SIZE,
-    borderRadius: IMAGE_SIZE / 2,
-  },
-
-  imageWrap: {
-    backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
-    width: IMAGE_SIZE * 1.2,
-    height: IMAGE_SIZE * 1.2,
-    borderRadius: (IMAGE_SIZE * 1.2) / 2,
   },
 
   text: {

@@ -29,10 +29,10 @@ class Info extends Component {
     const { props: { coin: { coin: previousCoin }, settings: { currency }, snapshots } } = this;
 
     if (previousCoin !== coin) {
-      this.setState({ fetching: true, history: undefined, timeline: TIMELINE });
+      this.setState({ fetching: false, history: undefined, timeline: TIMELINE });
       const history = await ServiceCoins.history(coin, TIMELINE, currency);
       if (history) snapshots({ history }, coin);
-      this.setState({ fetching: false, history });
+      this.setState({ history });
     }
   }
 

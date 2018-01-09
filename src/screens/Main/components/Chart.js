@@ -29,7 +29,7 @@ const Chart = ({
 
   return (
     <View style={styles.container}>
-      <View style={STYLE.ROW}>
+      <View style={[STYLE.ROW, styles.prices]}>
         <ChipPrice price={price} icon="down" value={min} />
         <View style={styles.space} />
         <ChipPrice price={price} icon="up" value={max} />
