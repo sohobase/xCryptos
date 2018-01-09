@@ -2,7 +2,6 @@ import { StackNavigator } from 'react-navigation';
 import {
   AlertsScreen,
   CoinsScreen,
-  CoinScreen,
   MainScreen,
   SettingsScreen,
 } from './screens';
@@ -23,7 +22,6 @@ const stackOptions = {
 const App = StackNavigator(
   {
     Main: { screen: MainScreen, navigationOptions },
-    Coin: { screen: CoinScreen, navigationOptions },
     Coins: { screen: CoinsScreen, navigationOptions },
     Settings: { screen: SettingsScreen, navigationOptions },
     Alerts: { screen: AlertsScreen, navigationOptions },
