@@ -1,9 +1,9 @@
 import Hodl from './Hodl';
 import ListItem from './ListItem';
-import VirtualKeyboard from './VirtualKeyboard';
+import Keyboard from './Keyboard';
 
 export {
   Hodl,
   ListItem,
-  VirtualKeyboard,
+  Keyboard,
 };

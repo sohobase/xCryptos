@@ -1,15 +1,28 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
-import { View } from 'react-native';
+import { Text, View } from 'react-native';
 import { View as Motion } from 'react-native-animatable';
+import { ButtonIcon, Touchable } from '../../../components';
 import { STYLE, THEME } from '../../../config';
-import VirtualButton from './VirtualButton';
-import styles from './VirtualKeyboard.style';
+import styles from './Keyboard.style';
 
 const { MOTION } = THEME;
+const Button = ({
+  caption, icon, value, onPress, // eslint-disable-line
+}) => (
+  <Touchable
+    onPress={() => onPress(value)}
+    style={[STYLE.CENTERED, styles.button]}
+    underlayColor="rgba(0,0,0,0.1)"
+  >
+    { icon
+      ? <ButtonIcon icon={icon} onPress={() => onPress(value)} style={styles.icon} />
+      : <Text style={styles.caption}>{caption || value.toString()}</Text> }
+  </Touchable>
+);
 const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 
-class VirtualKeyboard extends Component {
+class Keyboard extends Component {
   constructor(props) {
     super(props);
     this._onDelete = this._onDelete.bind(this);
@@ -49,31 +62,31 @@ class VirtualKeyboard extends Component {
       <Motion
         {...MOTION.DEFAULT}
         animation={active ? 'bounceInUp' : 'bounceOutDown'}
-        style={STYLE.LAYOUT_SECONDARY}
+        style={styles.container}
       >
-        <View style={styles.container}>
-          { NUMBERS.map(num => <VirtualButton key={num} value={num} onPress={_onNumber} />) }
-          <VirtualButton caption="." onPress={_onDecimal} />
-          <VirtualButton value={0} onPress={_onNumber} />
-          <VirtualButton icon="back" onPress={_onDelete} />
+        <View style={styles.content}>
+          { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
+          <Button caption="." onPress={_onDecimal} />
+          <Button value={0} onPress={_onNumber} />
+          <Button icon="back" onPress={_onDelete} />
         </View>
       </Motion>
     );
   }
 }
 
-VirtualKeyboard.propTypes = {
+Keyboard.propTypes = {
   active: bool,
   decimal: bool,
   onChange: func,
   value: string,
 };
 
-VirtualKeyboard.defaultProps = {
+Keyboard.defaultProps = {
   active: true,
   decimal: false,
   onChange() {},
   value: 0,
 };
 
-export default VirtualKeyboard;
+export default Keyboard;
