@@ -14,7 +14,7 @@ const Amount = ({
   <View style={STYLE.ROW}>
     { symbol && value > 0 && <Text style={style}>+</Text> }
     { !symbol && currency === USD && <Text style={[style, styles.symbol]}>{SYMBOL.USD}</Text> }
-    <Text style={style}>{formatCurrency(value)}</Text>
+    <Text style={style}>{symbol !== '%' ? formatCurrency(value) : value}</Text>
     { (symbol || currency !== USD) && <Text style={[style, styles.symbol]}>{symbol || SYMBOL[currency]}</Text> }
   </View>
 );
