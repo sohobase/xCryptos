@@ -82,7 +82,7 @@ class Info extends Component {
             { coin.hodl && <Text style={[styles.text, styles.hodl]}>{`${coin.hodl} ${coin.coin}`}</Text> }
           </View>
           <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} style={styles.button} />
-          <ButtonIcon icon="settings" onPress={_onModal} style={styles.button} />
+          <ButtonIcon icon="wallet" onPress={_onModal} style={styles.button} />
         </View>
         <Chart coin={coin} dataSource={history} fetching={fetching} onTimeline={_onTimeline} timeline={timeline} />
         <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
