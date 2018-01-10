@@ -14,7 +14,6 @@ const ChipPrice = ({
   <Motion
     {...MOTION.DEFAULT}
     animation={value > 0 ? 'bounceIn' : 'bounceOut'}
-    delay={value > 0 ? 200 : 0}
     style={[STYLE.CHIP, styles[context]]}
   >
     { value > 0 &&
