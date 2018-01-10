@@ -115,7 +115,7 @@ class Main extends Component {
           style={styles.list}
         />
         { coin && <Info coin={coin} navigation={navigation} /> }
-        { <Keyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
+        { coin && <Keyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
       </LinearGradient>
     );
   }

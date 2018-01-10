@@ -48,13 +48,6 @@ export const updateSettingsAction = settings => ({
   settings,
 });
 
-export const SNAPSHOTS = '@xCryptos/SNAPSHOTS';
-export const snapshotsAction = (data, coin) => ({
-  type: SNAPSHOTS,
-  data,
-  coin,
-});
-
 export const ADD_TOKEN = '@xCryptos/ADD_TOKEN';
 export const addTokenAction = token => ({
   type: ADD_TOKEN,

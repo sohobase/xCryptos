@@ -1,4 +1,4 @@
-import { arrayOf, bool, func, number, shape, string } from 'prop-types';
+import { arrayOf, bool, func, shape, string } from 'prop-types';
 import React from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { View as Motion } from 'react-native-animatable';
@@ -26,7 +26,7 @@ const Chart = ({
   let max = 0;
   let min = 0;
   let trend;
-  if (!fetching) {
+  if (!fetching && dataSource.length > 0) {
     max = Math.max.apply(null, dataSource.map(({ value }) => value));
     min = Math.min.apply(null, dataSource.map(({ value }) => value));
     trend = (dataSource.find(({ value }) => value === max || value === min)).value === max;

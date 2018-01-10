@@ -8,7 +8,6 @@ import {
   SAVE_ALERTS,
   SAVE_COINS,
   UPDATE_SETTINGS,
-  SNAPSHOTS,
   UPDATE_PRICES,
 } from './actions';
 import { C } from './config';
@@ -20,7 +19,6 @@ const initialState = {
   coins: [],
   favorites: FAVORITES,
   settings: SETTINGS,
-  snapshots: {},
   token: '',
 };
 
@@ -90,16 +88,6 @@ export default function crypto(state = initialState, action) {
       return {
         ...state,
         settings: { ...settings, ...action.settings },
-      };
-    }
-
-    // -- Snapshots
-    case SNAPSHOTS: {
-      const { snapshots = {} } = state;
-      const { data, coin } = action;
-      return {
-        ...state,
-        snapshots: { ...snapshots, [coin]: data },
       };
     }
 

@@ -21,19 +21,34 @@ class Info extends Component {
       modal: false,
       timeline: TIMELINE,
     };
+    this._fetch = this._fetch.bind(this);
     this._onModal = this._onModal.bind(this);
     this._onTimeline = this._onTimeline.bind(this);
   }
 
-  async componentWillReceiveProps({ coin: { coin } }) {
-    const { props: { coin: { coin: previousCoin }, settings: { currency }, snapshots } } = this;
+  componentWillMount() {
+    const { _fetch, props: { coin: { coin } } } = this;
+    _fetch(coin, TIMELINE);
+  }
 
-    if (previousCoin !== coin) {
-      this.setState({ fetching: false, history: undefined, timeline: TIMELINE });
-      const history = await ServiceCoins.history(coin, TIMELINE, currency);
-      if (history) snapshots({ history }, coin);
-      this.setState({ history });
-    }
+  componentWillReceiveProps({ coin: { coin } }) {
+    const {
+      _fetch,
+      props: { coin: { coin: previousCoin } },
+      state: { timeline },
+    } = this;
+
+    if (previousCoin !== coin) _fetch(coin, timeline);
+  }
+
+  async _fetch(coin, timeline) {
+    const { props: { settings: { currency } } } = this;
+
+    this.setState({ fetching: true, timeline });
+    this.setState({
+      fetching: false,
+      history: await ServiceCoins.history(coin, timeline, currency),
+    });
   }
 
   _onModal() {
@@ -53,9 +68,9 @@ class Info extends Component {
   render() {
     const {
       _onModal, _onTimeline,
-      props: { coin, navigation: { navigate }, snapshot },
+      props: { coin, navigation: { navigate } },
       state: {
-        fetching, history = snapshot.history || [], modal, timeline,
+        fetching, history = [], modal, timeline,
       },
     } = this;
 
@@ -79,21 +94,14 @@ class Info extends Component {
 Info.propTypes = {
   coin: shape(SHAPE.COIN),
   navigation: shape(SHAPE.NAVIGATION).isRequired,
-  snapshot: shape(SHAPE.SNAPSHOT),
 };
 
 Info.defaultProps = {
   coin: {},
-  snapshot: {},
 };
 
-const mapStateToProps = ({ settings, snapshots = {} }, { coin: { coin } = {} }) => ({
+const mapStateToProps = ({ settings }) => ({
   settings,
-  snapshot: snapshots[coin] || {},
 });
 
-const mapDispatchToProps = dispatch => ({
-  snapshots: (data, coin) => data && coin && dispatch(snapshotsAction(data, coin)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(Info);
+export default connect(mapStateToProps)(Info);
