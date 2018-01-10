@@ -84,15 +84,11 @@ class ModalAlert extends Component {
     onClose();
   }
 
-  renderFieldset() {
-
-  }
-
   render() {
     const {
       _onChange, _onSubmit,
       props: {
-        alert, coin: { coin, price }, onClose, visible,
+        alert, coin: { price }, onClose, visible,
       },
       state: {
         item: { low, high } = alert || {}, refreshing,
@@ -101,7 +97,7 @@ class ModalAlert extends Component {
     const invalid = !alert && (!low || !high || low > price || high < price);
 
     return (
-      <Modal title={`${!alert ? 'New' : ''} ${coin} Alert`} onClose={onClose} visible={visible}>
+      <Modal title={!alert ? 'New Alert' : 'Alert'} onClose={onClose} visible={visible}>
         <View style={[STYLE.CENTERED, STYLE.LIST_ITEM, styles.content]}>
           <Amount style={styles.price} value={price} />
         </View>

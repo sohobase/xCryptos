@@ -34,7 +34,6 @@ class Main extends Component {
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
-    this._onScroll = this._onScroll.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
 
@@ -69,10 +68,6 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
-  _onScroll() {
-    this.setState({ keyboard: false });
-  }
-
   _renderItem({ item }) {
     const {
       state: {
@@ -95,7 +90,7 @@ class Main extends Component {
 
   render() {
     const {
-      _fetch, _onChangeValue, _onScroll, _renderItem,
+      _fetch, _onChangeValue, _renderItem,
       props: { favorites = [], navigation },
       state: {
         coin, decimal, keyboard, prefetch, refreshing, value,
@@ -108,14 +103,13 @@ class Main extends Component {
           data={favorites}
           extraData={this.state}
           keyExtractor={item => item.coin}
-          onScroll={_onScroll}
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={_renderItem}
           style={styles.list}
         />
         { coin && <Info coin={coin} navigation={navigation} /> }
-        { coin && <Keyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} /> }
+        <Keyboard active={keyboard} decimal={decimal} onChange={_onChangeValue} value={value} />
       </LinearGradient>
     );
   }

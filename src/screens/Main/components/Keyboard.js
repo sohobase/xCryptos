@@ -23,9 +23,16 @@ const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 class Keyboard extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      loaded: false,
+    };
     this._onDelete = this._onDelete.bind(this);
     this._onDecimal = this._onDecimal.bind(this);
     this._onNumber = this._onNumber.bind(this);
+  }
+
+  componentWillReceiveProps({ active }) {
+    if (active) this.setState({ loaded: true });
   }
 
   _onNumber(digit) {
@@ -54,20 +61,22 @@ class Keyboard extends Component {
     const {
       _onDecimal, _onDelete, _onNumber,
       props: { active },
+      state: { loaded },
     } = this;
 
     return (
       <Motion
         {...MOTION.DEFAULT}
         animation={active ? 'bounceInUp' : 'bounceOutDown'}
-        style={styles.container}
+        style={loaded ? styles.container : undefined}
       >
-        <View style={[STYLE.CENTERED, styles.content]}>
-          { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
-          <Button caption="." onPress={_onDecimal} />
-          <Button value={0} onPress={_onNumber} />
-          <Button icon="back" onPress={_onDelete} />
-        </View>
+        { loaded &&
+          <View style={[STYLE.CENTERED, styles.content]}>
+            { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
+            <Button caption="." onPress={_onDecimal} />
+            <Button value={0} onPress={_onNumber} />
+            <Button icon="back" onPress={_onDelete} />
+          </View> }
       </Motion>
     );
   }
