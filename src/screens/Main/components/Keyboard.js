@@ -1,6 +1,6 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
-import { Text, View } from 'react-native';
+import { BackHandler, Text, View } from 'react-native';
 import { View as Motion } from 'react-native-animatable';
 import { ButtonIcon, Touchable } from '../../../components';
 import { STYLE, THEME } from '../../../config';
@@ -31,8 +31,14 @@ class Keyboard extends Component {
     this._onNumber = this._onNumber.bind(this);
   }
 
-  componentWillReceiveProps({ active }) {
-    if (active) this.setState({ loaded: true });
+  componentWillReceiveProps({ visible }) {
+    const { props: { onClose } } = this;
+
+    if (visible) this.setState({ loaded: true });
+    BackHandler[visible ? 'addEventListener' : 'removeEventListener']('hardwareBackPress', () => {
+      onClose();
+      return true;
+    });
   }
 
   _onNumber(digit) {
@@ -60,14 +66,14 @@ class Keyboard extends Component {
   render() {
     const {
       _onDecimal, _onDelete, _onNumber,
-      props: { active },
+      props: { visible },
       state: { loaded },
     } = this;
 
     return (
       <Motion
         {...MOTION.DEFAULT}
-        animation={active ? 'bounceInUp' : 'bounceOutDown'}
+        animation={visible ? 'bounceInUp' : 'bounceOutDown'}
         style={loaded ? styles.container : undefined}
       >
         { loaded &&
@@ -83,16 +89,18 @@ class Keyboard extends Component {
 }
 
 Keyboard.propTypes = {
-  active: bool,
+  visible: bool,
   decimal: bool,
   onChange: func,
+  onClose: func,
   value: string,
 };
 
 Keyboard.defaultProps = {
-  active: true,
+  visible: true,
   decimal: false,
   onChange() {},
+  onClose() {},
   value: 0,
 };
 
