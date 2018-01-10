@@ -29,7 +29,7 @@ const Fieldset = ({
         <Amount style={styles.input} value={value} />
       :
         <Input
-          autoFocus
+          autoFocus={label === 'low'}
           defaultValue={value ? value.toString() : undefined}
           style={[styles.input, right && styles.inputRight]}
           onChangeText={newValue => onChange(label, newValue)}
