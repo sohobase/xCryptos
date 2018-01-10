@@ -9,37 +9,38 @@ import styles from './ChipPrice.style';
 const { MOTION } = THEME;
 
 const ChipPrice = ({
-  icon, price, value,
+  context, price, value,
 }) => (
   <Motion
     {...MOTION.DEFAULT}
     animation={value > 0 ? 'bounceIn' : 'bounceOut'}
     delay={value > 0 ? 200 : 0}
-    style={[STYLE.CHIP, styles[icon]]}
+    style={[STYLE.CHIP, styles[context]]}
   >
     { value > 0 &&
       <View style={STYLE.ROW}>
         <View style={styles.margin}>
           <Amount style={styles.value} value={value} />
         </View>
-        <Amount
-          style={styles.label}
-          value={parseInt(((value * 100) / price) - 100, 10)}
-          symbol="%"
-        />
+        { price &&
+          <Amount
+            style={styles.label}
+            value={parseInt(((value * 100) / price) - 100, 10)}
+            symbol="%"
+          /> }
       </View> }
   </Motion>
 );
 
 ChipPrice.propTypes = {
-  icon: string,
+  context: string,
   price: number,
   value: number,
 };
 
 ChipPrice.defaultProps = {
-  icon: undefined,
-  price: number,
+  context: undefined,
+  price: undefined,
   value: 0,
 };
 

@@ -6,7 +6,7 @@ const {
 } = THEME;
 
 export default StyleSheet.create({
-  down: {
+  low: {
     backgroundColor: COLOR.LOW,
   },
 
@@ -19,7 +19,7 @@ export default StyleSheet.create({
     fontSize: FONT.SIZE.SMALL,
   },
 
-  up: {
+  high: {
     backgroundColor: COLOR.HIGH,
   },
 

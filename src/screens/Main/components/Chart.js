@@ -30,9 +30,11 @@ const Chart = ({
   return (
     <View style={styles.container}>
       <View style={[STYLE.ROW, styles.prices]}>
-        <ChipPrice price={price} icon="down" value={min} />
-        <View style={styles.space} />
-        <ChipPrice price={price} icon="up" value={max} />
+        <ChipPrice price={price} value={min} context="low" />
+        <View style={[STYLE.CENTERED, styles.space]}>
+          <ChipPrice value={price} />
+        </View>
+        <ChipPrice price={price} value={max} context="high" />
       </View>
       <View style={[STYLE.ROW, styles.bars]}>
         {
