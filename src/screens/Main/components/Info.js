@@ -1,10 +1,10 @@
+import { LinearGradient } from 'expo';
 import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { snapshotsAction } from '../../../actions';
 import { ButtonIcon } from '../../../components';
-import { C, SHAPE, STYLE } from '../../../config';
+import { C, SHAPE, STYLE, THEME } from '../../../config';
 import { ServiceCoins } from '../../../services';
 import Chart from './Chart';
 import ModalHodl from './ModalHodl';
@@ -75,7 +75,7 @@ class Info extends Component {
     } = this;
 
     return (
-      <View style={styles.container}>
+      <LinearGradient colors={THEME.GRADIENT_INFO} style={styles.container}>
         <View style={[STYLE.ROW, styles.header]}>
           <View style={styles.coin}>
             <Text style={[styles.text, styles.name]}>{coin.name}</Text>
@@ -86,7 +86,7 @@ class Info extends Component {
         </View>
         <Chart coin={coin} dataSource={history} fetching={fetching} onTimeline={_onTimeline} timeline={timeline} />
         <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
-      </View>
+      </LinearGradient>
     );
   }
 }

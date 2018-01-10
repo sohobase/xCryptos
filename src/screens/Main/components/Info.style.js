@@ -2,14 +2,18 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
-  CONTRAST, WHITE, FONT, UNIT, OFFSET,
+  CONTRAST, PRIMARY, WHITE, FONT, UNIT, OFFSET,
 } = THEME;
 
 export default StyleSheet.create({
   container: {
     flex: 0,
     width: '100%',
-    marginVertical: UNIT,
+    paddingVertical: UNIT,
+    shadowColor: PRIMARY,
+    shadowOffset: { height: UNIT * -1, width: 0 },
+    shadowOpacity: 1,
+    shadowRadius: UNIT / 2,
   },
 
   coin: {

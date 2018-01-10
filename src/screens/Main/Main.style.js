@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../config';
 
-const { WHITE, BLACK } = THEME;
+const { PRIMARY, OFFSET } = THEME;
 
 export default StyleSheet.create({
   icon: {
@@ -11,5 +11,10 @@ export default StyleSheet.create({
   list: {
     flex: 1,
     width: '100%',
+  },
+
+  short: {
+    backgroundColor: PRIMARY,
+    paddingBottom: OFFSET,
   },
 });

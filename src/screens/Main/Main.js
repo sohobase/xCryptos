@@ -1,5 +1,5 @@
-import { arrayOf, func, string, shape } from 'prop-types';
 import { LinearGradient, Notifications } from 'expo';
+import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, FlatList, RefreshControl } from 'react-native';
@@ -98,7 +98,7 @@ class Main extends Component {
     } = this;
 
     return (
-      <LinearGradient colors={THEME.GRADIENT} style={STYLE.SCREEN}>
+      <LinearGradient colors={coin ? [] : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
         <FlatList
           data={favorites}
           extraData={this.state}
@@ -106,7 +106,7 @@ class Main extends Component {
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={_renderItem}
-          style={styles.list}
+          style={[styles.list, coin && styles.short]}
         />
         { coin && <Info coin={coin} navigation={navigation} /> }
         <Keyboard
