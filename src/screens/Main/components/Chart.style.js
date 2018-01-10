@@ -15,14 +15,19 @@ export default StyleSheet.create({
     minHeight: UNIT * 2.6,
   },
 
+  reverse: {
+    flexDirection: 'row-reverse',
+  },
+
   space: {
     flex: 1,
   },
 
   bars: {
-    height: UNIT * 9.6,
+    height: UNIT * 10.4,
     width: '100%',
-    marginVertical: UNIT,
+    marginTop: OFFSET,
+    marginBottom: UNIT / 2,
   },
 
   bar: {

@@ -8,7 +8,6 @@ const {
 export default StyleSheet.create({
   container: {
     flex: 0,
-    minHeight: '25%',
     width: '100%',
     marginVertical: UNIT,
   },

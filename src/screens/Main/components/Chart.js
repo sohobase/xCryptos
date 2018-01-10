@@ -21,15 +21,21 @@ const Option = ({
 );
 
 const Chart = ({
-  coin: { price }, fetching, dataSource = [], onTimeline, timeline,
+  coin: { price }, fetching, dataSource = [], onTimeline, onValue, timeline,
 }) => {
-  const max = fetching ? 0 : Math.max.apply(null, dataSource.map(({ value }) => value));
-  const min = fetching ? 0 : Math.min.apply(null, dataSource.map(({ value }) => value));
+  let max = 0;
+  let min = 0;
+  let trend;
+  if (!fetching) {
+    max = Math.max.apply(null, dataSource.map(({ value }) => value));
+    min = Math.min.apply(null, dataSource.map(({ value }) => value));
+    trend = (dataSource.find(({ value }) => value === max || value === min)).value === max;
+  }
   const diff = max - min;
 
   return (
     <View style={styles.container}>
-      <View style={[STYLE.ROW, styles.prices]}>
+      <View style={[STYLE.ROW, styles.prices, trend && styles.reverse]}>
         <ChipPrice price={price} value={min} context="low" />
         <View style={[STYLE.CENTERED, styles.space]}>
           <ChipPrice value={price} />
@@ -46,7 +52,7 @@ const Chart = ({
             const height = fetching ? 0 : ((value - min) * 100) / diff;
 
             return (
-              <TouchableOpacity key={key} style={styles.bar}>
+              <TouchableOpacity key={key} onPressIn={() => onValue(value)} onPressOut={onValue} style={styles.bar}>
                 <Motion
                   {...MOTION.DEFAULT}
                   delay={index * 5}
@@ -64,7 +70,8 @@ const Chart = ({
               active={key === timeline}
               caption={key}
               key={key}
-              onPress={() => !fetching && onTimeline(key)} />
+              onPress={() => !fetching && onTimeline(key)}
+            />
           ))
         }
       </View>
@@ -77,6 +84,7 @@ Chart.propTypes = {
   fetching: bool,
   dataSource: arrayOf(shape(SHAPE.HISTORY)),
   onTimeline: func,
+  onValue: func,
   timeline: string,
 };
 
@@ -85,6 +93,7 @@ Chart.defaultProps = {
   fetching: false,
   dataSource: [],
   onTimeline() {},
+  onValue() {},
   timeline: undefined,
 };
 
