@@ -2,9 +2,8 @@ import { arrayOf, bool, func, shape, string, number } from 'prop-types';
 import React, { Component } from 'react';
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
-import { activeFavoriteAction, removeFavoriteAction } from '../../../actions';
 import { Amount, CursorBlink } from '../../../components';
-import { ASSET, SHAPE, TEXT, THEME, STYLE } from '../../../config';
+import { ASSET, SHAPE, THEME, STYLE } from '../../../config';
 import { formatCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
@@ -14,36 +13,40 @@ const { TRANSPARENT } = THEME;
 class ListItem extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      focus: false,
+    };
     this._onFocus = this._onFocus.bind(this);
     this._onPress = this._onPress.bind(this);
   }
 
   _onFocus() {
-    const { props: { activeFavorite, coin, onFocus } } = this;
-    activeFavorite(coin);
-    onFocus();
+    const { props: { coin, onFocus } } = this;
+    this.setState({ focus: true });
+    onFocus(coin);
   }
 
   _onPress() {
-    const { props: { activeFavorite, coin, onPress } } = this;
-    activeFavorite(coin);
-    onPress();
+    const { props: { coin, onPress } } = this;
+    this.setState({ focus: false });
+    onPress(coin);
   }
 
   render() {
     const {
       _onFocus, _onPress,
       props: {
-        alerts, conversion = 0, coin, decimal, value,
+        active, alerts, conversion = 0, coin, decimal, value,
       },
+      state: { focus },
     } = this;
     const {
-      active, hodl = 0, image, price = 0, total = 0,
+      hodl = 0, image, price = 0, total = 0,
     } = coin;
     const alert = alerts.find(item => item.coin === coin.coin);
 
     return (
-      <View style={[STYLE.ROW, styles.container, (active && styles.active)]}>
+      <View style={[STYLE.ROW, styles.container, active && styles.active]}>
         <TouchableWithoutFeedback onPress={_onPress}>
           <View style={[STYLE.ROW, styles.info]}>
             <View style={styles.thumb}>
@@ -64,7 +67,7 @@ class ListItem extends Component {
               <Text style={styles.value}>
                 { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversion * value) / price), 4)}
               </Text>
-              { active && <CursorBlink /> }
+              { active && focus && <CursorBlink /> }
             </View>
             <View style={STYLE.ROW}>
               <Amount style={styles.text} value={price} />
@@ -83,26 +86,24 @@ class ListItem extends Component {
 }
 
 ListItem.propTypes = {
-  activeFavorite: func,
+  active: bool,
   alerts: arrayOf(shape(ALERT)),
   conversion: number,
   coin: shape(COIN),
   decimal: bool,
   onFocus: func,
   onPress: func,
-  removeFavorite: func,
   value: string,
 };
 
 ListItem.defaultProps = {
-  activeFavorite() {},
+  active: false,
   alerts: [],
   conversion: 1,
   coin: {},
   decimal: false,
   onFocus() {},
   onPress() {},
-  removeFavorite() {},
   value: '0',
 };
 
@@ -110,9 +111,4 @@ const mapStateToProps = ({ alerts }) => ({
   alerts,
 });
 
-const mapDispatchToProps = dispatch => ({
-  activeFavorite: favorite => dispatch(activeFavoriteAction(favorite)),
-  removeFavorite: favorite => dispatch(removeFavoriteAction(favorite)),
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
+export default connect(mapStateToProps)(ListItem);

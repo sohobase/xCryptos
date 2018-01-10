@@ -25,11 +25,6 @@ export const addFavoriteAction = favorite => ({
   type: ADD_FAVORITE,
   favorite,
 });
-export const ACTIVE_FAVORITE = '@xCryptos/ACTIVE_FAVORITE';
-export const activeFavoriteAction = favorite => ({
-  type: ACTIVE_FAVORITE,
-  favorite,
-});
 export const UPDATE_FAVORITE = '@xCryptos/UPDATE_FAVORITE';
 export const updateFavoriteAction = favorite => ({
   type: UPDATE_FAVORITE,

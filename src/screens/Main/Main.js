@@ -48,12 +48,6 @@ class Main extends Component {
     AppState.addEventListener('change', state => state === 'active' && _fetch());
   }
 
-  componentWillReceiveProps({ favorites = [] }) {
-    this.setState({
-      coin: favorites.find(({ active }) => active),
-    });
-  }
-
   async _fetch() {
     const {
       favorites, settings: { currency }, saveAlerts, updatePrices, token,
@@ -79,20 +73,21 @@ class Main extends Component {
     this.setState({ keyboard: false });
   }
 
-  _renderItem({ item: coin }) {
+  _renderItem({ item }) {
     const {
       state: {
-        coin: { price } = {}, decimal, value,
+        coin: { coin: currentCoin, price } = {}, decimal, value,
       },
     } = this;
 
     return (
       <ListItem
-        coin={coin}
+        active={currentCoin === item.coin}
+        coin={item}
         decimal={decimal}
         conversion={price}
-        onFocus={() => this.setState({ keyboard: true })}
-        onPress={() => this.setState({ keyboard: false, value: '1' })}
+        onFocus={coin => this.setState({ coin, keyboard: true })}
+        onPress={coin => this.setState({ coin, keyboard: false, value: '1' })}
         value={value}
       />
     );

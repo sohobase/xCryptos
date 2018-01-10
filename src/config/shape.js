@@ -19,7 +19,6 @@ export default {
     PRICE: string,
   },
   FAVORITE: {
-    active: bool,
     coin: string,
     hodl: number,
     name: string,

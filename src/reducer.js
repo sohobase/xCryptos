@@ -2,7 +2,6 @@ import {
   ADD_ALERT,
   ADD_TOKEN,
   REMOVE_ALERT,
-  ACTIVE_FAVORITE,
   ADD_FAVORITE,
   UPDATE_FAVORITE,
   REMOVE_FAVORITE,
@@ -49,15 +48,6 @@ export default function crypto(state = initialState, action) {
       return { ...state, coins: action.coins };
 
     // -- Favorites
-    case ACTIVE_FAVORITE: {
-      const { favorites } = state;
-      const { favorite } = action;
-      return {
-        ...state,
-        favorites: favorites.map(item => ({ ...item, active: favorite.coin === item.coin })),
-      };
-    }
-
     case ADD_FAVORITE:
       return { ...state, favorites: [...state.favorites, action.favorite] };
 
