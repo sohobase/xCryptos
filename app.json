@@ -21,12 +21,12 @@
     "ios": {
       "bundleIdentifier": "com.sohobase.xcryptos",
       "loadJSInBackgroundExperimental": false,
-      "buildNumber": "101",
+      "buildNumber": "102",
       "supportsTablet": false
     },
     "android": {
       "package": "com.sohobase.xcryptos",
-      "versionCode": 101
+      "versionCode": 102
     },
     "androidStatusBar": {
       "backgroundColor": "#852d91",
