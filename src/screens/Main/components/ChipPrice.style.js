@@ -7,7 +7,7 @@ const {
 
 export default StyleSheet.create({
   low: {
-    backgroundColor: COLOR.LOW,
+    backgroundColor: COLOR.RED,
   },
 
   margin: {
@@ -20,7 +20,7 @@ export default StyleSheet.create({
   },
 
   high: {
-    backgroundColor: COLOR.HIGH,
+    backgroundColor: COLOR.GREEN,
   },
 
   value: {

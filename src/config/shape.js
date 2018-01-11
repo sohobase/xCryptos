@@ -23,6 +23,7 @@ export default {
     hodl: number,
     name: string,
     price: number,
+    trend: number,
   },
   HISTORY: {
     timestamp: number,

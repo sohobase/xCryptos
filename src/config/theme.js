@@ -1,5 +1,6 @@
-const UNIT = 10;
+import Color from 'color';
 
+const UNIT = 10;
 const PRIMARY = '#852d91';
 const PRIMARY_DARK = '#312a6c';
 const ACCENT = '#ed1e79';
@@ -27,8 +28,8 @@ export default {
 
   COLOR: {
     CHART: 'rgba(255, 255, 255, 0.35)',
-    HIGH: '#5edeb3',
-    LOW: '#F44336',
+    GREEN: '#5edeb3',
+    RED: '#F44336',
   },
 
   GRADIENT_LIST: [PRIMARY, PRIMARY, PRIMARY_DARK],

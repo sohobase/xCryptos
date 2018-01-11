@@ -1,7 +1,8 @@
+import Color from 'color';
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
-const { OFFSET, UNIT } = THEME;
+const { COLOR, FONT, OFFSET, UNIT } = THEME;
 const IMAGE_SIZE = UNIT * 3.2;
 
 export default StyleSheet.create({
@@ -28,13 +29,13 @@ export default StyleSheet.create({
 
   symbol: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT.SIZE.LARGE,
-    lineHeight: THEME.FONT.SIZE.LARGE,
+    fontSize: FONT.SIZE.LARGE,
+    lineHeight: FONT.SIZE.LARGE,
   },
 
   text: {
     color: THEME.CONTRAST,
-    fontSize: THEME.FONT.SIZE.SMALL,
+    fontSize: FONT.SIZE.SMALL,
   },
 
   operation: {
@@ -48,12 +49,28 @@ export default StyleSheet.create({
 
   value: {
     color: THEME.WHITE,
-    fontSize: THEME.FONT.SIZE.LARGE,
+    fontSize: FONT.SIZE.LARGE,
   },
 
   thumb: {
     marginVertical: UNIT / 2,
     marginRight: UNIT,
+  },
+
+  bullet: {
+    borderRadius: UNIT / 2,
+    height: UNIT,
+    position: 'absolute',
+    width: UNIT,
+    zIndex: 1,
+  },
+
+  green: {
+    backgroundColor: Color(COLOR.GREEN).alpha(1),
+  },
+
+  red: {
+    backgroundColor: Color(COLOR.RED).alpha(1),
   },
 
   image: {
@@ -71,11 +88,11 @@ export default StyleSheet.create({
 
   alert: {
     position: 'absolute',
-    bottom: UNIT / 3,
-    right: 0,
+    bottom: -UNIT / 4,
+    right: -UNIT / 2,
     tintColor: THEME.WHITE,
-    width: THEME.FONT.SIZE.LARGE,
-    height: THEME.FONT.SIZE.LARGE,
+    width: FONT.SIZE.LARGE,
+    height: FONT.SIZE.LARGE,
   },
 
   option: {

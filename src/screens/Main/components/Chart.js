@@ -70,8 +70,8 @@ class Chart extends Component {
           {
             dataSource.map(({ value }, index) => {
               let color = COLOR.CHART;
-              if (value === min) color = COLOR.LOW;
-              if (value === max) color = COLOR.HIGH;
+              if (value === min) color = COLOR.RED;
+              if (value === max) color = COLOR.GREEN;
               const key = `${timeline}-${timestamp}-${index}`;
               const height = fetching ? 0 : ((value - min) * 100) / diff;
 

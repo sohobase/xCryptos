@@ -41,7 +41,7 @@ class ListItem extends Component {
       state: { focus },
     } = this;
     const {
-      hodl = 0, image, price = 0, total = 0,
+      hodl = 0, image, price = 0, total = 0, trend = 0,
     } = coin;
     const alert = alerts.find(item => item.coin === coin.coin);
 
@@ -50,6 +50,7 @@ class ListItem extends Component {
         <TouchableWithoutFeedback onPress={_onPress}>
           <View style={[STYLE.ROW, styles.info]}>
             <View style={styles.thumb}>
+              <View style={[styles.bullet, trend > 0 ? styles.green : styles.red]} />
               <View style={[STYLE.CENTERED, styles.imageWrap]}>
                 <Image style={styles.image} source={{ uri: image }} />
               </View>

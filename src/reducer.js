@@ -76,8 +76,9 @@ export default function crypto(state = initialState, action) {
         ...state,
         favorites: favorites.map(item => ({
           ...item,
-          total: prices[item.coin] * (item.hodl || 0),
-          price: prices[item.coin],
+          total: prices[item.coin].price * (item.hodl || 0),
+          trend: prices[item.coin].trend,
+          price: prices[item.coin].price,
         })),
       };
     }

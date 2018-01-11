@@ -27,12 +27,13 @@ export default {
   },
 
   async prices(coins = [], currency = USD) {
-    const response = await fetch(`${MIN_API}/pricemulti?fsyms=${coins.join(',')}&tsyms=${currency}`);
+    const response = await fetch(`${MIN_API}/pricemultifull?fsyms=${coins.join(',')}&tsyms=${currency}`);
     if (!response) return undefined;
 
     const values = {};
-    Object.keys(response).forEach((key) => {
-      values[key] = response[key][currency];
+    Object.keys(response.RAW).forEach((key) => {
+      const { PRICE = 0, CHANGE24HOUR = 0 } = response.RAW[key][currency];
+      values[key] = { price: parseFloat(PRICE, 10), trend: parseFloat(CHANGE24HOUR, 10) };
     });
 
     return values;

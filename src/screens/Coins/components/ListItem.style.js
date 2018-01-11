@@ -1,6 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
+
+const {
+  CONTRAST, COLOR, FONT, UNIT, WHITE,
+} = THEME;
+
 export default StyleSheet.create({
   name: {
     flex: 1,
