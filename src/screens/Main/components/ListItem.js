@@ -50,17 +50,14 @@ class ListItem extends Component {
         <TouchableWithoutFeedback onPress={_onPress}>
           <View style={[STYLE.ROW, styles.info]}>
             <View style={styles.thumb}>
-              <View style={[styles.bullet, trend > 0 ? styles.green : styles.red]} />
+              <View style={[styles.bullet, trend > 0 ? STYLE.GREEN : STYLE.RED]} />
               <View style={[STYLE.CENTERED, styles.imageWrap]}>
                 <Image style={styles.image} source={{ uri: image }} />
               </View>
               { alert && <Image style={styles.alert} source={ASSET.alert} /> }
             </View>
             <View style={styles.coin}>
-              <View style={STYLE.ROW}>
-                <Text style={styles.symbol}>{coin.coin}</Text>
-                <Amount style={styles.text} symbol="%" value={parseInt((trend * 100) / price, 10)} />
-              </View>
+              <Text style={styles.value}>{coin.coin}</Text>
               { hodl > 0 && <Amount style={styles.text} value={total} /> }
             </View>
           </View>

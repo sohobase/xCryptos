@@ -36,10 +36,6 @@ export default StyleSheet.create({
     backgroundColor: 'transparent',
   },
 
-  green: {
-    backgroundColor: Color(COLOR.GREEN).alpha(1),
-  },
-
   hint: {
     opacity: 0.75,
   },
@@ -77,16 +73,6 @@ export default StyleSheet.create({
     minWidth: '30%',
     maxWidth: '50%',
     alignItems: 'flex-end',
-  },
-
-  red: {
-    backgroundColor: Color(COLOR.RED).alpha(1),
-  },
-
-  symbol: {
-    color: THEME.WHITE,
-    fontSize: FONT.SIZE.LARGE,
-    marginRight: UNIT / 4,
   },
 
   text: {

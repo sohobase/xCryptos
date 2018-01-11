@@ -29,6 +29,13 @@ export default StyleSheet.create({
   name: {
     fontSize: FONT.SIZE.EXTRA_LARGE,
     fontWeight: FONT.WEIGHT.BOLD,
+    marginRight: UNIT,
+  },
+
+  trend: {
+    fontSize: FONT.SIZE.SMALL,
+    fontWeight: FONT.WEIGHT.BOLD,
+    color: CONTRAST,
   },
 
   hodl: {

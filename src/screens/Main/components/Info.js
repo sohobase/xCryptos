@@ -3,7 +3,7 @@ import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { ButtonIcon } from '../../../components';
+import { Amount, ButtonIcon } from '../../../components';
 import { C, SHAPE, STYLE, THEME } from '../../../config';
 import { ServiceCoins } from '../../../services';
 import Chart from './Chart';
@@ -73,13 +73,21 @@ class Info extends Component {
         fetching, history = [], modal, timeline,
       },
     } = this;
+    const {
+      hodl, name, price = 0, trend = 0,
+    } = coin;
 
     return (
       <LinearGradient colors={THEME.GRADIENT_INFO} style={styles.container}>
         <View style={[STYLE.ROW, styles.header]}>
           <View style={styles.coin}>
-            <Text style={[styles.text, styles.name]}>{coin.name}</Text>
-            { coin.hodl && <Text style={[styles.text, styles.hodl]}>{`${coin.hodl} ${coin.coin}`}</Text> }
+            <View style={STYLE.ROW}>
+              <Text style={[styles.text, styles.name]}>{name}</Text>
+              <View style={[STYLE.CHIP, trend > 0 ? STYLE.GREEN : STYLE.RED]}>
+                <Amount style={[styles.text, styles.trend]} symbol="%" value={parseInt((trend * 100) / price, 10)} />
+              </View>
+            </View>
+            { hodl && <Text style={[styles.text, styles.hodl]}>{`${hodl} ${coin.coin}`}</Text> }
           </View>
           <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} style={styles.button} />
           <ButtonIcon icon="wallet" onPress={_onModal} style={styles.button} />
