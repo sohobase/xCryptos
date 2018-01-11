@@ -57,7 +57,10 @@ class ListItem extends Component {
               { alert && <Image style={styles.alert} source={ASSET.alert} /> }
             </View>
             <View style={styles.coin}>
-              <Text style={styles.symbol}>{coin.coin}</Text>
+              <View style={STYLE.ROW}>
+                <Text style={styles.symbol}>{coin.coin}</Text>
+                <Amount style={styles.text} symbol="%" value={parseInt((trend * 100) / price, 10)} />
+              </View>
               { hodl > 0 && <Amount style={styles.text} value={total} /> }
             </View>
           </View>
