@@ -25,9 +25,8 @@ class ModalHodl extends Component {
     return (
       <Modal title={`${coin} holdings`} onClose={onClose} visible={visible}>
         <Input
+          autoFocus
           defaultValue={hodl !== 0 ? hodl.toString() : undefined}
-          keyboardType="numeric"
-          placeholder="0.0"
           onChangeText={_onChange}
           style={[STYLE.LIST_ITEM, styles.input]}
         />
