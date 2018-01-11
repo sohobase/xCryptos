@@ -98,7 +98,7 @@ class Main extends Component {
     } = this;
 
     return (
-      <LinearGradient colors={coin ? [] : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
+      <LinearGradient colors={coin ? THEME.GRADIENT : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
         <FlatList
           data={favorites}
           extraData={this.state}
