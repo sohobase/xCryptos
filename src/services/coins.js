@@ -2,7 +2,7 @@ import { C } from '../config';
 import { fetch } from './modules';
 
 const {
-  CURRENCY: { USD }, EXCHANGES, SERVICE: { CURRENCIES: { API, MIN_API } }, TIMELINES,
+  CURRENCY: { USD }, SERVICE: { CURRENCIES: { API, MIN_API } }, TIMELINES,
 } = C;
 const TIMELINE_SERVICE = [
   { timeline: TIMELINES[0], endpoint: 'histominute', limit: 60 },
@@ -32,7 +32,7 @@ export default {
 
     const values = {};
     Object.keys(response.RAW).forEach((key) => {
-      const { PRICE = 0, CHANGE24HOUR = 0 } = response.RAW[key][currency];
+      const { PRICE = 0, CHANGEDAY = 0, CHANGE24HOUR = 0 } = response.RAW[key][currency];
       values[key] = { price: parseFloat(PRICE, 10), trend: parseFloat(CHANGE24HOUR, 10) };
     });
 
