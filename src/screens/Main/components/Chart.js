@@ -92,7 +92,9 @@ class Chart extends Component {
       <View style={styles.container}>
         <View style={[STYLE.ROW, styles.prices, trend && styles.reverse]}>
           <ChipPrice context="low" price={price} value={min} />
-          <View style={styles.space} />
+          <View style={[STYLE.CENTERED, styles.space]}>
+            { this.state.price &&  <ChipPrice value={price} /> }
+          </View>
           <ChipPrice context="high" price={price} value={max} />
         </View>
         <View style={[STYLE.ROW, styles.bars]}>
