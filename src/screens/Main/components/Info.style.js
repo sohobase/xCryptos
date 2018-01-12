@@ -6,6 +6,12 @@ const {
 } = THEME;
 
 export default StyleSheet.create({
+  button: {
+    marginLeft: OFFSET,
+    marginRight: 0,
+    tintColor: WHITE,
+  },
+
   container: {
     flex: 0,
     width: '100%',
@@ -18,8 +24,17 @@ export default StyleSheet.create({
 
   coin: {
     flex: 1,
+  },
+
+  header: {
     paddingHorizontal: OFFSET,
   },
+
+  hodl: {
+    fontSize: FONT.SIZE.SMALL,
+    color: CONTRAST,
+  },
+
 
   text: {
     color: WHITE,
@@ -36,14 +51,5 @@ export default StyleSheet.create({
     fontSize: FONT.SIZE.SMALL,
     fontWeight: FONT.WEIGHT.BOLD,
     color: CONTRAST,
-  },
-
-  hodl: {
-    fontSize: FONT.SIZE.SMALL,
-    color: CONTRAST,
-  },
-
-  button: {
-    tintColor: WHITE,
   },
 });

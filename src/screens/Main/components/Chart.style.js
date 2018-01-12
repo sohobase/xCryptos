@@ -8,11 +8,13 @@ const {
 export default StyleSheet.create({
   container: {
     alignItems: 'center',
-    margin: OFFSET,
+    marginVertical: UNIT,
+    marginHorizontal: OFFSET,
   },
 
   prices: {
     minHeight: UNIT * 2.6,
+    marginBottom: UNIT,
   },
 
   reverse: {
@@ -26,7 +28,6 @@ export default StyleSheet.create({
   bars: {
     height: UNIT * 10.4,
     width: '100%',
-    marginTop: OFFSET,
     marginBottom: UNIT / 2,
   },
 
