@@ -93,7 +93,7 @@ class Main extends Component {
       _fetch, _onChangeValue, _renderItem,
       props: { favorites = [], navigation },
       state: {
-        coin, decimal, keyboard, prefetch, refreshing, value,
+        coin: { coin } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
 

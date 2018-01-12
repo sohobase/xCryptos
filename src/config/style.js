@@ -18,8 +18,8 @@ export default StyleSheet.create({
     paddingVertical: UNIT * 0.375,
     paddingHorizontal: UNIT * 0.75,
     borderRadius: UNIT * 2,
-    minHeight: UNIT,
-    minWidth: UNIT,
+    minHeight: OFFSET,
+    minWidth: OFFSET,
   },
 
   MODAL_FOOTER: {

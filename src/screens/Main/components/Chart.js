@@ -1,13 +1,15 @@
-import { arrayOf, bool, func, shape, string } from 'prop-types';
+import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, TouchableOpacity, View } from 'react-native';
 import { View as Motion } from 'react-native-animatable';
+import { connect } from 'react-redux';
 import { Touchable } from '../../../components';
 import { C, SHAPE, STYLE, THEME } from '../../../config';
+import { ServiceCoins } from '../../../services';
 import styles from './Chart.style';
 import ChipPrice from './ChipPrice';
 
-const { TIMELINES } = C;
+const { DEFAULT: { TIMELINE }, TIMELINES } = C;
 const { MOTION, COLOR } = THEME;
 
 const Option = ({
@@ -24,14 +26,43 @@ class Chart extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      fetching: false,
+      dataSource: undefined,
       price: undefined,
-      timestamp: (new Date()).getTime(),
+      timeline: TIMELINE,
+      timestamp: undefined,
     };
+    this._fetch = this._fetch.bind(this);
+    this._onTimeline = this._onTimeline.bind(this);
     this._onValue = this._onValue.bind(this);
   }
 
-  componentWillReceiveProps() {
-    this.setState({ timestamp: (new Date()).getTime() });
+  componentDidMount() {
+    this._fetch();
+  }
+
+  componentWillReceiveProps({ coin: { coin } }) {
+    const {
+      _fetch,
+      props: { coin: { coin: previousCoin } },
+    } = this;
+
+    if (previousCoin !== coin) _fetch({ coin });
+  }
+
+  async _fetch({ coin = this.props.coin.coin, timeline = this.state.timeline } = {}) {
+    const { props: { settings: { currency } } } = this;
+
+    this.setState({ fetching: true, timeline });
+    this.setState({
+      fetching: false,
+      dataSource: await ServiceCoins.history(coin, timeline, currency),
+      timestamp: (new Date()).getTime(),
+    });
+  }
+
+  _onTimeline(timeline) {
+    this._fetch({ timeline });
   }
 
   _onValue(price) {
@@ -40,11 +71,11 @@ class Chart extends Component {
 
   render() {
     const {
-      _onValue,
-      props: {
-        coin, fetching, dataSource = [], onTimeline, timeline,
+      _onValue, _onTimeline,
+      props: { coin },
+      state: {
+        fetching, dataSource = [], price = coin.price, timeline, timestamp,
       },
-      state: { price = coin.price, timestamp },
     } = this;
 
     let max = 0;
@@ -99,7 +130,7 @@ class Chart extends Component {
                 active={key === timeline}
                 caption={key}
                 key={key}
-                onPress={() => !fetching && onTimeline(key)}
+                onPress={() => !fetching && _onTimeline(key)}
               />
             ))
           }
@@ -111,18 +142,14 @@ class Chart extends Component {
 
 Chart.propTypes = {
   coin: shape(SHAPE.COIN),
-  fetching: bool,
-  dataSource: arrayOf(shape(SHAPE.HISTORY)),
-  onTimeline: func,
-  timeline: string,
 };
 
 Chart.defaultProps = {
   coin: undefined,
-  fetching: false,
-  dataSource: [],
-  onTimeline() {},
-  timeline: undefined,
 };
 
-export default Chart;
+const mapStateToProps = ({ settings }) => ({
+  settings,
+});
+
+export default connect(mapStateToProps)(Chart);

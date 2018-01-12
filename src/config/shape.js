@@ -1,4 +1,4 @@
-import { bool, date, func, number, string } from 'prop-types';
+import { date, func, number, string } from 'prop-types';
 
 export default {
   ALERT: {
