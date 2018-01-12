@@ -29,7 +29,7 @@ class Info extends Component {
       state: { modal },
     } = this;
     const {
-      hodl, name, price = 0, trend = 0,
+      hodl = 0, name, price = 0, trend = 0,
     } = coin;
     const trendPercentage = parseInt((trend * 100) / price, 10);
 
@@ -44,7 +44,7 @@ class Info extends Component {
                   <Amount style={[styles.text, styles.trend]} symbol="%" value={trendPercentage} />
                 </View>}
             </View>
-            { hodl && <Text style={[styles.text, styles.hodl]}>{`${hodl} ${coin.coin}`}</Text> }
+            { hodl > 0 && <Text style={[styles.text, styles.hodl]}>{`${hodl} ${coin.coin}`}</Text> }
           </View>
           <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} style={styles.button} />
           <ButtonIcon icon="wallet" onPress={_onModal} style={styles.button} />
