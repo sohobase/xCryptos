@@ -50,7 +50,8 @@ class ListItem extends Component {
         <TouchableWithoutFeedback onPress={_onPress}>
           <View style={[STYLE.ROW, styles.info]}>
             <View style={styles.thumb}>
-              <View style={[styles.bullet, trend > 0 ? STYLE.GREEN : STYLE.RED]} />
+              { parseInt((trend * 100) / price, 10) !== 0 &&
+                <View style={[styles.bullet, trend > 0 ? STYLE.GREEN : STYLE.RED]} /> }
               <View style={[STYLE.CENTERED, styles.imageWrap]}>
                 <Image style={styles.image} source={{ uri: image }} />
               </View>

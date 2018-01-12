@@ -31,6 +31,7 @@ class Info extends Component {
     const {
       hodl, name, price = 0, trend = 0,
     } = coin;
+    const trendPercentage = parseInt((trend * 100) / price, 10);
 
     return (
       <LinearGradient colors={THEME.GRADIENT_INFO} style={styles.container}>
@@ -38,9 +39,10 @@ class Info extends Component {
           <View style={styles.coin}>
             <View style={STYLE.ROW}>
               <Text style={[styles.text, styles.name]}>{name}</Text>
-              <View style={[STYLE.CHIP, trend > 0 ? STYLE.GREEN : STYLE.RED]}>
-                <Amount style={[styles.text, styles.trend]} symbol="%" value={parseInt((trend * 100) / price, 10)} />
-              </View>
+              { trendPercentage !== 0 &&
+                <View style={[STYLE.CHIP, trend > 0 ? STYLE.GREEN : STYLE.RED]}>
+                  <Amount style={[styles.text, styles.trend]} symbol="%" value={trendPercentage} />
+                </View>}
             </View>
             { hodl && <Text style={[styles.text, styles.hodl]}>{`${hodl} ${coin.coin}`}</Text> }
           </View>
