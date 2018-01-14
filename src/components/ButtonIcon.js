@@ -1,4 +1,4 @@
-import { array, func, number, oneOfType, string } from 'prop-types';
+import { array, func, number, object, oneOfType, string } from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
 import { ASSET } from '../config';
@@ -14,7 +14,7 @@ const ButtonIcon = ({ icon, onPress, style }) => (
 ButtonIcon.propTypes = {
   icon: string,
   onPress: func,
-  style: oneOfType([array, number]),
+  style: oneOfType([array, number, object]),
 };
 
 ButtonIcon.defaultProps = {
