@@ -54,11 +54,6 @@ describe('Favorites actions', () => {
     expect(actions.addFavoriteAction(favorite)).toEqual(expectedAction);
   });
 
-  it('.activeFavoriteAction', () => {
-    const expectedAction = { type: actions.ACTIVE_FAVORITE, favorite };
-    expect(actions.activeFavoriteAction(favorite)).toEqual(expectedAction);
-  });
-
   it('.updateFavoriteAction', () => {
     const expectedAction = { type: actions.UPDATE_FAVORITE, favorite };
     expect(actions.updateFavoriteAction(favorite)).toEqual(expectedAction);
@@ -88,20 +83,6 @@ describe('Settings actions', () => {
   it('.updateSettingsAction', () => {
     const expectedAction = { type: actions.UPDATE_SETTINGS, settings };
     expect(actions.updateSettingsAction(settings)).toEqual(expectedAction);
-  });
-});
-
-describe('Snapshots actions', () => {
-  const coin = 'BTC';
-
-  const data = {
-    timestamp: 1515920731,
-    value: 1337,
-  };
-
-  it('.snapshotsAction', () => {
-    const expectedAction = { type: actions.SNAPSHOTS, data, coin };
-    expect(actions.snapshotsAction(data, coin)).toEqual(expectedAction);
   });
 });
 

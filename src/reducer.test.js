@@ -25,7 +25,6 @@ const INITIAL_STATE = {
     price: 0,
   }],
   settings: { currency: 'USD', language: 'English' },
-  snapshots: {},
   token: '',
 };
 
@@ -90,25 +89,19 @@ describe('crypto reducer', () => {
     const favorite = {
       active: true,
       coin: 'BTC',
-      hodl: 37,
+      hodl: 10,
       name: 'Bitcoin',
       price: 1337,
+      total: 13370
     };
-    const notFavorite = {
+    const favorite2 = {
       active: false,
       coin: 'ETH',
-      hodl: 59,
+      hodl: 10,
       name: 'Ethereum',
       price: 777,
+      total: 7770
     };
-
-    it('handles ACTIVE_FAVORITE', () => {  
-      const initialState = { favorites: [notFavorite] };
-      const action = { type: actions.ACTIVE_FAVORITE, favorite: notFavorite };
-      const expectedState = { favorites: [{ ...notFavorite, active: true}] };
-      
-      expect(reducer(initialState, action)).toEqual(expectedState);
-    });
 
     it('handles ADD_FAVORITE', () => {  
       const initialState = { favorites: [] };
@@ -118,25 +111,31 @@ describe('crypto reducer', () => {
     });
 
     it('handles UPDATE_FAVORITE', () => {  
-      const initialState = { favorites: [favorite, notFavorite] };
+      const initialState = { favorites: [favorite, favorite2] };
       const updatedFavorite = { ...favorite, price: 20000 };
       const action = { type: actions.UPDATE_FAVORITE, favorite: updatedFavorite };
       
-      expect(reducer(initialState, action)).toEqual({ favorites: [updatedFavorite, notFavorite] });
+      expect(reducer(initialState, action)).toEqual({ favorites: [updatedFavorite, favorite2] });
     });
 
     it('handles REMOVE_FAVORITE', () => {  
-      const initialState = { favorites: [favorite, notFavorite] };
-      const action = { type: actions.REMOVE_FAVORITE, favorite: notFavorite };
+      const initialState = { favorites: [favorite, favorite2] };
+      const action = { type: actions.REMOVE_FAVORITE, favorite: favorite2 };
       
       expect(reducer(initialState, action)).toEqual({ favorites: [favorite] });
     });
 
     it('handles UPDATE_PRICES', () => {  
-      const initialState = { favorites: [favorite, notFavorite] };
-      const prices = { BTC: 100, ETH: 200 };
+      const initialState = { favorites: [favorite, favorite2] };
+      const prices = {
+        BTC: { price: 100, trend: 50 },
+        ETH: { price: 200, trend: 70 },
+      };
       const action = { type: actions.UPDATE_PRICES, favorite: initialState, prices };
-      const expectedState = [{ ...favorite, price: 100 }, { ...notFavorite, price: 200 }];
+      const expectedState = [
+        { ...favorite, total: 1000, price: 100, trend: 50 },
+        { ...favorite2, total: 2000, price: 200, trend: 70 },
+      ];
       
       expect(reducer(initialState, action)).toEqual({ favorites: expectedState });
     });
@@ -149,18 +148,6 @@ describe('crypto reducer', () => {
       const expectedState = { settings: { currency: 'EUR', language: 'English' } };
       
       expect(reducer(initialState, action)).toEqual(expectedState);
-    });
-  });
-
-  describe('snapshots actions', () => {
-    it('handles SNAPSHOTS', () => {
-      const initalState = { snapshots: {} };
-      const data = { price: 1337 };
-      const coin = 'BTC';
-      const action = { type: actions.SNAPSHOTS, data, coin };
-      const expectedState = { snapshots: { [coin]: data } };
-      
-      expect(reducer({}, action)).toEqual(expectedState);
     });
   });
 
