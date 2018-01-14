@@ -13,7 +13,7 @@ const symbolStyle = {
   transform: [{ scale: 0.75 }],
 };
 
-const Amount = ({ settings: { currency }, style, value }) => (
+export const Amount = ({ settings: { currency }, style, value }) => (
   <View style={STYLE.ROW}>
     { currency === USD && <Text style={[style, symbolStyle]}>{SYMBOL.USD}</Text> }
     <Text style={style}>{formatCurrency(value)}</Text>

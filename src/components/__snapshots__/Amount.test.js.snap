@@ -1,0 +1,161 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders by default 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={Array []}
+  >
+    0.00
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Array [],
+        Object {
+          "opacity": 0.75,
+          "transform": Array [
+            Object {
+              "scale": 0.75,
+            },
+          ],
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`renders with a custom amount 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={Array []}
+  >
+    7.77
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Array [],
+        Object {
+          "opacity": 0.75,
+          "transform": Array [
+            Object {
+              "scale": 0.75,
+            },
+          ],
+        },
+      ]
+    }
+  />
+</View>
+`;
+
+exports[`when currency is USD renders currency before amount 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Array [],
+        Object {
+          "opacity": 0.75,
+          "transform": Array [
+            Object {
+              "scale": 0.75,
+            },
+          ],
+        },
+      ]
+    }
+  >
+    $
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={Array []}
+  >
+    0.00
+  </Text>
+</View>
+`;
+
+exports[`when currency is not USD renders currency after amount 1`] = `
+<View
+  style={
+    Object {
+      "alignItems": "center",
+      "display": "flex",
+      "flexDirection": "row",
+    }
+  }
+>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={Array []}
+  >
+    0.00
+  </Text>
+  <Text
+    accessible={true}
+    allowFontScaling={true}
+    ellipsizeMode="tail"
+    style={
+      Array [
+        Array [],
+        Object {
+          "opacity": 0.75,
+          "transform": Array [
+            Object {
+              "scale": 0.75,
+            },
+          ],
+        },
+      ]
+    }
+  >
+    €
+  </Text>
+</View>
+`;

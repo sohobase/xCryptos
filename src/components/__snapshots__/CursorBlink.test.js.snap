@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders by default 1`] = `
+<View
+  collapsable={undefined}
+  style={
+    Object {
+      "backgroundColor": "rgba(255, 255, 255, 0.75)",
+      "height": 16,
+      "marginLeft": 3,
+      "opacity": 0,
+      "width": 2,
+    }
+  }
+/>
+`;
