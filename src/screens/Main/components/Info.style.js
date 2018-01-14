@@ -15,11 +15,13 @@ export default StyleSheet.create({
   container: {
     flex: 0,
     width: '100%',
-    paddingVertical: OFFSET,
+    paddingTop: UNIT,
+    paddingBottom: OFFSET,
     shadowColor: PRIMARY,
     shadowOffset: { height: UNIT * -1, width: 0 },
     shadowOpacity: 1,
     shadowRadius: UNIT / 2,
+    zIndex: 1,
   },
 
   coin: {
