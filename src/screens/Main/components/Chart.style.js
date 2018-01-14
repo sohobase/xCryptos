@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
@@ -8,13 +8,12 @@ const {
 export default StyleSheet.create({
   container: {
     alignItems: 'center',
-    marginVertical: UNIT,
     marginHorizontal: OFFSET,
+    marginBottom: Platform.OS === 'ios' ? UNIT : 0,
   },
 
   prices: {
     minHeight: UNIT * 2.6,
-    marginBottom: UNIT,
   },
 
   reverse: {
@@ -26,9 +25,9 @@ export default StyleSheet.create({
   },
 
   bars: {
-    height: UNIT * 10.4,
+    height: UNIT * 9.6,
     width: '100%',
-    marginBottom: UNIT / 2,
+    marginVertical: UNIT / 2,
   },
 
   bar: {

@@ -72,9 +72,9 @@ class Chart extends Component {
   render() {
     const {
       _onValue, _onTimeline,
-      props: { coin },
+      props: { coin: { price } },
       state: {
-        fetching, dataSource = [], price = coin.price, timeline, timestamp,
+        fetching, dataSource = [], timeline, timestamp,
       },
     } = this;
 
@@ -93,7 +93,7 @@ class Chart extends Component {
         <View style={[STYLE.ROW, styles.prices, trend && styles.reverse]}>
           <ChipPrice context="low" price={price} value={min} />
           <View style={[STYLE.CENTERED, styles.space]}>
-            { this.state.price &&  <ChipPrice value={price} /> }
+            { this.state.price && <ChipPrice value={this.state.price} /> }
           </View>
           <ChipPrice context="high" price={price} value={max} />
         </View>
