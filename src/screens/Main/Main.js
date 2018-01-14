@@ -1,14 +1,13 @@
-import { arrayOf, func, string, shape } from 'prop-types';
 import { LinearGradient, Notifications } from 'expo';
+import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState, FlatList, RefreshControl, View } from 'react-native';
+import { AppState, FlatList, RefreshControl } from 'react-native';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
-import { ModalAlert } from '../../containers';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
-import { Hodl, ListItem, VirtualKeyboard } from './components';
+import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
 
 const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
@@ -25,16 +24,15 @@ class Main extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeCoin: undefined,
+      coin: undefined,
+      keyboard: false,
       decimal: false,
-      modal: false,
       prefetch: false,
       refreshing: false,
       value: '1',
     };
     this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
-    this._onModal = this._onModal.bind(this);
     this._fetch = this._fetch.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
@@ -47,12 +45,6 @@ class Main extends Component {
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
-  }
-
-  componentWillReceiveProps({ favorites = [] }) {
-    this.setState({
-      activeCoin: favorites.find(({ active }) => active),
-    });
   }
 
   async _fetch() {
@@ -76,26 +68,21 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
-  _onModal() {
-    this.setState({ modal: !this.state.modal });
-  }
-
-  _renderItem({ item: coin }) {
+  _renderItem({ item }) {
     const {
-      _onModal,
-      props: { navigation: { navigate }, token },
       state: {
-        activeCoin = {}, decimal, value,
+        coin: { coin: currentCoin, price } = {}, decimal, value,
       },
     } = this;
 
     return (
       <ListItem
-        coin={coin}
+        active={currentCoin === item.coin}
+        coin={item}
         decimal={decimal}
-        conversion={activeCoin.price}
-        onAlert={_onModal}
-        onPress={() => navigate('Coin', { coin, token })}
+        conversion={price}
+        onFocus={coin => this.setState({ coin, keyboard: true })}
+        onPress={coin => this.setState({ coin, keyboard: false, value: '1' })}
         value={value}
       />
     );
@@ -103,28 +90,34 @@ class Main extends Component {
 
   render() {
     const {
-      _fetch, _onChangeValue, _onModal, _renderItem,
-      props: { favorites },
+      _fetch, _onChangeValue, _renderItem,
+      props: { favorites = [], navigation },
       state: {
-        activeCoin, decimal, modal, prefetch, refreshing, value,
+        coin: { coin } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
 
     return (
-      <View style={STYLE.SCREEN}>
-        <LinearGradient colors={THEME.GRADIENT} style={STYLE.LAYOUT_MAIN}>
-          <FlatList
-            data={favorites}
-            extraData={this.state}
-            keyExtractor={item => item.coin}
-            refreshControl={
-              <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-            renderItem={_renderItem}
-          />
-        </LinearGradient>
-        <VirtualKeyboard decimal={decimal} onChange={_onChangeValue} value={value} />
-        { activeCoin && <ModalAlert coin={activeCoin} onClose={_onModal} visible={modal} /> }
-      </View>
+      <LinearGradient colors={coin ? THEME.GRADIENT : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
+        <FlatList
+          data={favorites}
+          extraData={this.state}
+          keyExtractor={item => item.coin}
+          refreshControl={
+            <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
+          renderItem={_renderItem}
+          style={[styles.list, coin && styles.short]}
+        />
+        { coin && <Info coin={coin} navigation={navigation} /> }
+        { coin &&
+          <Keyboard
+            visible={keyboard}
+            decimal={decimal}
+            onChange={_onChangeValue}
+            onClose={() => this.setState({ keyboard: false, value: 1 })}
+            value={value}
+          /> }
+      </LinearGradient>
     );
   }
 }
@@ -147,7 +140,10 @@ Main.defaultProps = {
 };
 
 const mapStateToProps = ({ favorites, settings, token }) => ({
-  favorites,
+  favorites: favorites.sort((a, b) => {
+    if (a.total === 0 && b.total === 0) return a.rank > b.rank ? 0 : -1;
+    return a.total < b.total ? 0 : -1;
+  }),
   settings,
   token,
 });

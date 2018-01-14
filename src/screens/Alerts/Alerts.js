@@ -5,9 +5,8 @@ import { AppState, FlatList, RefreshControl, View } from 'react-native';
 import { saveAlertsAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { SHAPE, STYLE, THEME } from '../../config';
-import { ModalAlert } from '../../containers';
 import { ServiceAlerts } from '../../services';
-import { AlertListItem } from './components';
+import { AlertListItem, ModalAlert } from './components';
 
 const { ALERT, COIN, NAVIGATION } = SHAPE;
 

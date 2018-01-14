@@ -1,35 +1,35 @@
-import { array, number, oneOfType, shape } from 'prop-types';
+import { array, number, oneOfType, shape, string } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { C, SHAPE, STYLE } from '../config';
 import { formatCurrency } from '../modules';
+import styles from './Amount.style';
 
-const { SETTINGS } = SHAPE;
 const { CURRENCY: { USD }, SYMBOL } = C;
 
-const symbolStyle = {
-  opacity: 0.75,
-  transform: [{ scale: 0.75 }],
-};
-
-export const Amount = ({ settings: { currency }, style, value }) => (
+export const Amount = ({
+  settings: { currency }, style, symbol, value,
+}) => (
   <View style={STYLE.ROW}>
-    { currency === USD && <Text style={[style, symbolStyle]}>{SYMBOL.USD}</Text> }
-    <Text style={style}>{formatCurrency(value)}</Text>
-    { currency !== USD && <Text style={[style, symbolStyle]}>{SYMBOL[currency]}</Text> }
+    { symbol && value > 0 && <Text style={style}>+</Text> }
+    { !symbol && currency === USD && <Text style={[style, styles.symbol]}>{SYMBOL.USD}</Text> }
+    <Text style={style}>{symbol !== '%' ? formatCurrency(value) : value}</Text>
+    { (symbol || currency !== USD) && <Text style={[style, styles.symbol]}>{symbol || SYMBOL[currency]}</Text> }
   </View>
 );
 
 Amount.propTypes = {
-  settings: shape(SETTINGS),
+  settings: shape(SHAPE.SETTINGS),
   style: oneOfType([array, number]),
+  symbol: string,
   value: number,
 };
 
 Amount.defaultProps = {
   settings: {},
   style: [],
+  symbol: undefined,
   value: 0,
 };
 

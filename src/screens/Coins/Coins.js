@@ -19,7 +19,7 @@ const { COIN, FAVORITE, SETTINGS } = SHAPE;
 const { EN: { COINS, SEARCH } } = TEXT;
 
 class CoinsScreen extends Component {
-  static navigationOptions({ navigation: { navigate } }) {
+  static navigationOptions() {
     return {
       title: COINS,
       headerRight: <ButtonIcon />,
@@ -52,14 +52,14 @@ class CoinsScreen extends Component {
 
   async _onChangeItem({ coin, favorite }) {
     const {
-      addFavorite, favorites, removeFavorite, settings, updatePrices,
+      addFavorite, favorites, removeFavorite, settings: { currency }, updatePrices,
     } = this.props;
 
     if (favorite) removeFavorite(coin);
     else {
       addFavorite(coin);
       const coins = [...favorites, coin].map(item => item.coin);
-      ServiceCoins.prices(coins, settings.coin).then(updatePrices);
+      ServiceCoins.prices(coins, currency).then(updatePrices);
     }
   }
 

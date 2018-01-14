@@ -1,9 +1,13 @@
 import Hodl from './Hodl';
+import Info from './Info';
+import Keyboard from './Keyboard';
 import ListItem from './ListItem';
-import VirtualKeyboard from './VirtualKeyboard';
+import ModalHodl from './ModalHodl';
 
 export {
   Hodl,
+  Info,
+  Keyboard,
   ListItem,
-  VirtualKeyboard,
+  ModalHodl,
 };

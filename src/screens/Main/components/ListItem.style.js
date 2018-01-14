@@ -1,52 +1,43 @@
+import Color from 'color';
 import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
-const { UNIT } = THEME;
+const {
+  COLOR, FONT, OFFSET, UNIT,
+} = THEME;
 const IMAGE_SIZE = UNIT * 3.2;
+const BULLET_SIZE = UNIT;
 
 export default StyleSheet.create({
-  container: {
-    paddingVertical: UNIT / 2,
-    paddingHorizontal: UNIT,
-  },
-
   active: {
     backgroundColor: THEME.BACKGROUND_HIGHLIGHT,
   },
 
-  coin: {
-    flex: 1,
+  alert: {
+    position: 'absolute',
+    bottom: -UNIT / 4,
+    right: -UNIT / 2,
+    tintColor: THEME.WHITE,
+    width: FONT.SIZE.LARGE,
+    height: FONT.SIZE.LARGE,
   },
 
-  symbol: {
-    color: THEME.WHITE,
-    fontSize: THEME.FONT.SIZE.LARGE,
-    lineHeight: THEME.FONT.SIZE.LARGE,
+  bullet: {
+    borderRadius: BULLET_SIZE / 2,
+    height: BULLET_SIZE,
+    position: 'absolute',
+    width: BULLET_SIZE,
+    zIndex: 1,
   },
 
-  text: {
-    color: THEME.CONTRAST,
-    fontSize: THEME.FONT.SIZE.SMALL,
+  container: {
+    paddingVertical: UNIT / 2,
+    paddingHorizontal: OFFSET,
+    backgroundColor: 'transparent',
   },
 
   hint: {
     opacity: 0.75,
-  },
-
-  values: {
-    flex: 0,
-    minWidth: '30%',
-    alignItems: 'flex-end',
-  },
-
-  value: {
-    color: THEME.WHITE,
-    fontSize: THEME.FONT.SIZE.LARGE,
-  },
-
-  thumb: {
-    padding: UNIT / 2,
-    marginRight: UNIT,
   },
 
   image: {
@@ -62,18 +53,40 @@ export default StyleSheet.create({
     borderRadius: (IMAGE_SIZE * 1.2) / 2,
   },
 
-  alert: {
-    position: 'absolute',
-    bottom: UNIT / 3,
-    right: 0,
-    tintColor: THEME.WHITE,
-    width: THEME.FONT.SIZE.LARGE,
-    height: THEME.FONT.SIZE.LARGE,
+  info: {
+    flex: 1,
+  },
+
+  operation: {
+    opacity: 0.75,
+    transform: [{ scale: 0.75 }],
   },
 
   option: {
     alignSelf: 'center',
     tintColor: THEME.WHITE,
     marginTop: UNIT * 1.32,
+  },
+
+  price: {
+    flex: 0,
+    minWidth: '30%',
+    maxWidth: '50%',
+    alignItems: 'flex-end',
+  },
+
+  text: {
+    color: THEME.CONTRAST,
+    fontSize: FONT.SIZE.SMALL,
+  },
+
+  thumb: {
+    marginVertical: UNIT / 2,
+    marginRight: UNIT,
+  },
+
+  value: {
+    color: THEME.WHITE,
+    fontSize: FONT.SIZE.LARGE,
   },
 });

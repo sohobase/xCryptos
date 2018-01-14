@@ -1,4 +1,4 @@
-import { bool, date, func, number, string } from 'prop-types';
+import { date, func, number, string } from 'prop-types';
 
 export default {
   ALERT: {
@@ -19,11 +19,11 @@ export default {
     PRICE: string,
   },
   FAVORITE: {
-    active: bool,
     coin: string,
     hodl: number,
     name: string,
     price: number,
+    trend: number,
   },
   HISTORY: {
     timestamp: number,

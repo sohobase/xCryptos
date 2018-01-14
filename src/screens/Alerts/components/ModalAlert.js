@@ -2,10 +2,10 @@ import { bool, func, shape, string } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { addAlertAction, removeAlertAction } from '../actions';
-import { Amount, Button, Input, Modal } from '../components';
-import { SHAPE, STYLE } from '../config';
-import { ServiceAlerts } from '../services';
+import { addAlertAction, removeAlertAction } from '../../../actions';
+import { Amount, Button, Input, Modal } from '../../../components';
+import { SHAPE, STYLE } from '../../../config';
+import { ServiceAlerts } from '../../../services';
 import styles from './ModalAlert.style';
 
 const { ALERT, COIN, SETTINGS } = SHAPE;
@@ -29,10 +29,10 @@ const Fieldset = ({
         <Amount style={styles.input} value={value} />
       :
         <Input
-          autoFocus
+          autoFocus={label === 'low'}
           defaultValue={value ? value.toString() : undefined}
-          style={[styles.input, right && styles.inputRight]}
           onChangeText={newValue => onChange(label, newValue)}
+          style={[styles.input, right && styles.inputRight]}
         />
     }
   </View>
@@ -84,15 +84,11 @@ class ModalAlert extends Component {
     onClose();
   }
 
-  renderFieldset() {
-
-  }
-
   render() {
     const {
       _onChange, _onSubmit,
       props: {
-        alert, coin: { coin, price }, onClose, visible,
+        alert, coin: { price }, onClose, visible,
       },
       state: {
         item: { low, high } = alert || {}, refreshing,
@@ -101,7 +97,7 @@ class ModalAlert extends Component {
     const invalid = !alert && (!low || !high || low > price || high < price);
 
     return (
-      <Modal title={`${!alert ? 'New' : ''} ${coin} Alert`} onClose={onClose} visible={visible}>
+      <Modal title={!alert ? 'New Alert' : 'Alert'} onClose={onClose} visible={visible}>
         <View style={[STYLE.CENTERED, STYLE.LIST_ITEM, styles.content]}>
           <Amount style={styles.price} value={price} />
         </View>

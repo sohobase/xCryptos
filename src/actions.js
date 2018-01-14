@@ -25,11 +25,6 @@ export const addFavoriteAction = favorite => ({
   type: ADD_FAVORITE,
   favorite,
 });
-export const ACTIVE_FAVORITE = '@xCryptos/ACTIVE_FAVORITE';
-export const activeFavoriteAction = favorite => ({
-  type: ACTIVE_FAVORITE,
-  favorite,
-});
 export const UPDATE_FAVORITE = '@xCryptos/UPDATE_FAVORITE';
 export const updateFavoriteAction = favorite => ({
   type: UPDATE_FAVORITE,
@@ -51,13 +46,6 @@ export const UPDATE_SETTINGS = '@xCryptos/UPDATE_SETTINGS';
 export const updateSettingsAction = settings => ({
   type: UPDATE_SETTINGS,
   settings,
-});
-
-export const SNAPSHOTS = '@xCryptos/SNAPSHOTS';
-export const snapshotsAction = (data, coin) => ({
-  type: SNAPSHOTS,
-  data,
-  coin,
 });
 
 export const ADD_TOKEN = '@xCryptos/ADD_TOKEN';

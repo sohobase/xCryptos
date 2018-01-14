@@ -6,15 +6,8 @@ const add = require('../../assets/icon-add.png');
 const alert = require('../../assets/icon-alert.png');
 const back = require('../../assets/icon-back.png');
 const close = require('../../assets/icon-close.png');
-const create = require('../../assets/icon-create.png');
 const down = require('../../assets/icon-down.png');
-const home = require('../../assets/icon-home.png');
-const info = require('../../assets/icon-info.png');
-const menu = require('../../assets/icon-menu.png');
-const remove = require('../../assets/icon-remove.png');
 const settings = require('../../assets/icon-settings.png');
-const share = require('../../assets/icon-share.png');
-const star = require('../../assets/icon-star.png');
 const up = require('../../assets/icon-up.png');
 const wallet = require('../../assets/icon-wallet.png');
 
@@ -27,15 +20,8 @@ export default {
   alert,
   back,
   close,
-  create,
   down,
-  home,
-  info,
-  menu,
-  remove,
   settings,
-  share,
-  star,
   up,
   wallet,
 };
