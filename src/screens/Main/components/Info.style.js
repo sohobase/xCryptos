@@ -7,7 +7,7 @@ const {
 
 export default StyleSheet.create({
   button: {
-    marginLeft: OFFSET,
+    marginLeft: 0,
     marginRight: 0,
     tintColor: WHITE,
   },
@@ -15,7 +15,7 @@ export default StyleSheet.create({
   container: {
     flex: 0,
     width: '100%',
-    paddingVertical: UNIT,
+    paddingVertical: OFFSET,
     shadowColor: PRIMARY,
     shadowOffset: { height: UNIT * -1, width: 0 },
     shadowOpacity: 1,
@@ -27,7 +27,8 @@ export default StyleSheet.create({
   },
 
   header: {
-    paddingHorizontal: OFFSET,
+    marginHorizontal: OFFSET,
+    marginBottom: OFFSET,
   },
 
   hodl: {
@@ -44,7 +45,10 @@ export default StyleSheet.create({
   name: {
     fontSize: FONT.SIZE.EXTRA_LARGE,
     fontWeight: FONT.WEIGHT.BOLD,
-    marginRight: UNIT,
+    marginRight: UNIT / 2,
+    maxWidth: '65%',
+    maxHeight: FONT.SIZE.EXTRA_LARGE,
+    lineHeight: FONT.SIZE.EXTRA_LARGE,
   },
 
   trend: {

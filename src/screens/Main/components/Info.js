@@ -3,7 +3,7 @@ import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
 import { connect } from 'react-redux';
-import { Amount, ButtonIcon } from '../../../components';
+import { Amount, ButtonIcon, Touchable } from '../../../components';
 import { SHAPE, STYLE, THEME } from '../../../config';
 import Chart from './Chart';
 import ModalHodl from './ModalHodl';
@@ -36,18 +36,21 @@ class Info extends Component {
     return (
       <LinearGradient colors={THEME.GRADIENT_INFO} style={styles.container}>
         <View style={[STYLE.ROW, styles.header]}>
-          <View style={styles.coin}>
-            <View style={STYLE.ROW}>
-              <Text style={[styles.text, styles.name]}>{name}</Text>
-              { trendPercentage !== 0 &&
-                <View style={[STYLE.CHIP, trend > 0 ? STYLE.GREEN : STYLE.RED]}>
-                  <Amount style={[styles.text, styles.trend]} symbol="%" value={trendPercentage} />
-                </View>}
+          <Touchable onPress={_onModal} style={styles.coin}>
+            <View style={styles.coin}>
+              <View style={STYLE.ROW}>
+                <Text style={[styles.text, styles.name]}>{name}</Text>
+                { trendPercentage !== 0 &&
+                  <View style={[STYLE.CHIP]}>
+                    <Amount style={[styles.text, styles.trend]} symbol="%" value={trendPercentage} />
+                  </View>}
+              </View>
+              <Text style={[styles.text, styles.hodl]}>
+                { hodl > 0 ? `${hodl} ${coin.coin}` : 'Tap for set your holdings' }
+              </Text>
             </View>
-            { hodl > 0 && <Text style={[styles.text, styles.hodl]}>{`${hodl} ${coin.coin}`}</Text> }
-          </View>
+          </Touchable>
           <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} style={styles.button} />
-          <ButtonIcon icon="wallet" onPress={_onModal} style={styles.button} />
         </View>
         <Chart coin={coin} />
         <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
