@@ -11,15 +11,24 @@ import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
 
 const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
-const { FAVORITE, NAVIGATION, SETTINGS } = SHAPE;
+const { COLOR: { BLACK }, PRIMARY } = THEME;
 
 class Main extends Component {
-  static navigationOptions({ navigation: { navigate } }) {
-    return {
-      headerLeft: <Hodl />,
-      headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
-    };
-  }
+  static navigationOptions = ({
+    navigation: { navigate, state: { params: { backgroundColor = PRIMARY } = {} } },
+  }) => ({
+    headerLeft: <Hodl />,
+    headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
+    headerStyle: {
+      backgroundColor,
+      elevation: 0,
+      shadowColor: 'transparent',
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+      },
+    },
+  })
 
   constructor(props) {
     super(props);
@@ -38,13 +47,20 @@ class Main extends Component {
   }
 
   async componentWillMount() {
-    const { _fetch, _onNotification, props: { addToken, token } } = this;
+    const {
+      _fetch, _onNotification,
+      props: {
+        addToken, navigation, token, settings: { nightMode },
+      },
+    } = this;
     const { env: { NODE_ENV } } = process;
 
     _fetch();
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
+
+    navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
   }
 
   async _fetch() {
@@ -91,14 +107,16 @@ class Main extends Component {
   render() {
     const {
       _fetch, _onChangeValue, _renderItem,
-      props: { favorites = [], navigation },
+      props: { favorites = [], navigation, settings: { nightMode } },
       state: {
         coin: { coin } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
+    let gradient = coin ? THEME.GRADIENT : THEME.GRADIENT_LIST;
+    if (nightMode) gradient = [THEME.COLOR.BLACK, THEME.COLOR.BLACK];
 
     return (
-      <LinearGradient colors={coin ? THEME.GRADIENT : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
+      <LinearGradient colors={gradient} style={STYLE.SCREEN}>
         <FlatList
           data={favorites}
           extraData={this.state}
@@ -106,7 +124,7 @@ class Main extends Component {
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
           renderItem={_renderItem}
-          style={[styles.list, coin && styles.short]}
+          style={styles.list}
         />
         { coin && <Info coin={coin} navigation={navigation} /> }
         { coin &&
@@ -124,9 +142,9 @@ class Main extends Component {
 
 Main.propTypes = {
   addToken: func,
-  favorites: arrayOf(shape(FAVORITE)),
-  navigation: shape(NAVIGATION).isRequired,
-  settings: shape(SETTINGS),
+  favorites: arrayOf(shape(SHAPE.FAVORITE)),
+  navigation: shape(SHAPE.NAVIGATION).isRequired,
+  settings: shape(SHAPE.SETTINGS),
   token: string,
   updatePrices: func,
 };
