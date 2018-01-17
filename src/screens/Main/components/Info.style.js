@@ -20,6 +20,7 @@ export default StyleSheet.create({
 
   coin: {
     flex: 1,
+    marginRight: OFFSET,
   },
 
   header: {
@@ -32,7 +33,6 @@ export default StyleSheet.create({
     color: CONTRAST,
   },
 
-
   text: {
     color: WHITE,
     backgroundColor: 'transparent',
@@ -42,7 +42,6 @@ export default StyleSheet.create({
     fontSize: FONT.SIZE.EXTRA_LARGE,
     fontWeight: FONT.WEIGHT.BOLD,
     marginRight: UNIT / 2,
-    maxWidth: '65%',
     maxHeight: FONT.SIZE.EXTRA_LARGE,
     lineHeight: FONT.SIZE.EXTRA_LARGE,
   },

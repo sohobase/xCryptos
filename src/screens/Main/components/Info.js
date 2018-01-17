@@ -34,7 +34,10 @@ class Info extends Component {
     const trendPercentage = parseInt((trend * 100) / price, 10);
 
     return (
-      <LinearGradient colors={nightMode ? [THEME.COLOR.BLACK, THEME.COLOR.BLACK] : THEME.GRADIENT_INFO} style={styles.container}>
+      <LinearGradient
+        colors={nightMode ? [THEME.COLOR.BLACK, THEME.COLOR.BLACK] : THEME.GRADIENT_INFO}
+        style={styles.container}
+      >
         <View style={[STYLE.ROW, styles.header]}>
           <Touchable onPress={_onModal} style={styles.coin}>
             <View style={styles.coin}>
