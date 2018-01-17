@@ -62,7 +62,9 @@ class Main extends Component {
 
     navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     BackHandler.addEventListener('hardwareBackPress', () => {
+      const { state: { coin } } = this;
       this.setState({ coin: undefined });
+      return coin !== undefined;
     });
   }
 
