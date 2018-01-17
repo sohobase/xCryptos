@@ -10,7 +10,7 @@ import {
   updatePricesAction,
 } from '../../actions';
 import { ButtonIcon } from '../../components';
-import { SHAPE, STYLE, TEXT } from '../../config';
+import { SHAPE, STYLE, TEXT, THEME } from '../../config';
 import { ServiceCoins } from '../../services';
 import { ListItem } from './components';
 import styles from './Coins.style';
@@ -23,6 +23,8 @@ class CoinsScreen extends Component {
     return {
       title: COINS,
       headerRight: <ButtonIcon />,
+      headerStyle: { backgroundColor: THEME.WHITE },
+      headerTintColor: THEME.BLACK,
     };
   }
 

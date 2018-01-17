@@ -41,7 +41,7 @@ export default {
       name: 'Litecoin',
       price: 0,
     }],
-    SETTINGS: { currency: 'USD', language: 'English' },
+    SETTINGS: { currency: 'USD', nightMode: false },
     TIMELINE,
     TOKEN: 'xCryptos-Development',
   },

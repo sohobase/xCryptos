@@ -3,9 +3,9 @@ import { THEME } from '../../config';
 
 export default StyleSheet.create({
   searchBar: {
-    backgroundColor: THEME.PRIMARY,
+    backgroundColor: THEME.WHITE,
     borderTopWidth: 0,
-    elevation: 8,
+    elevation: 0,
   },
 
   input: {
