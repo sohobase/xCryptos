@@ -2,7 +2,7 @@ import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState, FlatList, RefreshControl } from 'react-native';
+import { AppState, BackHandler, FlatList, RefreshControl } from 'react-native';
 import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
@@ -61,6 +61,9 @@ class Main extends Component {
     AppState.addEventListener('change', state => state === 'active' && _fetch());
 
     navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.setState({ coin: undefined });
+    });
   }
 
   async _fetch() {
