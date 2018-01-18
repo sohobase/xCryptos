@@ -40,7 +40,6 @@ class Main extends Component {
       refreshing: false,
       value: '1',
     };
-    this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
     this._onNotification = this._onNotification.bind(this);
@@ -95,35 +94,15 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
-  _renderItem({ item }) {
-    const {
-      state: {
-        coin: { coin: currentCoin, price } = {}, decimal, value,
-      },
-    } = this;
-
-    return (
-      <ListItem
-        active={currentCoin === item.coin}
-        coin={item}
-        decimal={decimal}
-        conversion={price}
-        onFocus={coin => this.setState({ coin, keyboard: true })}
-        onPress={coin => this.setState({ coin, keyboard: false, value: '1' })}
-        value={value}
-      />
-    );
-  }
-
   render() {
     const {
-      _fetch, _onChangeValue, _renderItem,
+      _fetch, _onChangeValue,
       props: { favorites = [], navigation, settings: { nightMode } },
       state: {
-        coin: { coin } = {}, decimal, keyboard, prefetch, refreshing, value,
+        coin: { coin: currentCoin, price } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
-    let gradient = coin ? THEME.GRADIENT : THEME.GRADIENT_LIST;
+    let gradient = currentCoin ? THEME.GRADIENT : THEME.GRADIENT_LIST;
     if (nightMode) gradient = [THEME.COLOR.BLACK, THEME.COLOR.BLACK];
 
     return (
@@ -134,11 +113,21 @@ class Main extends Component {
           keyExtractor={item => item.coin}
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-          renderItem={_renderItem}
+          renderItem={({ item }) => (
+            <ListItem
+              active={currentCoin === item.coin}
+              coin={item}
+              decimal={decimal}
+              conversion={price}
+              onFocus={() => this.setState({ coin: item, keyboard: true })}
+              onPress={() => this.setState({ coin: item, keyboard: false, value: '1' })}
+              value={keyboard ? value : undefined}
+            />
+          )}
           style={styles.list}
         />
-        { coin && <Info coin={coin} navigation={navigation} /> }
-        { coin &&
+        { currentCoin && <Info coin={currentCoin} navigation={navigation} /> }
+        { currentCoin &&
           <Keyboard
             visible={keyboard}
             decimal={decimal}

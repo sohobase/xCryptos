@@ -7,6 +7,7 @@ export default StyleSheet.create({
   blink: {
     width: UNIT * 0.2,
     height: OFFSET,
+    marginRight: -UNIT * 0.6,
     marginLeft: UNIT * 0.3,
     backgroundColor: CONTRAST,
   },
