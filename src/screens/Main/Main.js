@@ -1,9 +1,9 @@
-import { LinearGradient, Notifications } from 'expo';
+import { LinearGradient, Notifications, Util } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { AppState, BackHandler, FlatList, RefreshControl } from 'react-native';
-import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
+import { addTokenAction, saveAlertsAction, updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
@@ -48,23 +48,29 @@ class Main extends Component {
 
   async componentWillMount() {
     const {
-      _fetch, _onNotification,
+      _fetch,
       props: {
-        addToken, navigation, token, settings: { nightMode },
+        addToken, navigation, token, settings: { nightMode }, updateSettings,
       },
     } = this;
     const { env: { NODE_ENV } } = process;
 
     _fetch();
+    navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
+
+    updateSettings({
+      locale: (await Util.getCurrentLocaleAsync()).toUpperCase(),
+    });
+  }
+
+  compononentDidMount() {
+    const { _fetch, _onNotification } = this;
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
-
-    navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     BackHandler.addEventListener('hardwareBackPress', () => {
-      const { state: { coin } } = this;
       this.setState({ coin: undefined });
-      return coin !== undefined;
+      return this.state.coin !== undefined;
     });
   }
 
@@ -152,6 +158,7 @@ Main.propTypes = {
   settings: shape(SHAPE.SETTINGS),
   token: string,
   updatePrices: func,
+  updateSettings: func,
 };
 
 Main.defaultProps = {
@@ -160,6 +167,7 @@ Main.defaultProps = {
   settings: C.DEFAULT.SETTINGS,
   token: undefined,
   updatePrices() {},
+  updateSettings() {},
 };
 
 const mapStateToProps = ({ favorites, settings, token }) => ({
@@ -175,6 +183,7 @@ const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
   saveAlerts: alerts => alerts && dispatch(saveAlertsAction(alerts)),
   updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
+  updateSettings: settings => dispatch(updateSettingsAction(settings)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

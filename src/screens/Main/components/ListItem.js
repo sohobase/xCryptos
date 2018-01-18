@@ -4,10 +4,8 @@ import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Amount, CursorBlink } from '../../../components';
 import { ASSET, SHAPE, THEME, STYLE } from '../../../config';
-import { formatCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
-const { ALERT, COIN } = SHAPE;
 const { TRANSPARENT } = THEME;
 
 class ListItem extends Component {
@@ -36,7 +34,7 @@ class ListItem extends Component {
     const {
       _onFocus, _onPress,
       props: {
-        active, alerts, conversion = 0, coin, decimal, value,
+        active, alerts, conversion = 0, coin, decimal, settings: { locale = 'EN' }, value,
       },
       state: { focus },
     } = this;
@@ -67,7 +65,9 @@ class ListItem extends Component {
           <View style={styles.price}>
             <View style={STYLE.ROW}>
               <Text style={styles.value}>
-                { active ? `${value}${decimal ? '.' : ''}` : formatCurrency(((conversion * value) / price), 4)}
+                { active
+                  ? `${value}${decimal ? '.' : ''}`
+                  : parseFloat((conversion * value) / price).toLocaleString(locale) }
               </Text>
               { active && focus && <CursorBlink /> }
             </View>
@@ -89,12 +89,13 @@ class ListItem extends Component {
 
 ListItem.propTypes = {
   active: bool,
-  alerts: arrayOf(shape(ALERT)),
+  alerts: arrayOf(shape(SHAPE.ALERT)),
   conversion: number,
-  coin: shape(COIN),
+  coin: shape(SHAPE.COIN),
   decimal: bool,
   onFocus: func,
   onPress: func,
+  settings: shape(SHAPE.SETTINGS),
   value: string,
 };
 
@@ -106,11 +107,13 @@ ListItem.defaultProps = {
   decimal: false,
   onFocus() {},
   onPress() {},
+  settings: {},
   value: '0',
 };
 
-const mapStateToProps = ({ alerts }) => ({
+const mapStateToProps = ({ alerts, settings }) => ({
   alerts,
+  settings,
 });
 
 export default connect(mapStateToProps)(ListItem);
