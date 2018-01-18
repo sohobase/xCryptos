@@ -1,4 +1,5 @@
 const TIMELINE = '24 HOURS';
+const LOCALE = 'en-EN';
 
 export default {
   AFILIATES: {
@@ -41,10 +42,12 @@ export default {
       name: 'Litecoin',
       price: 0,
     }],
-    SETTINGS: { currency: 'USD', locale: 'EN', nightMode: false },
+    SETTINGS: { currency: 'USD', locale: LOCALE, nightMode: false },
     TIMELINE,
     TOKEN: 'xCryptos-Development',
   },
+
+  LOCALE,
 
   NODE_ENV: {
     DEVELOPMENT: 'development',

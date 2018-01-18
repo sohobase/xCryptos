@@ -5,10 +5,10 @@ import { View, Text } from 'react-native';
 import { C, SHAPE, STYLE } from '../config';
 import styles from './Amount.style';
 
-const { CURRENCY: { USD }, SYMBOL } = C;
+const { CURRENCY: { USD }, LOCALE, SYMBOL } = C;
 
 const Amount = ({
-  settings: { currency, locale = 'EN' }, style, symbol, value,
+  settings: { currency, locale = LOCALE }, style, symbol, value,
 }) => (
   <View style={STYLE.ROW}>
     { symbol && value > 0 && <Text style={style}>+</Text> }

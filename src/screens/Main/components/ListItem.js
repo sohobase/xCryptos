@@ -3,18 +3,20 @@ import React from 'react';
 import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Amount, CursorBlink } from '../../../components';
-import { ASSET, SHAPE, THEME, STYLE } from '../../../config';
+import { ASSET, C, SHAPE, THEME, STYLE } from '../../../config';
 import styles from './ListItem.style';
 
+const { LOCALE } = C;
 const { TRANSPARENT } = THEME;
 
 const ListItem = ({
-  active, alerts, conversion = 0, coin, decimal, onFocus, onPress, settings: { locale = 'EN' }, value,
+  active, alerts, conversion = 0, coin, decimal, onFocus, onPress, settings: { locale = LOCALE }, value,
 }) => {
   const {
     hodl = 0, image, price = 0, total = 0, trend = 0,
   } = coin;
   const alert = alerts.find(item => item.coin === coin.coin);
+  const valueConversion = value ? parseFloat((conversion * value.replace(',', '')) / price).toLocaleString(locale) : 0;
 
   return (
     <View style={[STYLE.ROW, styles.container, active && styles.active]}>
@@ -34,14 +36,15 @@ const ListItem = ({
           </View>
         </View>
       </TouchableWithoutFeedback>
-      <TouchableWithoutFeedback underlayColor={TRANSPARENT} onPress={onFocus}>
+      <TouchableWithoutFeedback
+        underlayColor={TRANSPARENT}
+        onPress={() => onFocus(value ? valueConversion : '1')}
+      >
         <View style={styles.price}>
           { value &&
           <View style={STYLE.ROW}>
             <Text style={styles.value}>
-              { active
-                ? `${value}${decimal ? '.' : ''}`
-                : parseFloat((conversion * value) / price).toLocaleString(locale) }
+              { active ? `${value}${decimal ? '.' : ''}` : valueConversion }
             </Text>
             { active && <CursorBlink /> }
           </View>
@@ -52,7 +55,7 @@ const ListItem = ({
               <View style={[STYLE.ROW, STYLE.CENTERED]}>
                 <Text style={[styles.text, styles.operation]}>{` x${value} `}</Text>
                 <Text style={styles.text}>= </Text>
-                <Amount style={styles.text} value={value * price} />
+                <Amount style={styles.text} value={value.replace(',', '') * price} />
               </View> }
           </View>
         </View>

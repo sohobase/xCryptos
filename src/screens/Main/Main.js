@@ -1,4 +1,4 @@
-import { LinearGradient, Notifications, Util } from 'expo';
+import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
@@ -10,7 +10,7 @@ import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../service
 import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
 
-const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
+const { DEFAULT: { FAVORITES, TOKEN }, LOCALE, NODE_ENV: { DEVELOPMENT } } = C;
 const { COLOR: { BLACK }, PRIMARY } = THEME;
 
 class Main extends Component {
@@ -38,7 +38,7 @@ class Main extends Component {
       decimal: false,
       prefetch: false,
       refreshing: false,
-      value: '1',
+      value: undefined,
     };
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
@@ -57,10 +57,7 @@ class Main extends Component {
     _fetch();
     navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
-
-    updateSettings({
-      locale: (await Util.getCurrentLocaleAsync()).toUpperCase(),
-    });
+    updateSettings({ locale: LOCALE });
   }
 
   compononentDidMount() {
@@ -119,9 +116,9 @@ class Main extends Component {
               coin={item}
               decimal={decimal}
               conversion={price}
-              onFocus={() => this.setState({ coin: item, keyboard: true })}
-              onPress={() => this.setState({ coin: item, keyboard: false, value: '1' })}
-              value={keyboard ? value : undefined}
+              onFocus={newValue => this.setState({ coin: item, keyboard: true, value: newValue })}
+              onPress={() => this.setState({ coin: item, keyboard: false, value: undefined })}
+              value={value}
             />
           )}
           style={styles.list}
@@ -132,7 +129,7 @@ class Main extends Component {
             visible={keyboard}
             decimal={decimal}
             onChange={_onChangeValue}
-            onClose={() => this.setState({ keyboard: false, value: 1 })}
+            onClose={() => this.setState({ keyboard: false, value: undefined })}
             value={value}
           /> }
       </LinearGradient>
