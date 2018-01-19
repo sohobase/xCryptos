@@ -101,7 +101,7 @@ Keyboard.defaultProps = {
   decimal: false,
   onChange() {},
   onClose() {},
-  value: 0,
+  value: '0',
 };
 
 export default Keyboard;

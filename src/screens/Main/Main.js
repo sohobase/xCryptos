@@ -2,24 +2,33 @@ import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { AppState, FlatList, RefreshControl } from 'react-native';
-import { addTokenAction, saveAlertsAction, updatePricesAction } from '../../actions';
+import { AppState, BackHandler, FlatList, RefreshControl } from 'react-native';
+import { addTokenAction, saveAlertsAction, updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
 
-const { DEFAULT: { FAVORITES, TOKEN }, NODE_ENV: { DEVELOPMENT } } = C;
-const { FAVORITE, NAVIGATION, SETTINGS } = SHAPE;
+const { DEFAULT: { FAVORITES, TOKEN }, LOCALE, NODE_ENV: { DEVELOPMENT } } = C;
+const { COLOR: { BLACK }, PRIMARY } = THEME;
 
 class Main extends Component {
-  static navigationOptions({ navigation: { navigate } }) {
-    return {
-      headerLeft: <Hodl />,
-      headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
-    };
-  }
+  static navigationOptions = ({
+    navigation: { navigate, state: { params: { backgroundColor = PRIMARY } = {} } },
+  }) => ({
+    headerLeft: <Hodl />,
+    headerRight: <ButtonIcon icon="settings" onPress={() => navigate('Settings')} style={styles.icon} />,
+    headerStyle: {
+      backgroundColor,
+      elevation: 0,
+      shadowColor: 'transparent',
+      shadowRadius: 0,
+      shadowOffset: {
+        height: 0,
+      },
+    },
+  })
 
   constructor(props) {
     super(props);
@@ -29,22 +38,36 @@ class Main extends Component {
       decimal: false,
       prefetch: false,
       refreshing: false,
-      value: '1',
+      value: undefined,
     };
-    this._renderItem = this._renderItem.bind(this);
     this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
 
   async componentWillMount() {
-    const { _fetch, _onNotification, props: { addToken, token } } = this;
+    const {
+      _fetch,
+      props: {
+        addToken, navigation, token, settings: { nightMode }, updateSettings,
+      },
+    } = this;
     const { env: { NODE_ENV } } = process;
 
     _fetch();
+    navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
+    updateSettings({ locale: LOCALE });
+  }
+
+  compononentDidMount() {
+    const { _fetch, _onNotification } = this;
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
+    BackHandler.addEventListener('hardwareBackPress', () => {
+      this.setState({ coin: undefined });
+      return this.state.coin !== undefined;
+    });
   }
 
   async _fetch() {
@@ -68,53 +91,45 @@ class Main extends Component {
     if (storeCoin) navigation.navigate('Coin', { coin: storeCoin });
   };
 
-  _renderItem({ item }) {
-    const {
-      state: {
-        coin: { coin: currentCoin, price } = {}, decimal, value,
-      },
-    } = this;
-
-    return (
-      <ListItem
-        active={currentCoin === item.coin}
-        coin={item}
-        decimal={decimal}
-        conversion={price}
-        onFocus={coin => this.setState({ coin, keyboard: true })}
-        onPress={coin => this.setState({ coin, keyboard: false, value: '1' })}
-        value={value}
-      />
-    );
-  }
-
   render() {
     const {
-      _fetch, _onChangeValue, _renderItem,
-      props: { favorites = [], navigation },
+      _fetch, _onChangeValue,
+      props: { favorites = [], navigation, settings: { nightMode } },
       state: {
-        coin: { coin } = {}, decimal, keyboard, prefetch, refreshing, value,
+        coin: { coin: currentCoin, price } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
+    let gradient = currentCoin ? THEME.GRADIENT : THEME.GRADIENT_LIST;
+    if (nightMode) gradient = [THEME.COLOR.BLACK, THEME.COLOR.BLACK];
 
     return (
-      <LinearGradient colors={coin ? THEME.GRADIENT : THEME.GRADIENT_LIST} style={STYLE.SCREEN}>
+      <LinearGradient colors={gradient} style={STYLE.SCREEN}>
         <FlatList
           data={favorites}
           extraData={this.state}
           keyExtractor={item => item.coin}
           refreshControl={
             <RefreshControl refreshing={refreshing && prefetch} onRefresh={_fetch} tintColor={THEME.WHITE} />}
-          renderItem={_renderItem}
-          style={[styles.list, coin && styles.short]}
+          renderItem={({ item }) => (
+            <ListItem
+              active={currentCoin === item.coin}
+              coin={item}
+              decimal={decimal}
+              conversion={price}
+              onFocus={newValue => this.setState({ coin: item, keyboard: true, value: newValue })}
+              onPress={() => this.setState({ coin: item, keyboard: false, value: undefined })}
+              value={value}
+            />
+          )}
+          style={styles.list}
         />
-        { coin && <Info coin={coin} navigation={navigation} /> }
-        { coin &&
+        { currentCoin && <Info coin={currentCoin} navigation={navigation} /> }
+        { currentCoin &&
           <Keyboard
             visible={keyboard}
             decimal={decimal}
             onChange={_onChangeValue}
-            onClose={() => this.setState({ keyboard: false, value: 1 })}
+            onClose={() => this.setState({ keyboard: false, value: undefined })}
             value={value}
           /> }
       </LinearGradient>
@@ -124,11 +139,12 @@ class Main extends Component {
 
 Main.propTypes = {
   addToken: func,
-  favorites: arrayOf(shape(FAVORITE)),
-  navigation: shape(NAVIGATION).isRequired,
-  settings: shape(SETTINGS),
+  favorites: arrayOf(shape(SHAPE.FAVORITE)),
+  navigation: shape(SHAPE.NAVIGATION).isRequired,
+  settings: shape(SHAPE.SETTINGS),
   token: string,
   updatePrices: func,
+  updateSettings: func,
 };
 
 Main.defaultProps = {
@@ -137,6 +153,7 @@ Main.defaultProps = {
   settings: C.DEFAULT.SETTINGS,
   token: undefined,
   updatePrices() {},
+  updateSettings() {},
 };
 
 const mapStateToProps = ({ favorites, settings, token }) => ({
@@ -152,6 +169,7 @@ const mapDispatchToProps = dispatch => ({
   addToken: token => dispatch(addTokenAction(token)),
   saveAlerts: alerts => alerts && dispatch(saveAlertsAction(alerts)),
   updatePrices: prices => prices && dispatch(updatePricesAction(prices)),
+  updateSettings: settings => dispatch(updateSettingsAction(settings)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);

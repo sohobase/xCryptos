@@ -5,14 +5,12 @@ import {
   MainScreen,
   SettingsScreen,
 } from './screens';
-import { THEME } from './config';
-import styles from './app.style';
 
 const navigationOptions = {
   headerBackTitle: ' ',
-  headerStyle: styles.header,
-  headerTitleStyle: styles.title,
-  headerTintColor: THEME.WHITE,
+  headerTitleStyle: {
+    alignSelf: 'center',
+  },
 };
 
 const stackOptions = {

@@ -34,6 +34,10 @@ export default StyleSheet.create({
     fontSize: FONT.SIZE.LARGE,
   },
 
+  caption: {
+    flex: 1,
+  },
+
   disabled: {
     color: THEME.COLOR_SECONDARY,
   },
@@ -51,5 +55,4 @@ export default StyleSheet.create({
     maxWidth: '90%',
     marginTop: UNIT / 2,
   },
-
 });

@@ -1,5 +1,5 @@
-import formatCurrency from './formatCurrency';
+import parseCurrency from './parseCurrency';
 
 export {
-  formatCurrency,
+  parseCurrency,
 };
