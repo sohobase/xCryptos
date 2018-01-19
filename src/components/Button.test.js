@@ -31,10 +31,10 @@ describe('when disabled', () => {
   });
 
   it('does not attach onPress if disabled', () => {
-  const onPress = jest.fn();
-  const component = renderer(<Button disabled onPress={onPress} />);
+    const onPress = jest.fn();
+    const component = renderer(<Button disabled onPress={onPress} />);
 
-  expect(component.query('TouchableOpacity').props.onPress).toBeUndefined();
-});
+    expect(component.query('TouchableOpacity').props.onPress).toBeUndefined();
+  });
 });
 

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders by default 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "borderBottomColor": "rgba(0, 0, 0, 0.1)",
+          "borderBottomWidth": 1,
+          "paddingHorizontal": 16,
+          "paddingVertical": 10,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <Amount
+        style={
+          Object {
+            "fontSize": 20,
+          }
+        }
+        value={undefined}
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.5)",
+            "fontSize": 12,
+          }
+        }
+      >
+        low
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-end",
+        }
+      }
+    >
+      <Amount
+        style={
+          Object {
+            "fontSize": 20,
+          }
+        }
+        value={undefined}
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.5)",
+            "fontSize": 12,
+          }
+        }
+      >
+        high
+      </Text>
+    </View>
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`renders high and low props 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "display": "flex",
+          "flexDirection": "row",
+        },
+        Object {
+          "backgroundColor": "#ffffff",
+          "borderBottomColor": "rgba(0, 0, 0, 0.1)",
+          "borderBottomWidth": 1,
+          "paddingHorizontal": 16,
+          "paddingVertical": 10,
+        },
+      ]
+    }
+  >
+    <View
+      style={
+        Object {
+          "flex": 1,
+        }
+      }
+    >
+      <Amount
+        style={
+          Object {
+            "fontSize": 20,
+          }
+        }
+        value={5}
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.5)",
+            "fontSize": 12,
+          }
+        }
+      >
+        low
+      </Text>
+    </View>
+    <View
+      style={
+        Object {
+          "alignItems": "flex-end",
+        }
+      }
+    >
+      <Amount
+        style={
+          Object {
+            "fontSize": 20,
+          }
+        }
+        value={10}
+      />
+      <Text
+        accessible={true}
+        allowFontScaling={true}
+        ellipsizeMode="tail"
+        style={
+          Object {
+            "color": "rgba(0, 0, 0, 0.5)",
+            "fontSize": 12,
+          }
+        }
+      >
+        high
+      </Text>
+    </View>
+  </View>
+</TouchableOpacity>
+`;
