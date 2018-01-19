@@ -27,6 +27,7 @@ export default {
   COLOR_SECONDARY: 'rgba(0, 0, 0, 0.5)',
 
   COLOR: {
+    BLACK: '#000000',
     CHART: 'rgba(255, 255, 255, 0.35)',
     GREEN: '#5edeb3',
     RED: '#F44336',

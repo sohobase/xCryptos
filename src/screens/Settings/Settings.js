@@ -1,24 +1,30 @@
 import { arrayOf, func, shape } from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Image, Linking, Text, View } from 'react-native';
+import { Image, Linking, Switch, Text, View } from 'react-native';
 import PKG from '../../../package.json';
 import { updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon, Touchable } from '../../components';
-import { ASSET, C, SHAPE, STYLE, TEXT } from '../../config';
+import { ASSET, C, SHAPE, STYLE, TEXT, THEME } from '../../config';
 import { ServiceCoins } from '../../services';
 import { ModalCurrency } from './components';
 import styles from './Settings.style';
 
 const { CURRENCY: { USD }, SOHOBASE } = C;
 const { version } = PKG;
-const { EN: { COPYRIGHT, LANGUAGE, LOCAL_CURRENCY } } = TEXT;
+const {
+  EN: {
+    COPYRIGHT, LOCAL_CURRENCY, NIGHT_MODE, THEME: TEXT_THEME,
+  },
+} = TEXT;
 
 class Settings extends Component {
   static navigationOptions({ navigation: { navigate } }) {
     return {
       title: 'Settings',
-      headerRight: <ButtonIcon icon="add" onPress={() => navigate('Coins')} style={styles.icon} />,
+      headerRight: <ButtonIcon icon="add" onPress={() => navigate('Coins')} />,
+      headerStyle: { backgroundColor: THEME.WHITE },
+      headerTintColor: THEME.BLACK,
     };
   }
 
@@ -27,13 +33,22 @@ class Settings extends Component {
     this.state = { modal: false };
     this._onCurrency = this._onCurrency.bind(this);
     this._onModal = this._onModal.bind(this);
+    this._onNightMode = this._onNightMode.bind(this);
   }
 
   _onCurrency(currency) {
     const { props: { favorites, updatePrices, updateSettings } } = this;
     this.setState({ modal: false });
-    updateSettings({ currency });
+    updateSettings({
+      currency,
+      // locale: (await Util.getCurrentLocaleAsync()).toUpperCase(), @TODO: Available when change language
+    });
     ServiceCoins.prices(favorites.map(({ coin }) => coin), currency).then(updatePrices);
+  }
+
+  _onNightMode(nightMode) {
+    const { props: { updateSettings } } = this;
+    updateSettings({ nightMode });
   }
 
   _onModal() {
@@ -42,8 +57,8 @@ class Settings extends Component {
 
   render() {
     const {
-      _onCurrency, _onModal,
-      props: { settings: { currency = USD, language = 'English' } },
+      _onCurrency, _onModal, _onNightMode,
+      props: { settings: { currency = USD, nightMode = false } },
       state: { modal },
     } = this;
 
@@ -62,8 +77,11 @@ class Settings extends Component {
           </Touchable>
           <View style={STYLE.LIST_ITEM}>
             <View>
-              <Text style={styles.label}>{LANGUAGE}</Text>
-              <Text style={[styles.value, styles.disabled]}>{language}</Text>
+              <Text style={styles.label}>{TEXT_THEME}</Text>
+              <View style={STYLE.ROW}>
+                <Text style={[styles.value, styles.caption]}>{NIGHT_MODE}</Text>
+                <Switch onValueChange={_onNightMode} value={nightMode} />
+              </View>
             </View>
           </View>
         </View>

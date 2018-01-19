@@ -25,7 +25,7 @@ class Info extends Component {
   render() {
     const {
       _onModal,
-      props: { coin, navigation: { navigate } },
+      props: { coin, navigation: { navigate }, settings: { nightMode } },
       state: { modal },
     } = this;
     const {
@@ -34,7 +34,10 @@ class Info extends Component {
     const trendPercentage = parseInt((trend * 100) / price, 10);
 
     return (
-      <LinearGradient colors={THEME.GRADIENT_INFO} style={styles.container}>
+      <LinearGradient
+        colors={nightMode ? [THEME.COLOR.BLACK, THEME.COLOR.BLACK] : THEME.GRADIENT_INFO}
+        style={styles.container}
+      >
         <View style={[STYLE.ROW, styles.header]}>
           <Touchable onPress={_onModal} style={styles.coin}>
             <View style={styles.coin}>
@@ -62,6 +65,7 @@ class Info extends Component {
 Info.propTypes = {
   coin: shape(SHAPE.COIN),
   navigation: shape(SHAPE.NAVIGATION).isRequired,
+  settings: shape(SHAPE.SETTINGS).isRequired,
 };
 
 Info.defaultProps = {

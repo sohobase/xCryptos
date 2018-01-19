@@ -6,12 +6,16 @@ export default {
 
     ERROR_CONNECTION: 'Oops, seems you are not connected to splitbits server.',
 
+    HINT_SET_HODL: 'Swipe & set your holdings',
+
     LANGUAGE: 'Language',
     LOCAL_CURRENCY: 'Local currency',
+
+    NIGHT_MODE: 'Night Mode',
 
     SEARCH: 'Search',
     SUBJECT: 'Subject',
 
-    HINT_SET_HODL: 'Swipe & set your holdings',
+    THEME: 'Theme',
   },
 };
