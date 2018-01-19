@@ -24,7 +24,7 @@ const INITIAL_STATE = {
     name: 'Litecoin',
     price: 0,
   }],
-  settings: { currency: 'USD', language: 'English' },
+  settings: { currency: 'USD', locale: 'EN', nightMode: false },
   token: '',
 };
 
