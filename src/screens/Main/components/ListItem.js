@@ -4,6 +4,7 @@ import { Image, Text, TouchableWithoutFeedback, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Amount, CursorBlink } from '../../../components';
 import { ASSET, C, SHAPE, THEME, STYLE } from '../../../config';
+import { parseCurrency } from '../../../modules';
 import styles from './ListItem.style';
 
 const { LOCALE } = C;
@@ -16,7 +17,7 @@ const ListItem = ({
     hodl = 0, image, price = 0, total = 0, trend = 0,
   } = coin;
   const alert = alerts.find(item => item.coin === coin.coin);
-  const valueConversion = value ? parseFloat((conversion * value.replace(',', '')) / price).toLocaleString(locale) : 0;
+  const valueConversion = value ? parseCurrency(parseFloat((conversion * value.replace(',', '')) / price), locale) : 0;
 
   return (
     <View style={[STYLE.ROW, styles.container, active && styles.active]}>

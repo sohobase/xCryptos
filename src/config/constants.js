@@ -1,5 +1,5 @@
 const TIMELINE = '24 HOURS';
-const LOCALE = 'en-EN';
+const LOCALE = 'EN';
 
 export default {
   AFILIATES: {

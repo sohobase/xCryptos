@@ -3,17 +3,18 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
 import { C, SHAPE, STYLE } from '../config';
+import { parseCurrency } from '../modules';
 import styles from './Amount.style';
 
-const { CURRENCY: { USD }, LOCALE, SYMBOL } = C;
+const { CURRENCY: { USD }, SYMBOL } = C;
 
 const Amount = ({
-  settings: { currency, locale = LOCALE }, style, symbol, value,
+  settings: { currency }, style, symbol, value,
 }) => (
   <View style={STYLE.ROW}>
     { symbol && value > 0 && <Text style={style}>+</Text> }
     { !symbol && currency === USD && <Text style={[style, styles.symbol]}>{SYMBOL.USD}</Text> }
-    <Text style={style}>{symbol !== '%' ? parseFloat(value).toLocaleString(locale) : value}</Text>
+    <Text style={style}>{symbol !== '%' ? parseCurrency(value) : value}</Text>
     { (symbol || currency !== USD) && <Text style={[style, styles.symbol]}>{symbol || SYMBOL[currency]}</Text> }
   </View>
 );
