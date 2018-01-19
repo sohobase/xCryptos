@@ -12,7 +12,11 @@ import styles from './Settings.style';
 
 const { CURRENCY: { USD }, SOHOBASE } = C;
 const { version } = PKG;
-const { EN: { COPYRIGHT, LOCAL_CURRENCY, NIGHT_MODE, THEME: TEXT_THEME } } = TEXT;
+const {
+  EN: {
+    COPYRIGHT, LOCAL_CURRENCY, NIGHT_MODE, THEME: TEXT_THEME,
+  },
+} = TEXT;
 
 class Settings extends Component {
   static navigationOptions({ navigation: { navigate } }) {
@@ -35,7 +39,10 @@ class Settings extends Component {
   _onCurrency(currency) {
     const { props: { favorites, updatePrices, updateSettings } } = this;
     this.setState({ modal: false });
-    updateSettings({ currency });
+    updateSettings({
+      currency,
+      // locale: (await Util.getCurrentLocaleAsync()).toUpperCase(), @TODO: Available when change language
+    });
     ServiceCoins.prices(favorites.map(({ coin }) => coin), currency).then(updatePrices);
   }
 
