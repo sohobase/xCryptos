@@ -8,19 +8,21 @@ jest.mock('../../../components/Amount', () => 'Amount');
 
 const ALERT = { high: 10, low: 5 };
 
-it('renders by default', () => {
-  const tree = renderer(<AlertListItem />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+describe('<AlertListItem />', () => {
+  it('renders by default', () => {
+    const tree = renderer(<AlertListItem />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-it('renders high and low props', () => {
-  const tree = renderer(<AlertListItem alert={ALERT} />).toJSON();
-  expect(tree).toMatchSnapshot();
-});
+  it('renders high and low props', () => {
+    const tree = renderer(<AlertListItem alert={ALERT} />).toJSON();
+    expect(tree).toMatchSnapshot();
+  });
 
-it('passes the onPress prop on the Touchable component', () => {
-  const onPress = () => {};
-  const component = renderer(<AlertListItem onPress={onPress} />);
+  it('passes the onPress prop on the Touchable component', () => {
+    const onPress = () => {};
+    const component = renderer(<AlertListItem onPress={onPress} />);
 
-  expect(component.query('TouchableOpacity').props.onPress).toEqual(onPress);
+    expect(component.query('TouchableOpacity').props.onPress).toEqual(onPress);
+  });
 });

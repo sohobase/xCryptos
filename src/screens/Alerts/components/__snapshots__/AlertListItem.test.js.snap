@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`renders by default 1`] = `
+exports[`<AlertListItem /> renders by default 1`] = `
 <TouchableOpacity
   onPress={undefined}
 >
@@ -84,7 +84,7 @@ exports[`renders by default 1`] = `
 </TouchableOpacity>
 `;
 
-exports[`renders high and low props 1`] = `
+exports[`<AlertListItem /> renders high and low props 1`] = `
 <TouchableOpacity
   onPress={undefined}
 >
