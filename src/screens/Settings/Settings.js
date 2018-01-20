@@ -1,7 +1,9 @@
 import { arrayOf, func, shape } from 'prop-types';
 import React, { Component } from 'react';
+    import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Image, Linking, Switch, Text, View } from 'react-native';
+
 import PKG from '../../../package.json';
 import { updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon, Touchable } from '../../components';
@@ -47,8 +49,12 @@ class Settings extends Component {
   }
 
   _onNightMode(nightMode) {
-    const { props: { updateSettings } } = this;
+    const { props: { navigation, updateSettings } } = this;
     updateSettings({ nightMode });
+    navigation.dispatch(NavigationActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'Main' })],
+    }));
   }
 
   _onModal() {
@@ -102,6 +108,7 @@ class Settings extends Component {
 
 Settings.propTypes = {
   favorites: arrayOf(shape(SHAPE.FAVORITE)),
+  navigation: shape(SHAPE.NAVIGATION).isRequired,
   settings: shape(SHAPE.SETTINGS),
   updatePrices: func,
   updateSettings: func,
