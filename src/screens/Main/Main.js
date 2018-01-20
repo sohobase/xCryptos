@@ -1,8 +1,9 @@
 import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
+import { AppState, BackHandler, FlatList, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
-import { AppState, BackHandler, FlatList, RefreshControl } from 'react-native';
+
 import { addTokenAction, saveAlertsAction, updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon } from '../../components';
 import { C, SHAPE, STYLE, THEME } from '../../config';
@@ -104,6 +105,7 @@ class Main extends Component {
 
     return (
       <LinearGradient colors={gradient} style={STYLE.SCREEN}>
+        <StatusBar animated backgroundColor={nightMode ? THEME.COLOR.BLACK : THEME.COLOR.PRIMARY} />
         <FlatList
           data={favorites}
           extraData={this.state}
