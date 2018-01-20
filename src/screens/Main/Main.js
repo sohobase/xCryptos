@@ -48,7 +48,7 @@ class Main extends Component {
 
   async componentWillMount() {
     const {
-      _fetch,
+      _fetch, _onNotification,
       props: {
         addToken, navigation, token, settings: { nightMode }, updateSettings,
       },
@@ -59,15 +59,13 @@ class Main extends Component {
     navigation.setParams({ backgroundColor: nightMode ? BLACK : PRIMARY });
     if (!token) addToken(NODE_ENV === DEVELOPMENT ? TOKEN : await ServiceNotifications.getToken());
     updateSettings({ locale: LOCALE });
-  }
 
-  compononentDidMount() {
-    const { _fetch, _onNotification } = this;
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
     BackHandler.addEventListener('hardwareBackPress', () => {
-      this.setState({ coin: undefined });
-      return this.state.coin !== undefined;
+      const keepAlive = this.state.coin !== undefined;
+      if (keepAlive) this.setState({ coin: undefined });
+      return keepAlive;
     });
   }
 
