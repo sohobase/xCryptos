@@ -1,0 +1,5 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`when Platorm.OS is ios renders a TouchableOpacity component 1`] = `<TouchableOpacity />`;
+
+exports[`when Platorm.OS is not ios renders a TouchableNativeFeedback component 1`] = `<TouchableNativeFeedback />`;

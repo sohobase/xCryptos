@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders a caption 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ed1e79",
+          "borderRadius": 32,
+          "display": "flex",
+          "paddingHorizontal": 16,
+          "paddingVertical": 10,
+        },
+        Array [],
+        undefined,
+      ]
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 16,
+            "fontWeight": "700",
+          },
+          Array [],
+        ]
+      }
+    >
+      xCryptos rocks!
+    </Text>
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`renders by default 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ed1e79",
+          "borderRadius": 32,
+          "display": "flex",
+          "paddingHorizontal": 16,
+          "paddingVertical": 10,
+        },
+        Array [],
+        undefined,
+      ]
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 16,
+            "fontWeight": "700",
+          },
+          Array [],
+        ]
+      }
+    />
+  </View>
+</TouchableOpacity>
+`;
+
+exports[`when disabled renders with disabled stlyes 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <View
+    style={
+      Array [
+        Object {
+          "alignItems": "center",
+          "backgroundColor": "#ed1e79",
+          "borderRadius": 32,
+          "display": "flex",
+          "paddingHorizontal": 16,
+          "paddingVertical": 10,
+        },
+        Array [],
+        Object {
+          "backgroundColor": "black",
+          "opacity": 0.35,
+        },
+      ]
+    }
+  >
+    <Text
+      accessible={true}
+      allowFontScaling={true}
+      ellipsizeMode="tail"
+      style={
+        Array [
+          Object {
+            "color": "#ffffff",
+            "fontSize": 16,
+            "fontWeight": "700",
+          },
+          Array [],
+        ]
+      }
+    />
+  </View>
+</TouchableOpacity>
+`;

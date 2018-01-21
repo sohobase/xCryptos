@@ -1,0 +1,45 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders an icon 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <Image
+    source={1}
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginLeft": 10,
+          "marginRight": 10,
+          "resizeMode": "cover",
+          "width": 28,
+        },
+        Array [],
+      ]
+    }
+  />
+</TouchableOpacity>
+`;
+
+exports[`renders by default 1`] = `
+<TouchableOpacity
+  onPress={undefined}
+>
+  <Image
+    source={undefined}
+    style={
+      Array [
+        Object {
+          "height": 28,
+          "marginLeft": 10,
+          "marginRight": 10,
+          "resizeMode": "cover",
+          "width": 28,
+        },
+        Array [],
+      ]
+    }
+  />
+</TouchableOpacity>
+`;

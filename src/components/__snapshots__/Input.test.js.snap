@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders by default 1`] = `
+<TextInput
+  allowFontScaling={true}
+  autoCapitalize="none"
+  autoCorrect={false}
+  keyboardType="numeric"
+  placeholderTextColor={undefined}
+  style={
+    Array [
+      Object {
+        "fontSize": 20,
+        "paddingBottom": 10,
+        "paddingLeft": 2.5,
+        "paddingRight": 2.5,
+        "paddingTop": 10,
+        "width": "100%",
+      },
+      Object {
+        "color": "rgba(0, 0, 0, 0.5)",
+      },
+      Array [],
+    ]
+  }
+  underlineColorAndroid="transparent"
+/>
+`;

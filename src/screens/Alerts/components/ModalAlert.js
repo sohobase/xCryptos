@@ -38,7 +38,7 @@ const Fieldset = ({
   </View>
 );
 
-class ModalAlert extends Component {
+export class ModalAlert extends Component {
   constructor(props) {
     super(props);
     this.state = {

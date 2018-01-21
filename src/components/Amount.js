@@ -8,7 +8,7 @@ import styles from './Amount.style';
 
 const { CURRENCY: { USD }, SYMBOL } = C;
 
-const Amount = ({
+export const Amount = ({
   settings: { currency }, style, symbol, value,
 }) => (
   <View style={STYLE.ROW}>
