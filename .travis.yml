@@ -1,0 +1,14 @@
+language: node_js
+node_js:
+  - '9'
+
+install:
+  - yarn
+
+cache:
+  yarn: true
+  directories:
+    - node_modules
+
+script:
+  - yarn test
