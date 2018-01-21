@@ -32,8 +32,9 @@ Development is underway and you can view the master branch commits for the lates
 Build Status Dependencies Status Known Vulnerabilities
 
 ### Progress
-[![devDependency Status](https://img.shields.io/david/sohobase/xcryptos.svg?style=for-the-badge)](https://david-dm.org/sohobase/xcryptos#info=dependencies)
-[![Known Vulnerabilities](https://snyk.io/test/github/sohobase/xcryptos/badge.svg)](https://snyk.io/test/sohobase/xcryptos)
+[![devDependency Status](https://img.shields.io/david/sohobase/xcryptos.svg?style=flat-square)](https://david-dm.org/sohobase/xcryptos#info=dependencies)
+[![Build Status](http://img.shields.io/travis/sohobase/xcryptos/master.svg?style=flat-square)](https://travis-ci.org/sohobase/xcryptos)
+[![Known Vulnerabilities](https://snyk.io/test/github/sohobase/xcryptos/badge.svg?style=flat-square)](https://snyk.io/test/sohobase/xcryptos)
 
 
 ## Privacy & Security
