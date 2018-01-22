@@ -62,7 +62,10 @@ class Main extends Component {
 
     Notifications.addListener(_onNotification);
     AppState.addEventListener('change', state => state === 'active' && _fetch());
-    BackHandler.addEventListener('hardwareBackPress', () => {
+  }
+
+  componentWillUpdate(nextProps, { coin }) {
+    BackHandler[coin ? 'addEventListener' : 'removeEventListener']('hardwareBackPress', () => {
       const keepAlive = this.state.coin !== undefined;
       if (keepAlive) this.setState({ coin: undefined });
       return keepAlive;
