@@ -24,7 +24,8 @@ FEATURES
 xCryptos is a [Sohobase](http://sohobase.co) project, by [Javi Jimenez](https://github.com/soyjavi).
 
 Contributors
-  - [Mikel](https://github.com/soyjavi)
+  - [Mikel Garcia](https://github.com/soyjavi)
+  - [Ruben Moya](https://github.com/soyjavi)
 
 ### Current Status
 Development is underway and you can view the master branch commits for the latest activity. The master branch is the active development branch, which should should not be used with coins (but is ideal for testing). There is no stable release at this time.
