@@ -1,9 +1,20 @@
-import { StyleSheet } from 'react-native';
+import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
-  BLACK, FONT, WHITE, OFFSET,
+  BLACK, FONT, WHITE, OFFSET, UNIT,
 } = THEME;
+const iOS = Platform.OS === 'ios';
+const isIphoneX = () => {
+  const { height, width } = Dimensions.get('window');
+
+  return (
+    iOS &&
+    !Platform.isPad &&
+    !Platform.isTVOS &&
+    (height === 812 || width === 812)
+  );
+};
 
 export default StyleSheet.create({
 
@@ -11,8 +22,8 @@ export default StyleSheet.create({
     backgroundColor: WHITE,
     bottom: OFFSET * -1,
     elevation: 10,
-    height: '40%',
-    paddingBottom: OFFSET,
+    height: '42.5%',
+    paddingBottom: isIphoneX ? OFFSET * 2 : 0,
     position: 'absolute',
     shadowColor: BLACK,
     shadowOffset: { height: -2, width: 0 },
@@ -30,7 +41,7 @@ export default StyleSheet.create({
   },
 
   button: {
-    width: '33%',
+    width: iOS ? UNIT * 10.6 : '33%',
     height: '25%',
   },
 
