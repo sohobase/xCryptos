@@ -34,7 +34,7 @@ Build Status Dependencies Status Known Vulnerabilities
 
 ### Progress
 [![devDependency Status](https://img.shields.io/david/sohobase/xcryptos.svg?style=flat-square)](https://david-dm.org/sohobase/xcryptos#info=dependencies)
-[![Build Status](http://img.shields.io/travis/sohobase/xcryptos/master.svg?style=flat-square)](https://travis-ci.org/sohobase/xcryptos)
+[![Build Status](https://travis-ci.org/sohobase/xCryptos.svg?branch=master&style=flat-square)](https://travis-ci.org/sohobase/xCryptos)
 [![Known Vulnerabilities](https://snyk.io/test/github/sohobase/xcryptos/badge.svg?style=flat-square)](https://snyk.io/test/sohobase/xcryptos)
 
 
