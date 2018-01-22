@@ -1,13 +1,16 @@
-import { LinearGradient } from 'expo';
 import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
+import { View as Motion } from 'react-native-animatable';
 import { connect } from 'react-redux';
+
 import { Amount, ButtonIcon, Touchable } from '../../../components';
 import { SHAPE, STYLE, THEME } from '../../../config';
 import Chart from './Chart';
 import ModalHodl from './ModalHodl';
 import styles from './Info.style';
+
+const { MOTION } = THEME;
 
 class Info extends Component {
   constructor(props) {
@@ -25,7 +28,7 @@ class Info extends Component {
   render() {
     const {
       _onModal,
-      props: { coin, navigation: { navigate }, settings: { nightMode } },
+      props: { coin, navigation: { navigate } },
       state: { modal },
     } = this;
     const {
@@ -34,10 +37,7 @@ class Info extends Component {
     const trendPercentage = parseInt((trend * 100) / price, 10);
 
     return (
-      <LinearGradient
-        colors={nightMode ? [THEME.COLOR.BLACK, THEME.COLOR.BLACK] : THEME.GRADIENT_INFO}
-        style={styles.container}
-      >
+      <Motion {...MOTION.DEFAULT} animation="bounceInUp" style={styles.container}>
         <View style={[STYLE.ROW, styles.header]}>
           <Touchable onPress={_onModal} style={styles.coin}>
             <View style={styles.coin}>
@@ -57,7 +57,7 @@ class Info extends Component {
         </View>
         <Chart coin={coin} />
         <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
-      </LinearGradient>
+      </Motion>
     );
   }
 }
@@ -65,16 +65,14 @@ class Info extends Component {
 Info.propTypes = {
   coin: shape(SHAPE.COIN),
   navigation: shape(SHAPE.NAVIGATION).isRequired,
-  settings: shape(SHAPE.SETTINGS).isRequired,
 };
 
 Info.defaultProps = {
-  coin: {},
+  coin: undefined,
 };
 
-const mapStateToProps = ({ favorites, settings }, { coin }) => ({
+const mapStateToProps = ({ favorites }, { coin }) => ({
   coin: favorites.find(item => item.coin === coin),
-  settings,
 });
 
 export default connect(mapStateToProps)(Info);

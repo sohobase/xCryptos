@@ -101,11 +101,9 @@ class Main extends Component {
         coin: { coin: currentCoin, price } = {}, decimal, keyboard, prefetch, refreshing, value,
       },
     } = this;
-    let gradient = currentCoin ? THEME.GRADIENT : THEME.GRADIENT_LIST;
-    if (nightMode) gradient = [THEME.COLOR.BLACK, THEME.COLOR.BLACK];
 
     return (
-      <LinearGradient colors={gradient} style={STYLE.SCREEN}>
+      <LinearGradient colors={nightMode ? THEME.GRADIENT_NIGHTMODE : THEME.GRADIENT} style={STYLE.SCREEN}>
         <StatusBar animated backgroundColor={nightMode ? THEME.COLOR.BLACK : THEME.COLOR.PRIMARY} />
         <FlatList
           data={favorites}

@@ -13,8 +13,6 @@ export default StyleSheet.create({
   },
 
   container: {
-    flex: 0,
-    width: '100%',
     paddingVertical: OFFSET,
   },
 
@@ -42,8 +40,6 @@ export default StyleSheet.create({
     fontSize: FONT.SIZE.EXTRA_LARGE,
     fontWeight: FONT.WEIGHT.BOLD,
     marginRight: UNIT / 2,
-    maxHeight: FONT.SIZE.EXTRA_LARGE,
-    lineHeight: FONT.SIZE.EXTRA_LARGE,
   },
 
   trend: {

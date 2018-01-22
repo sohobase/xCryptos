@@ -4,6 +4,8 @@ const UNIT = 10;
 const PRIMARY = '#852d91';
 const PRIMARY_DARK = '#312a6c';
 const ACCENT = '#ed1e79';
+const BLACK = '#000000';
+const WHITE = '#ffffff';
 
 export default {
   // -- Motion
@@ -17,8 +19,8 @@ export default {
   },
 
   // -- Colors
-  WHITE: '#ffffff',
-  BLACK: '#000000',
+  WHITE,
+  BLACK,
   PRIMARY,
   PRIMARY_DARK,
   ACCENT,
@@ -33,9 +35,8 @@ export default {
     RED: '#F44336',
   },
 
-  GRADIENT: [PRIMARY, PRIMARY],
-  GRADIENT_LIST: [PRIMARY, PRIMARY, PRIMARY_DARK],
-  GRADIENT_INFO: [PRIMARY, PRIMARY_DARK],
+  GRADIENT: [PRIMARY, PRIMARY, PRIMARY_DARK],
+  GRADIENT_NIGHTMODE: [BLACK, BLACK],
 
   TRANSPARENT: 'transparent',
   BACKGROUND_HIGHLIGHT: 'rgba(255, 255, 255, 0.15)',
