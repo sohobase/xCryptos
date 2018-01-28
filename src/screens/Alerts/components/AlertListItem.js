@@ -16,11 +16,11 @@ const AlertListItem = (props) => {
       <View style={[STYLE.ROW, STYLE.LIST_ITEM]}>
         <View style={styles.left}>
           <Amount style={styles.price} value={low} />
-          <Text style={styles.label}>low</Text>
+          <Text style={styles.label}>below</Text>
         </View>
         <View style={styles.right}>
           <Amount style={styles.price} value={high} />
-          <Text style={styles.label}>high</Text>
+          <Text style={styles.label}>above</Text>
         </View>
       </View>
     </Touchable>

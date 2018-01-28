@@ -29,7 +29,7 @@ const Fieldset = ({
         <Amount style={styles.input} value={value} />
       :
         <Input
-          autoFocus={label === 'low'}
+          autoFocus={label === 'below'}
           defaultValue={value ? value.toString() : undefined}
           onChangeText={newValue => onChange(label, newValue)}
           style={[styles.input, right && styles.inputRight]}
@@ -102,8 +102,8 @@ export class ModalAlert extends Component {
           <Amount style={styles.price} value={price} />
         </View>
         <View style={[STYLE.ROW, STYLE.LIST_ITEM, styles.content]}>
-          <Fieldset disabled={alert} label="low" onChange={_onChange} value={low} price={price} />
-          <Fieldset disabled={alert} label="high" onChange={_onChange} right value={high} price={price} />
+          <Fieldset disabled={alert} label="below" onChange={_onChange} value={low} price={price} />
+          <Fieldset disabled={alert} label="above" onChange={_onChange} right value={high} price={price} />
         </View>
         <View style={STYLE.MODAL_FOOTER}>
           <Button
