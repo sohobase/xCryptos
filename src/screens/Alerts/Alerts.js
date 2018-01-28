@@ -18,7 +18,7 @@ class AlertsScreen extends Component {
 
     return {
       title: `${name} Alerts`,
-      headerRight: <ButtonIcon icon="add" onPress={_showAlert} />,
+      headerRight: <ButtonIcon icon="add" onPress={() => _showAlert()} />,
     };
   }
 

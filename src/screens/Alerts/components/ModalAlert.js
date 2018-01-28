@@ -11,7 +11,7 @@ import styles from './ModalAlert.style';
 const { ALERT, COIN, SETTINGS } = SHAPE;
 
 const Fieldset = ({
-  label, disabled, onChange, price, right, value = 0, // eslint-disable-line
+  label, prop, disabled, onChange, price, right, value = 0, // eslint-disable-line
 }) => (
   <View style={[styles.fieldset, right && styles.alignRight]}>
     <View style={STYLE.ROW}>
@@ -29,9 +29,9 @@ const Fieldset = ({
         <Amount style={styles.input} value={value} />
       :
         <Input
-          autoFocus={label === 'below'}
+          autoFocus={prop === 'low'}
           defaultValue={value ? value.toString() : undefined}
-          onChangeText={newValue => onChange(label, newValue)}
+          onChangeText={newValue => onChange(prop, newValue)}
           style={[styles.input, right && styles.inputRight]}
         />
     }
@@ -102,8 +102,8 @@ export class ModalAlert extends Component {
           <Amount style={styles.price} value={price} />
         </View>
         <View style={[STYLE.ROW, STYLE.LIST_ITEM, styles.content]}>
-          <Fieldset disabled={alert} label="below" onChange={_onChange} value={low} price={price} />
-          <Fieldset disabled={alert} label="above" onChange={_onChange} right value={high} price={price} />
+          <Fieldset disabled={alert} label="below" prop="low" onChange={_onChange} value={low} price={price} />
+          <Fieldset disabled={alert} label="above" prop="high" onChange={_onChange} right value={high} price={price} />
         </View>
         <View style={STYLE.MODAL_FOOTER}>
           <Button
