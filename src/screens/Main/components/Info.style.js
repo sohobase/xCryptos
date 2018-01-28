@@ -12,13 +12,12 @@ export default StyleSheet.create({
     tintColor: WHITE,
   },
 
-  container: {
-    paddingVertical: OFFSET,
-  },
-
   coin: {
     flex: 1,
-    marginRight: OFFSET,
+  },
+
+  container: {
+    paddingVertical: OFFSET,
   },
 
   header: {
