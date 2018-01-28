@@ -6,10 +6,8 @@ const { UNIT } = THEME;
 export default StyleSheet.create({
   input: {
     fontSize: THEME.FONT.SIZE.LARGE,
-    paddingTop: UNIT,
-    paddingBottom: UNIT,
-    paddingLeft: UNIT / 4,
-    paddingRight: UNIT / 4,
+    paddingVertical: UNIT,
+    paddingHorizontal: UNIT / 4,
     width: '100%',
   },
 

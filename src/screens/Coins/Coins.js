@@ -1,28 +1,29 @@
 import { arrayOf, shape, func } from 'prop-types';
 import React, { Component } from 'react';
-import { SearchBar } from 'react-native-elements';
 import { connect } from 'react-redux';
-import { FlatList, RefreshControl, View } from 'react-native';
+import { FlatList, RefreshControl } from 'react-native';
 import {
   addFavoriteAction,
   removeFavoriteAction,
   saveCoinsAction,
   updatePricesAction,
 } from '../../actions';
-import { ButtonIcon } from '../../components';
+import { ButtonIcon, Input } from '../../components';
 import { SHAPE, STYLE, TEXT, THEME } from '../../config';
 import { ServiceCoins } from '../../services';
 import { ListItem } from './components';
 import styles from './Coins.style';
 
-const { COIN, FAVORITE, SETTINGS } = SHAPE;
 const { EN: { COINS, SEARCH } } = TEXT;
 
 class CoinsScreen extends Component {
-  static navigationOptions() {
+  static navigationOptions({ navigation: { state } }) {
+    const { _onSearch } = state.params || {};
+
     return {
       title: COINS,
       headerRight: <ButtonIcon />,
+      headerTitle: <Input autoFocus onChangeText={_onSearch} placeholder={`${SEARCH}...`} style={styles.input} />,
       headerStyle: { backgroundColor: THEME.WHITE },
       headerTintColor: THEME.BLACK,
     };
@@ -42,6 +43,12 @@ class CoinsScreen extends Component {
 
   async componentWillMount() {
     if (this.props.coins.length === 0) this._fetch();
+  }
+
+  componentDidMount() {
+    const { _onSearch, props: { navigation } } = this;
+
+    navigation.setParams({ _onSearch });
   }
 
   async _fetch() {
@@ -89,39 +96,31 @@ class CoinsScreen extends Component {
   }
 
   render() {
-    const { _fetch, _onSearch, _renderItem } = this;
+    const { _fetch, _renderItem } = this;
     const { coins, favorites } = this.props;
     const { filteredCoins, refreshing } = this.state;
 
     return (
-      <View style={STYLE.SCREEN}>
-        <SearchBar
-          containerStyle={styles.searchBar}
-          inputStyle={styles.input}
-          lightTheme
-          onChangeText={_onSearch}
-          placeholder={`${SEARCH}...`}
-        />
-        <FlatList
-          data={filteredCoins || coins}
-          keyExtractor={item => item.coin}
-          extraData={favorites}
-          refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
-          renderItem={_renderItem}
-          style={styles.list}
-        />
-      </View>
+      <FlatList
+        data={filteredCoins || coins}
+        keyExtractor={item => item.coin}
+        extraData={favorites}
+        refreshControl={<RefreshControl refreshing={refreshing} onRefresh={_fetch} />}
+        renderItem={_renderItem}
+        style={STYLE.SCREEN}
+      />
     );
   }
 }
 
 CoinsScreen.propTypes = {
   addFavorite: func,
-  coins: arrayOf(shape(COIN)),
-  favorites: arrayOf(shape(FAVORITE)),
+  coins: arrayOf(shape(SHAPE.COIN)),
+  favorites: arrayOf(shape(SHAPE.FAVORITE)),
+  navigation: shape(SHAPE.NAVIGATION).isRequired,
   removeFavorite: func,
   saveCoins: func,
-  settings: shape(SETTINGS),
+  settings: shape(SHAPE.SETTINGS).isRequired,
   updatePrices: func,
 };
 
@@ -131,7 +130,6 @@ CoinsScreen.defaultProps = {
   favorites: [],
   removeFavorite() {},
   saveCoins() {},
-  settings: {},
   updatePrices() {},
 };
 

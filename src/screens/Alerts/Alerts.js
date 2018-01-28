@@ -18,7 +18,7 @@ class AlertsScreen extends Component {
 
     return {
       title: `${name} Alerts`,
-      headerRight: <ButtonIcon icon="add" onPress={() => { _showAlert(); }} />,
+      headerRight: <ButtonIcon icon="add" onPress={_showAlert} />,
     };
   }
 
@@ -44,8 +44,7 @@ class AlertsScreen extends Component {
   }
 
   componentDidMount() {
-    const { _showAlert } = this;
-    const { navigation } = this.props;
+    const { _showAlert, props: { navigation } } = this;
 
     navigation.setParams({ _showAlert });
   }
