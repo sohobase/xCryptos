@@ -1,6 +1,6 @@
 import { arrayOf, func, shape } from 'prop-types';
 import React, { Component } from 'react';
-    import { NavigationActions } from 'react-navigation';
+import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 import { Image, Linking, Switch, Text, View } from 'react-native';
 
@@ -9,7 +9,7 @@ import { updatePricesAction, updateSettingsAction } from '../../actions';
 import { ButtonIcon, Touchable } from '../../components';
 import { ASSET, C, SHAPE, STYLE, TEXT, THEME } from '../../config';
 import { ServiceCoins } from '../../services';
-import { ModalCurrency } from './components';
+import { FieldsetSwitch, ModalCurrency } from './components';
 import styles from './Settings.style';
 
 const { CURRENCY: { USD }, SOHOBASE } = C;
@@ -81,15 +81,7 @@ class Settings extends Component {
               <Text style={styles.value}>{currency}</Text>
             </View>
           </Touchable>
-          <View style={STYLE.LIST_ITEM}>
-            <View>
-              <Text style={styles.label}>{TEXT_THEME}</Text>
-              <View style={STYLE.ROW}>
-                <Text style={[styles.value, styles.caption]}>{NIGHT_MODE}</Text>
-                <Switch onValueChange={_onNightMode} value={nightMode} />
-              </View>
-            </View>
-          </View>
+          <FieldsetSwitch caption={NIGHT_MODE} label={TEXT_THEME} onChange={_onNightMode} value={nightMode} />
         </View>
         <View style={[STYLE.CENTERED, styles.content]}>
           <Image
