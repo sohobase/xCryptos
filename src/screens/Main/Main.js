@@ -124,7 +124,7 @@ class Main extends Component {
           )}
           style={styles.list}
         />
-        { currentCoin && <Info coin={currentCoin} navigation={navigation} /> }
+        { currentCoin && !keyboard && <Info coin={currentCoin} navigation={navigation} /> }
         { currentCoin &&
           <Keyboard
             visible={keyboard}
