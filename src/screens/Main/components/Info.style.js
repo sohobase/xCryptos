@@ -22,7 +22,7 @@ export default StyleSheet.create({
 
   header: {
     marginHorizontal: OFFSET,
-    marginBottom: OFFSET,
+    marginBottom: UNIT * 2,
   },
 
   hodl: {

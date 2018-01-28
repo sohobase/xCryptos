@@ -40,7 +40,7 @@ class Info extends Component {
       <Motion {...MOTION.DEFAULT} animation="bounceInUp" style={styles.container}>
         <View style={[STYLE.ROW, styles.header]}>
           <Touchable onPress={_onModal} style={styles.coin}>
-            <View>
+            <View style={styles.coin}>
               <View style={STYLE.ROW}>
                 <Text style={[styles.text, styles.name]}>{name}</Text>
                 { trendPercentage !== 0 &&

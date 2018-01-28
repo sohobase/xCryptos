@@ -23,7 +23,13 @@ class CoinsScreen extends Component {
     return {
       title: COINS,
       headerRight: <ButtonIcon />,
-      headerTitle: <Input autoFocus onChangeText={_onSearch} placeholder={`${SEARCH}...`} style={styles.input} />,
+      headerTitle: <Input
+        autoFocus
+        onChangeText={_onSearch}
+        placeholder={`${SEARCH}...`}
+        keyboardType="default"
+        style={styles.input}
+      />,
       headerStyle: { backgroundColor: THEME.WHITE },
       headerTintColor: THEME.BLACK,
     };
