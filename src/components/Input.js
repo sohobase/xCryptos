@@ -5,12 +5,12 @@ import styles from './Input.style';
 
 const Input = ({ style, ...inherit }) => (
   <TextInput
-    {...inherit}
+    keyboardType="numeric"
     autoCorrect={false}
     autoCapitalize="none"
-    keyboardType="numeric"
     underlineColorAndroid="transparent"
     placeholderTextColor={undefined}
+    {...inherit}
     style={[
       styles.input,
       (!inherit.editable && styles.disabled),
