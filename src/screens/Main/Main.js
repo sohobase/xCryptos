@@ -1,7 +1,7 @@
 import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
-import { AppState, BackHandler, FlatList, RefreshControl, StatusBar } from 'react-native';
+import { AppState, BackHandler, FlatList, LayoutAnimation, NativeModules, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import { addTokenAction, saveAlertsAction, updatePricesAction, updateSettingsAction } from '../../actions';
@@ -10,6 +10,9 @@ import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
+
+const { UIManager: { setLayoutAnimationEnabledExperimental: setLayoutAnimation } } = NativeModules;
+if (setLayoutAnimation) setLayoutAnimation(true);
 
 const { DEFAULT: { FAVORITES, TOKEN }, LOCALE, NODE_ENV: { DEVELOPMENT } } = C;
 const { COLOR: { BLACK }, PRIMARY } = THEME;
@@ -37,11 +40,11 @@ class Main extends Component {
       coin: undefined,
       keyboard: false,
       decimal: false,
+      marginBottom: 0,
       prefetch: false,
       refreshing: false,
       value: undefined,
     };
-    this._onChangeValue = this._onChangeValue.bind(this);
     this._fetch = this._fetch.bind(this);
     this._onNotification = this._onNotification.bind(this);
   }
@@ -67,7 +70,10 @@ class Main extends Component {
   componentWillUpdate(nextProps, { coin }) {
     BackHandler[coin ? 'addEventListener' : 'removeEventListener']('hardwareBackPress', () => {
       const keepAlive = this.state.coin !== undefined;
-      if (keepAlive) this.setState({ coin: undefined });
+      if (keepAlive) {
+        LayoutAnimation.spring();
+        this.setState({ coin: undefined, marginBottom: 0 });
+      }
       return keepAlive;
     });
   }
@@ -95,10 +101,10 @@ class Main extends Component {
 
   render() {
     const {
-      _fetch, _onChangeValue,
+      _fetch,
       props: { favorites = [], navigation, settings: { nightMode } },
       state: {
-        coin: { coin: currentCoin, price } = {}, decimal, keyboard, prefetch, refreshing, value,
+        coin: { coin: currentCoin, price } = {}, decimal, keyboard, marginBottom, prefetch, refreshing, value,
       },
     } = this;
 
@@ -117,22 +123,33 @@ class Main extends Component {
               coin={item}
               decimal={decimal}
               conversion={price}
-              onFocus={newValue => this.setState({ coin: item, keyboard: true, value: newValue })}
-              onPress={() => this.setState({ coin: item, keyboard: false, value: undefined })}
+              onFocus={(newValue) => {
+                LayoutAnimation.spring();
+                this.setState({ coin: item, keyboard: true, value: newValue });
+              }}
+              onPress={() => {
+                LayoutAnimation.spring();
+                this.setState({ coin: item, keyboard: false, value: undefined });
+              }}
               value={value}
             />
           )}
-          style={styles.list}
+          style={{ marginBottom }}
         />
-        { currentCoin && !keyboard && <Info coin={currentCoin} navigation={navigation} /> }
-        { currentCoin &&
-          <Keyboard
-            visible={keyboard}
-            decimal={decimal}
-            onChange={_onChangeValue}
-            onClose={() => this.setState({ keyboard: false, value: undefined })}
-            value={value}
-          /> }
+        { !keyboard && <Info coin={currentCoin} navigation={navigation} /> }
+        <Keyboard
+          visible={keyboard}
+          decimal={decimal}
+          onChange={(props) => {
+            LayoutAnimation.spring();
+            this.setState({ ...props });
+          }}
+          onClose={() => {
+            LayoutAnimation.spring();
+            this.setState({ coin: undefined, keyboard: false, value: undefined });
+          }}
+          value={value}
+        />
       </LinearGradient>
     );
   }

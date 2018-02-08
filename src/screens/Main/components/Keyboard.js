@@ -1,12 +1,10 @@
 import { bool, func, string } from 'prop-types';
 import React, { Component } from 'react';
 import { BackHandler, Text, View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
 import { ButtonIcon, Touchable } from '../../../components';
-import { STYLE, THEME } from '../../../config';
+import { STYLE } from '../../../config';
 import styles from './Keyboard.style';
 
-const { MOTION } = THEME;
 const Button = ({
   caption, icon, value, onPress, // eslint-disable-line
 }) => (
@@ -23,9 +21,6 @@ const NUMBERS = [7, 8, 9, 4, 5, 6, 1, 2, 3];
 class Keyboard extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      loaded: false,
-    };
     this._onDelete = this._onDelete.bind(this);
     this._onDecimal = this._onDecimal.bind(this);
     this._onNumber = this._onNumber.bind(this);
@@ -34,7 +29,6 @@ class Keyboard extends Component {
   componentWillReceiveProps({ visible }) {
     const { props: { onClose } } = this;
 
-    if (visible) this.setState({ loaded: true });
     BackHandler[visible ? 'addEventListener' : 'removeEventListener']('hardwareBackPress', () => {
       onClose();
       return true;
@@ -67,23 +61,17 @@ class Keyboard extends Component {
     const {
       _onDecimal, _onDelete, _onNumber,
       props: { visible },
-      state: { loaded },
     } = this;
 
     return (
-      <Motion
-        {...MOTION.DEFAULT}
-        animation={visible ? 'bounceInUp' : 'bounceOutDown'}
-        style={loaded ? styles.container : undefined}
-      >
-        { loaded &&
-          <View style={[STYLE.CENTERED, styles.content]}>
-            { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
-            <Button caption="." onPress={_onDecimal} />
-            <Button value={0} onPress={_onNumber} />
-            <Button icon="back" onPress={_onDelete} />
-          </View> }
-      </Motion>
+      <View style={[styles.container, visible && styles.visible]}>
+        <View style={[STYLE.CENTERED, styles.content]}>
+          { NUMBERS.map(num => <Button key={num} value={num} onPress={_onNumber} />) }
+          <Button caption="." onPress={_onDecimal} />
+          <Button value={0} onPress={_onNumber} />
+          <Button icon="back" onPress={_onDelete} />
+        </View>
+      </View>
     );
   }
 }

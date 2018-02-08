@@ -2,7 +2,7 @@ import { Dimensions, Platform, StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
-  BLACK, FONT, WHITE, OFFSET, UNIT,
+  BLACK, FONT, LAYOUT: { BOTTOM_CONTENT_HEIGHT }, WHITE, OFFSET, UNIT,
 } = THEME;
 const iOS = Platform.OS === 'ios';
 const isIphoneX = () => {
@@ -17,32 +17,35 @@ const isIphoneX = () => {
 };
 
 export default StyleSheet.create({
-
   container: {
     backgroundColor: WHITE,
-    bottom: OFFSET * -1,
-    elevation: 10,
-    height: '42.5%',
+    elevation: 8,
+    height: 0,
+    maxHeight: 0,
     paddingBottom: isIphoneX ? OFFSET * 2 : 0,
-    position: 'absolute',
     shadowColor: BLACK,
     shadowOffset: { height: -2, width: 0 },
     shadowOpacity: 0.26,
     shadowRadius: 5,
     width: '100%',
-    zIndex: 1,
+    overflow: 'hidden',
+  },
+
+  visible: {
+    height: 'auto',
+    maxHeight: BOTTOM_CONTENT_HEIGHT,
   },
 
   content: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     width: '100%',
-    height: '100%',
+    height: BOTTOM_CONTENT_HEIGHT,
   },
 
   button: {
     width: iOS ? UNIT * 10.6 : '33%',
-    height: '25%',
+    height: UNIT * 8,
   },
 
   caption: {

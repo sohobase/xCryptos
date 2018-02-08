@@ -113,7 +113,7 @@ class Chart extends Component {
                   onPressOut={() => _onValue()}
                   style={styles.bar}
                 >
-                  <Motion
+                  <View
                     {...MOTION.DEFAULT}
                     delay={index * 5}
                     style={[styles.value, { height: `${height}%`, backgroundColor: color }]}

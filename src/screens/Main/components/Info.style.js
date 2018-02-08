@@ -2,7 +2,7 @@ import { StyleSheet } from 'react-native';
 import { THEME } from '../../../config';
 
 const {
-  CONTRAST, WHITE, FONT, UNIT, OFFSET,
+  CONTRAST, WHITE, FONT, LAYOUT: { BOTTOM_CONTENT_HEIGHT }, UNIT, OFFSET,
 } = THEME;
 
 export default StyleSheet.create({
@@ -18,6 +18,14 @@ export default StyleSheet.create({
 
   container: {
     paddingVertical: OFFSET,
+    height: 0,
+    maxHeight: 0,
+    overflow: 'hidden',
+  },
+
+  visible: {
+    height: 'auto',
+    maxHeight: BOTTOM_CONTENT_HEIGHT,
   },
 
   header: {

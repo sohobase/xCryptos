@@ -1,16 +1,13 @@
 import { shape } from 'prop-types';
 import React, { Component } from 'react';
 import { Text, View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
 import { connect } from 'react-redux';
 
 import { Amount, ButtonIcon, Touchable } from '../../../components';
-import { SHAPE, STYLE, THEME } from '../../../config';
+import { SHAPE, STYLE } from '../../../config';
 import Chart from './Chart';
 import ModalHodl from './ModalHodl';
 import styles from './Info.style';
-
-const { MOTION } = THEME;
 
 class Info extends Component {
   constructor(props) {
@@ -33,11 +30,11 @@ class Info extends Component {
     } = this;
     const {
       hodl = 0, name, price = 0, trend = 0,
-    } = coin;
+    } = coin || {};
     const trendPercentage = parseInt((trend * 100) / price, 10);
 
     return (
-      <Motion {...MOTION.DEFAULT} animation="bounceInUp" style={styles.container}>
+      <View style={[styles.container, coin && styles.visible]}>
         <View style={[STYLE.ROW, styles.header]}>
           <Touchable onPress={_onModal} style={styles.coin}>
             <View style={styles.coin}>
@@ -55,9 +52,9 @@ class Info extends Component {
           </Touchable>
           <ButtonIcon icon="alert" onPress={() => navigate('Alerts', { coin })} style={styles.button} />
         </View>
-        <Chart coin={coin} />
-        <ModalHodl coin={coin} onClose={_onModal} visible={modal} />
-      </Motion>
+        { coin && <Chart coin={coin} /> }
+        { coin && <ModalHodl coin={coin} onClose={_onModal} visible={modal} /> }
+      </View>
     );
   }
 }

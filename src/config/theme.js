@@ -1,5 +1,3 @@
-import Color from 'color';
-
 const UNIT = 10;
 const PRIMARY = '#852d91';
 const PRIMARY_DARK = '#312a6c';
@@ -56,6 +54,10 @@ export default {
       LIGHT: '200',
       BOLD: '700',
     },
+  },
+
+  LAYOUT: {
+    BOTTOM_CONTENT_HEIGHT: UNIT * 32,
   },
 
   // -- Sizes

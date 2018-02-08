@@ -9,7 +9,6 @@ export default StyleSheet.create({
   },
 
   list: {
-    flex: 1,
-    width: '100%',
+    marginBottom: 0,
   },
 });
