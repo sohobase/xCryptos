@@ -89,10 +89,6 @@ class Main extends Component {
     this.setState({ prefetch: true, refreshing: false });
   }
 
-  _onChangeValue({ value, decimal }) {
-    this.setState({ value, decimal });
-  }
-
   _onNotification = ({ data: { coin } }) => {
     const { props: { favorites = [], navigation } } = this;
     const storeCoin = favorites.find(item => item.coin === coin);

@@ -1,7 +1,6 @@
 import { shape } from 'prop-types';
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
+import { LayoutAnimation, Text, TouchableOpacity, View } from 'react-native';
 import { connect } from 'react-redux';
 import { Touchable } from '../../../components';
 import { C, SHAPE, STYLE, THEME } from '../../../config';
@@ -33,7 +32,6 @@ class Chart extends Component {
       timestamp: undefined,
     };
     this._fetch = this._fetch.bind(this);
-    this._onTimeline = this._onTimeline.bind(this);
     this._onValue = this._onValue.bind(this);
   }
 
@@ -61,17 +59,14 @@ class Chart extends Component {
     });
   }
 
-  _onTimeline(timeline) {
-    this._fetch({ timeline });
-  }
-
   _onValue(price) {
+    LayoutAnimation.spring();
     this.setState({ price });
   }
 
   render() {
     const {
-      _onValue, _onTimeline,
+      _onValue,
       props: { coin: { price } },
       state: {
         fetching, dataSource = [], timeline, timestamp,
@@ -103,7 +98,7 @@ class Chart extends Component {
               let color = COLOR.CHART;
               if (value === min) color = COLOR.RED;
               if (value === max) color = COLOR.GREEN;
-              const key = `${timeline}-${timestamp}-${index}`;
+              const key = `${timestamp}-${index}`;
               const height = fetching ? 0 : ((value - min) * 100) / diff;
 
               return (
@@ -130,7 +125,12 @@ class Chart extends Component {
                 active={key === timeline}
                 caption={key}
                 key={key}
-                onPress={() => !fetching && _onTimeline(key)}
+                onPress={() => {
+                  if (!fetching) {
+                    LayoutAnimation.spring();
+                    this._fetch({ timeline: key });
+                  }
+                }}
               />
             ))
           }

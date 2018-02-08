@@ -1,21 +1,14 @@
 import { number, string } from 'prop-types';
 import React from 'react';
 import { View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
-import { STYLE, THEME } from '../../../config';
+import { STYLE } from '../../../config';
 import { Amount } from '../../../components';
 import styles from './ChipPrice.style';
-
-const { MOTION } = THEME;
 
 const ChipPrice = ({
   context, price, value,
 }) => (
-  <Motion
-    {...MOTION.DEFAULT}
-    animation={value > 0 ? 'bounceIn' : 'bounceOut'}
-    style={[STYLE.CHIP, styles[context]]}
-  >
+  <View style={[STYLE.CHIP, styles[context]]}>
     { value > 0 &&
       <View style={STYLE.ROW}>
         <View style={styles.margin}>
@@ -28,7 +21,7 @@ const ChipPrice = ({
             symbol="%"
           /> }
       </View> }
-  </Motion>
+  </View>
 );
 
 ChipPrice.propTypes = {
