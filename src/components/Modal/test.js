@@ -1,7 +1,8 @@
 import 'react-native';
 import React from 'react';
-import Modal from './Modal';
 import renderer from 'react-native-test-utils';
+
+import Modal from './index';
 
 jest.mock('TouchableOpacity', () => 'TouchableOpacity');
 

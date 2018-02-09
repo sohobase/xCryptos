@@ -2,9 +2,9 @@ import { array, number, oneOfType, shape, string } from 'prop-types';
 import React from 'react';
 import { connect } from 'react-redux';
 import { View, Text } from 'react-native';
-import { C, SHAPE, STYLE } from '../config';
-import { parseCurrency } from '../modules';
-import styles from './Amount.style';
+import { C, SHAPE, STYLE } from '../../config';
+import { parseCurrency } from '../../modules';
+import styles from './style';
 
 const { CURRENCY: { USD }, SYMBOL } = C;
 

@@ -1,7 +1,8 @@
 import 'react-native';
 import React from 'react';
-import { Amount } from './Amount';
 import renderer from 'react-test-renderer';
+
+import { Amount } from './index';
 
 it('renders by default', () => {
   const tree = renderer.create(<Amount />).toJSON();
@@ -22,10 +23,10 @@ describe('when currency is USD', () => {
 });
 
 describe('when currency is not USD', () => {
-  it('renders currency after amount', () => {   
+  it('renders currency after amount', () => {
     const currency = 'EUR';
     const tree = renderer.create(<Amount settings={{ currency }} />).toJSON();
-    
+
     expect(tree).toMatchSnapshot();
   });
 });

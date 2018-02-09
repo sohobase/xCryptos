@@ -1,7 +1,8 @@
 import 'react-native';
 import React from 'react';
-import ButtonIcon from './ButtonIcon';
 import renderer from 'react-native-test-utils';
+
+import ButtonIcon from './index';
 
 jest.mock('TouchableOpacity', () => 'TouchableOpacity');
 

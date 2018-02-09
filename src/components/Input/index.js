@@ -1,7 +1,8 @@
 import { array, number, oneOfType } from 'prop-types';
 import React from 'react';
 import { TextInput } from 'react-native';
-import styles from './Input.style';
+
+import styles from './style';
 
 const Input = ({ style, ...inherit }) => (
   <TextInput

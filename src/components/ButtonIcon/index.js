@@ -1,9 +1,10 @@
 import { array, func, number, object, oneOfType, string } from 'prop-types';
 import React from 'react';
 import { Image } from 'react-native';
-import { ASSET } from '../config';
-import Touchable from './Touchable';
-import styles from './ButtonIcon.style';
+
+import { ASSET } from '../../config';
+import Touchable from '../Touchable';
+import styles from './style';
 
 const ButtonIcon = ({ icon, onPress, style }) => (
   <Touchable onPress={onPress}>

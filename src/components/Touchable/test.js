@@ -13,7 +13,7 @@ describe('when Platorm.OS is ios', () => {
     const reactNative = require('react-native');
     reactNative.Platform.OS = 'ios';
 
-    Touchable = require.requireActual('./Touchable').default;
+    Touchable = require.requireActual('./index').default;
   });
 
   it('renders a TouchableOpacity component', () => {
@@ -29,7 +29,7 @@ describe('when Platorm.OS is not ios', () => {
     const reactNative = require('react-native');
     reactNative.Platform.OS = 'android';
 
-    Touchable = require.requireActual('./Touchable').default;
+    Touchable = require.requireActual('./index').default;
   });
 
   it('renders a TouchableNativeFeedback component', () => {

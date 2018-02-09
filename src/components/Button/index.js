@@ -1,8 +1,9 @@
 import { array, bool, func, number, oneOfType, string } from 'prop-types';
 import React from 'react';
 import { Text, View } from 'react-native';
-import Touchable from './Touchable';
-import styles from './Button.style';
+
+import Touchable from '../Touchable';
+import styles from './style';
 
 const Button = ({
   caption, captionStyle, disabled, onPress, style,

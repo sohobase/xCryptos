@@ -2,9 +2,9 @@ import { bool, func, node, string } from 'prop-types';
 import React, { Component } from 'react';
 import { Animated, KeyboardAvoidingView, Modal as RNModal, Platform, Text, View } from 'react-native';
 
-import { STYLE } from '../config';
-import ButtonIcon from './ButtonIcon';
-import styles from './Modal.style';
+import { STYLE } from '../../config';
+import ButtonIcon from '../ButtonIcon';
+import styles from './style';
 
 class Modal extends Component {
   constructor(props) {
