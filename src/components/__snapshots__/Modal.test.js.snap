@@ -2,7 +2,7 @@
 
 exports[`renders a title 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={undefined}
   transparent={true}
   visible={false}
@@ -15,7 +15,7 @@ exports[`renders a title 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -42,13 +42,11 @@ exports[`renders a title 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >
@@ -128,7 +126,7 @@ exports[`renders a title 1`] = `
 
 exports[`renders by default 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={undefined}
   transparent={true}
   visible={false}
@@ -141,7 +139,7 @@ exports[`renders by default 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -168,13 +166,11 @@ exports[`renders by default 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >
@@ -239,7 +235,7 @@ exports[`renders by default 1`] = `
 
 exports[`renders children 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={undefined}
   transparent={true}
   visible={false}
@@ -252,7 +248,7 @@ exports[`renders children 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -279,13 +275,11 @@ exports[`renders children 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >
@@ -352,7 +346,7 @@ exports[`renders children 1`] = `
 
 exports[`renders with a visible false state 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={undefined}
   transparent={true}
   visible={false}
@@ -365,7 +359,7 @@ exports[`renders with a visible false state 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -392,13 +386,11 @@ exports[`renders with a visible false state 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >

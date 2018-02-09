@@ -20,6 +20,7 @@ export default StyleSheet.create({
     borderRadius: UNIT * 2,
     minHeight: OFFSET,
     minWidth: OFFSET,
+    overflow: 'hidden',
   },
 
   MODAL_FOOTER: {

@@ -2,7 +2,7 @@
 
 exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={[Function]}
   transparent={true}
   visible={false}
@@ -15,7 +15,7 @@ exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -42,13 +42,11 @@ exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >
@@ -225,7 +223,7 @@ exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
                       }
                     }
                   >
-                    low
+                    below
                   </Text>
                   <Text
                     accessible={true}
@@ -288,7 +286,7 @@ exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
                       }
                     }
                   >
-                    high
+                    above
                   </Text>
                   <Text
                     accessible={true}
@@ -400,7 +398,7 @@ exports[`<ModalAlert /> when alert already exists renders by default 1`] = `
 
 exports[`<ModalAlert /> when alert is new renders by default 1`] = `
 <Modal
-  hardwareAccelerated={false}
+  hardwareAccelerated={true}
   onRequestClose={[Function]}
   transparent={true}
   visible={false}
@@ -413,7 +411,7 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
         "flex": 1,
         "height": "100%",
         "justifyContent": "flex-end",
-        "opacity": 1,
+        "opacity": 0,
         "width": "100%",
       }
     }
@@ -440,13 +438,11 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
               "backgroundColor": "#ffffff",
               "borderTopLeftRadius": 10,
               "borderTopRightRadius": 10,
-              "opacity": 1,
+              "bottom": -500,
+              "height": "auto",
               "paddingVertical": 16,
-              "transform": Array [
-                Object {
-                  "translateY": 0,
-                },
-              ],
+              "position": "absolute",
+              "width": "100%",
             }
           }
         >
@@ -623,7 +619,7 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
                       }
                     }
                   >
-                    low
+                    below
                   </Text>
                 </View>
                 <TextInput
@@ -639,10 +635,8 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
                     Array [
                       Object {
                         "fontSize": 20,
-                        "paddingBottom": 10,
-                        "paddingLeft": 2.5,
-                        "paddingRight": 2.5,
-                        "paddingTop": 10,
+                        "paddingHorizontal": 2.5,
+                        "paddingVertical": 10,
                         "width": "100%",
                       },
                       Object {
@@ -692,7 +686,7 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
                       }
                     }
                   >
-                    high
+                    above
                   </Text>
                 </View>
                 <TextInput
@@ -708,10 +702,8 @@ exports[`<ModalAlert /> when alert is new renders by default 1`] = `
                     Array [
                       Object {
                         "fontSize": 20,
-                        "paddingBottom": 10,
-                        "paddingLeft": 2.5,
-                        "paddingRight": 2.5,
-                        "paddingTop": 10,
+                        "paddingHorizontal": 2.5,
+                        "paddingVertical": 10,
                         "width": "100%",
                       },
                       Object {

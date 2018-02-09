@@ -11,10 +11,8 @@ exports[`renders by default 1`] = `
     Array [
       Object {
         "fontSize": 20,
-        "paddingBottom": 10,
-        "paddingLeft": 2.5,
-        "paddingRight": 2.5,
-        "paddingTop": 10,
+        "paddingHorizontal": 2.5,
+        "paddingVertical": 10,
         "width": "100%",
       },
       Object {

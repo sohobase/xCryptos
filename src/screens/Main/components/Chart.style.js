@@ -32,7 +32,7 @@ export default StyleSheet.create({
 
   bar: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     marginLeft: UNIT * 0.1,
     marginRight: UNIT * 0.1,
     height: '100%',
