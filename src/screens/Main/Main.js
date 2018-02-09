@@ -1,7 +1,7 @@
 import { LinearGradient, Notifications } from 'expo';
 import { arrayOf, func, string, shape } from 'prop-types';
 import React, { Component } from 'react';
-import { AppState, BackHandler, FlatList, LayoutAnimation, NativeModules, RefreshControl, StatusBar } from 'react-native';
+import { AppState, BackHandler, FlatList, LayoutAnimation, RefreshControl, StatusBar } from 'react-native';
 import { connect } from 'react-redux';
 
 import { addTokenAction, saveAlertsAction, updatePricesAction, updateSettingsAction } from '../../actions';
@@ -10,9 +10,6 @@ import { C, SHAPE, STYLE, THEME } from '../../config';
 import { ServiceAlerts, ServiceCoins, ServiceNotifications } from '../../services';
 import { Hodl, Info, Keyboard, ListItem } from './components';
 import styles from './Main.style';
-
-const { UIManager: { setLayoutAnimationEnabledExperimental: setLayoutAnimation } } = NativeModules;
-if (setLayoutAnimation) setLayoutAnimation(true);
 
 const { DEFAULT: { FAVORITES, TOKEN }, LOCALE, NODE_ENV: { DEVELOPMENT } } = C;
 const { COLOR: { BLACK }, PRIMARY } = THEME;

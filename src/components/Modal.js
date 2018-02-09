@@ -1,41 +1,56 @@
 import { bool, func, node, string } from 'prop-types';
-import React from 'react';
-import { KeyboardAvoidingView, Modal as ReactModalNative, Platform, Text, View } from 'react-native';
-import { View as Motion } from 'react-native-animatable';
-import { STYLE, THEME } from '../config';
+import React, { Component } from 'react';
+import { Animated, KeyboardAvoidingView, Modal as RNModal, Platform, Text, View } from 'react-native';
+
+import { STYLE } from '../config';
 import ButtonIcon from './ButtonIcon';
 import styles from './Modal.style';
 
-const { MOTION: { DURATION } } = THEME;
+class Modal extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      bottom: new Animated.Value(-500),
+      opacity: new Animated.Value(0),
+    };
+  }
 
-const Modal = ({
-  children, onClose, title, visible,
-}) => (
-  <ReactModalNative transparent visible={visible} onRequestClose={onClose}>
-    <Motion
-      animation={visible ? 'fadeIn' : 'fadeOut'}
-      duration={DURATION / 2}
-      delay={visible ? 0 : DURATION / 2}
-      style={styles.background}
-    >
-      <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : undefined}>
-        <Motion
-          animation={visible ? 'bounceInUp' : 'bounceOutDown'}
-          duration={DURATION}
-          style={styles.container}
-        >
-          <View style={[STYLE.ROW, STYLE.CENTERED, styles.header]}>
-            { title && <Text style={styles.title}>{title}</Text> }
-            <ButtonIcon icon="close" onPress={onClose} style={styles.close} />
-          </View>
-          <View style={styles.content}>
-            { children }
-          </View>
-        </Motion>
-      </KeyboardAvoidingView>
-    </Motion>
-  </ReactModalNative>
-);
+  componentWillReceiveProps({ visible }) {
+    const { state: { bottom, opacity } } = this;
+
+    Animated.parallel([
+      Animated.spring(opacity, { speed: 20, toValue: visible ? 1 : 0, useNativeDriver: true }),
+      Animated.spring(bottom, { speed: 20, toValue: visible ? 0 : -500 }),
+    ]).start();
+  }
+
+  render() {
+    const {
+      props: {
+        children, onClose, title, visible,
+      },
+      state: { bottom, opacity },
+    } = this;
+
+    return (
+      <RNModal hardwareAccelerated transparent visible={visible} onRequestClose={onClose}>
+        <Animated.View style={[styles.background, { opacity }]}>
+          <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'position' : undefined}>
+            <Animated.View style={[styles.container, { bottom }]}>
+              <View style={[STYLE.ROW, STYLE.CENTERED, styles.header]}>
+                { title && <Text style={styles.title}>{title}</Text> }
+                <ButtonIcon icon="close" onPress={onClose} style={styles.close} />
+              </View>
+              <View style={styles.content}>
+                { children }
+              </View>
+            </Animated.View>
+          </KeyboardAvoidingView>
+        </Animated.View>
+      </RNModal>
+    );
+  }
+}
 
 Modal.propTypes = {
   children: node,

@@ -1,3 +1,4 @@
+import { NativeModules } from 'react-native';
 import { StackNavigator } from 'react-navigation';
 import {
   AlertsScreen,
@@ -5,6 +6,9 @@ import {
   MainScreen,
   SettingsScreen,
 } from './screens';
+
+const { UIManager: { setLayoutAnimationEnabledExperimental: setLayoutAnimation } } = NativeModules;
+if (setLayoutAnimation) setLayoutAnimation(true);
 
 const navigationOptions = {
   headerBackTitle: ' ',

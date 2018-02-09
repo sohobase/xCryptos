@@ -1,6 +1,11 @@
 import { StyleSheet } from 'react-native';
 import { THEME } from '../config';
 
+
+const {
+  WHITE, FONT, UNIT, OFFSET,
+} = THEME;
+
 export default StyleSheet.create({
   background: {
     backgroundColor: THEME.MODAL_BACKGROUND,
@@ -11,26 +16,29 @@ export default StyleSheet.create({
   },
 
   container: {
-    backgroundColor: THEME.WHITE,
-    borderTopLeftRadius: THEME.UNIT,
-    borderTopRightRadius: THEME.UNIT,
-    paddingVertical: THEME.OFFSET,
+    backgroundColor: WHITE,
+    borderTopLeftRadius: UNIT,
+    borderTopRightRadius: UNIT,
+    paddingVertical: OFFSET,
+    position: 'absolute',
+    width: '100%',
+    height: 'auto',
   },
 
   header: {
-    marginBottom: THEME.OFFSET,
-    paddingHorizontal: THEME.OFFSET,
+    marginBottom: OFFSET,
+    paddingHorizontal: OFFSET,
   },
 
   title: {
     flex: 1,
-    fontSize: THEME.FONT.SIZE.LARGE,
-    fontWeight: THEME.FONT.WEIGHT.BOLD,
+    fontSize: FONT.SIZE.LARGE,
+    fontWeight: FONT.WEIGHT.BOLD,
     textAlign: 'center',
   },
 
   close: {
-    marginLeft: THEME.UNIT * -2.8,
+    marginLeft: UNIT * -2.8,
     marginRight: 0,
     opacity: 0.5,
   },
